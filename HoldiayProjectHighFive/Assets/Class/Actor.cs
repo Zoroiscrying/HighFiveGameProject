@@ -27,6 +27,7 @@ public class Actor : MonoBehaviour {
 	
 	public bool _affectedByGravity = true;
 
+	public GameAnimator _animator;
 	public int _normalizedDirX
 	{
 		get
@@ -46,8 +47,6 @@ public class Actor : MonoBehaviour {
 
 	public int _faceDir = 1;
 	
-	
-
 	#endregion
 
 	#region Private Variables
@@ -65,7 +64,6 @@ public class Actor : MonoBehaviour {
 	protected float _maxJumpVelocity;	
 	protected Vector3 _velocity;
 	protected CharacterController2D _controller;
-	protected GameAnimator _animator;
 	protected Vector2 _directionalInput;//暂时无法确定要不要加这个接受输入的变量
 	
 	#endregion
@@ -113,6 +111,7 @@ public class Actor : MonoBehaviour {
 
 		// logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
 		//Debug.Log( "flags: " + _controller.collisionState + ", hit.normal: " + hit.normal );
+	
 	}
 
 

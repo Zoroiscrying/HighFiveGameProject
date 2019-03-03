@@ -1865,3 +1865,54 @@ namespace Game.Serialization
 		#endregion
 	}
 }
+
+
+
+//private static string ExportedFilePath
+//{
+//get
+//{
+//	string relativePath = "/Scripts/behaviac/exported";
+//
+//	return Application.dataPath + relativePath;
+//}
+//}
+//
+//private bool InitBehavic()
+//{
+//Debug.Log("InitBehavic");
+//behaviac.Workspace.Instance.FilePath = ExportedFilePath;
+//behaviac.Workspace.Instance.FileFormat = behaviac.Workspace.EFileFormat.EFF_xml;
+//return true;
+//}
+//
+//private bool InitPlayer()
+//{
+//Debug.Log("InitPlayer");
+//bool bRet = this.btload("FirstBT");
+//
+//	if (bRet)
+//{
+//	this.btsetcurrent("FirstBT");
+//}
+//
+//return bRet;
+//}
+//
+//void Awake()
+//{
+//InitBehavic();
+//InitPlayer();
+//}
+//
+//behaviac.EBTStatus _status = behaviac.EBTStatus.BT_RUNNING;
+//	
+//void Update()
+//{
+//if (_status == behaviac.EBTStatus.BT_RUNNING)
+//{
+//behaviac.Debug.LogWarning("Update");
+//
+//_status = this.btexec();
+//}
+//}

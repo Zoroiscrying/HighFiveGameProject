@@ -15,11 +15,11 @@ public class MainCharacter : Actor {
 
 	#region Public Variables
 
-	public float _minJumpHeight = .25f;
 	public float _wallStickTime = 2f;
 	public float _wallSlideVelocity = 2f;
 	public float _dashTime = .5f;
 	public float _dashDistance = 8f;
+	public float _minJumpHeight = .25f;
 	public float _wallJumpTime = .25f;
 	public Vector2 _wallJumpClimb;
 	public Vector2 _wallJumpNormal;
@@ -48,7 +48,6 @@ public class MainCharacter : Actor {
 	
 	private float _minJumpVelocity;
 	private float _dashVelocity;
-
 	private bool _wallSliding;
 	private bool _runningOnWall;
 	private bool _standingOnMovingPlatform = false;
@@ -184,9 +183,6 @@ public class MainCharacter : Actor {
 
 	private void Jump()
 	{
-		
-		
-		
 		if (_canJump > 1)
 		{
 			//Debug.Log("Double Jump.");

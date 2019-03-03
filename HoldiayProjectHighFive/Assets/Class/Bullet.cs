@@ -27,7 +27,12 @@ namespace Game.Modal
 
         private void OnTriggerEntry(Collider2D col)
         {
-            
+            var col2d=go.GetComponent<Collider2D>();
+            if (col2d.IsTouchingLayers(1 << LayerMask.NameToLayer("BasicPlatform")))
+            {
+                DestoryThis();
+                return;
+            }
             var ap = AbstractPerson.GetInstance(col.gameObject);
 
             if (ap == null)
@@ -44,6 +49,7 @@ namespace Game.Modal
             ap.TakeBattleEffect(this.origin.AttackEffect);
             DestoryThis();
         }
+        
         
         protected override void Update()
         {

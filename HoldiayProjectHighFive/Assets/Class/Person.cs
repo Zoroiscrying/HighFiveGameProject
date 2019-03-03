@@ -89,17 +89,40 @@ namespace Game.Control
         {
             get { return Mathf.Abs(this.obj.transform.localScale.x) / 3f; }
         }
+
+
+        public Actor Actor
+        {
+            get { return this.obj.GetComponent<Actor>(); }
+        }
+        
+        
+        
+        
         #endregion
 
         # region 技能
         
         public SerializableDictionary<string,SkillInstance> skillDic=new SerializableDictionary<string, SkillInstance>();
 
-        public void AddSkill(string skillName,Action trigger)
+        /// <summary>
+        /// 释放技能
+        /// </summary>
+        /// <param name="skillName"></param>
+        public void RunSkill(string skillName,bool ignoreInput=false)
+        {
+            this.skillDic[skillName].Execute(this,ignoreInput);
+        }
+        /// <summary>
+        /// 添加技能
+        /// </summary>
+        /// <param name="skillName"></param>
+        /// <param name="trigger"></param>
+        public void AddSkill(string skillName,Func<bool> trigger)
         {
             this.allSkillNames.Add(skillName);
             this.skillDic.Add(skillName,SkillSystem.Instance.skillInstanceDic[skillName]);
-            this.OnThisUpdate += trigger;
+            dis.Add(trigger,skillName);
         }
         #endregion
         
@@ -153,6 +176,9 @@ namespace Game.Control
         #endregion
 
         #region private
+        
+        SerializableDictionary<Func<bool>,string> dis=new SerializableDictionary<Func<bool>, string>();
+        
         #endregion
         
         #region 构造及初始化
@@ -269,6 +295,11 @@ namespace Game.Control
         {
             if (OnThisUpdate!=null)
                 OnThisUpdate();
+            foreach (var w in dis)
+            {
+                if (w.Key())
+                    this.RunSkill(w.Value);
+            }
         }
 
         /// <summary>
@@ -401,7 +432,7 @@ namespace Game.Control
 
         private MainCharacter mainc;
         private CharacterController2D cc;
-        
+
         #endregion
         
         #region 构造和初始化        
@@ -409,10 +440,12 @@ namespace Game.Control
 
         public Player()
         {
+            
         }
 
         public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes,Transform parent=null) : base(name, prefabPath, pos, skillTypes,parent)
         {
+            
             CGameObjects.Player = this.obj;
             this.DefaultConstTime = 1.0f;
             mainc = this.obj.GetComponent<MainCharacter>();
@@ -435,6 +468,7 @@ namespace Game.Control
         
         protected override void Update()
         {
+            
             if (Input.GetKeyDown(KeyCode.L))
             {
                 skillDic["L_Skill"].Execute(this,true);
@@ -576,7 +610,8 @@ namespace Game.Control
         }
 
         #endregion
-        
+
+
         #region 内部调用
         void _DeUpdate()
         {

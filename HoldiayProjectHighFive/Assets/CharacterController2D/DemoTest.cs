@@ -38,7 +38,7 @@ public class DemoTest : MonoBehaviour
 		for (int i = 5; i > 0; i--)
 		{
 			var x = new TestPerson("TestPerson", GameObjectPath.TestPersonPath,
-				new Vector3(-25 + Random.Range(0, 20), 1.28f , -1), null, go.transform);
+				new Vector3(-25 + Random.Range(0, 20), 1.28f , -1), new List<string>(new []{"O_Skill","H_Skill","L_Skill"}), go.transform);
 			list.Add(x);
 		}
 	}
@@ -49,7 +49,7 @@ public class DemoTest : MonoBehaviour
 		{
 			foreach (var t in list)
 				if(t.obj!=null)
-					new Bullet(10, t.Dir, t.Pos, t);
+					new Bullet(10, t.Dir, t.Pos+new Vector3(0,0.3f,0), t);
 		}
 
 
