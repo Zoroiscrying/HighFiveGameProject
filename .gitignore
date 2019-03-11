@@ -34,3 +34,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+git config --global user.name "ColdCastlee"
+git config --global user.email "1147674832@qq.com"
