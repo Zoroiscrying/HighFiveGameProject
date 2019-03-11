@@ -41,6 +41,22 @@ namespace Game
             }
         }
     }
+	/// <summary>
+	/// 安全单例
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+    public class SafeSingleton<T>
+	    where T : class, new()
+    {
+	    private static bool isInsciated=false;
+
+	    public SafeSingleton()
+	    {
+		    if (isInsciated)
+			    throw new Exception("这是安全单例，不可多次初始化");
+		    isInsciated = true;
+	    }
+    }
     
     /// <summary>
     /// MonoBehavior单例泛型类
@@ -448,6 +464,23 @@ namespace Game.Modal
     /// </summary>
     public abstract class AbstractUIItem : AbstractItem
     {
+	    #region 
+	    
+	    private static SerializableDictionary<int,AbstractItem> typeDic=new SerializableDictionary<int, AbstractItem>();
+
+	    public static Type IdToType(int id)
+	    {
+		    if (typeDic.ContainsKey(id))
+			    return typeDic[id].GetType();
+		    else
+			    throw new Exception("没有这个类型");
+	    }
+	    
+	    #endregion
+	    
+	   
+	    
+	    
         public int num;
         public int capcity;
         public string doc;
@@ -461,6 +494,9 @@ namespace Game.Modal
             this.doc = strs[4].Trim();
             this.story = strs[5].Trim();
             base.Init(string.Join("|", strs, 0, 3));
+
+            if (typeDic.ContainsKey(this.id))
+	            typeDic.Add(this.id, this);
         }
     }
 }
@@ -640,6 +676,7 @@ namespace Game.View
     public interface IStackPanel
     {
 //        string panelName { get; set; }
+		string PanelName { get; }
 	    void ToEable();
 	    void ToDisable();
 	    void ToPop();
@@ -651,9 +688,12 @@ namespace Game.View
     /// </summary>
     public abstract class StackWindow : AbstractWindow,IStackPanel
     {
-        
+
 	    /// /////////////////     继承接口      ////////////////////////
-        
+	    public string PanelName
+	    {
+		    get { return this.m_TransFrom.name; }
+	    }
         
 	    public void ToEable()
 	    {
@@ -1278,7 +1318,7 @@ namespace Game.Script
 		void Start()
 		{
 			PlayAuBg("Bg");
-			this.audioBg.volume = 0.5f;
+			this.audioBg.volume = 0f;
 		}
 	
 	

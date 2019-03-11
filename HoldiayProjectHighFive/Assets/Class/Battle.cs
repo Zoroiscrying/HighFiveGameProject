@@ -636,7 +636,10 @@ namespace Game.Control
         {
             var hitPerson = AbstractPerson.GetInstance(col.gameObject);
             if (hitPerson == null)
+            {
+                Debug.Log("打击人物为空");
                 return;
+            }
             hitPerson.TakeBattleEffect(self.AttackEffect);
         }
 

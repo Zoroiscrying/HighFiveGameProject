@@ -17,6 +17,9 @@ using Game.Script;
 
 namespace Game.View
 {
+    
+    ////////////////////////////////////        IStackPanel      ////////////////////////////////////
+    
     /// <summary>
     /// 战斗界面Panel
     /// </summary>
@@ -192,66 +195,106 @@ namespace Game.View
         }
 
         //////////////////     消息响应    ///////////////////
-        void OnClickOK(PointerEventData eventData)
+
+        protected virtual void OnClickLeft()
         {
-            Debug.Log("点击了确定");
+            
+        }
+
+        protected virtual void OnClickRight()
+        {
+            
+        }
+        
+        private void OnClickOK(PointerEventData eventData)
+        {
+            OnClickLeft();
             DestroyThis();
         }
-        void OnClickConceal(PointerEventData eventData)
+        private void OnClickConceal(PointerEventData eventData)
         {
-            Debug.Log("点击了取消");
+            OnClickRight();
             DestroyThis();
         }
 
     }
-    
-    
-    /// <summary>
-    /// 提示框
-    /// </summary>
-    public class TipWindow : AbstractWindow
+
+    public class WelcomePanel : MessagePanel
     {
-        enum AniType
+        public WelcomePanel(string text, string title) : base(text, title)
         {
-            Up,
-            Down,
-            Tip
-        }
-        string text;
-        AniType type;
-
-        public TipWindow(Item item,Transform parent,Vector3 localPos)
-        {
-            text = item.GetToolTips();
-            type = AniType.Tip;
-            Create(UIPath.window_ItemTips);
-            m_TransFrom.SetParent(parent);
-            m_TransFrom.localPosition = localPos;
-        }
-        public TipWindow(string text,float time=1f)
-        {
-            this.text = text;
-            type = AniType.Up;
-            Create(UIPath.window_Tip);
-            var ctrl=m_TransFrom.gameObject.AddComponent<Ctrl>();
-            ctrl.ani = ctrl.GetComponent<Animator>();
-            ctrl.ani.speed *= time;
-            ctrl.clipName = "Up";
-            Show();
         }
 
-        protected override void InitWindow()
+        public WelcomePanel(string text, string ok, string title) : base(text, ok, title)
         {
-            switch(type)
-            {
-                case AniType.Up:
-                    m_TransFrom.GetChild(0).GetComponent<Text>().text = text;
-                    break;
-                case AniType.Down:
-                    break;
-            }
+        }
+
+        public WelcomePanel(string text, string ok, string conceal, string title) : base(text, ok, conceal, title)
+        {
+        }
+
+        protected override void OnClickLeft()
+        {
+            base.OnClickLeft();
+            SceneMgr.Instance.LoadScene("TestScene");
+        }
+
+        protected override void OnClickRight()
+        {
+            base.OnClickRight();
+            SceneMgr.Instance.LoadScene("Jb");
         }
     }
+    
+    
+    //////////////////////////////////          Windows            ///////////////////////////////////////
+    
+//    /// <summary>
+//    /// 提示框
+//    /// </summary>
+//    public class TipWindow : AbstractWindow
+//    {
+//        enum AniType
+//        {
+//            Up,
+//            Down,
+//            Tip
+//        }
+//        string text;
+//        AniType type;
+//
+//        public TipWindow(Item item,Transform parent,Vector3 localPos)
+//        {
+//            text = item.GetToolTips();
+//            type = AniType.Tip;
+//            Create(UIPath.window_ItemTips);
+//            m_TransFrom.SetParent(parent);
+//            m_TransFrom.localPosition = localPos;
+//        }
+//        public TipWindow(string text,float time=1f)
+//        {
+//            this.text = text;
+//            type = AniType.Up;
+//            Create(UIPath.window_Tip);
+//            var ctrl=m_TransFrom.gameObject.AddComponent<Ctrl>();
+//            ctrl.ani = ctrl.GetComponent<Animator>();
+//            ctrl.ani.speed *= time;
+//            ctrl.clipName = "Up";
+//            Show();
+//        }
+//
+//        protected override void InitWindow()
+//        {
+//            switch(type)
+//            {
+//                case AniType.Up:
+//                    m_TransFrom.GetChild(0).GetComponent<Text>().text = text;
+//                    break;
+//                case AniType.Down:
+//                    break;
+//            }
+//        }
+//    }
 
 
     /// <summary>
@@ -354,139 +397,139 @@ namespace Game.View
     }
     
  
-    /// <summary>
-    /// 存储库类
-    /// </summary>
-    public abstract class Inventory : AbstractWindow
-    {
-        
-    }
-    
-    
-    /// <summary>
-    /// 物品UI类
-    /// </summary>
-    [RequireComponent(typeof(Image))]
-    public class ItemUI : AbstractWindow
-    {
-        private Item Item { get; set; }
-
-        public int ItemID
-        {
-            get { return Item.ID; }
-        }
-        private int Num { get; set; }
-        private Image Image { get; set; }
-        private Text Text { get; set; }
-        private float TargetScale { get;set; }
-        private float Smothing { get; set; }
-
-        public ItemUI(Item item, int num,float targetScale=1.0f,float smothing=4f)
-        {
-            Item = item;
-            Num = num;
-            Create(UIPath.window_ItemUI);
-            Image = m_TransFrom.GetComponent<Image>();
-            Text = m_TransFrom.GetComponentInChildren<Text>();
-            this.Image.sprite = Resources.Load<Sprite>(Item.Sprite);
-            Text.text = num > 1 ? num.ToString() : "";
-            TargetScale = targetScale;
-            Smothing = smothing;
-        }
-        
-        protected override void Update()
-        {
-            base.Update();
-            if (Math.Abs(m_TransFrom.localScale.x - TargetScale) <0.1f)  return;
-            var scaleTemp = Mathf.Lerp(m_TransFrom.localScale.x, TargetScale, Smothing*Time.deltaTime);
-            m_TransFrom.localScale = new Vector3(scaleTemp, scaleTemp, scaleTemp);
-            if (Mathf.Abs(m_TransFrom.localScale.x-TargetScale) < 0.02f)//插值运算达不到临界值，比较耗性能，加上临界值判断能更好的控制
-            {
-                m_TransFrom.localScale = new Vector3(TargetScale, TargetScale, TargetScale);
-            }
-        }
-
-        private void SetItem(Item item, int num)
-        {
-            this.Item = Item;
-            this.Num = num;
-            this.Image.sprite = Resources.Load<Sprite>(Item.Sprite);
-            Text.text = Num > 1 ? Num.ToString() : "";
-        }
-
-        public bool AddItemNum(int num)
-        {
-            if (Num >= Item.Capacity)
-                return false;
-            Num += num;
-            Text.text = Num > 1 ? Num.ToString() : "";
-            return true;
-        }
-
-        public bool RemoveItemNum(int num)
-        {
-            if (Num - num < 0) return false;
-            Num -= num;
-            Text.text = Num > 1 ? Num.ToString() : "";
-            return true;
-        }
-
-        public void SetLocalPosition(Vector3 pos)
-        {
-            m_TransFrom.localPosition = pos;
-        }
-
-        public void Exchange(ItemUI it)
-        {
-            var v = it.Item;
-            var n = it.Num;
-            it.SetItem(this.Item, this.Num);
-            this.SetItem(v, n);
-        }
-    }
-    
-    
-    /// <summary>
-    /// 格子类
-    /// </summary>
-    [Serializable]
-    public class Slot : AbstractWindow
-    {
-        private ItemUI ItemUi { get; set; }
-
-        public Slot(Transform parent, Vector3 localPos, ItemUI itemUi=null)
-        {
-            ItemUi = itemUi;
-            Create(UIPath.window_Slot);
-            m_TransFrom.SetParent(parent);
-            m_TransFrom.localPosition = localPos;
-        }
-
-        public bool StoreItem(ItemUI itemUi)
-        {
-            if (ItemUi == null)
-            {
-                ItemUi = itemUi;
-                ItemUi.m_TransFrom.SetParent(m_TransFrom);
-                ItemUi.SetLocalPosition(Vector3.zero);
-                ItemUi.AddItemNum(1);
-                return true;
-            }
-
-            if (ItemUi.ItemID == itemUi.ItemID)
-            {
-                return ItemUi.AddItemNum(1);
-            }
-
-            return false;
-        }
-
-        public int GetItemId()
-        {
-            if (ItemUi == null)
-                return -1;
-            return ItemUi.ItemID;
-        }
-        //////////////////////////   这里可以实现右键菜单，显示提示，拖拽，点击放置   /////////////////////////
-    }
+//    /// <summary>
+//    /// 存储库类
+//    /// </summary>
+//    public abstract class Inventory : AbstractWindow
+//    {
+//        
+//    }
+//    
+//    
+//    /// <summary>
+//    /// 物品UI类
+//    /// </summary>
+//    [RequireComponent(typeof(Image))]
+//    public class ItemUI : AbstractWindow
+//    {
+//        private Item Item { get; set; }
+//
+//        public int ItemID
+//        {
+//            get { return Item.ID; }
+//        }
+//        private int Num { get; set; }
+//        private Image Image { get; set; }
+//        private Text Text { get; set; }
+//        private float TargetScale { get;set; }
+//        private float Smothing { get; set; }
+//
+//        public ItemUI(Item item, int num,float targetScale=1.0f,float smothing=4f)
+//        {
+//            Item = item;
+//            Num = num;
+//            Create(UIPath.window_ItemUI);
+//            Image = m_TransFrom.GetComponent<Image>();
+//            Text = m_TransFrom.GetComponentInChildren<Text>();
+//            this.Image.sprite = Resources.Load<Sprite>(Item.Sprite);
+//            Text.text = num > 1 ? num.ToString() : "";
+//            TargetScale = targetScale;
+//            Smothing = smothing;
+//        }
+//        
+//        protected override void Update()
+//        {
+//            base.Update();
+//            if (Math.Abs(m_TransFrom.localScale.x - TargetScale) <0.1f)  return;
+//            var scaleTemp = Mathf.Lerp(m_TransFrom.localScale.x, TargetScale, Smothing*Time.deltaTime);
+//            m_TransFrom.localScale = new Vector3(scaleTemp, scaleTemp, scaleTemp);
+//            if (Mathf.Abs(m_TransFrom.localScale.x-TargetScale) < 0.02f)//插值运算达不到临界值，比较耗性能，加上临界值判断能更好的控制
+//            {
+//                m_TransFrom.localScale = new Vector3(TargetScale, TargetScale, TargetScale);
+//            }
+//        }
+//
+//        private void SetItem(Item item, int num)
+//        {
+//            this.Item = Item;
+//            this.Num = num;
+//            this.Image.sprite = Resources.Load<Sprite>(Item.Sprite);
+//            Text.text = Num > 1 ? Num.ToString() : "";
+//        }
+//
+//        public bool AddItemNum(int num)
+//        {
+//            if (Num >= Item.Capacity)
+//                return false;
+//            Num += num;
+//            Text.text = Num > 1 ? Num.ToString() : "";
+//            return true;
+//        }
+//
+//        public bool RemoveItemNum(int num)
+//        {
+//            if (Num - num < 0) return false;
+//            Num -= num;
+//            Text.text = Num > 1 ? Num.ToString() : "";
+//            return true;
+//        }
+//
+//        public void SetLocalPosition(Vector3 pos)
+//        {
+//            m_TransFrom.localPosition = pos;
+//        }
+//
+//        public void Exchange(ItemUI it)
+//        {
+//            var v = it.Item;
+//            var n = it.Num;
+//            it.SetItem(this.Item, this.Num);
+//            this.SetItem(v, n);
+//        }
+//    }
+//    
+//    
+//    /// <summary>
+//    /// 格子类
+//    /// </summary>
+//    [Serializable]
+//    public class Slot : AbstractWindow
+//    {
+//        private ItemUI ItemUi { get; set; }
+//
+//        public Slot(Transform parent, Vector3 localPos, ItemUI itemUi=null)
+//        {
+//            ItemUi = itemUi;
+//            Create(UIPath.window_Slot);
+//            m_TransFrom.SetParent(parent);
+//            m_TransFrom.localPosition = localPos;
+//        }
+//
+//        public bool StoreItem(ItemUI itemUi)
+//        {
+//            if (ItemUi == null)
+//            {
+//                ItemUi = itemUi;
+//                ItemUi.m_TransFrom.SetParent(m_TransFrom);
+//                ItemUi.SetLocalPosition(Vector3.zero);
+//                ItemUi.AddItemNum(1);
+//                return true;
+//            }
+//
+//            if (ItemUi.ItemID == itemUi.ItemID)
+//            {
+//                return ItemUi.AddItemNum(1);
+//            }
+//
+//            return false;
+//        }
+//
+//        public int GetItemId()
+//        {
+//            if (ItemUi == null)
+//                return -1;
+//            return ItemUi.ItemID;
+//        }
+//        //////////////////////////   这里可以实现右键菜单，显示提示，拖拽，点击放置   /////////////////////////
+//    }
 }

@@ -62,7 +62,7 @@ public class Actor : MonoBehaviour {
 	#region Protected Variables
 	
 	protected float _maxJumpVelocity;	
-	protected Vector3 _velocity;
+	public Vector3 _velocity;
 	protected CharacterController2D _controller;
 	protected Vector2 _directionalInput;//暂时无法确定要不要加这个接受输入的变量
 	

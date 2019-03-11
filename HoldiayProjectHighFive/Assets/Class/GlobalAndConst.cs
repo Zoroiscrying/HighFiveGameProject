@@ -9,9 +9,15 @@ namespace Game.Global
 {
     public static class CGameObjects
     {
-        public static  GameObject Canvas = GameObject.Find("Canvas");
+        public static  GameObject Canvas;
         //在玩家创建的时候初始化
         public static  GameObject Player;
+
+
+        public static void Refresh()
+        {
+            Canvas = GameObject.Find("Canvas");
+        }
 
     }
 }
@@ -38,6 +44,7 @@ namespace Game.Const
     {
         public static readonly string SkillFilePath = "SkillData.txt";
         public static readonly string PersonArgsFilePath = "PersonData.txt";
+        public static readonly string SQLiteFilePath = Application.streamingAssetsPath + "/SQLite/SQLite4Unity.db";
 
     }
     
@@ -76,7 +83,7 @@ namespace Game.Const
         public static readonly string PlayerName = "Player";
         public static readonly string PlayerPath ="GameObjects/Player";
         public static readonly string PlayerDataFilePath = Application.streamingAssetsPath + "/Data/PlayerData.xml";
-        public static Vector3 PlayerPos=new Vector3(-27, 1.3f, -1);
+        public static Vector3 PlayerPos=new Vector3(-15, -1f, -1);
         public static List<string> PlayerDefaultSkills=new List<string>(new []{"L_Skill", "U_Skill", "I_Skill", "O_Skill","H_Skill"});  
     }
     
