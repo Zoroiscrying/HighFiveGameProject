@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.StateMachine;
 
-public class MainCharacter : Actor {
+public class MainCharacter : Actor 
+{
 
 	
 	#region Consts
@@ -15,7 +16,12 @@ public class MainCharacter : Actor {
 
 	#region Public Variables
 
-	public float _wallStickTime = 2f;
+	//上升时的最大速度
+	public float _maxUpYSpeed = 999.0f;
+	//下降时的最大速度
+	public float _maxDownYSpeed = 9.0f;
+	
+	//public float _wallStickTime = 2f;//暂时不用
 	public float _wallSlideVelocity = 2f;
 	public float _dashTime = .5f;
 	public float _dashDistance = 8f;
@@ -51,9 +57,7 @@ public class MainCharacter : Actor {
 	private bool _wallSliding;
 	private bool _runningOnWall;
 	private bool _standingOnMovingPlatform = false;
-	
 	private int _wallDirX;
-
 	private float _wallJumpDisableInputTimer;
 	
 	#endregion
@@ -76,7 +80,8 @@ public class MainCharacter : Actor {
 			Dashing,
 			FallingThroughPlatform,
 			ClimbingWall,
-			WallJump
+			WallJump,
+			Fall
 		}
 
 	#endregion
@@ -126,6 +131,13 @@ public class MainCharacter : Actor {
 
 	#region Public Functions
 
+	public override void CalculateGravityNVelocity()
+	{
+		base.CalculateGravityNVelocity();
+		float minGravity = -(2 * _minJumpHeight) / Mathf.Pow(_timeToJumpApex, 2);
+		_minJumpVelocity = Mathf.Abs(minGravity) * _timeToJumpApex;
+	}
+	
 	public void SetDirectionalInput(Vector2 input)
 	{
 		_directionalInput = input;
@@ -158,19 +170,24 @@ public class MainCharacter : Actor {
 	private void BasicStateCheck()
 	{
 		//Idle
-		if (_controller.isGrounded && _directionalInput.x == 0 && (_stateMachine.State == PlayerStates.Run ||
+		if (_controller.isGrounded  && (_stateMachine.State == PlayerStates.Run ||
 		   _stateMachine.State == PlayerStates.Jump || _stateMachine.State == PlayerStates.DoubleJump||
-		   _stateMachine.State == PlayerStates.WallSliding || _stateMachine.State == PlayerStates.WallJump))//注意，是玩家没有输入左右键判断不是通过速度判断
+		   _stateMachine.State == PlayerStates.WallSliding || _stateMachine.State == PlayerStates.WallJump || 
+		                                                           _stateMachine.State == PlayerStates.Fall))//注意，是玩家没有输入左右键判断不是通过速度判断
 		{
-			_stateMachine.ChangeState(PlayerStates.Idle);
+			//idle
+			if (_directionalInput.x == 0)
+			{
+				_stateMachine.ChangeState(PlayerStates.Idle);				
+			}
+			//run
+			if (_directionalInput.x != 0)
+			{
+				_stateMachine.ChangeState(PlayerStates.Run);
+			}
 		}
 		
-		//Run
-		if (_controller.isGrounded && _directionalInput.x != 0 && 
-		    (_stateMachine.State == PlayerStates.Idle ||_stateMachine.State == PlayerStates.Jump ))
-		{
-			_stateMachine.ChangeState(PlayerStates.Run);
-		}
+
 		
 		//Jump
 		if (!_controller.isGrounded &&
@@ -221,9 +238,19 @@ public class MainCharacter : Actor {
 
 	private void WallSlide()
 	{
-		_wallDirX = (_controller.collisionState.left) ? -1 : 1;
+		if (_controller.collisionState.left)
+		{
+			_wallDirX = -1;
+		}
+		else if (_controller.collisionState.right)
+		{
+			_wallDirX = 1;
+		}
+		else if (!_controller.collisionState.right && !_controller.collisionState.left )
+		{
+			_wallDirX = 0;
+		}
 
-		
 		if ((_stateMachine.State == PlayerStates.Jump || _stateMachine.State == PlayerStates.DoubleJump)&&
 		    ((_controller.collisionState.right && _directionalInput.x > 0) ||
 		     ( _controller.collisionState.left&& _directionalInput.x < 0))&& _velocity.y <=0)
@@ -255,7 +282,7 @@ public class MainCharacter : Actor {
 
 			if (Input.GetKeyUp(KeyCode.Space))
 			{
-				this.OnJumpKeyUp();
+				OnJumpKeyUp();
 			}
 
 			if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -277,6 +304,7 @@ public class MainCharacter : Actor {
 		#region IdleState
 
 		private float _positionYLastFrame;
+	
 		private void Idle_Enter()
 		{
 			_positionYLastFrame = this.transform.position.y;
@@ -309,6 +337,11 @@ public class MainCharacter : Actor {
 	
 		private void Jump_Update()
 		{
+			if (_playerVelocityY < 0)
+			{
+				_stateMachine.ChangeState(PlayerStates.Fall);
+			}
+			
 			if (_controller.isGrounded)
 			{
 				ResetJumpPoint();
@@ -317,6 +350,13 @@ public class MainCharacter : Actor {
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				//_stateMachine.ChangeState(PlayerStates.DoubleJump);
+			}
+
+			if (!Input.GetKeyUp(KeyCode.Space)) return;
+			
+			if (_playerVelocityY > _minJumpVelocity)
+			{
+				_playerVelocityY = _minJumpVelocity;
 			}
 		}
 	
@@ -327,6 +367,34 @@ public class MainCharacter : Actor {
 
 		#endregion
 	
+		#region FallState
+		
+		private void Fall_Enter()
+		{
+			_animator.Play(Animator.StringToHash("Jump"));
+		}
+		
+		private void Fall_Update()
+		{
+			if (_controller.isGrounded)
+			{
+				ResetJumpPoint();
+			}
+
+			if (_playerVelocityY < -_maxDownYSpeed)
+			{
+				_playerVelocityY = -_maxDownYSpeed;
+			}
+			
+		}
+		
+		private void Fall_Exit()
+		{
+				
+		}
+		
+		#endregion
+		
 		#region RunState
 	
 		private void Run_Enter()
@@ -431,7 +499,7 @@ public class MainCharacter : Actor {
 				_velocity.y = -_wallSlideVelocity;
 			}
 
-			if (_directionalInput.x * _wallDirX <= 0)
+			if (_directionalInput.x * _wallDirX <= 0 || !_wallSliding)
 			{
 				_stateMachine.ChangeState(PlayerStates.Jump);
 			}
