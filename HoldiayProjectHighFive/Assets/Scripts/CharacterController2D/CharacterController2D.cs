@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 
 
-namespace zoroiscrying {
+namespace zoroiscrying 
+{
 
 public class CharacterController2D : RayCastController2D
 {
@@ -582,4 +583,6 @@ public class CharacterController2D : RayCastController2D
 
 	#endregion
 
-}}
+}
+	
+}

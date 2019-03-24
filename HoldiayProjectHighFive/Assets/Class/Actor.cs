@@ -90,6 +90,8 @@ public class Actor : MonoBehaviour {
 
 	public virtual void Update () 
 	{
+		CalculateGravityNVelocity();
+		
 		CalculateVelocity();
 		
 		CalculateMovementBasedOnVelocity();//这个是每帧根据Velocity对角色进行移动，但是被继承之后还是把移动放到所有计算最后比较好，所以注释掉
@@ -135,24 +137,24 @@ public class Actor : MonoBehaviour {
 	{
 		
 	}
-
+	
+	public virtual void CalculateGravityNVelocity()
+		{
+			if (_affectedByGravity)
+			{
+				_gravity = -(2 * _maxJumpHeight) / Mathf.Pow(_timeToJumpApex, 2);
+			}
+			else
+			{
+				_gravity = 0;
+			}
+			//print(gravity);
+			_maxJumpVelocity = Mathf.Abs(_gravity) * _timeToJumpApex;
+		}
+	
 	#endregion
 
 	#region Private Functions
-	
-	private void CalculateGravityNVelocity()
-	{
-		if (_affectedByGravity)
-		{
-			_gravity = -(2 * _maxJumpHeight) / Mathf.Pow(_timeToJumpApex, 2);
-		}
-		else
-		{
-			_gravity = 0;
-		}
-		//print(gravity);
-		_maxJumpVelocity = Mathf.Abs(_gravity) * _timeToJumpApex;
-	}
 
 	private void CheckCollisions()
 	{
