@@ -79,7 +79,12 @@ namespace Game.Control
         /// </summary>
         public Vector3 Pos
         {
-            get { return this.obj.transform.position; }
+            get
+            {
+                if (this.obj == null)
+                    return Const.Signal.defaultPos;
+                return this.obj.transform.position;
+            }
         }
 
         /// <summary>
@@ -428,6 +433,12 @@ namespace Game.Control
         
         #endregion
 
+        public override void DestoryThis()
+        {
+            base.DestoryThis();
+            Debug.Log("主角死了");
+        }
+
         #region Private
 
         private MainCharacter mainc;
@@ -447,6 +458,7 @@ namespace Game.Control
         {
             
             CGameObjects.Player = this.obj;
+            Debug.Log("主角诞生啦");
             this.DefaultConstTime = 1.0f;
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc!=null);
@@ -468,6 +480,7 @@ namespace Game.Control
         
         protected override void Update()
         {
+//            Debug.Log("玩家在" + Pos);
             
             if (Input.GetKeyDown(KeyCode.L))
             {

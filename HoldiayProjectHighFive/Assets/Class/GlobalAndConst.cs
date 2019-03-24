@@ -7,6 +7,10 @@ using Game.Control;
 
 namespace Game.Global
 {
+    public static class Flag
+    {
+        public static bool isPlaying = false;
+    }
     public static class CGameObjects
     {
         public static  GameObject Canvas;
@@ -45,7 +49,6 @@ namespace Game.Const
         public static readonly string SkillFilePath = "SkillData.txt";
         public static readonly string PersonArgsFilePath = "PersonData.txt";
         public static readonly string SQLiteFilePath = Application.streamingAssetsPath + "/SQLite/SQLite4Unity.db";
-
     }
     
     
@@ -78,6 +81,24 @@ namespace Game.Const
         public static readonly string DefaultSprite = Dir+"NullSprite";
     }
 
+    public static class Signal
+    {
+        public static readonly Vector3 defaultPos=new Vector3(0,0-999);
+    }
+
+    public static class PanelName
+    {
+        public static readonly string battlePanel = "BattlePanel";
+//        public static readonly string 
+    }
+
+    public static class SceneName
+    {
+        public static readonly string welcomeScene = "WelcomeScene";
+        public static readonly string testScene = "TestScene";
+        public static readonly string jbScene = "JbScene";
+    }
+    
     public static class GameData
     {
         public static readonly string PlayerName = "Player";

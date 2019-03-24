@@ -12,7 +12,7 @@ public class GameInitializer : MonoBehaviour {
 		Game.Global.CGameObjects.Refresh();
 		this.gameObject.AddComponent<MainLoop>();
 		this.gameObject.AddComponent<AudioMgr>();
-		UIManager.Instance.PushPanel(new WelcomePanel("选一个", "TestScene", "Jb", "游戏开始"));
+//		UIManager.Instance.PushPanel(new WelcomePanel("选一个", "TestScene", "Jb", "游戏开始"));
 	}
 
 	void OnDisable()

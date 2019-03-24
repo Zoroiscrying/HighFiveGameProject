@@ -23,7 +23,7 @@ namespace Game.View
     /// <summary>
     /// 战斗界面Panel
     /// </summary>
-    public class BattlePanel : StackWindow
+    public class BattlePanel : BasePanel
     {
         private Player player;
         private Slider bloodBar;
@@ -31,7 +31,7 @@ namespace Game.View
         private Text bloodText;
         private Text expText;
         private Text rankText;
-        public BattlePanel()
+        protected override void Load()
         {
             
             Create(UIPath.Panel_Battle);
@@ -52,7 +52,7 @@ namespace Game.View
 
             this.rankText = m_TransFrom.Find("Image_PlayerStateBar/Image_AvatorBG/Image_RankBG/Text_RankNum")
                 .GetComponent<Text>();
-            OnLevelUp(1);
+            OnLevelUp(this.player.rank);
 
         }
         protected override void OnAddListener()
@@ -107,7 +107,7 @@ namespace Game.View
     /// <summary>
     /// 消息窗口类
     /// </summary>
-	public class MessagePanel : StackWindow {
+	public class MessagePanel : BasePanel {
         public enum WindowType
         {
             Close,
@@ -194,7 +194,7 @@ namespace Game.View
             }
         }
 
-        //////////////////     消息响应    ///////////////////
+        ////////////////     消息响应    ///////////////////
 
         protected virtual void OnClickLeft()
         {
@@ -217,34 +217,38 @@ namespace Game.View
             DestroyThis();
         }
 
-    }
-
-    public class WelcomePanel : MessagePanel
-    {
-        public WelcomePanel(string text, string title) : base(text, title)
+        protected override void Load()
         {
-        }
-
-        public WelcomePanel(string text, string ok, string title) : base(text, ok, title)
-        {
-        }
-
-        public WelcomePanel(string text, string ok, string conceal, string title) : base(text, ok, conceal, title)
-        {
-        }
-
-        protected override void OnClickLeft()
-        {
-            base.OnClickLeft();
-            SceneMgr.Instance.LoadScene("TestScene");
-        }
-
-        protected override void OnClickRight()
-        {
-            base.OnClickRight();
-            SceneMgr.Instance.LoadScene("Jb");
+            
         }
     }
+
+           public class WelcomePanel : MessagePanel
+           {
+               public WelcomePanel(string text, string title) : base(text, title)
+               {
+               }
+       
+               public WelcomePanel(string text, string ok, string title) : base(text, ok, title)
+               {
+               }
+       
+               public WelcomePanel(string text, string ok, string conceal, string title) : base(text, ok, conceal, title)
+               {
+               }
+       
+               protected override void OnClickLeft()
+               {
+                   base.OnClickLeft();
+                   SceneMgr.Instance.LoadScene(Const.SceneName.testScene);
+               }
+       
+               protected override void OnClickRight()
+               {
+                   base.OnClickRight();
+                   SceneMgr.Instance.LoadScene(Const.SceneName.jbScene);
+               }
+           }
     
     
     //////////////////////////////////          Windows            ///////////////////////////////////////

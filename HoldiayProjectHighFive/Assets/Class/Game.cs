@@ -529,223 +529,273 @@ namespace Game.Control
 
 namespace Game.View
 {
-    
-    /// <summary>
-    /// 窗口基类
-    /// </summary>
-    public abstract class AbstractWindow
-    {
-        public Transform m_TransFrom=null;      //位置
-        private string m_sResName="";              //资源名
-        private bool m_bIsVisible=false;           //是否可见
 
-        /// <summary>
-        /// 类对象初始化
-        /// 添加对象使用必须的事件监听
-        /// Create时调用
-        /// </summary>
-        protected virtual void InitWindow()
-        {
-	        MainLoop.Instance.AddUpdateFunc(Update);
-        }
+	/// <summary>
+	/// 窗口基类
+	/// </summary>
+	public abstract class AbstractWindow
+	{
+		public Transform m_TransFrom = null; //位置
+		private string m_sResName = ""; //资源名
+		private bool m_bIsVisible = false; //是否可见
 
-        /// <summary>
-        /// 类对象释放
-        /// Destroy时调用
-        /// </summary>
-        protected virtual void RealseWindow()
-        {
-	        MainLoop.Instance.RemoveUpdateFunc(Update);
-        }
+		/// <summary>
+		/// 类对象初始化
+		/// 添加对象使用必须的事件监听
+		/// Create时调用
+		/// </summary>
+		protected virtual void InitWindow()
+		{
+			MainLoop.Instance.AddUpdateFunc(Update);
+		}
 
-        /// <summary>
-        /// 游戏事件注册
-        /// </summary>
-        protected virtual void OnAddListener()
-        {
-        }
+		/// <summary>
+		/// 类对象释放
+		/// Destroy时调用
+		/// </summary>
+		protected virtual void RealseWindow()
+		{
+			MainLoop.Instance.RemoveUpdateFunc(Update);
+		}
 
-        /// <summary>
-        /// 游戏事件注销
-        /// </summary>
-        protected virtual void OnRemoveListener()
-        {
-        }
+		/// <summary>
+		/// 游戏事件注册
+		/// </summary>
+		protected virtual void OnAddListener()
+		{
+		}
 
-        /// <summary>
-        /// 更新
-        /// </summary>
-        protected virtual void Update()
-        {
-            
-        }
+		/// <summary>
+		/// 游戏事件注销
+		/// </summary>
+		protected virtual void OnRemoveListener()
+		{
+		}
 
-        /// <summary>
-        /// 是否可见
-        /// </summary>
-        /// <returns></returns>
-        public bool IsVisable()
-        {
-            return m_bIsVisible;
-        }
+		/// <summary>
+		/// 更新
+		/// </summary>
+		protected virtual void Update()
+		{
 
-        /// <summary>
-        /// 创建窗体
-        /// </summary>
-        /// <returns></returns>
-        protected void Create(string path)
-        {
-            m_sResName = path;
-            
-            if(m_TransFrom)
-            {
-                Debug.LogError("Window Create Error Exist");
-                return ;
-            }
+		}
 
-            if (string.IsNullOrEmpty(m_sResName))
-            {
-                Debug.LogError("Windows Create Error ResName is empty");
-                return ;
-            }
-            
-            var go = Resources.Load<GameObject>(m_sResName);
+		/// <summary>
+		/// 是否可见
+		/// </summary>
+		/// <returns></returns>
+		public bool IsVisable()
+		{
+			return m_bIsVisible;
+		}
 
-            var canvas=Global.CGameObjects.Canvas.transform;
-            
-            if(null==canvas)
-                Debug.Log("画布获取失败");
-            
-            var obj = Object.Instantiate(go,canvas);
+		/// <summary>
+		/// 创建窗体
+		/// </summary>
+		/// <returns></returns>
+		protected void Create(string path)
+		{
+			m_sResName = path;
 
-            if (obj == null)
-            {
-                Debug.LogError("Window Create Error LoadRes WindowName = " + m_sResName);
-                return ;
-            }
+			if (m_TransFrom)
+			{
+				Debug.LogError("Window Create Error Exist");
+				return;
+			}
 
-            m_TransFrom = obj.transform;
+			if (string.IsNullOrEmpty(m_sResName))
+			{
+				Debug.LogError("Windows Create Error ResName is empty");
+				return;
+			}
 
-            m_TransFrom.gameObject.SetActive(false);
+			var go = Resources.Load<GameObject>(m_sResName);
 
-            InitWindow();
-        }
+			var canvas = Global.CGameObjects.Canvas.transform;
 
-        /// <summary>
-        /// 销毁窗体
-        /// </summary>
-        public virtual void DestroyThis(PointerEventData eventData=null)
-        {
-            if(m_TransFrom)
-            {
-                OnRemoveListener();
-                RealseWindow();
-                Object.Destroy(m_TransFrom.gameObject);
-                m_TransFrom = null;
-            }
-        }
+			if (null == canvas)
+				Debug.Log("画布获取失败");
 
-        /// <summary>
-        /// 显示
-        /// </summary>
-        public void Show()
-        {
-            if(m_TransFrom&&m_TransFrom.gameObject.activeSelf==false)
-            {
-                m_TransFrom.gameObject.SetActive(true);
-                m_bIsVisible = true;
-                OnAddListener();
-            }
-        }
+			var obj = Object.Instantiate(go, canvas);
 
-        /// <summary>
-        /// 隐藏
-        /// </summary>
-        public void Hide()
-        {
-            if(m_TransFrom&&m_TransFrom.gameObject.activeSelf==true)
-            {
-                OnRemoveListener();
-            }
-            m_bIsVisible = false;
-        }
-    }
-    
-    /// /////////////////////    栈型UI设计    ///////////////////
-    
-    public interface IStackPanel
-    {
+			if (obj == null)
+			{
+				Debug.LogError("Window Create Error LoadRes WindowName = " + m_sResName);
+				return;
+			}
+
+			m_TransFrom = obj.transform;
+
+			m_TransFrom.gameObject.SetActive(false);
+
+			InitWindow();
+		}
+
+		/// <summary>
+		/// 销毁窗体
+		/// </summary>
+		public virtual void DestroyThis(PointerEventData eventData = null)
+		{
+			if (m_TransFrom)
+			{
+				OnRemoveListener();
+				RealseWindow();
+				Object.Destroy(m_TransFrom.gameObject);
+				m_TransFrom = null;
+			}
+		}
+
+		/// <summary>
+		/// 显示
+		/// </summary>
+		protected void Show()
+		{
+			if (m_TransFrom && m_TransFrom.gameObject.activeSelf == false)
+			{
+				m_TransFrom.gameObject.SetActive(true);
+				m_bIsVisible = true;
+				OnAddListener();
+			}
+		}
+
+		/// <summary>
+		/// 隐藏
+		/// </summary>
+		protected void Hide()
+		{
+			if (m_TransFrom && m_TransFrom.gameObject.activeSelf == true)
+			{
+				OnRemoveListener();
+			}
+
+			m_bIsVisible = false;
+		}
+	}
+
+	/// /////////////////////    栈型UI设计    ///////////////////
+
+	public interface IStackPanel
+	{
 //        string panelName { get; set; }
 		string PanelName { get; }
-	    void ToEable();
-	    void ToDisable();
-	    void ToPop();
+		void Enable();
+		void Disable();
+		void Destory();
+	}
 
-    }
+	/// <summary>
+	/// 可用栈盛放的栈窗口
+	/// </summary>
+	public abstract class BasePanel : AbstractWindow, IStackPanel
+	{
+		#region Static
 
-    /// <summary>
-    /// 可用栈盛放的栈窗口
-    /// </summary>
-    public abstract class StackWindow : AbstractWindow,IStackPanel
-    {
+		private static SerializableDictionary<string, BasePanel> panelDic =
+			new SerializableDictionary<string, BasePanel>();
 
-	    /// /////////////////     继承接口      ////////////////////////
-	    public string PanelName
-	    {
-		    get { return this.m_TransFrom.name; }
-	    }
-        
-	    public void ToEable()
-	    {
-		    this.Show();
-	    }
+		internal static BasePanel GetPanel(string name)
+		{
+			Assert.IsTrue(panelDic.ContainsKey(name));
+			return panelDic[name];
+		}
 
-	    public void ToDisable()
-	    {
-		    this.Hide();
-	    }
+		public static void InitPanel<T>(string panelName) where T : BasePanel, new()
+		{
+			panelDic.Add(panelName, new T().Init(panelName));
+		}
 
-	    public void ToPop()
-	    {
-		    this.DestroyThis();
-	    }
-    }
+		static BasePanel()
+		{
+			InitPanel<BattlePanel>(Const.PanelName.battlePanel);
+		}
 
-    
-    /// <summary>
-    /// 总UI管理者
-    /// </summary>
-    public class UIManager : Singleton<UIManager>
-    {
-	    public UIManager()
-	    {
-            
-	    }
-	    private Stack<IStackPanel> panelStack=new Stack<IStackPanel>();
+		#endregion
 
-	    public IStackPanel CurrentPanel
-	    {
-		    get { return panelStack.Peek(); }
-	    }
+		private string panelName;
+		public event Action<string> onPanelShow;
+		public event Action<string> onPanelHide;
+		public event Action<string> onPanelDestory;
 
-	    public void PopPanel()
-	    {
-		    CurrentPanel.ToPop();
-		    panelStack.Pop();
-		    if(panelStack.Count>0)
-			    CurrentPanel.ToEable();
-	    }
+		/// /////////////////     继承接口      ////////////////////////
+		public string PanelName
+		{
+			get { return this.panelName; }
+		}
+		
 
-	    public void PushPanel(IStackPanel panel)
-	    {
-		    if(panelStack.Count>0)
-			    CurrentPanel.ToDisable();
-		    panelStack.Push(panel);
-		    panel.ToEable();
-	    }
-    }
+		public void Enable()
+		{
+			if(m_TransFrom==null)
+				this.Load();
+			this.Show();
+			if (onPanelShow != null)
+				onPanelShow(panelName);
+		}
+
+		public void Disable()
+		{
+			this.Hide();
+			if (onPanelHide != null)
+				onPanelHide(panelName);
+		}
+
+
+		public void Destory()
+		{
+			if (onPanelDestory != null)
+				onPanelDestory(this.panelName);
+			this.DestroyThis();
+		}
+
+		protected BasePanel Init(string panelName)
+		{
+			this.panelName = panelName;
+			return this;
+		}
+
+		protected abstract void Load();
+	}
+
+
+	/// <summary>
+	/// 总UI管理者
+	/// </summary>
+	public class UIManager : Singleton<UIManager>
+	{
+		public UIManager()
+		{
+
+		}
+
+		private Stack<IStackPanel> panelStack = new Stack<IStackPanel>();
+
+		public IStackPanel CurrentPanel
+		{
+			get { return panelStack.Peek(); }
+		}
+
+		public void PushPanel(string name)
+		{
+			if(panelStack.Count!=0)
+				panelStack.Peek().Disable();
+			
+			var panel = BasePanel.GetPanel(name);
+			panel.Enable();
+			panelStack.Push(panel);
+		}
+
+
+		public void PopPanel()
+		{
+			panelStack.Peek().Destory();
+			panelStack.Pop();
+			panelStack.Peek().Enable();
+		}
+		
+		
+	}
+
 }
-
 
 namespace Game.StateMachine
 {
@@ -1267,9 +1317,9 @@ namespace Game.StateMachine
 
 namespace Game.Script
 {
-	public class AudioMgr : MonoSingleton<AudioMgr> 
+	public class AudioMgr : MonoSingleton<AudioMgr>
 	{
-		private SerializableDictionary<string,AudioClip> audioclips=new SerializableDictionary<string, AudioClip>();
+		private SerializableDictionary<string, AudioClip> audioclips = new SerializableDictionary<string, AudioClip>();
 		private AudioSource audioBg;
 		private AudioSource audioEffect;
 
@@ -1284,29 +1334,29 @@ namespace Game.Script
 			get { return audioEffect.volume; }
 			set { audioEffect.volume = value; }
 		}
-	
+
 		protected override void Awake()
 		{
 			base.Awake();
 			//实现从文件夹读取所有文件
-			DirectoryInfo source = new DirectoryInfo(Application.dataPath+"//Resources/Audio");
+			DirectoryInfo source = new DirectoryInfo(Application.dataPath + "//Resources/Audio");
 			foreach (FileInfo diSourceSubDir in source.GetFiles())
 			{
-				if(diSourceSubDir.Name.EndsWith(".meta"))
+				if (diSourceSubDir.Name.EndsWith(".meta"))
 					continue;
 				var strs = diSourceSubDir.Name.Split('.');
 				var res = Resources.Load<AudioClip>("Audio/" + strs[0]);
-				if(res==null)
+				if (res == null)
 					print("资源加载失败");
 				audioclips.Add(strs[0], res);
 			}
-		
-		
+
+
 			//加载组件
-			this.audioBg=this.gameObject.AddComponent<AudioSource>();
+			this.audioBg = this.gameObject.AddComponent<AudioSource>();
 			this.audioBg.loop = true;
 			this.audioBg.playOnAwake = true;
-		
+
 			this.audioEffect = this.gameObject.AddComponent<AudioSource>();
 			this.audioBg.loop = false;
 			this.audioBg.playOnAwake = false;
@@ -1320,20 +1370,20 @@ namespace Game.Script
 			PlayAuBg("Bg");
 			this.audioBg.volume = 0f;
 		}
-	
-	
 
-		public void PlayAuBg(string name,float delayTime=0)
+
+
+		public void PlayAuBg(string name, float delayTime = 0)
 		{
-			if(!audioclips.ContainsKey(name))
+			if (!audioclips.ContainsKey(name))
 				throw new Exception("没有这个音频文件");
 			this.audioBg.clip = audioclips[name];
 			this.audioBg.PlayDelayed(delayTime);
 		}
 
-		public void PlayAuEffect(string name,float delayTime=0)
+		public void PlayAuEffect(string name, float delayTime = 0)
 		{
-			if(!audioclips.ContainsKey(name))
+			if (!audioclips.ContainsKey(name))
 				throw new Exception("没有这个音频文件");
 			this.audioEffect.clip = audioclips[name];
 			this.audioEffect.PlayDelayed(delayTime);
@@ -1341,11 +1391,12 @@ namespace Game.Script
 
 		public void PlayAuEffect(string name, Vector3 pos)
 		{
-			if(!audioclips.ContainsKey(name))
+			if (!audioclips.ContainsKey(name))
 				throw new Exception("没有这个音频文件");
 			AudioSource.PlayClipAtPoint(this.audioclips[name], pos);
 		}
 	}
+
 	public class MainLoop : MonoSingleton<MainLoop>
 	{
 
@@ -1373,13 +1424,13 @@ namespace Game.Script
 		/// <param name="method"></param>
 		/// <param name="endCall"></param>
 		/// <returns></returns>
-		public Coroutine ExecuteUntilTrue(Func<bool> method,Action endCall=null)
+		public Coroutine ExecuteUntilTrue(Func<bool> method, Action endCall = null)
 		{
-			return  StartCoroutine(_ExecuteUntilTrue(method,endCall));
+			return StartCoroutine(_ExecuteUntilTrue(method, endCall));
 		}
 
 
-		
+
 		/// <summary>
 		/// 延时调用
 		/// </summary>
@@ -1415,10 +1466,11 @@ namespace Game.Script
 		{
 			return StartCoroutine(_ExecuteSeconds_Action(method, times, duringTime, endCall));
 		}
-		
-		public Coroutine ExecuteEverySeconds<T>(Action<T> method, float times, float duringTime,T args, Action<T> endCall)
+
+		public Coroutine ExecuteEverySeconds<T>(Action<T> method, float times, float duringTime, T args,
+			Action<T> endCall)
 		{
-			return StartCoroutine(_ExecuteSeconds_Action_T(method, times, duringTime,args,endCall));
+			return StartCoroutine(_ExecuteSeconds_Action_T(method, times, duringTime, args, endCall));
 		}
 
 		/// <summary>
@@ -1491,7 +1543,9 @@ namespace Game.Script
 
 			endCall();
 		}
-		private IEnumerator _ExecuteSeconds_Action_T<T>(Action<T> method, float times, float dur, T args,Action<T> endCall)
+
+		private IEnumerator _ExecuteSeconds_Action_T<T>(Action<T> method, float times, float dur, T args,
+			Action<T> endCall)
 		{
 			for (int i = 0; i < times; i++)
 			{
@@ -1552,7 +1606,7 @@ namespace Game.Script
 		}
 
 
-		private IEnumerator _ExecuteUntilTrue(Func<bool> method,Action endCall)
+		private IEnumerator _ExecuteUntilTrue(Func<bool> method, Action endCall)
 		{
 			while (true)
 			{
@@ -1561,9 +1615,11 @@ namespace Game.Script
 					endCall();
 					break;
 				}
+
 				yield return 0;
 			}
 		}
+
 		#endregion
 
 
@@ -1630,34 +1686,35 @@ namespace Game.Script
 	public class TriggerEvent : MonoBehaviour
 	{
 
-		public event Action<Collider2D> onTriggerEnterEvent;//如果TriggerEnter会调用这个event
-		public event Action<Collider2D> onTriggerStayEvent;//如果TriggerStay会调用这个event
-		public event Action<Collider2D> onTriggerExitEvent;//同理
-	
-		private void OnTriggerEnter2D( Collider2D col )
+		public event Action<Collider2D> onTriggerEnterEvent; //如果TriggerEnter会调用这个event
+		public event Action<Collider2D> onTriggerStayEvent; //如果TriggerStay会调用这个event
+		public event Action<Collider2D> onTriggerExitEvent; //同理
+
+		private void OnTriggerEnter2D(Collider2D col)
 		{
-			if( onTriggerEnterEvent != null )
-				onTriggerEnterEvent( col );
+			if (onTriggerEnterEvent != null)
+				onTriggerEnterEvent(col);
 		}
 
 
-		private void OnTriggerStay2D( Collider2D col )
+		private void OnTriggerStay2D(Collider2D col)
 		{
-			if( onTriggerStayEvent != null )
-				onTriggerStayEvent( col );
+			if (onTriggerStayEvent != null)
+				onTriggerStayEvent(col);
 		}
 
 
-		private void OnTriggerExit2D( Collider2D col )
+		private void OnTriggerExit2D(Collider2D col)
 		{
-			if( onTriggerExitEvent != null )
-				onTriggerExitEvent( col );
+			if (onTriggerExitEvent != null)
+				onTriggerExitEvent(col);
 		}
 
 
 	}
-	
-	public class UIInputer : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPointerUpHandler,IPointerDownHandler,IPointerClickHandler
+
+	public class UIInputer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler,
+		IPointerDownHandler, IPointerClickHandler
 	{
 		public event Action<PointerEventData> FunOnPointerEnter;
 		public event Action<PointerEventData> FunOnPointerExit;
@@ -1696,8 +1753,8 @@ namespace Game.Script
 			FunOnPointerClick(eventData);
 		}
 	}
-
 }
+
 
 
 namespace Game.Serialization

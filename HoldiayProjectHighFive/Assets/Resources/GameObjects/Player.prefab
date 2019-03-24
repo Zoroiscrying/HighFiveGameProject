@@ -88,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 1597255121037888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -16.050455, y: -2.0954878, z: -1}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 5.6, y: 5.6, z: 1}
   m_Children:
   - {fileID: 4950564322675854}
   m_Father: {fileID: 0}
@@ -195,7 +195,7 @@ MonoBehaviour:
     ignoreInput: 0
     faultToleranceTime: 1
   - skillName: O_Skill
-    beginComboTest: 0.12
+    beginComboTest: 0.142
     canMoveTime: 0.35
     ignoreInput: 1
     faultToleranceTime: 0.3
@@ -210,11 +210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79dbdae13dad344fa8b41a373955965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 3
-  _timeToJumpApex: 0.28
+  _runSpeed: 5
+  _timeToJumpApex: 0.25
   _accelerationTimeAirborne: 0.1
   _accelerationTimeGrounded: 0.05
-  _maxJumpHeight: 0.6
+  _maxJumpHeight: 1
   _horizontalSpeedMultiplier: 1
   _verticalSpeedMultiplier: 1
   _affectedByGravity: 1
@@ -222,8 +222,8 @@ MonoBehaviour:
   _velocity: {x: 0, y: 0, z: 0}
   _wallStickTime: 0.1
   _wallSlideVelocity: 2
-  _dashTime: 0.1
-  _dashDistance: 1
+  _dashTime: 0.2
+  _dashDistance: 1.8
   _minJumpHeight: 0.1
   _wallJumpTime: 0.05
   _wallJumpClimb: {x: 5, y: 6}

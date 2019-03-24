@@ -604,13 +604,15 @@ namespace Game.Control
             empty.transform.SetParent(self.obj.transform);
             empty.transform.localScale =this.size ;
             empty.transform.localPosition = this.personOffect;
+            empty.gameObject.layer =LayerMask.NameToLayer("Trigger");
             var trigger=empty.AddComponent<BoxCollider2D>();
             trigger.isTrigger = true;
-            trigger.offset = new Vector2(0.5f, 0);
+            trigger.offset = new Vector2(0.5f, -1);
             var triggerEvent=empty.AddComponent<TriggerEvent>();
             triggerEvent.onTriggerEnterEvent += OnTriggerEnter;
             var r = empty.transform.rotation;
             r = Quaternion.Euler(r.x, r.y, this.beginDre);
+            
             MainLoop.Instance.UpdateForSeconds(Update,this.LastTime,self,End);
         }
 
@@ -618,11 +620,11 @@ namespace Game.Control
         {
             if (empty == null)
             {
-//                Debug.Log("empty为空");
+                Debug.Log("empty为空");
                 return;
             }
             var r = empty.transform.rotation;
-            float z = Mathf.SmoothDamp(r.z, endDre, ref nowZ, this.LastTime);
+            float z = Mathf.Lerp(r.z, endDre, 0.5f);
             r = Quaternion.Euler(r.x, r.y, z);
         }
 
@@ -710,6 +712,8 @@ namespace Game.Control
                 Debug.LogError("图片路径错误");
             this.go=GameObject.Instantiate(res, self.Pos+new Vector3(0,0.3f*self.Scanler,0), Quaternion.identity);
             
+            Assert.IsTrue(go != null);
+            
             //添加组件
             this.triggerEvent=this.go.AddComponent<TriggerEvent>();
             this.triggerEvent.onTriggerEnterEvent +=OnTriggerEntry;
@@ -723,7 +727,10 @@ namespace Game.Control
         protected virtual void Update()
         {
             if (this.go == null)
+            {
+                Debug.Log("子弹空了");
                 return;
+            }
             this.go.transform.Translate(Vector3.right * this.dir * Time.deltaTime * this.speed);
         }
 
@@ -882,10 +889,13 @@ namespace Game.Control
         {
             if (!self.InputOk)
                 return;
-            if(ignoreInput)
+            if (ignoreInput)
+            {
                 self.IgnoreInput(this.lastTime);
+                return;
+            }
             this.startTime = startTime;
-            if (this.isUsed = true)
+            if (this.isUsed == true)
             {
                 foreach(var trigger in skillTriggers)
                     trigger.Release();

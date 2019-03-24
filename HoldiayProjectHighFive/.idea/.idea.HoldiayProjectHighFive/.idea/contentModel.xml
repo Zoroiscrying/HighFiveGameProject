@@ -272,7 +272,6 @@
           </e>
           <e p="CharacterController2D" t="Include">
             <e p="CharacterController2D.cs" t="Include" />
-            <e p="DemoTest.cs" t="Include" />
             <e p="MainCharacter.cs" t="Include" />
             <e p="PlatformController2D.cs" t="Include" />
             <e p="PlayerInputManager.cs" t="Include" />
@@ -281,14 +280,18 @@
           </e>
           <e p="Ctrl.cs" t="Include" />
           <e p="GameInitializer.cs" t="Include" />
-          <e p="GameWorld.cs" t="Include" />
           <e p="PlayerAttackDebug.cs" t="Include" />
           <e p="PlayerMove.cs" t="Include" />
           <e p="PlayerWallJump.cs" t="Include" />
+          <e p="SceneManger.cs" t="Include" />
           <e p="SceneTrigger.cs" t="Include" />
           <e p="ScreenShake.cs" t="Include" />
+          <e p="Test.cs" t="Include" />
         </e>
         <e p="StreamingAssets" t="Include">
+          <e p="Data" t="Include">
+            <e p="PlayerData.xml" t="Include" />
+          </e>
           <e p="PersonData.txt" t="Include" />
           <e p="SkillData.txt" t="Include" />
         </e>

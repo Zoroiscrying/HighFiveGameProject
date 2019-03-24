@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.CompilerServices;
 using Game.Script;
 using Game;
+using Game.Const;
+using Game.Control;
 using Game.Serialization;
 using Game.View;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 namespace Game.Modal
@@ -21,61 +29,80 @@ namespace Game.Modal
         
         #endregion
 
-        public string CurruentScene { get; private set; }
+        private string curruentScene;
+
+        public string CurruentScene
+        {
+            get { return this.curruentScene;}
+        }
         
         public void LoadScene( string name)
         {
-            this.CurruentScene = name;
+            this.curruentScene = name;
             BaseSceneInfo.GetScene(name).LoadScene();
         }
 
         public void LoadSceneAsync(string name)
         {
-            this.CurruentScene = name;
+            this.curruentScene = name;
             BaseSceneInfo.GetScene(name).LoadSceneAsync();
         }
     }
 
 
-    internal  class BaseSceneInfo
+    public  class BaseSceneInfo
     {
+        private static Player player;
         #region static_All_Instances
 
         private static string sceneBefore=null;
         private static SerializableDictionary<string,BaseSceneInfo> sceneDis=new SerializableDictionary<string, BaseSceneInfo>();
-        public static BaseSceneInfo GetScene(string name)
+        public static void InitPlayer()
         {
-            if (sceneDis.ContainsKey(name))
-                return sceneDis[name];
+            if (Game.Global.Flag.isPlaying==false&&File.Exists(GameData.PlayerDataFilePath))
+            {
+                Debug.Log("files");
+                Game.Global.Flag.isPlaying = true;
+                player = XmlManager.LoadData<Player>(GameData.PlayerDataFilePath);
+//                Debug.Log(player);
+                AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
+                CEventCenter.BroadMessage(Message.M_LevelUp,player.rank);
+            }
             else
             {
-                var s = new BaseSceneInfo(name);
-                return s;
+                Debug.Log("new");
+                player=new Player(GameData.PlayerName,GameData.PlayerPath,GameData.PlayerPos,GameData.PlayerDefaultSkills);
             }
         }
-        
+        public static void InitScene<T>(string sceneName)where T:BaseSceneInfo,new()
+        {
+            sceneDis.Add(sceneName,new T().Init(sceneName));
+        }
+        static BaseSceneInfo()
+        { 
+            InitScene<JbSceneInfo>(Const.SceneName.jbScene);
+            InitScene<WelcomeScene>(Const.SceneName.welcomeScene);
+            InitScene<TestSceneInfo>(Const.SceneName.testScene);
+        }
+        public static BaseSceneInfo GetScene(string name)
+        {
+            Assert.IsTrue(sceneDis.ContainsKey(name));
+            return sceneDis[name];
+        }
+
         
         #endregion
         public string SceneName { get; protected set; }
         
-        public event Action<string> onSceneLoad;
         public event Action<string> onSceneUnload;
 
-        protected BaseSceneInfo(string name)
+
+        protected virtual BaseSceneInfo Init(string name)
         {
             this.SceneName = name;
-            sceneDis.Add(name, this);
+            return this;
         }
-        
-        /// <summary>
-        /// 加载场景
-        /// 这里要做好UI，音乐，等其他资源的初始化
-        /// </summary>
-        protected virtual void OnSceneLoad()
-        {
-            if (onSceneLoad != null)
-                onSceneLoad(SceneName);
-        }
+
 
         protected virtual void OnSceneUnload()
         {
@@ -87,8 +114,8 @@ namespace Game.Modal
         {
             if(sceneBefore!=null)
                 sceneDis[sceneBefore].OnSceneUnload();
+            Debug.Log(this.SceneName + "LoadScene");
             SceneManager.LoadScene(this.SceneName);
-            OnSceneLoad();
         }
 
         public void LoadSceneAsync()
@@ -96,69 +123,39 @@ namespace Game.Modal
             if(sceneBefore!=null)
                 sceneDis[sceneBefore].OnSceneUnload();
             SceneManager.LoadSceneAsync(this.SceneName);
-            OnSceneLoad();
         }
     }
 
 
-    internal class TestSceneInfo : BaseSceneInfo
+    public class TestSceneInfo : BaseSceneInfo
     {
-        protected override void OnSceneLoad()
+        
+
+        protected override void OnSceneUnload()
         {
-            base.OnSceneLoad();
-            
-            UIManager.Instance.PushPanel(new BattlePanel());
-            
-            
+            base.OnSceneUnload();
+            Debug.Log("TestScene卸载");
+            UIManager.Instance.PopPanel();
         }
+    }
+
+    public class JbSceneInfo : BaseSceneInfo
+    {     
+        protected override void OnSceneUnload()
+        {
+            base.OnSceneUnload();
+            Debug.Log("jbScene卸载");
+            UIManager.Instance.PopPanel();
+        }
+    }
+
+    public class WelcomeScene : BaseSceneInfo
+    {
 
         protected override void OnSceneUnload()
         {
             base.OnSceneUnload();
             UIManager.Instance.PopPanel();
-        }
-
-        protected TestSceneInfo(string name) : base(name)
-        {
-        }
-    }
-
-    internal class JbSceneInfo : BaseSceneInfo
-    {
-        protected override void OnSceneLoad()
-        {
-            base.OnSceneLoad();
-            UIManager.Instance.PushPanel(new BattlePanel());
-        }
-
-        protected override void OnSceneUnload()
-        {
-            base.OnSceneUnload();
-            UIManager.Instance.PopPanel();
-        }
-
-        protected JbSceneInfo(string name) : base(name)
-        {
-        }
-    }
-
-    internal class WelcomeScene : BaseSceneInfo
-    {
-        protected override void OnSceneLoad()
-        {
-            base.OnSceneLoad();
-            UIManager.Instance.PushPanel(new WelcomePanel("选一个玩耍吧", "TestScene", "Jb", "游戏开始"));
-        }
-
-        protected override void OnSceneUnload()
-        {
-            base.OnSceneUnload();
-            UIManager.Instance.PopPanel();
-        }
-
-        protected WelcomeScene(string name) : base(name)
-        {
-            
         }
     }
 }
