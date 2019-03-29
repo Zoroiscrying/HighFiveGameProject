@@ -126,7 +126,7 @@ namespace Game.Control
         public void AddSkill(string skillName,Func<bool> trigger)
         {
             this.allSkillNames.Add(skillName);
-            this.skillDic.Add(skillName,SkillSystem.Instance.skillInstanceDic[skillName]);
+            this.skillDic.Add(skillName,SkillSystem.skillInstanceDic[skillName]);
             dis.Add(trigger,skillName);
         }
         #endregion
@@ -214,7 +214,7 @@ namespace Game.Control
             //初始化技能
             if(skillTypes!=null)
                 foreach (var str in skillTypes)
-                    skillDic.Add(str,SkillSystem.Instance.skillInstanceDic[str]);
+                    skillDic.Add(str,SkillSystem.skillInstanceDic[str]);
             
             //添加基本攻击效果
             this.OnAttackListRefresh += AddBaseAttackEffects;
@@ -283,11 +283,11 @@ namespace Game.Control
         public virtual void DestoryThis()
         {
             if(!(this is Player))
-                CEventCenter.BroadMessage<int>(Message.M_ExpChange,50*GetInstance<Player>(CGameObjects.Player).rank);
+                CEventCenter.BroadMessage(Message.M_ExpChange,50*GlobalVar.Player.rank);
             OnRemoveListener();
             MainLoop.Instance.RemoveUpdateFunc(Update);
             instanceList.Remove(this);
-            GameObject.Destroy(this.obj);
+            Object.Destroy(this.obj);
         }
         #endregion
         
@@ -416,7 +416,7 @@ namespace Game.Control
         
         #region 灵器
 
-        public int MaxSpiritNum;
+        public int MaxSpiritNum=1;
 
         private SerializableDictionary<string, AbstractSpiritItem> spiritDic =
             new SerializableDictionary<string, AbstractSpiritItem>();
@@ -512,7 +512,7 @@ namespace Game.Control
         public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes,Transform parent=null) : base(name, prefabPath, pos, skillTypes,parent)
         {
             
-            CGameObjects.Player = this.obj;
+            GlobalVar.Player = this;
             Debug.Log("主角诞生啦");
             this.DefaultConstTime = 1.0f;
             mainc = this.obj.GetComponent<MainCharacter>();
@@ -744,7 +744,7 @@ namespace Game.Control
             reader.ReadStartElement("Skills");
             this.allSkillNames = (List<string>) strListSer.Deserialize(reader);
             foreach(var skill in allSkillNames)
-                this.skillDic.Add(skill,SkillSystem.Instance.skillInstanceDic[skill]);
+                this.skillDic.Add(skill,SkillSystem.skillInstanceDic[skill]);
             reader.ReadEndElement();
             
             attackEffects=new List<IBattleEffect>();
@@ -762,7 +762,7 @@ namespace Game.Control
             this.ignoreInput=new List<bool>();
             this.backpack=new Backpack();
             
-            CGameObjects.Player = this.obj;
+            GlobalVar.Player = this;
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc!=null);
             cc = this.obj.GetComponent<CharacterController2D>();
@@ -795,7 +795,7 @@ namespace Game.Control
 
         public void WriteXml(XmlWriter writer)
         {
-            Debug.Log("这真的调用了么");
+//            Debug.Log("这真的调用了么");
             var floatSer=new XmlSerializer(typeof(float));
             var intSer=new XmlSerializer(typeof(int));
             var strSer=new XmlSerializer(typeof(string));

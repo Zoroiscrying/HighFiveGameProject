@@ -163,6 +163,7 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="BackGroundController.cs" t="Include" />
+          <e p="BaseSceneMgr.cs" t="Include" />
           <e p="behaviac" t="Include">
             <e p="Runtime" t="Include">
               <e p="Agent" t="Include">
@@ -287,6 +288,9 @@
           <e p="Test.cs" t="Include" />
         </e>
         <e p="StreamingAssets" t="Include">
+          <e p="Data" t="Include">
+            <e p="PlayerData.xml" t="Include" />
+          </e>
           <e p="PersonData.txt" t="Include" />
           <e p="SkillData.txt" t="Include" />
         </e>

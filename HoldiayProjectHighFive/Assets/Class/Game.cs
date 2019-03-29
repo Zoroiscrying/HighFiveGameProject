@@ -107,19 +107,15 @@ namespace Game
     /// </summary>CallBack
     public static class CEventCenter
     {
+
+	    /// <summary>
+	    /// 消息字典
+	    /// </summary>
+	    private static SerializableDictionary<string, List<Delegate>> listeners =
+		    new SerializableDictionary<string, List<Delegate>>();
+
+        private static List<Delegate> onceActions = new List<Delegate>();
         
-        /// <summary>
-        /// 消息字典
-        /// </summary>
-        private static SerializableDictionary<string, List<Delegate>> listeners;
-        
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        static CEventCenter()
-        {
-            listeners = new SerializableDictionary<string, List<Delegate>>();
-        }
 
         /// <summary>
         /// 添加监听事件
@@ -128,21 +124,39 @@ namespace Game
         /// <param name="listener"></param>
         public static void AddListener(string type, Action listener)
         {
+	        AddListener(type, listener, false);
+        }
+        public static void AddListener(string type, Action listener,bool callOnce)
+        {
             if (!listeners.ContainsKey(type))
                 listeners.Add(type, new List<Delegate>());
             listeners[type].Add(listener);
+            if (callOnce)
+	            onceActions.Add(listener);
         }
         public static void AddListener<T>(string type, Action<T> listener)
         {
-            if (!listeners.ContainsKey(type))
-                listeners.Add(type, new List<Delegate>());
-            listeners[type].Add(listener);
+	        AddListener<T>(type, listener, false);
         }
-        public static void AddListener<T,U>(string type, Action<T,U> listener)
+        public static void AddListener<T>(string type, Action<T> listener,bool callOnce)
         {
             if (!listeners.ContainsKey(type))
                 listeners.Add(type, new List<Delegate>());
             listeners[type].Add(listener);
+            if (callOnce)
+	            onceActions.Add(listener);
+        }
+        public static void AddListener<T,U>(string type, Action<T,U> listener)
+        {
+	        AddListener<T, U>(type, listener, false);
+        }
+        public static void AddListener<T,U>(string type, Action<T,U> listener,bool callOnce)
+        {
+            if (!listeners.ContainsKey(type))
+                listeners.Add(type, new List<Delegate>());
+            listeners[type].Add(listener);
+            if (callOnce)
+	            onceActions.Add(listener);
         }
         /// <summary>
         /// 移出监听事件
@@ -181,7 +195,14 @@ namespace Game
                 {
                     var f = list[i] as Action;
                     if (null != f)
+                    {
                         f();
+                        if (onceActions.Contains(f))
+                        {
+	                        list.Remove(f);
+	                        onceActions.Remove(f);
+                        }
+                    }
                 }
             }
         }
@@ -194,7 +215,14 @@ namespace Game
                 {
                     var f = list[i] as Action<T>;
                     if (null != f)
-                        f(arg1);
+                    {
+	                    f(arg1);
+	                    if (onceActions.Contains(f))
+	                    {
+		                    list.Remove(f);
+		                    onceActions.Remove(f);
+	                    }
+                    }
                 }
             }
         }
@@ -207,13 +235,21 @@ namespace Game
                 {
                     var f = list[i] as Action<T,U>;
                     if (null != f)
-                        f(arg1,arg2);
+                    {
+	                    f(arg1,arg2);
+	                    if (onceActions.Contains(f))
+	                    {
+		                    list.Remove(f);
+		                    onceActions.Remove(f);
+	                    }
+                    }
                 }
             }
         }
         public static void RemoveAll()
         {
             listeners.Clear();
+            onceActions.Clear();
         }
     }
     
@@ -611,7 +647,7 @@ namespace Game.View
 
 			var go = Resources.Load<GameObject>(m_sResName);
 
-			var canvas = Global.CGameObjects.Canvas.transform;
+			var canvas = Global.GlobalVar.Canvas.transform;
 
 			if (null == canvas)
 				Debug.Log("画布获取失败");
@@ -683,25 +719,28 @@ namespace Game.View
 		void Destory();
 	}
 
+	/// <inheritdoc />
 	/// <summary>
 	/// 可用栈盛放的栈窗口
 	/// </summary>
-	public abstract class BasePanel : AbstractWindow, IStackPanel
+	public abstract class AbstractPanel : AbstractWindow, IStackPanel
 	{
 		#region Static
 
-		private static SerializableDictionary<string, BasePanel> panelDic =
-			new SerializableDictionary<string, BasePanel>();
+		private static SerializableDictionary<string, AbstractPanel> panelDic =
+			new SerializableDictionary<string, AbstractPanel>();
 
-		internal static BasePanel GetPanel(string name)
+		internal static AbstractPanel GetPanel(string name)
 		{
 			Assert.IsTrue(panelDic.ContainsKey(name));
 			return panelDic[name];
 		}
 
-		public static void InitPanel<T>(string panelName) where T : BasePanel, new()
+		public static void RegisterPanel<T>(string panelName) where T : AbstractPanel, new()
 		{
-			panelDic.Add(panelName, new T().Init(panelName));
+			var p = new T();
+			p.Init(panelName);
+			panelDic.Add(panelName, p);
 		}
 
 
@@ -743,10 +782,9 @@ namespace Game.View
 			this.DestroyThis();
 		}
 
-		protected BasePanel Init(string panelName)
+		protected void Init(string panelName)
 		{
 			this.panelName = panelName;
-			return this;
 		}
 
 		protected abstract void Load();
@@ -775,7 +813,7 @@ namespace Game.View
 			if(panelStack.Count!=0)
 				panelStack.Peek().Disable();
 			
-			var panel = BasePanel.GetPanel(name);
+			var panel = AbstractPanel.GetPanel(name);
 			panel.Enable();
 			panelStack.Push(panel);
 		}
@@ -785,7 +823,8 @@ namespace Game.View
 		{
 			panelStack.Peek().Destory();
 			panelStack.Pop();
-			panelStack.Peek().Enable();
+			if(panelStack.Count>=0)
+				panelStack.Peek().Enable();
 		}
 		
 		
@@ -1469,9 +1508,9 @@ namespace Game.Script
 			return StartCoroutine(_ExecuteSeconds(method, times, duringTime));
 		}
 
-		public Coroutine ExecuteEverySeconds<T>(Action<T> mathdom, float times, float duringTime, T args)
+		public Coroutine ExecuteEverySeconds<T>(Action<T> method, float times, float duringTime, T args)
 		{
-			return StartCoroutine(_ExecuteSeconds_T(mathdom, times, duringTime, args));
+			return StartCoroutine(_ExecuteSeconds_T(method, times, duringTime, args));
 		}
 
 		public Coroutine ExecuteEverySeconds(Action method, float times, float duringTime, Action endCall)
@@ -1500,14 +1539,14 @@ namespace Game.Script
 			return StartCoroutine(_UpdateForSeconds_Action_T(method, seconds, arg, endCall));
 		}
 
-		public Coroutine UpdateForSeconds(Action method, float seconds, float start = 0f)
+		public Coroutine UpdateForSeconds(Action method, float seconds, float delay = 0f)
 		{
-			return StartCoroutine(_UpdateForSeconds(method, seconds, start));
+			return StartCoroutine(_UpdateForSeconds(method, seconds, delay));
 		}
 
-		public Coroutine UpdateForSeconds<T>(Action<T> method, float seconds, T args, float start = 0f)
+		public Coroutine UpdateForSeconds<T>(Action<T> method, float seconds, T args, float delay = 0f)
 		{
-			return StartCoroutine(_UpdateForSeconds_T(method, seconds, args, start));
+			return StartCoroutine(_UpdateForSeconds_T(method, seconds, args, delay));
 		}
 
 		#region 内部调用
@@ -1935,7 +1974,7 @@ namespace Game.Serialization
 			StreamReader r  = File.OpenText(fullPath);//_FileLocation是unity3D当前project的路径名，_FileName是xml的文件名。定义为成员变量了
 			//当然，你也可以在前面先判断下要读取的xml文件是否存在
 			String _data=r.ReadLine();
-			Debug.Log(_data);
+//			Debug.Log(_data);
 			var myData = DeserializeObject<T>(_data);//myData是上面自定义的xml存取过程中要使用的数据结构UserData
 			r.Close();
 			return myData;
@@ -1948,7 +1987,7 @@ namespace Game.Serialization
 			t.Delete();
 			writer = t.CreateText();
 			String _data = SerializeObject(data); //序列化这组数据
-			Debug.Log(_data);
+//			Debug.Log(_data);
 			writer.WriteLine(_data); //写入xml
 //			writer.WriteLine(_data); //写入xml
 			writer.Close();

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Control;
+using Game.Global;
 using UnityEngine;
 using Game.StateMachine;
 

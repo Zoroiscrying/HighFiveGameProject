@@ -1,39 +1,86 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using Game;
+using Game.Const;
 using Game.Control;
+using Game.Serialization;
 
 
 namespace Game.Global
 {
-    public static class Flag
+    public static class GlobalFlag
     {
         public static bool isPlaying = false;
     }
-    public static class CGameObjects
+    
+    public static class GlobalVar
     {
         public static  GameObject Canvas;
         //在玩家创建的时候初始化
-        public static  GameObject Player;
-
+        public static  Player Player;
 
         public static void Refresh()
         {
             Canvas = GameObject.Find("Canvas");
+            
+            #region 初始化主角
+            if (File.Exists(GameData.PlayerDataFilePath))
+            {
+                Debug.Log("player comes from files");
+                Player = XmlManager.LoadData<Player>(GameData.PlayerDataFilePath);
+//                Debug.Log(player);
+                //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
+                CEventCenter.BroadMessage(Message.M_LevelUp,GlobalVar.Player.rank);
+            }
+            else
+            {
+                Debug.Log("player comes from new");
+                Player=new Player(GameData.PlayerName,GameData.PlayerPath,GameData.PlayerPos,GameData.PlayerDefaultSkills);
+            }
+            
+            #endregion
         }
-
     }
 }
 
 namespace Game.Const
 {
 
+    #region 名字/唯一标识
     public static class SpiritName
     {
         public static readonly string C_First = "first";
         public static readonly string C_Second = "second";
+    }    
+    public static class PanelName
+    {
+        public static readonly string battlePanel = "BattlePanel";
     }
+
+    public static class SkillTriggerName
+    {
+        public static readonly string animation="AnimationTrigger";
+        public static readonly string instantDamage="InstantDamageTrigger";
+        public static readonly string audio="AudioTrigger";
+        public static readonly string dash="DashTrigger";
+        public static readonly string bullet="BulletTrigger";
+        public static readonly string trigger2D="Trigger2DTrigger";
+    }
+    
+    public static class SceneName
+    {
+        public static readonly string welcomeScene = "WelcomeScene";
+        public static readonly string testScene = "TestScene";
+        public static readonly string jbScene = "JbScene";
+    }
+    
+    #endregion
+    
+    
+    #region 消息
+    
     public static class Message
     {
         public static readonly string M_LevelUp = "LevelUp";
@@ -51,7 +98,11 @@ namespace Game.Const
             return go.GetInstanceID() + "D";
         }
     }
-
+    #endregion
+    
+    
+    
+    #region 路径
     
     public static class FilePath
     {
@@ -59,8 +110,6 @@ namespace Game.Const
         public static readonly string PersonArgsFilePath = "PersonData.txt";
         public static readonly string SQLiteFilePath = Application.streamingAssetsPath + "/SQLite/SQLite4Unity.db";
     }
-    
-    
     public static class UIPath
     {
         public static readonly string Dir = "UI/";
@@ -89,24 +138,18 @@ namespace Game.Const
         public static readonly string TestPersonPath = Dir+"TestPerson";
         public static readonly string DefaultSprite = Dir+"NullSprite";
     }
+    
+    #endregion
+    
+    
+    #region defaultData
 
     public static class Signal
     {
         public static readonly Vector3 defaultPos=new Vector3(0,0-999);
     }
 
-    public static class PanelName
-    {
-        public static readonly string battlePanel = "BattlePanel";
-//        public static readonly string 
-    }
 
-    public static class SceneName
-    {
-        public static readonly string welcomeScene = "WelcomeScene";
-        public static readonly string testScene = "TestScene";
-        public static readonly string jbScene = "JbScene";
-    }
     
     public static class GameData
     {
@@ -117,6 +160,7 @@ namespace Game.Const
         public static List<string> PlayerDefaultSkills=new List<string>(new []{"L_Skill", "U_Skill", "I_Skill", "O_Skill","H_Skill"});  
     }
     
+    #endregion
     
     
 }

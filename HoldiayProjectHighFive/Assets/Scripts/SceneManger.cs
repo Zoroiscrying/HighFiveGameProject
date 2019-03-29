@@ -13,34 +13,32 @@ using Mono.Data.Sqlite;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 
-public class SceneManger : MonoSingleton<SceneManger>
+public class SceneManger : BaseSceneMgr
 {
-
 
 	List<AbstractPerson> list=new List<AbstractPerson>();
 	//private Player player;
 	public string UiPanelName;
 
-	private Player player;
-
 	void Start()
 	{
-		this.player=AbstractPerson.GetInstance<Player>(CGameObjects.Player);
+		
+        CreateTestPeople();
 	}
 	// Use this for initialization
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.UpArrow))
 		{
-			this.player.AddSpirit(SpiritName.C_First);
-			Debug.Log("添加灵器" + SpiritName.C_First);
+			Debug.Log("试图添加灵器" + SpiritName.C_First);
+			GlobalVar.Player.AddSpirit(SpiritName.C_First);
 			
 		}
 
 		if (Input.GetKeyDown(KeyCode.DownArrow))
 		{
-			this.player.RemoveSpirit(SpiritName.C_First);
-			Debug.Log("移出灵器" + SpiritName.C_First);
+			Debug.Log("试图移出灵器" + SpiritName.C_First);
+			GlobalVar.Player.RemoveSpirit(SpiritName.C_First);
 		}
      			
 		
@@ -54,10 +52,11 @@ public class SceneManger : MonoSingleton<SceneManger>
 
 		if (Input.GetKeyDown(KeyCode.S))
 		{
-			XmlManager.SaveData(this.player,GameData.PlayerDataFilePath);
+			XmlManager.SaveData(GlobalVar.Player,GameData.PlayerDataFilePath);
 			AssetDatabase.Refresh();
 		}
 	}	
+	
 	void CreateTestPeople()
 	{
 		var go = new GameObject("TestPeople");
@@ -70,14 +69,17 @@ public class SceneManger : MonoSingleton<SceneManger>
 	}
 
 	#region 全局初始化
-	void Awake()
+	protected override void InitOnlyOnce()
 	{
-		if (Game.Global.Flag.isPlaying == false)
-		{
-			InitSkillSystem();
-			InitUiPanels();
-			InitSpiritMent();
-		}
+		base.InitOnlyOnce();
+		InitSkillSystem();
+		InitUiPanels();
+		InitSpiritMent();
+	}
+
+	protected override void InitEachTime()
+	{
+		base.InitEachTime();
 		InitSceneScripts();
 		InitGlobalVar();
 		InitBehavic();
@@ -88,14 +90,16 @@ public class SceneManger : MonoSingleton<SceneManger>
 	/// </summary>
 	void InitUiPanels()
 	{
-		BasePanel.InitPanel<BattlePanel>(PanelName.battlePanel);
+		AbstractPanel.RegisterPanel<BattlePanel>(PanelName.battlePanel);
 	}
 
 
+	/// <summary>
+	/// 初始化灵器
+	/// </summary>
 	void InitSpiritMent()
 	{
-		AbstractSpiritItem.RigistSpiritMent<ShitSpirit>(SpiritName.C_First);
-		Debug.Log("已经注册" + SpiritName.C_First);
+		AbstractSpiritItem.RegisterSpiritItem<ShitSpirit>(SpiritName.C_First);
 	}
 
 	/// <summary>
@@ -114,23 +118,23 @@ public class SceneManger : MonoSingleton<SceneManger>
 	void InitSkillSystem()
 	{
 		//所有触发器种类的注册
-		SkillTriggerMgr.Instance.RegisterTriggerFactory("AnimationTrigger",
+		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.animation,
 			SkillTriggerFactory<AnimationTrigger>.Instance);
-		SkillTriggerMgr.Instance.RegisterTriggerFactory("InstantDamageTrigger",
+		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.instantDamage,
 			SkillTriggerFactory<InstantRayDamageTrigger>.Instance);
-		SkillTriggerMgr.Instance.RegisterTriggerFactory("AudioTrigger",
+		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.audio,
 			SkillTriggerFactory<AudioTrigger>.Instance);
-		SkillTriggerMgr.Instance.RegisterTriggerFactory("DashTrigger",
+		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.dash,
 			SkillTriggerFactory<DashTrigger>.Instance);
-		SkillTriggerMgr.Instance.RegisterTriggerFactory("BulletTrigger",
+		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.bullet,
 			SkillTriggerFactory<BulletTrigger>.Instance);
-		SkillTriggerMgr.Instance.RegisterTriggerFactory("Trigger2DTrigger",
+		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.trigger2D,
 			SkillTriggerFactory<Trigger2DTrigger>.Instance);
 //            SkillTriggerMgr.Instance.RegisterTriggerFactory("LockFrameTrigger",
 //                SkillTriggerFactory<LockFrameTrigger>.Instance);
 
 		//读取文件，获取所有技能
-		SkillSystem.Instance.LoadSkillsFromFile(FilePath.SkillFilePath);
+		SkillSystem.LoadSkillsFromFile(FilePath.SkillFilePath);
 	}
 
 	/// <summary>
@@ -138,9 +142,7 @@ public class SceneManger : MonoSingleton<SceneManger>
 	/// </summary>
 	void InitGlobalVar()
 	{
-		Game.Global.CGameObjects.Refresh();
-        CreateTestPeople();
-		BaseSceneInfo.InitPlayer();
+		GlobalVar.Refresh();
 	}
 	
 	/// <summary>

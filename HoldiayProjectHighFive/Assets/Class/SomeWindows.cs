@@ -23,7 +23,7 @@ namespace Game.View
     /// <summary>
     /// 战斗界面Panel
     /// </summary>
-    public class BattlePanel : BasePanel
+    public class BattlePanel : AbstractPanel
     {
         private Player player;
         private Slider bloodBar;
@@ -36,7 +36,7 @@ namespace Game.View
             
             Create(UIPath.Panel_Battle);
             
-            this.player = AbstractPerson.GetInstance(CGameObjects.Player) as Player;
+            this.player = GlobalVar.Player;
             Assert.IsTrue(this.player != null);
             
             var trans_bloodBar = m_TransFrom.Find("Image_PlayerStateBar/BloodBar");
@@ -107,7 +107,7 @@ namespace Game.View
     /// <summary>
     /// 消息窗口类
     /// </summary>
-	public class MessagePanel : BasePanel {
+	public class MessagePanel : AbstractPanel {
         public enum WindowType
         {
             Close,

@@ -784,16 +784,16 @@ namespace Game.Control
     /// <summary>
     /// 触发器管理者类
     /// </summary>
-    public class SkillTriggerMgr : Singleton<SkillTriggerMgr>
+    public static class SkillTriggerMgr
     {
-        private SerializableDictionary<string,ISkillTriggerFactory> factoryDic=new SerializableDictionary<string, ISkillTriggerFactory>();
+        private  static SerializableDictionary<string,ISkillTriggerFactory> factoryDic=new SerializableDictionary<string, ISkillTriggerFactory>();
         
         /// <summary>
         /// 注册不同种类的触发器
         /// </summary>
         /// <param name="skillType"></param>
         /// <param name="factory"></param>
-        public void RegisterTriggerFactory(string skillType, ISkillTriggerFactory factory)
+        public  static void RegisterTriggerFactory(string skillType, ISkillTriggerFactory factory)
         {
             if(!factoryDic.ContainsKey(skillType))
                 factoryDic.Add(skillType,factory);
@@ -806,7 +806,7 @@ namespace Game.Control
         /// <param name="args"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public ISkillTrigger CreateTrigger(string args)//skillType,int id,float startTime, float lastTime,string args)
+        public  static ISkillTrigger CreateTrigger(string args)//skillType,int id,float startTime, float lastTime,string args)
         {
             var strs = args.Split('|');
             var type = strs[0].Trim();
@@ -918,19 +918,19 @@ namespace Game.Control
     /// <summary>
     /// 管理所有SkillInstance
     /// </summary>
-    public class SkillSystem:Singleton<SkillSystem>
+    public  static class SkillSystem
     {
         /// <summary>
         /// AbstractPerson通过技能名从这里获取技能索引
         /// </summary>
-        public SerializableDictionary<string,SkillInstance> skillInstanceDic=new SerializableDictionary<string, SkillInstance>();
+        public  static SerializableDictionary<string,SkillInstance> skillInstanceDic=new SerializableDictionary<string, SkillInstance>();
         
 
         /// <summary>
         /// 文件读取技能
         /// </summary>
         /// <param name="path"></param>
-        public void LoadSkillsFromFile(string path)
+        public  static void LoadSkillsFromFile(string path)
         {
             path = Application.streamingAssetsPath + "\\"+path;
             var sr=new StreamReader(path);
@@ -971,7 +971,7 @@ namespace Game.Control
                     if (skill != null && bracket == true)
                     {
 
-                        ISkillTrigger trigger = SkillTriggerMgr.Instance.CreateTrigger(line);//strs[0].Trim(), Convert.ToInt32(strs[2].Trim()),Convert.ToSingle(strs[1].Trim()),Convert.ToSingle(strs[3].Trim()),strs[4].Trim());
+                        ISkillTrigger trigger = SkillTriggerMgr.CreateTrigger(line);//strs[0].Trim(), Convert.ToInt32(strs[2].Trim()),Convert.ToSingle(strs[1].Trim()),Convert.ToSingle(strs[3].Trim()),strs[4].Trim());
                         if (trigger != null)
                         {
                             skill.AddTrigger(trigger);

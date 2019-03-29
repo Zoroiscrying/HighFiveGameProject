@@ -7,6 +7,7 @@ using Game.Script;
 using Game;
 using Game.Const;
 using Game.Control;
+using Game.Global;
 using Game.Serialization;
 using Game.View;
 using UnityEditor;
@@ -52,28 +53,10 @@ namespace Game.Modal
 
     public  class BaseSceneInfo
     {
-        private static Player player;
         #region static_All_Instances
 
         private static string sceneBefore=null;
         private static SerializableDictionary<string,BaseSceneInfo> sceneDis=new SerializableDictionary<string, BaseSceneInfo>();
-        public static void InitPlayer()
-        {
-            if (Game.Global.Flag.isPlaying==false&&File.Exists(GameData.PlayerDataFilePath))
-            {
-                Debug.Log("files");
-                Game.Global.Flag.isPlaying = true;
-                player = XmlManager.LoadData<Player>(GameData.PlayerDataFilePath);
-//                Debug.Log(player);
-                //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
-                CEventCenter.BroadMessage(Message.M_LevelUp,player.rank);
-            }
-            else
-            {
-                Debug.Log("new");
-                player=new Player(GameData.PlayerName,GameData.PlayerPath,GameData.PlayerPos,GameData.PlayerDefaultSkills);
-            }
-        }
         public static void InitScene<T>(string sceneName)where T:BaseSceneInfo,new()
         {
             sceneDis.Add(sceneName,new T().Init(sceneName));

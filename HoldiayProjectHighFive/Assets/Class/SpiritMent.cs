@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game;
 using Game.Script;
-using UnityEngine.Experimental.PlayerLoop;
 
 namespace Game.Modal
 {
@@ -13,7 +12,7 @@ namespace Game.Modal
         #region Static
         private static Dictionary<string, AbstractSpiritItem> spiritDic = new Dictionary<string, AbstractSpiritItem>();
 
-        public static void RigistSpiritMent<T>(string name) where T : AbstractSpiritItem, new()
+        public static void RegisterSpiritItem<T>(string name) where T : AbstractSpiritItem, new()
         {
             if (spiritDic.ContainsKey(name))
             {
@@ -63,6 +62,7 @@ namespace Game.Modal
         public override void OnDisable()
         {
             MainLoop.Instance.RemoveUpdateTest(pair);
+            
             pair = null;
         }
 
