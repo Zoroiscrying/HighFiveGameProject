@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Admin\.Rider2018.2\config\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\Admin\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Admin\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_HoldiayProjectHighFive.384860981.00" t="ExcludeRecursive" />
-    <e p="E:\UnityNGithub\GameProjectGIT\HighFiveGameProject\HoldiayProjectHighFive" t="IncludeRecursive">
+    <e p="C:\Users\ReadyGamerOne\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
+    <e p="F:\Projects\unity\HiFive\HoldiayProjectHighFive" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -148,6 +147,7 @@
           <e p="Person.cs" t="Include" />
           <e p="SceneMgr.cs" t="Include" />
           <e p="SomeWindows.cs" t="Include" />
+          <e p="SpiritMent.cs" t="Include" />
           <e p="SQLiteHelper.cs" t="Include" />
           <e p="ThisGame.cs" t="Include" />
         </e>
@@ -287,9 +287,6 @@
           <e p="Test.cs" t="Include" />
         </e>
         <e p="StreamingAssets" t="Include">
-          <e p="Data" t="Include">
-            <e p="PlayerData.xml" t="Include" />
-          </e>
           <e p="PersonData.txt" t="Include" />
           <e p="SkillData.txt" t="Include" />
         </e>

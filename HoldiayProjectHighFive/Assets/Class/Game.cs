@@ -255,7 +255,7 @@ namespace Game
         }
     }
     
-    
+   
     //////////////////////////////     对象池       ///////////////////////////////////
 
     public interface IObjectPool<T>where T:Object
@@ -704,10 +704,6 @@ namespace Game.View
 			panelDic.Add(panelName, new T().Init(panelName));
 		}
 
-		static BasePanel()
-		{
-			InitPanel<BattlePanel>(Const.PanelName.battlePanel);
-		}
 
 		#endregion
 
@@ -1397,6 +1393,22 @@ namespace Game.Script
 		}
 	}
 
+	public class UpdateTestPair
+	{
+		public Func<bool> IsOk;
+		public Action func;
+
+		public UpdateTestPair(Func<bool> isok, Action func)
+		{
+			this.IsOk = isok;
+			this.func = func;
+		}
+	}
+    /// <summary>
+    /// 主循环
+    /// 在外部调用，实现脱离MonoBehavior进行更新
+    /// 封装多种协程便于调用
+    /// </summary>
 	public class MainLoop : MonoSingleton<MainLoop>
 	{
 
@@ -1629,6 +1641,8 @@ namespace Game.Script
 		private event Action guiEvent;
 		private event Action startEvent;
 
+		private List<UpdateTestPair> callBackPairs = new List<UpdateTestPair>();
+
 		void Start()
 		{
 			if (startEvent != null)
@@ -1639,6 +1653,11 @@ namespace Game.Script
 		{
 			if (updateEvent != null)
 				updateEvent();
+			foreach (var pair in callBackPairs)
+			{
+				if (pair.IsOk())
+					pair.func();
+			}
 		}
 
 		void OnGUI()
@@ -1657,6 +1676,18 @@ namespace Game.Script
 			startEvent -= func;
 		}
 
+		public void AddUpdateTest(UpdateTestPair pair)
+		{
+			if (callBackPairs.Contains(pair))
+				Debug.Log("注意！已经包含这个UpdateTestPair！");
+			callBackPairs.Add(pair);
+		}
+
+		public void RemoveUpdateTest(UpdateTestPair pair)
+		{
+			callBackPairs.Remove(pair);
+		}
+		
 
 		public void AddUpdateFunc(Action func)
 		{
@@ -1904,7 +1935,7 @@ namespace Game.Serialization
 			StreamReader r  = File.OpenText(fullPath);//_FileLocation是unity3D当前project的路径名，_FileName是xml的文件名。定义为成员变量了
 			//当然，你也可以在前面先判断下要读取的xml文件是否存在
 			String _data=r.ReadLine();
-//			Debug.Log(_data);
+			Debug.Log(_data);
 			var myData = DeserializeObject<T>(_data);//myData是上面自定义的xml存取过程中要使用的数据结构UserData
 			r.Close();
 			return myData;
@@ -1917,6 +1948,7 @@ namespace Game.Serialization
 			t.Delete();
 			writer = t.CreateText();
 			String _data = SerializeObject(data); //序列化这组数据
+			Debug.Log(_data);
 			writer.WriteLine(_data); //写入xml
 //			writer.WriteLine(_data); //写入xml
 			writer.Close();

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game.Control
 {
-    ////////////////////////////////     战斗效果系统    ////////////////////////////////
+    #region   战斗效果系统    
     
     /// <summary>
     /// 所有战斗效果（恢复，伤害，治疗，Buff）的基类
@@ -292,8 +292,10 @@ namespace Game.Control
         }
     }
     
+    #endregion
     
-    ////////////////////////////////     技能/触发器 系统    /////////////////////////////
+    
+    #region     技能/触发器 系统   
     
     /// <summary>
     /// 触发器接口
@@ -749,8 +751,10 @@ namespace Game.Control
         }
     }
 
-
-    /////////////////////////////////     触发器/技能 的创建及管理     /////////////////////////
+    #endregion
+    
+    
+    #region 触发器/技能 的创建及管理
     
     /// <summary>
     /// 触发器工厂接口
@@ -921,33 +925,12 @@ namespace Game.Control
         /// </summary>
         public SerializableDictionary<string,SkillInstance> skillInstanceDic=new SerializableDictionary<string, SkillInstance>();
         
-        public SkillSystem()
-        {
-            //所有触发器种类的注册
-            SkillTriggerMgr.Instance.RegisterTriggerFactory("AnimationTrigger",
-                SkillTriggerFactory<AnimationTrigger>.Instance);
-            SkillTriggerMgr.Instance.RegisterTriggerFactory("InstantDamageTrigger",
-                SkillTriggerFactory<InstantRayDamageTrigger>.Instance);
-            SkillTriggerMgr.Instance.RegisterTriggerFactory("AudioTrigger",
-                SkillTriggerFactory<AudioTrigger>.Instance);
-            SkillTriggerMgr.Instance.RegisterTriggerFactory("DashTrigger",
-                SkillTriggerFactory<DashTrigger>.Instance);
-            SkillTriggerMgr.Instance.RegisterTriggerFactory("BulletTrigger",
-                SkillTriggerFactory<BulletTrigger>.Instance);
-            SkillTriggerMgr.Instance.RegisterTriggerFactory("Trigger2DTrigger",
-                SkillTriggerFactory<Trigger2DTrigger>.Instance);
-//            SkillTriggerMgr.Instance.RegisterTriggerFactory("LockFrameTrigger",
-//                SkillTriggerFactory<LockFrameTrigger>.Instance);
-
-            //读取文件，获取所有技能
-            LoadSkillsFromFile(FilePath.SkillFilePath);
-        }
 
         /// <summary>
         /// 文件读取技能
         /// </summary>
         /// <param name="path"></param>
-        private void LoadSkillsFromFile(string path)
+        public void LoadSkillsFromFile(string path)
         {
             path = Application.streamingAssetsPath + "\\"+path;
             var sr=new StreamReader(path);
@@ -999,5 +982,7 @@ namespace Game.Control
         }
 
     }
+    
+    #endregion
     
 }

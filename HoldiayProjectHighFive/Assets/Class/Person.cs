@@ -375,6 +375,8 @@ namespace Game.Control
     [Serializable]
     public class Player : AbstractPerson,IXmlSerializable
     {
+
+    
         #region 玩家专有外显属性
 
         [HideInInspector]
@@ -411,6 +413,56 @@ namespace Game.Control
         public Backpack backpack=new Backpack();
         
         #endregion
+        
+        #region 灵器
+
+        public int MaxSpiritNum;
+
+        private SerializableDictionary<string, AbstractSpiritItem> spiritDic =
+            new SerializableDictionary<string, AbstractSpiritItem>();
+
+
+        public void AddSpirit(string spiritName)
+        {
+            if (spiritDic.Count >= this.MaxSpiritNum)
+            {
+                Debug.Log("无法承载更多灵器");
+                return;
+            }
+            var spirit = AbstractSpiritItem.GetInstance(spiritName);
+            spiritDic.Add(spiritName,spirit);
+            spirit.OnEnable();
+        }
+
+        public void RemoveSpirit(string spiritName)
+        {
+            spiritDic.Remove(spiritName);
+            AbstractSpiritItem.GetInstance(spiritName).OnDisable();
+        }
+        
+        #endregion
+        
+        #region 消耗灵力的强化系统
+
+
+        /// 外界响应灵力释放有两种方式：
+        ///     一种是判断Player.IsSuper属性
+        ///     一种是响应Message.InitSuper和Message.ExitSuper消息
+  
+        public static bool isSuper { get; private set; }
+        public static float superTime = 3;
+        private void TrySuper()
+        {
+            if (Convert.ToSingle(this.Exp) / Convert.ToSingle(this.MaxExp) >= 1 / 3.0f&&!isSuper)
+            {
+                //进入强化状态
+                //可能要UI，动画，特效，移动，各个领域配合
+                CEventCenter.BroadMessage(Message.M_InitSuper);
+                MainLoop.Instance.ExecuteLater(() => { CEventCenter.BroadMessage(Message.M_ExitSuper); }, superTime);
+            }
+        }
+        
+        #endregion
 
         #region BattleEffect
         
@@ -433,11 +485,14 @@ namespace Game.Control
         
         #endregion
 
+        #region 战斗
         public override void DestoryThis()
         {
             base.DestoryThis();
             Debug.Log("主角死了");
         }
+        
+        #endregion
 
         #region Private
 
@@ -490,6 +545,12 @@ namespace Game.Control
             if (Input.GetKeyDown(KeyCode.H))
             {
                 skillDic["H_Skill"].Execute(this);
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightAlt))
+            {
+                TrySuper();
+                
             }
             
             #region 三连击
@@ -566,6 +627,8 @@ namespace Game.Control
         public override void OnAddListener()
         {
             base.OnAddListener();
+            CEventCenter.AddListener(Message.M_InitSuper, InitSuper);
+            CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
             CEventCenter.AddListener<int>(Message.M_ExpChange,OnExpChanged);
             CEventCenter.AddListener<int>(Message.M_LevelUp,OnLevelUp);
             CEventCenter.AddListener<int>(Message.M_DragChange,OnDragChanged);
@@ -574,10 +637,23 @@ namespace Game.Control
         public override void OnRemoveListener()
         {
             base.OnRemoveListener();
+            CEventCenter.RemoveListener(Message.M_InitSuper, InitSuper);
+            CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
             CEventCenter.RemoveListener<int>(Message.M_ExpChange,OnExpChanged);
             CEventCenter.RemoveListener<int>(Message.M_LevelUp,OnLevelUp);
             CEventCenter.RemoveListener<int>(Message.M_DragChange,OnDragChanged);
         }
+
+        void InitSuper()
+        {
+            isSuper = true;
+        }
+
+        void ExitSuper()
+        {
+            isSuper = false;
+        }
+        
 
         /// <summary>
         /// 药引改变
@@ -658,6 +734,9 @@ namespace Game.Control
             this.obj = Object.Instantiate(this.obj, pos, Quaternion.identity);
             reader.ReadEndElement();
 
+            if (this.obj == null)
+                Debug.LogError("主角为空了，干");
+            
             reader.ReadStartElement("Attack");
             this.Attack = (int) intSer.Deserialize(reader);
             reader.ReadEndElement();
@@ -684,7 +763,6 @@ namespace Game.Control
             this.backpack=new Backpack();
             
             CGameObjects.Player = this.obj;
-//            Debug.Log(this.obj);
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc!=null);
             cc = this.obj.GetComponent<CharacterController2D>();
@@ -717,6 +795,7 @@ namespace Game.Control
 
         public void WriteXml(XmlWriter writer)
         {
+            Debug.Log("这真的调用了么");
             var floatSer=new XmlSerializer(typeof(float));
             var intSer=new XmlSerializer(typeof(int));
             var strSer=new XmlSerializer(typeof(string));

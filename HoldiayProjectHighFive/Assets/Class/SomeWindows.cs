@@ -18,7 +18,7 @@ using Game.Script;
 namespace Game.View
 {
     
-    ////////////////////////////////////        IStackPanel      ////////////////////////////////////
+    #region Panels from BasePanel
     
     /// <summary>
     /// 战斗界面Panel
@@ -223,7 +223,7 @@ namespace Game.View
         }
     }
 
-           public class WelcomePanel : MessagePanel
+    public class WelcomePanel : MessagePanel
            {
                public WelcomePanel(string text, string title) : base(text, title)
                {
@@ -250,57 +250,11 @@ namespace Game.View
                }
            }
     
+    #endregion
     
-    //////////////////////////////////          Windows            ///////////////////////////////////////
-    
-//    /// <summary>
-//    /// 提示框
-//    /// </summary>
-//    public class TipWindow : AbstractWindow
-//    {
-//        enum AniType
-//        {
-//            Up,
-//            Down,
-//            Tip
-//        }
-//        string text;
-//        AniType type;
-//
-//        public TipWindow(Item item,Transform parent,Vector3 localPos)
-//        {
-//            text = item.GetToolTips();
-//            type = AniType.Tip;
-//            Create(UIPath.window_ItemTips);
-//            m_TransFrom.SetParent(parent);
-//            m_TransFrom.localPosition = localPos;
-//        }
-//        public TipWindow(string text,float time=1f)
-//        {
-//            this.text = text;
-//            type = AniType.Up;
-//            Create(UIPath.window_Tip);
-//            var ctrl=m_TransFrom.gameObject.AddComponent<Ctrl>();
-//            ctrl.ani = ctrl.GetComponent<Animator>();
-//            ctrl.ani.speed *= time;
-//            ctrl.clipName = "Up";
-//            Show();
-//        }
-//
-//        protected override void InitWindow()
-//        {
-//            switch(type)
-//            {
-//                case AniType.Up:
-//                    m_TransFrom.GetChild(0).GetComponent<Text>().text = text;
-//                    break;
-//                case AniType.Down:
-//                    break;
-//            }
-//        }
-//    }
 
 
+    #region OtherUi form AbstractWindow
     /// <summary>
     /// 伤害数值
     /// </summary>
@@ -400,6 +354,7 @@ namespace Game.View
         }
     }
     
+    #endregion
  
 //    /// <summary>
 //    /// 存储库类

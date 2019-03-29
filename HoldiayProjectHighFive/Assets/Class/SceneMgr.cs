@@ -65,7 +65,7 @@ namespace Game.Modal
                 Game.Global.Flag.isPlaying = true;
                 player = XmlManager.LoadData<Player>(GameData.PlayerDataFilePath);
 //                Debug.Log(player);
-                AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
+                //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
                 CEventCenter.BroadMessage(Message.M_LevelUp,player.rank);
             }
             else
