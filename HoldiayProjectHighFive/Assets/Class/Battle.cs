@@ -815,6 +815,67 @@ namespace Game.Control
             return factoryDic[type].CreateTrigger(args);//skillType,id,startTime,lastTime,args);
         }
         
+        /// <summary>
+        /// AbstractPerson通过技能名从这里获取技能索引
+        /// </summary>
+        public  static SerializableDictionary<string,SkillInstance> skillInstanceDic=new SerializableDictionary<string, SkillInstance>();
+        
+
+        /// <summary>
+        /// 文件读取技能
+        /// </summary>
+        /// <param name="path"></param>
+        public  static void LoadSkillsFromFile(string path)
+        {
+            path = Application.streamingAssetsPath + "\\"+path;
+            var sr=new StreamReader(path);
+            
+            bool bracket = false;
+            SkillInstance skill = null;
+            do 
+            {
+                string line = sr.ReadLine();
+                if (line == null)
+                    break;
+ 
+                line = line.Trim();
+                
+                //注释写法   //注释
+                if (line.StartsWith("//") || line == "")
+                    continue;
+                
+                //解析文件
+                if (line.StartsWith("skill"))//技能行
+                {
+                    //技能行写法  skill|"技能名"
+                    var strs = line.Split('|');
+                    skill = new SkillInstance(strs[1].Trim());
+                    skillInstanceDic.Add(strs[1].Trim(),skill);
+                }
+                else if (line.StartsWith("{"))//开始大括号
+                {
+                    bracket = true;
+                }
+                else if (line.StartsWith("}"))//结束大括号
+                {
+                    bracket = false;
+                }
+                else//触发器块
+                {
+                    //触发器写法   触发器名|开始时间|持续时间|args（以，分隔）    如：AnimationTrigger|0|0.12|BeginAnimation
+                    if (skill != null && bracket == true)
+                    {
+
+                        ISkillTrigger trigger = SkillTriggerMgr.CreateTrigger(line);//strs[0].Trim(), Convert.ToInt32(strs[2].Trim()),Convert.ToSingle(strs[1].Trim()),Convert.ToSingle(strs[3].Trim()),strs[4].Trim());
+                        if (trigger != null)
+                        {
+                            skill.AddTrigger(trigger);
+                        }
+                    }
+                } 
+            } while (true);
+        }
+        
     }
     
     
@@ -914,74 +975,7 @@ namespace Game.Control
         }
     }
 
-    
-    /// <summary>
-    /// 管理所有SkillInstance
-    /// </summary>
-    public  static class SkillSystem
-    {
-        /// <summary>
-        /// AbstractPerson通过技能名从这里获取技能索引
-        /// </summary>
-        public  static SerializableDictionary<string,SkillInstance> skillInstanceDic=new SerializableDictionary<string, SkillInstance>();
-        
-
-        /// <summary>
-        /// 文件读取技能
-        /// </summary>
-        /// <param name="path"></param>
-        public  static void LoadSkillsFromFile(string path)
-        {
-            path = Application.streamingAssetsPath + "\\"+path;
-            var sr=new StreamReader(path);
-            
-            bool bracket = false;
-            SkillInstance skill = null;
-            do 
-            {
-                string line = sr.ReadLine();
-                if (line == null)
-                    break;
- 
-                line = line.Trim();
-                
-                //注释写法   //注释
-                if (line.StartsWith("//") || line == "")
-                    continue;
-                
-                //解析文件
-                if (line.StartsWith("skill"))//技能行
-                {
-                    //技能行写法  skill|"技能名"
-                    var strs = line.Split('|');
-                    skill = new SkillInstance(strs[1].Trim());
-                    skillInstanceDic.Add(strs[1].Trim(),skill);
-                }
-                else if (line.StartsWith("{"))//开始大括号
-                {
-                    bracket = true;
-                }
-                else if (line.StartsWith("}"))//结束大括号
-                {
-                    bracket = false;
-                }
-                else//触发器块
-                {
-                    //触发器写法   触发器名|开始时间|持续时间|args（以，分隔）    如：AnimationTrigger|0|0.12|BeginAnimation
-                    if (skill != null && bracket == true)
-                    {
-
-                        ISkillTrigger trigger = SkillTriggerMgr.CreateTrigger(line);//strs[0].Trim(), Convert.ToInt32(strs[2].Trim()),Convert.ToSingle(strs[1].Trim()),Convert.ToSingle(strs[3].Trim()),strs[4].Trim());
-                        if (trigger != null)
-                        {
-                            skill.AddTrigger(trigger);
-                        }
-                    }
-                } 
-            } while (true);
-        }
-
-    }
+   
     
     #endregion
     

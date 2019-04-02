@@ -126,7 +126,7 @@ namespace Game.Control
         public void AddSkill(string skillName,Func<bool> trigger)
         {
             this.allSkillNames.Add(skillName);
-            this.skillDic.Add(skillName,SkillSystem.skillInstanceDic[skillName]);
+            this.skillDic.Add(skillName,SkillTriggerMgr.skillInstanceDic[skillName]);
             dis.Add(trigger,skillName);
         }
         #endregion
@@ -214,7 +214,7 @@ namespace Game.Control
             //初始化技能
             if(skillTypes!=null)
                 foreach (var str in skillTypes)
-                    skillDic.Add(str,SkillSystem.skillInstanceDic[str]);
+                    skillDic.Add(str,SkillTriggerMgr.skillInstanceDic[str]);
             
             //添加基本攻击效果
             this.OnAttackListRefresh += AddBaseAttackEffects;
@@ -744,7 +744,7 @@ namespace Game.Control
             reader.ReadStartElement("Skills");
             this.allSkillNames = (List<string>) strListSer.Deserialize(reader);
             foreach(var skill in allSkillNames)
-                this.skillDic.Add(skill,SkillSystem.skillInstanceDic[skill]);
+                this.skillDic.Add(skill,SkillTriggerMgr.skillInstanceDic[skill]);
             reader.ReadEndElement();
             
             attackEffects=new List<IBattleEffect>();

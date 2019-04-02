@@ -10,19 +10,19 @@ public class BaseSceneMgr : MonoBehaviour {
 	{
 		if (GlobalFlag.isPlaying == false)
 		{
-			InitOnlyOnce();
+			Register();
 			GlobalFlag.isPlaying = true;
 		}
 
-		InitEachTime();
+		Initializer();
 	}
 
-	protected virtual void InitOnlyOnce()
+	protected virtual void Register()
 	{
 		
 	}
 
-	protected virtual void InitEachTime()
+	protected virtual void Initializer()
 	{
 		
 	}
