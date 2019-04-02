@@ -210,11 +210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79dbdae13dad344fa8b41a373955965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 5
-  _timeToJumpApex: 0.25
+  _runSpeed: 3.8
+  _timeToJumpApex: 0.35
   _accelerationTimeAirborne: 0.1
   _accelerationTimeGrounded: 0.05
-  _maxJumpHeight: 1
+  _maxJumpHeight: 2.4
   _horizontalSpeedMultiplier: 1
   _verticalSpeedMultiplier: 1
   _affectedByGravity: 1
