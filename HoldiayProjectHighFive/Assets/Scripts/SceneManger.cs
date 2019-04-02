@@ -19,10 +19,11 @@ public class SceneManger : BaseSceneMgr
 	List<AbstractPerson> list=new List<AbstractPerson>();
 	//private Player player;
 	public string UiPanelName;
+	public bool creatTestPeople = false;
 
 	void Start()
 	{
-		
+	if(creatTestPeople)	
         CreateTestPeople();
 	}
 	// Use this for initialization
