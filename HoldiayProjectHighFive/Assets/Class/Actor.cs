@@ -13,7 +13,9 @@ public class Actor : MonoBehaviour {
 	
 
 	#endregion
-
+	
+	
+	
 	#region Public Variables
 
 	public bool IsAtCorner
@@ -29,13 +31,13 @@ public class Actor : MonoBehaviour {
 			var initialRayOriginR = _controller._raycastOrigins.bottomRight + new Vector2(_controller.skinWidth,0);
 			RaycastHit2D hit;
 
-			if (_controller.collisionState.right && _normalizedDirX > 0)
+			if (_controller.collisionState.right )
 			{
 				Debug.Log("Right: " + _controller.collisionState.right + "NormalizedX: " + _normalizedDirX);
 				Debug.Log("Right Collision");
 				return true;
 			}
-			if (_controller.collisionState.left && _normalizedDirX < 0)
+			if (_controller.collisionState.left )
 			{
 				Debug.Log("Left Collision");
 				return true;
@@ -99,7 +101,12 @@ public class Actor : MonoBehaviour {
 
 	#region Private Variables
 
-
+	private PatrolType _patrolType;
+	
+	private int _movementMultiplier = 1;
+	
+	private float _movingSpeed;
+	
 	private float _gravity = -25f;
 
 	private float _movementDamping;
@@ -118,14 +125,20 @@ public class Actor : MonoBehaviour {
 
 	#region Struct,Class,Enums..
 
-	
+	public enum PatrolType
+	{
+		SimpleCornerP,
+		PatrolWithDistance,
+		PatrolBetweenDistanceNCorner
+	}
 
 	#endregion
 
 	#region Monobehaviors
 
 	public virtual void Awake()
-	{	
+	{
+		_movingSpeed = _runSpeed;
 		_controller = GetComponent<CharacterController2D>();
 		_animator = GameAnimator.GetInstance(GetComponent<Animator>());
 
@@ -141,7 +154,18 @@ public class Actor : MonoBehaviour {
 		
 		if (_isPatrolling)
 		{
-			Patrol();
+			switch (_patrolType)
+			{
+				case PatrolType.SimpleCornerP:
+					Patrol();
+					break;
+				case PatrolType.PatrolWithDistance:
+					PatrolOneDirInDistance(5.0f);
+					break;
+				case PatrolType.PatrolBetweenDistanceNCorner:
+
+					break;
+			}
 		}
 		
 		CalculateGravityNVelocity();
@@ -189,35 +213,45 @@ public class Actor : MonoBehaviour {
 	#region Public Functions
 
 	//向一个方向一直巡逻，直到遇到碰撞体或者到达边缘，默认开始向右边巡逻
-	public void Patrol(bool isGoingRightAtFirst = true)
+	public void Patrol()
 	{
-		if (isGoingRightAtFirst)
+		if (IsAtCorner)
 		{
-			if (_normalizedDirX > 0)
-			{
-				if (!IsAtCorner)
-               	{
-               		_velocity.x = _runSpeed;
-               	}
-               	else
-               	{
-               		Debug.Log("At corner");
-               		_velocity.x = -_runSpeed;
-               	}
-			}
+			Debug.Log("Hit Corner");
+			_movementMultiplier = -_movementMultiplier;
 		}
+		_velocity.x = _runSpeed * _movementMultiplier;
+	}
+
+
+	private float _distanceCounter = 0;
+	public void PatrolOneDirInDistance( float Distance,bool IsGoingRight = true)
+	{
 		
-		else//一开始向左
+		_distanceCounter += Mathf.Abs(_runSpeed) * Time.deltaTime;
+		
+		if (IsAtCorner)
 		{
-			if (!IsAtCorner)
-			{
-				_velocity.x= -_runSpeed;
-			}
-			else
-			{
-				_velocity.x = _runSpeed;
-			}
+			Debug.Log("Hit Corner");
+			_movementMultiplier = -_movementMultiplier;
 		}
+		_velocity.x = _runSpeed * _movementMultiplier;
+		
+		if (_distanceCounter >= Distance)
+		{
+			_distanceCounter = 0;
+			//结束巡逻
+			_isPatrolling = false;
+		}
+	}
+
+	public void BetweenDistancePatrol(float distance)
+	{
+		
+		
+		
+		
+		
 	}
 	
 	
@@ -244,6 +278,12 @@ public class Actor : MonoBehaviour {
 
 	#region Private Functions
 
+
+	private void ReverseXSpeed()
+	{
+		this._velocity.x = -this._velocity.x;
+	}
+	
 	private void CheckCollisions()
 	{
 		if ((_controller.collisionState.below || _controller.collisionState.above) &&
