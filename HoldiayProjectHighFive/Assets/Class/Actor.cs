@@ -16,6 +16,54 @@ public class Actor : MonoBehaviour {
 
 	#region Public Variables
 
+	public bool IsAtCorner
+	{
+		//判断到达边角的条件：横向射线和竖向射线
+		get
+		{
+			//横向射线检测
+			//var rayDistance = Mathf.Abs( .deltaMovement.x ) + skinWidth;
+			var rayDistance = 2 * _controller.skinWidth;
+			var rayDirectionDownWard = Vector2.down;
+			var initialRayOriginL = _controller._raycastOrigins.bottomLeft - new Vector2(_controller.skinWidth,0);
+			var initialRayOriginR = _controller._raycastOrigins.bottomRight + new Vector2(_controller.skinWidth,0);
+			RaycastHit2D hit;
+
+			if (_controller.collisionState.right && _normalizedDirX > 0)
+			{
+				Debug.Log("Right: " + _controller.collisionState.right + "NormalizedX: " + _normalizedDirX);
+				Debug.Log("Right Collision");
+				return true;
+			}
+			if (_controller.collisionState.left && _normalizedDirX < 0)
+			{
+				Debug.Log("Left Collision");
+				return true;
+			}
+			
+			//竖向射线检测
+			//向右走
+			if (_velocity.x > 0)
+			{
+				hit = Physics2D.Raycast(initialRayOriginR, rayDirectionDownWard, rayDistance ,_controller.platformMask &~ _controller.oneWayPlatformMask);
+			}
+			else 
+			{
+				hit = Physics2D.Raycast(initialRayOriginL, rayDirectionDownWard, rayDistance,_controller.platformMask &~ _controller.oneWayPlatformMask);
+			}
+
+			if (!hit)
+			{
+				Debug.Log("Down Below no collision");
+				return true;
+			}
+//			
+			return false;
+		}
+	}
+
+	public bool _isPatrolling = false;
+	
 	public float _runSpeed = 8f;
 	public float _timeToJumpApex = .4f;
 	public float _accelerationTimeAirborne = .2f;
@@ -77,7 +125,7 @@ public class Actor : MonoBehaviour {
 	#region Monobehaviors
 
 	public virtual void Awake()
-	{
+	{	
 		_controller = GetComponent<CharacterController2D>();
 		_animator = GameAnimator.GetInstance(GetComponent<Animator>());
 
@@ -90,6 +138,12 @@ public class Actor : MonoBehaviour {
 
 	public virtual void Update () 
 	{
+		
+		if (_isPatrolling)
+		{
+			Patrol();
+		}
+		
 		CalculateGravityNVelocity();
 		
 		CalculateVelocity();
@@ -99,6 +153,7 @@ public class Actor : MonoBehaviour {
 		CheckCollisions();
 		
 		AnimFaceDirControl();
+		
 	}	
 
 	#endregion
@@ -133,6 +188,39 @@ public class Actor : MonoBehaviour {
 
 	#region Public Functions
 
+	//向一个方向一直巡逻，直到遇到碰撞体或者到达边缘，默认开始向右边巡逻
+	public void Patrol(bool isGoingRightAtFirst = true)
+	{
+		if (isGoingRightAtFirst)
+		{
+			if (_normalizedDirX > 0)
+			{
+				if (!IsAtCorner)
+               	{
+               		_velocity.x = _runSpeed;
+               	}
+               	else
+               	{
+               		Debug.Log("At corner");
+               		_velocity.x = -_runSpeed;
+               	}
+			}
+		}
+		
+		else//一开始向左
+		{
+			if (!IsAtCorner)
+			{
+				_velocity.x= -_runSpeed;
+			}
+			else
+			{
+				_velocity.x = _runSpeed;
+			}
+		}
+	}
+	
+	
 	public void MoveTo()
 	{
 		

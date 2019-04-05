@@ -74,7 +74,7 @@ public class CharacterController2D : RayCastController2D
 	/// updated anytime outside of the inspector for now.
 	/// </summary>
 	[SerializeField]
-	LayerMask oneWayPlatformMask = 0;
+	public LayerMask oneWayPlatformMask = 0;
 
 	/// <summary>
 	/// the max slope angle that the CC2D can climb

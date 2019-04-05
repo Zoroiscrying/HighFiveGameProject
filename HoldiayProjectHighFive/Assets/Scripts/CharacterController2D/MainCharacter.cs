@@ -76,14 +76,15 @@ public class MainCharacter : Actor
 		{
 			Idle,
 			Run,
-			Jump,
+		//	Jump,
 			DoubleJump,
 			WallSliding,
 			Dashing,
 			FallingThroughPlatform,
 			ClimbingWall,
 			WallJump,
-			Fall
+			Fall,
+			InAir
 		}
 
 	#endregion
@@ -106,20 +107,15 @@ public class MainCharacter : Actor
 		//Variables
 		
 		//standingOnPlatform
-		
+		CheckIsInAir();
 		
 		WallSlide();
 		
-		ResetJumpPoint();		
+		ResetJumpPoint();
 		
 		GetPlayerInput();
 		
 		BasicStateCheck();
-
-	}
-
-	private void LateUpdate()
-	{
 
 	}
 
@@ -160,10 +156,19 @@ public class MainCharacter : Actor
 
 	#region Private Functions
 
-
+	private void CheckIsInAir()
+	{
+		//在空中玩家只能施展二段跳
+		if (!_controller.isGrounded && _stateMachine.State != PlayerStates.DoubleJump
+		    && _stateMachine.State != PlayerStates.WallSliding&& _stateMachine.State != PlayerStates.WallJump)
+		{
+			_stateMachine.ChangeState(PlayerStates.InAir);
+		}
+	}
+	
 	private void ResetJumpPoint()
 	{
-		if (_controller.isGrounded )
+		if (_controller.isGrounded)
 		{
 			_canJump = _jumpPoint;
 		}
@@ -171,9 +176,10 @@ public class MainCharacter : Actor
 
 	private void BasicStateCheck()
 	{
-		//Idle
+		//Idle & run
 		if (_controller.isGrounded  && (_stateMachine.State == PlayerStates.Run ||
-		   _stateMachine.State == PlayerStates.Jump || _stateMachine.State == PlayerStates.DoubleJump||
+		   //_stateMachine.State == PlayerStates.Jump || 
+		                                _stateMachine.State == PlayerStates.DoubleJump||
 		   _stateMachine.State == PlayerStates.WallSliding || _stateMachine.State == PlayerStates.WallJump || 
 		                                                           _stateMachine.State == PlayerStates.Fall))//注意，是玩家没有输入左右键判断不是通过速度判断
 		{
@@ -189,30 +195,28 @@ public class MainCharacter : Actor
 			}
 		}
 		
-
-		
 		//Jump
 		if (!_controller.isGrounded &&
 		    (_stateMachine.State == PlayerStates.Idle || _stateMachine.State == PlayerStates.Run))
 		{
-			_stateMachine.ChangeState(PlayerStates.Jump);
+			_stateMachine.ChangeState(PlayerStates.InAir);
 		}
 		
 	}
 
+	//press down space btn
 	private void Jump()
 	{
-		if (_canJump > 1)
+		if (_stateMachine.State == PlayerStates.InAir)
 		{
-			//Debug.Log("Double Jump.");
-			_stateMachine.ChangeState(PlayerStates.Jump);
+			_stateMachine.ChangeState(PlayerStates.DoubleJump);
 			_velocity.y = _maxJumpVelocity;
-			_canJump--;
+			_canJump = _jumpPoint - 1;
 		}
-		else if (_canJump == 1)
+		else if (_canJump >= 1)
 		{
 			//Debug.Log("Normal Jump.");
-			_stateMachine.ChangeState(PlayerStates.Jump);
+			_stateMachine.ChangeState(PlayerStates.InAir);
 			_velocity.y = _maxJumpVelocity;
 			_canJump--;
 		}
@@ -221,13 +225,16 @@ public class MainCharacter : Actor
 
 	private void WallJump()
 	{
-		if (_controller.IfNearWall(_velocity)!=0 && (_stateMachine.State == PlayerStates.Jump ||
-		_stateMachine.State == PlayerStates.DoubleJump || _stateMachine.State == PlayerStates.WallSliding) )
+		if (_controller.IfNearWall(_velocity)!=0 && (
+			  //  _stateMachine.State == PlayerStates.Jump ||
+		_stateMachine.State == PlayerStates.DoubleJump || _stateMachine.State == PlayerStates.WallSliding
+		                                             || _stateMachine.State == PlayerStates.InAir) )
 		{
 			_wallDirX = _controller.IfNearWall(_velocity);
 			_stateMachine.ChangeState(PlayerStates.WallJump);
 			if ((_controller.collisionState.right && _wallDirX == 1)||(_controller.collisionState.left&&_wallDirX == -1))
-			{//参考蔚蓝的蹬墙跳设计，如果玩家按键朝向墙，则蹬墙跳力气更大一些
+			{
+				//参考蔚蓝的蹬墙跳设计，如果玩家按键朝向墙，则蹬墙跳力气更大一些
 				_velocity.y = _wallJumpClimb.y;
 				_velocity.x = _wallJumpClimb.x * -_wallDirX;
 				return;
@@ -253,7 +260,10 @@ public class MainCharacter : Actor
 			_wallDirX = 0;
 		}
 
-		if ((_stateMachine.State == PlayerStates.Jump || _stateMachine.State == PlayerStates.DoubleJump)&&
+		if ((
+			 //   _stateMachine.State == PlayerStates.Jump ||
+		     _stateMachine.State == PlayerStates.DoubleJump
+		     || _stateMachine.State == PlayerStates.InAir)&&
 		    ((_controller.collisionState.right && _directionalInput.x > 0) ||
 		     ( _controller.collisionState.left&& _directionalInput.x < 0))&& _velocity.y <=0)
 		{
@@ -278,8 +288,17 @@ public class MainCharacter : Actor
 
 			if (Input.GetKeyDown(KeyCode.Space) && _stateMachine.State != PlayerStates.DoubleJump)
 			{
-				WallJump();
-				Jump();
+				//看是否在滑墙，如果在滑墙则玩家要进行蹬墙跳
+				if (_stateMachine.State == PlayerStates.WallSliding )
+				{
+					WallJump();
+				}
+				//如果没有滑墙，就是基本的跳跃
+				else
+				{
+					Jump();
+				}
+				
 			}
 
 			if (Input.GetKeyUp(KeyCode.Space))
@@ -328,20 +347,80 @@ public class MainCharacter : Actor
 		}
 
 		#endregion
-
-		#region JumpState
-
-		private void Jump_Enter()
-		{
-			_animator.Play(Animator.StringToHash("Jump"));
-			_controller.collisionState.below = false;
-		}
 	
-		private void Jump_Update()
+//      Forget Jump State..
+//		#region JumpState
+//
+//		private void Jump_Enter()
+//		{
+//			_animator.Play(Animator.StringToHash("Jump"));
+//			_controller.collisionState.below = false;
+//		}
+//	
+//		private void Jump_Update()
+//		{
+//			if (_playerVelocityY < -_maxDownYSpeed)
+//			{
+//				_playerVelocityY = -_maxDownYSpeed;
+//			}
+//			
+//			if (_controller.isGrounded)
+//			{
+//				ResetJumpPoint();
+//			}
+//
+//			//处理高低跳
+//			if (!Input.GetKeyUp(KeyCode.Space)) return;
+//			
+//			if (_playerVelocityY > _minJumpVelocity)
+//			{
+//				_playerVelocityY = _minJumpVelocity;
+//			}
+//		}
+//	
+//		private void Jump_Exit()
+//		{
+//			//Debug.Log("Jump Exit");
+//		}
+//
+//		#endregion
+	
+	//forget this state
+//		#region FallState
+//		
+//		private void Fall_Enter()
+//		{
+//			_animator.Play(Animator.StringToHash("Jump"));
+//		}
+//		
+//		private void Fall_Update()
+//		{
+//			
+//		}
+//		
+//		private void Fall_Exit()
+//		{
+//				
+//		}
+//		
+//		#endregion
+//		
+	
+		#region InAirState
+			
+		private void InAir_Enter()
 		{
-			if (_playerVelocityY < 0)
+			Debug.Log("In air");
+			//如果在空中，则自动认为主角已经失去一次跳跃机会
+			_animator.Play(Animator.StringToHash("Jump"));
+			_canJump = _jumpPoint - 1;
+		}
+			
+		private void InAir_Update()
+		{
+			if (_playerVelocityY < -_maxDownYSpeed)
 			{
-				_stateMachine.ChangeState(PlayerStates.Fall);
+				_playerVelocityY = -_maxDownYSpeed;
 			}
 			
 			if (_controller.isGrounded)
@@ -349,52 +428,21 @@ public class MainCharacter : Actor
 				ResetJumpPoint();
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				//_stateMachine.ChangeState(PlayerStates.DoubleJump);
-			}
-
+			//处理高低跳
 			if (!Input.GetKeyUp(KeyCode.Space)) return;
 			
 			if (_playerVelocityY > _minJumpVelocity)
 			{
 				_playerVelocityY = _minJumpVelocity;
 			}
-		}
-	
-		private void Jump_Exit()
-		{
-			//Debug.Log("Jump Exit");
-		}
-
-		#endregion
-	
-		#region FallState
-		
-		private void Fall_Enter()
-		{
-			_animator.Play(Animator.StringToHash("Jump"));
-		}
-		
-		private void Fall_Update()
-		{
-			if (_controller.isGrounded)
-			{
-				ResetJumpPoint();
-			}
-
-			if (_playerVelocityY < -_maxDownYSpeed)
-			{
-				_playerVelocityY = -_maxDownYSpeed;
-			}
-			
-		}
-		
-		private void Fall_Exit()
-		{
 				
 		}
-		
+			
+		private void InAir_Exit()
+		{
+					
+		}
+			
 		#endregion
 		
 		#region RunState
@@ -469,11 +517,28 @@ public class MainCharacter : Actor
 		private void DoubleJump_Enter()
 		{
 			//Debug.Log("DoubleJump Enter");
+			_animator.Play(Animator.StringToHash("Jump"));
 		}
 	
 		private void DoubleJump_Update()
 		{
+			if (_playerVelocityY < -_maxDownYSpeed)
+			{
+				_playerVelocityY = -_maxDownYSpeed;
+			}
 			
+			if (_controller.isGrounded)
+			{
+				ResetJumpPoint();
+			}
+
+			//处理高低跳
+			if (!Input.GetKeyUp(KeyCode.Space)) return;
+			
+			if (_playerVelocityY > _minJumpVelocity)
+			{
+				_playerVelocityY = _minJumpVelocity;
+			}
 		}
 	
 		private void DoubleJump_Exit()
@@ -484,26 +549,41 @@ public class MainCharacter : Actor
 		#endregion
 
 		#region WallSlidingState
+	
 		private float WallSlidingTimer= 0f;
+		//一个计时器来判断玩家是否离开蹬墙跳状态
+		private float WallStickTime = 0.1f;
+	
 		private void WallSliding_Enter()
 		{
 			//Debug.Log("WallSliding.");
-			
-			
+			WallSlidingTimer = 0.0f;
 		}
 		
 		private void WallSliding_Update()
 		{
-			WallSlidingTimer += Time.deltaTime;
+			//WallSlidingTimer += Time.deltaTime;
 
+			//Debug.Log(_directionalInput.x * _wallDirX);			
+			
 			if (_velocity.y < -_wallSlideVelocity)
 			{
 				_velocity.y = -_wallSlideVelocity;
 			}
 
-			if (_directionalInput.x * _wallDirX <= 0 || !_wallSliding)
+			//如果玩家持续反方向按下按键或者不按键到达一定时间，则判断玩家脱离墙体
+			if ((_directionalInput.x * _wallDirX) <= 0)
+			    //|| !_wallSliding)
 			{
-				_stateMachine.ChangeState(PlayerStates.Jump);
+				if (WallSlidingTimer > WallStickTime)
+				{
+					Debug.LogError("Go");
+					_stateMachine.ChangeState(PlayerStates.InAir);
+				}
+
+				WallSlidingTimer += Time.deltaTime;
+				//Debug.LogError("Sticking");
+				_directionalInput.x = 0;
 			}
 			
 			if (_controller.isGrounded)
@@ -516,6 +596,7 @@ public class MainCharacter : Actor
 		private void WallSliding_Exit()
 		{
 			WallSlidingTimer = 0f;
+			
 		}
 	
 		#endregion
@@ -526,7 +607,7 @@ public class MainCharacter : Actor
 	
 		private void WallJump_Enter()
 		{
-			//Debug.Log("Wall Jump");
+			Debug.Log("Wall Jump");
 			_animator.Play(Animator.StringToHash("Jump"));
 			WallJumpTimer = _wallJumpTime;
 			_inControl = false;
@@ -541,7 +622,7 @@ public class MainCharacter : Actor
 			else
 			{
 				_inControl = true;
-				_stateMachine.ChangeState(PlayerStates.Jump);
+				_stateMachine.ChangeState(PlayerStates.InAir);
 			}
 			
 			if (_controller.isGrounded)
