@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 using zoroiscrying;
 
 [RequireComponent(typeof(CharacterController2D),typeof(Animator))]
@@ -18,58 +19,68 @@ public class Actor : MonoBehaviour {
 	
 	#region Public Variables
 
+	public float PatrolStopTime = 1.0f;
+	public float JumpStopTime = 1.0f;
+	
 	public bool IsAtCorner
 	{
 		//判断到达边角的条件：横向射线和竖向射线
 		get
 		{
-			//横向射线检测
-			//var rayDistance = Mathf.Abs( .deltaMovement.x ) + skinWidth;
-			var rayDistance = 2 * _controller.skinWidth;
-			var rayDirectionDownWard = Vector2.down;
-			var initialRayOriginL = _controller._raycastOrigins.bottomLeft - new Vector2(_controller.skinWidth,0);
-			var initialRayOriginR = _controller._raycastOrigins.bottomRight + new Vector2(_controller.skinWidth,0);
-			RaycastHit2D hit;
-
-			if (_controller.collisionState.right )
+			//速度足够大，才进行边缘检测
+			if (Mathf.Abs(_velocity.x) - 0.1f >= 0)
 			{
-				Debug.Log("Right: " + _controller.collisionState.right + "NormalizedX: " + _normalizedDirX);
-				Debug.Log("Right Collision");
-				return true;
+				//横向射线检测
+				var rayDistance = 2 * _controller.skinWidth;
+				var rayDirectionDownWard = Vector2.down;
+				var initialRayOriginL = _controller._raycastOrigins.bottomLeft - new Vector2(_controller.skinWidth,0);
+				var initialRayOriginR = _controller._raycastOrigins.bottomRight + new Vector2(_controller.skinWidth,0);
+				RaycastHit2D hit;
+	
+				if (_controller.collisionState.right )
+				{
+					Debug.Log("Right: " + _controller.collisionState.right + "NormalizedX: " + _normalizedDirX);
+					Debug.Log("Right Collision");
+					return true;
+				}
+				if (_controller.collisionState.left )
+				{
+					Debug.Log("Left Collision");
+					return true;
+				}
+				
+				//竖向射线检测
+				//向右走
+				if (_velocity.x > 0)
+				{
+					hit = Physics2D.Raycast(initialRayOriginR, rayDirectionDownWard, rayDistance ,_controller.platformMask &~ _controller.oneWayPlatformMask);
+				}
+				else 
+				{
+					hit = Physics2D.Raycast(initialRayOriginL, rayDirectionDownWard, rayDistance,_controller.platformMask &~ _controller.oneWayPlatformMask);
+				}
+	
+				if (!hit)
+				{
+					Debug.Log("Down Below no collision");
+					return true;
+				}
 			}
-			if (_controller.collisionState.left )
-			{
-				Debug.Log("Left Collision");
-				return true;
-			}
-			
-			//竖向射线检测
-			//向右走
-			if (_velocity.x > 0)
-			{
-				hit = Physics2D.Raycast(initialRayOriginR, rayDirectionDownWard, rayDistance ,_controller.platformMask &~ _controller.oneWayPlatformMask);
-			}
-			else 
-			{
-				hit = Physics2D.Raycast(initialRayOriginL, rayDirectionDownWard, rayDistance,_controller.platformMask &~ _controller.oneWayPlatformMask);
-			}
-
-			if (!hit)
-			{
-				Debug.Log("Down Below no collision");
-				return true;
-			}
-//			
 			return false;
 		}
 	}
 
+	public Vector2 JumpForce = Vector2.right;
+	public bool AutoJump = false;
+	
 	public bool _isPatrolling = false;
+	
+	[FormerlySerializedAs("_patrolType")] public PatrolType ActorPatrolType;
 	
 	public float _runSpeed = 8f;
 	public float _timeToJumpApex = .4f;
 	public float _accelerationTimeAirborne = .2f;
-	public float _accelerationTimeGrounded = .1f;
+	public float _accelerationTimeGrounded = .0f;
 	public float _maxJumpHeight = 1f;
 
 	public float _horizontalSpeedMultiplier = 1f;
@@ -78,6 +89,7 @@ public class Actor : MonoBehaviour {
 	public bool _affectedByGravity = true;
 
 	public GameAnimator _animator;
+	
 	public int _normalizedDirX
 	{
 		get
@@ -96,16 +108,14 @@ public class Actor : MonoBehaviour {
 	}
 
 	public int _faceDir = 1;
+
+	public JumpType ActorJumpType = JumpType.SimpleJump;
 	
 	#endregion
 
 	#region Private Variables
-
-	private PatrolType _patrolType;
 	
 	private int _movementMultiplier = 1;
-	
-	private float _movingSpeed;
 	
 	private float _gravity = -25f;
 
@@ -132,13 +142,21 @@ public class Actor : MonoBehaviour {
 		PatrolBetweenDistanceNCorner
 	}
 
+	public enum JumpType
+	{
+		SimpleJump,
+		AlwaysJump,
+		VerticalJumpWithTime
+	}
+
 	#endregion
 
 	#region Monobehaviors
 
 	public virtual void Awake()
 	{
-		_movingSpeed = _runSpeed;
+		_jumpStopTimer = JumpStopTime;
+		_patrolStopTimer = PatrolStopTime;
 		_controller = GetComponent<CharacterController2D>();
 		_animator = GameAnimator.GetInstance(GetComponent<Animator>());
 
@@ -151,19 +169,35 @@ public class Actor : MonoBehaviour {
 
 	public virtual void Update () 
 	{
-		
-		if (_isPatrolling)
+
+		if (AutoJump)
 		{
-			switch (_patrolType)
+			switch (ActorJumpType)
+			{
+				case JumpType.SimpleJump:
+					JumpSeveralTimes(JumpForce,2);
+					break;
+				case JumpType.AlwaysJump:
+					JumpAllTheTime(JumpForce);
+					break;
+				case JumpType.VerticalJumpWithTime:
+					
+					break;
+			}
+		}
+		
+		if (_isPatrolling && this._controller.isGrounded)
+		{
+			switch (ActorPatrolType)
 			{
 				case PatrolType.SimpleCornerP:
 					Patrol();
 					break;
 				case PatrolType.PatrolWithDistance:
-					PatrolOneDirInDistance(5.0f);
+					PatrolOneDirInDistance(2.0f);
 					break;
 				case PatrolType.PatrolBetweenDistanceNCorner:
-
+					BetweenDistancePatrol(2.0f);
 					break;
 			}
 		}
@@ -212,32 +246,46 @@ public class Actor : MonoBehaviour {
 
 	#region Public Functions
 
+	#region Patroling Methods
 	//向一个方向一直巡逻，直到遇到碰撞体或者到达边缘，默认开始向右边巡逻
+	private float _patrolStopTimer;
 	public void Patrol()
 	{
+		//到达边角后，开启计时器（增加计时器），计时器到点，继续前进
 		if (IsAtCorner)
 		{
-			Debug.Log("Hit Corner");
+			//开启计时器
+			_patrolStopTimer = 0.0f;
 			_movementMultiplier = -_movementMultiplier;
+			Debug.Log("Hit Corner");
 		}
-		_velocity.x = _runSpeed * _movementMultiplier;
+
+		if (_patrolStopTimer < PatrolStopTime)
+		{
+			_velocity.x = 0;
+			_patrolStopTimer += Time.deltaTime;
+		}
+		else
+		{
+			_velocity.x = Mathf.Abs(_runSpeed) * _movementMultiplier;			
+		}
+		
 	}
 
 
 	private float _distanceCounter = 0;
-	public void PatrolOneDirInDistance( float Distance,bool IsGoingRight = true)
+	public void PatrolOneDirInDistance( float distance,bool isGoingRight = true)
 	{
 		
 		_distanceCounter += Mathf.Abs(_runSpeed) * Time.deltaTime;
 		
 		if (IsAtCorner)
 		{
-			Debug.Log("Hit Corner");
 			_movementMultiplier = -_movementMultiplier;
 		}
 		_velocity.x = _runSpeed * _movementMultiplier;
 		
-		if (_distanceCounter >= Distance)
+		if (_distanceCounter >= distance)
 		{
 			_distanceCounter = 0;
 			//结束巡逻
@@ -247,18 +295,108 @@ public class Actor : MonoBehaviour {
 
 	public void BetweenDistancePatrol(float distance)
 	{
+		_distanceCounter += Mathf.Abs(_runSpeed) * Time.deltaTime;
 		
+		if (IsAtCorner)
+		{
+			_movementMultiplier = -_movementMultiplier;
+		}
+		_velocity.x = _runSpeed * _movementMultiplier;
 		
-		
-		
+		if (_distanceCounter >= distance)
+		{
+			//改变巡逻方向
+			_movementMultiplier = -_movementMultiplier;
+			_distanceCounter = 0;//重新开始计算距离
+			
+		}
 		
 	}
 	
+
+	#endregion
+
+	#region Jumping Methods
 	
-	public void MoveTo()
+	private float _jumpStopTimer = 0.0f;
+	
+	public void Jump(Vector2 jumpForce)
+	{
+		if (_controller.isGrounded)
+		{
+			_velocity.x = jumpForce.x;
+            _velocity.y = jumpForce.y;
+            AutoJump = false;
+		}
+		else
+		{
+			_velocity.x = jumpForce.x;
+		}
+	}
+	
+	private int timeCounter = 0;
+	
+	public void JumpSeveralTimes(Vector2 jumpForce, int howManyTimes = 1)
+	{
+		if (_jumpStopTimer <= JumpStopTime && _controller.isGrounded)
+		{
+			_jumpStopTimer += Time.deltaTime;
+			return;
+		}
+		
+		//正常跳跃
+		if (timeCounter < howManyTimes)
+		{
+			if (_controller.isGrounded)
+			{
+				_velocity.x = jumpForce.x;
+				_velocity.y = jumpForce.y;
+				timeCounter++;
+				_jumpStopTimer = 0.0f;
+			}
+			else
+			{
+				_velocity.x = jumpForce.x;
+			}			
+		}
+		else
+		{
+			//落地前不撤掉力
+			if (!_controller.isGrounded)
+			{
+				_velocity.x = jumpForce.x;
+			}
+			//落地后撤力，并停止跳跃
+			else
+			{
+				//_velocity.x = _velocity.y = 0;
+				timeCounter = 0;
+				AutoJump = false;
+			}
+		}
+	}
+
+	public void JumpAllTheTime(Vector2 jumpForce)
+	{
+		if (_controller.isGrounded)
+		{
+			_velocity.x = jumpForce.x;
+            _velocity.y = jumpForce.y;
+		}
+		else
+		{
+			_velocity.x = jumpForce.x;
+		}
+	}
+
+	public void JumpWithTime(Vector2 jumpForce, float time)
 	{
 		
 	}
+	
+	#endregion
+
+	
 	
 	public virtual void CalculateGravityNVelocity()
 		{
@@ -330,6 +468,10 @@ public class Actor : MonoBehaviour {
 		}
 	}
 	#endregion
-	
+
+	#region Enumerators
+
+
+	#endregion
 
 }

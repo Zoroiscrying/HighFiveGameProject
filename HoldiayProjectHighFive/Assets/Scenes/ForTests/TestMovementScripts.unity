@@ -213,7 +213,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9634daa531193744da846bce2823335e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PatrolStopTime: 1
+  JumpStopTime: 1
+  JumpForce: {x: 1, y: 0}
+  AutoJump: 0
   _isPatrolling: 0
+  ActorPatrolType: 1
   _runSpeed: 8
   _timeToJumpApex: 0.4
   _accelerationTimeAirborne: 0.2
@@ -223,6 +228,7 @@ MonoBehaviour:
   _verticalSpeedMultiplier: 1
   _affectedByGravity: 1
   _faceDir: 1
+  ActorJumpType: 0
   _velocity: {x: 0, y: 0, z: 0}
 --- !u!95 &634878939
 Animator:
