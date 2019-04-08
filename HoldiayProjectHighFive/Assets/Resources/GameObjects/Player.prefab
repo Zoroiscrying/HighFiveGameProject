@@ -30,7 +30,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1418939303332012
 GameObject:
-  m_ObjectHideFlags: 3
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -69,7 +69,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4284424701488618
 Transform:
-  m_ObjectHideFlags: 3
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1418939303332012}
@@ -88,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 1597255121037888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -16.050455, y: -2.0954878, z: -1}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4950564322675854}
   m_Father: {fileID: 0}
@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200187933903078}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.07350004, z: -20}
+  m_LocalPosition: {x: 0, y: -0.14700007, z: -20}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 1}
   m_Children:
   - {fileID: 4284424701488618}
@@ -210,31 +210,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79dbdae13dad344fa8b41a373955965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPatrolling: 0
-  _runSpeed: 3.8
+  _runSpeed: 4.1
   _timeToJumpApex: 0.35
   _accelerationTimeAirborne: 0.1
   _accelerationTimeGrounded: 0.05
-  _maxJumpHeight: 2.4
+  _maxJumpHeight: 2.5
   _horizontalSpeedMultiplier: 1
   _verticalSpeedMultiplier: 1
   _affectedByGravity: 1
   _faceDir: 1
   _velocity: {x: 0, y: 0, z: 0}
   _maxUpYSpeed: 999
-  _maxDownYSpeed: 15
+  _maxDownYSpeed: 9
   _wallSlideVelocity: 2
   _dashTime: 0.2
-  _dashDistance: 1.8
+  _dashDistance: 2
   _minJumpHeight: 0.1
   _wallJumpTime: 0.05
-  _wallJumpClimb: {x: 10, y: 15}
-  _wallJumpNormal: {x: 5, y: 15}
+  _wallJumpClimb: {x: 5, y: 6}
+  _wallJumpNormal: {x: 0, y: 0}
   _canJump: 1
   _inControl: 1
 --- !u!114 &114437086469294702
 MonoBehaviour:
-  m_ObjectHideFlags: 3
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1418939303332012}
@@ -263,7 +262,7 @@ MonoBehaviour:
   m_Follow: {fileID: 4530410664949578}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 7
+    OrthographicSize: 3.5
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -286,7 +285,7 @@ MonoBehaviour:
   m_Damping: 0
 --- !u!114 &114773608422724378
 MonoBehaviour:
-  m_ObjectHideFlags: 3
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1418939303332012}
