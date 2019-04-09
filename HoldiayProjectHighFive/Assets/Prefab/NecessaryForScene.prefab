@@ -437,7 +437,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 6.8
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UiPanelName: 
+  creatTestPeople: 0
 --- !u!114 &114347504714485936
 MonoBehaviour:
   m_ObjectHideFlags: 1
