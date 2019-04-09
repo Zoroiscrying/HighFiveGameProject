@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Game.Control;
-using Game.Modal;
 using UnityEngine.Assertions;
-
+using Game.Control.Person;
 
 public class BackGroundController : MonoBehaviour
 {
