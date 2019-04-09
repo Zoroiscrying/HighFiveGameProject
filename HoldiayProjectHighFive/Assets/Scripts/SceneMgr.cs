@@ -18,7 +18,7 @@ using Game.Control.SkillSystem;
 using Game.Model.SpiritItems;
 using Game.View.Panels;
 
-public class SceneManger : BaseSceneMgr
+public class SceneMgr : BaseSceneMgr
 {
 
 	List<AbstractPerson> list=new List<AbstractPerson>();

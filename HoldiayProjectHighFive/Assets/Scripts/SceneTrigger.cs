@@ -7,7 +7,7 @@ using Game.Control.Person;
 using Game.Model.Scenes;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 
 public class SceneTrigger : MonoBehaviour
 {
@@ -20,7 +20,8 @@ public class SceneTrigger : MonoBehaviour
 		if (null == AbstractPerson.GetInstance<Player>(col.gameObject))
 			return;
 		Game.Const.DefaultData.PlayerPos = this.newPosition;
-		SceneMgr.Instance.LoadScene(this.newSceneName);
+        //SceneMgr.Instance.LoadScene(this.newSceneName);
+        SceneManager.LoadScene(this.newSceneName);
 	}
 	
 	
