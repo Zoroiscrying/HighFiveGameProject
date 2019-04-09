@@ -4,7 +4,6 @@ using Game;
 using Game.Const;
 using Game.Control;
 using Game.Global;
-using Game.Modal;
 using Game.Script;
 using Game.Serialization;
 using Game.View;
@@ -12,6 +11,12 @@ using UnityEngine;
 using Mono.Data.Sqlite;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using Game.Model;
+using Game.Control.Person;
+using Game.Const;
+using Game.Control.SkillSystem;
+using Game.Model.SpiritItems;
+using Game.View.Panels;
 
 public class SceneManger : BaseSceneMgr
 {
@@ -53,7 +58,7 @@ public class SceneManger : BaseSceneMgr
 
 		if (Input.GetKeyDown(KeyCode.S))
 		{
-			XmlManager.SaveData(GlobalVar.Player,GameData.PlayerDataFilePath);
+			XmlManager.SaveData(GlobalVar.Player,DefaultData.PlayerDataFilePath);
 			AssetDatabase.Refresh();
 		}
 	}	
@@ -91,7 +96,7 @@ public class SceneManger : BaseSceneMgr
 	/// </summary>
 	void RegisterSpiritItem()
 	{
-		AbstractSpiritItem.RegisterSpiritItem<ShitSpirit>(SpiritName.C_First);
+		AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_First);
 	}
 
 	/// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.Script;
 using Game.View;
+using Game.View.Panels;
 using UnityEngine;
 
 public class GameInitializer : MonoBehaviour {
