@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game;
+using Game.Const;
 using Game.Control;
 using Game.Global;
 using UnityEngine;
@@ -9,6 +11,7 @@ using Game.StateMachine;
 public class MainCharacter : Actor 
 {
 
+	
 	
 	#region Consts
 
@@ -22,6 +25,14 @@ public class MainCharacter : Actor
 	public float _maxUpYSpeed = 999.0f;
 	//下降时的最大速度
 	public float _maxDownYSpeed = 9.0f;
+	
+	//原有基础上增加的速度
+	public float AccelerationSpeed = 2.0f;
+
+	public float AccelerationTime = 3.0f;
+	
+	//高跳的高度
+	public float HighJumpHeight = 6.0f;
 	
 	//public float _wallStickTime = 2f;//暂时不用
 	public float _wallSlideVelocity = 2f;
@@ -53,7 +64,10 @@ public class MainCharacter : Actor
 	private StateMachine<PlayerStates> _stateMachine;
 	
 	//timer
+	private float _aclratnTimer = 0.0f;
 	
+	
+	private float _highJumpVelocity;
 	private float _minJumpVelocity;
 	private float _dashVelocity;
 	private bool _wallSliding;
@@ -61,6 +75,8 @@ public class MainCharacter : Actor
 	private bool _standingOnMovingPlatform = false;
 	private int _wallDirX;
 	private float _wallJumpDisableInputTimer;
+	
+	
 	
 	#endregion
 
@@ -105,8 +121,18 @@ public class MainCharacter : Actor
 		base.Update();
 		
 		//Variables
+
+		//灵力归元
+		if (Player.isSuper)
+		{
+			if (Input.GetKeyDown(KeyCode.Z))
+			{
+				Debug.Log("加速");
+				StartAcceleration(AccelerationTime);
+			}
+		}
 		
-		//standingOnPlatform
+		
 		CheckIsInAir();
 		
 		WallSlide();
@@ -116,6 +142,10 @@ public class MainCharacter : Actor
 		GetPlayerInput();
 		
 		BasicStateCheck();
+
+		CalculateGravityNVelocity();
+		
+		
 
 	}
 
@@ -134,6 +164,8 @@ public class MainCharacter : Actor
 		base.CalculateGravityNVelocity();
 		float minGravity = -(2 * _minJumpHeight) / Mathf.Pow(_timeToJumpApex, 2);
 		_minJumpVelocity = Mathf.Abs(minGravity) * _timeToJumpApex;
+		float highJumpGravity = -(2 * HighJumpHeight) / Mathf.Pow(_timeToJumpApex, 2);
+		_highJumpVelocity = Mathf.Abs(highJumpGravity) * _timeToJumpApex;
 	}
 	
 	public void SetDirectionalInput(Vector2 input)
@@ -204,10 +236,27 @@ public class MainCharacter : Actor
 		
 	}
 
-	//press down space btn
+	private void StartAcceleration(float time)
+	{
+		CEventCenter.BroadMessage(Message.M_ExitSuper);
+		Game.Script.MainLoop.Instance.ExecuteLater(() => _runSpeed -= AccelerationSpeed, time);
+		_runSpeed += AccelerationSpeed;
+	}
+	
+	
+	/// <summary>
+	/// 玩家按下跳跃键后触发
+	/// </summary>
 	private void Jump()
 	{
-		if (_stateMachine.State == PlayerStates.InAir)
+		if (Player.isSuper)
+		{
+			_stateMachine.ChangeState(PlayerStates.InAir);
+			_velocity.y = _highJumpVelocity;
+			_canJump--;
+			CEventCenter.BroadMessage(Message.M_ExitSuper);
+		}
+		else if (_stateMachine.State == PlayerStates.InAir)
 		{
 			_stateMachine.ChangeState(PlayerStates.DoubleJump);
 			_velocity.y = _maxJumpVelocity;
@@ -223,6 +272,9 @@ public class MainCharacter : Actor
 	
 	}
 
+	/// <summary>
+	/// 蹬墙跳
+	/// </summary>
 	private void WallJump()
 	{
 		if (_controller.IfNearWall(_velocity)!=0 && (
@@ -245,6 +297,9 @@ public class MainCharacter : Actor
 		}
 	}
 
+	/// <summary>
+	/// 滑墙判断和速度设定
+	/// </summary>
 	private void WallSlide()
 	{
 		if (_controller.collisionState.left)
@@ -273,12 +328,18 @@ public class MainCharacter : Actor
 		
 	}
 
+	/// <summary>
+	/// 冲刺
+	/// </summary>
 	private void Dash()
 	{
 		_stateMachine.ChangeState(PlayerStates.Dashing);
 		//无敌帧
 	}
 
+	/// <summary>
+	/// 获取玩家输入信息，进行其他函数的调用
+	/// </summary>
 	private void GetPlayerInput()
 	{
 		if (_inControl)
@@ -298,7 +359,6 @@ public class MainCharacter : Actor
 				{
 					Jump();
 				}
-				
 			}
 
 			if (Input.GetKeyUp(KeyCode.Space))
@@ -317,7 +377,6 @@ public class MainCharacter : Actor
 		}
 	}
 
-
 	#endregion
 
 	#region StateCallBacks
@@ -334,7 +393,7 @@ public class MainCharacter : Actor
 	
 		private void Idle_Update()
 		{
-			if (_directionalInput.x != 0)
+			if ( (Mathf.Abs(_directionalInput.x) - 0.01f) > 0)
 			{
 				_stateMachine.ChangeState(PlayerStates.Run);
 			}
@@ -454,7 +513,7 @@ public class MainCharacter : Actor
 	
 		private void Run_Update()
 		{
-			if (_directionalInput.x == 0)
+			if (Mathf.Abs(_directionalInput.x) - 0.01f < 0) 
 			{
 				_stateMachine.ChangeState(PlayerStates.Idle);
 			}
@@ -550,14 +609,14 @@ public class MainCharacter : Actor
 
 		#region WallSlidingState
 	
-		private float WallSlidingTimer= 0f;
+		private float _wallSlidingTimer= 0f;
 		//一个计时器来判断玩家是否离开蹬墙跳状态
 		private float WallStickTime = 0.1f;
 	
 		private void WallSliding_Enter()
 		{
 			//Debug.Log("WallSliding.");
-			WallSlidingTimer = 0.0f;
+			_wallSlidingTimer = 0.0f;
 		}
 		
 		private void WallSliding_Update()
@@ -575,13 +634,13 @@ public class MainCharacter : Actor
 			if ((_directionalInput.x * _wallDirX) <= 0)
 			    //|| !_wallSliding)
 			{
-				if (WallSlidingTimer > WallStickTime)
+				if (_wallSlidingTimer > WallStickTime)
 				{
-					Debug.LogError("Go");
+					//Debug.LogError("Go");
 					_stateMachine.ChangeState(PlayerStates.InAir);
 				}
 
-				WallSlidingTimer += Time.deltaTime;
+				_wallSlidingTimer += Time.deltaTime;
 				//Debug.LogError("Sticking");
 				_directionalInput.x = 0;
 			}
@@ -595,7 +654,7 @@ public class MainCharacter : Actor
 		
 		private void WallSliding_Exit()
 		{
-			WallSlidingTimer = 0f;
+			_wallSlidingTimer = 0f;
 			
 		}
 	
@@ -603,21 +662,21 @@ public class MainCharacter : Actor
 
 		#region WallJumpState
 
-		private float WallJumpTimer;
+		private float _wallJumpTimer;
 	
 		private void WallJump_Enter()
 		{
 			Debug.Log("Wall Jump");
 			_animator.Play(Animator.StringToHash("Jump"));
-			WallJumpTimer = _wallJumpTime;
+			_wallJumpTimer = _wallJumpTime;
 			_inControl = false;
 		}
 		
 		private void WallJump_Update()
 		{
-			if (WallJumpTimer >0)
+			if (_wallJumpTimer >0)
 			{
-				WallJumpTimer -= Time.deltaTime;
+				_wallJumpTimer -= Time.deltaTime;
 			}
 			else
 			{
