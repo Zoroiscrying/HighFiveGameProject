@@ -88,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 1597255121037888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.4630547, y: -2.0054333, z: -1}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 4950564322675854}
   m_Father: {fileID: 0}
@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200187933903078}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.21000016, z: -10}
+  m_LocalPosition: {x: 0, y: -0.2800002, z: -20}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 1}
   m_Children:
   - {fileID: 4284424701488618}
@@ -216,11 +216,11 @@ MonoBehaviour:
   AutoJump: 0
   _isPatrolling: 0
   ActorPatrolType: 0
-  _runSpeed: 8
-  _timeToJumpApex: 0.26
+  _runSpeed: 6.2
+  _timeToJumpApex: 0.45
   _accelerationTimeAirborne: 0.1
   _accelerationTimeGrounded: 0.05
-  _maxJumpHeight: 2.6
+  _maxJumpHeight: 3.6
   _horizontalSpeedMultiplier: 1
   _verticalSpeedMultiplier: 1
   _affectedByGravity: 1
@@ -228,13 +228,16 @@ MonoBehaviour:
   ActorJumpType: 0
   _velocity: {x: 0, y: 0, z: 0}
   _maxUpYSpeed: 999
-  _maxDownYSpeed: 25
-  _wallSlideVelocity: 10
-  _dashTime: 0.2
-  _dashDistance: 2
+  _maxDownYSpeed: 15
+  AccelerationSpeed: 2
+  AccelerationTime: 3
+  HighJumpHeight: 8
+  _wallSlideVelocity: 6
+  _dashTime: 0.15
+  _dashDistance: 3
   _minJumpHeight: 1
   _wallJumpTime: 0.03
-  _wallJumpClimb: {x: 10, y: 20}
+  _wallJumpClimb: {x: 10, y: 15}
   _wallJumpNormal: {x: 0, y: 0}
   _canJump: 1
   _inControl: 1
@@ -264,12 +267,12 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 4
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 4530410664949578}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 10
+    OrthographicSize: 6.5
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
