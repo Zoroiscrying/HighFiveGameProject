@@ -1,8 +1,5 @@
 ﻿using Game.Control.Person;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -52,7 +49,10 @@ namespace Game.Control.SkillSystem
             {
                 throw new Exception(self.name + "没有Animator组件");
             }
-            animator.speed = this.speed;
+
+            animator.speed = this.speed*self.AttackSpeed;
+
+            
             //            Debug.Log("播放动画了");
             animator.Play(Animator.StringToHash(this.animationName), AnimationWeight.High);
         }

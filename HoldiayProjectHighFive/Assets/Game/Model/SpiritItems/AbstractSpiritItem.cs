@@ -16,8 +16,7 @@ namespace Game.Model.SpiritItems
         {
             if (spiritDic.ContainsKey(name))
             {
-                Debug.Log("重复注册SpiritMent");
-                return;
+                throw new Exception("重复注册SpiritMent");
             }
             var s = new T();
             s.Init(name);
@@ -26,6 +25,10 @@ namespace Game.Model.SpiritItems
 
         public static AbstractSpiritItem GetInstance(string name)
         {
+            if(!spiritDic.ContainsKey(name))
+            {
+                throw new Exception("没有注册这个灵器：" + name);
+            }
             return spiritDic[name];
         }
         #endregion
@@ -35,10 +38,8 @@ namespace Game.Model.SpiritItems
         public abstract void OnEnable();
 
         public abstract void OnDisable();
-
-        protected abstract void Execute();
-
-        public virtual void Init(string args)
+        
+        protected void Init(string args)
         {
             this.Name = args.Trim();
         }

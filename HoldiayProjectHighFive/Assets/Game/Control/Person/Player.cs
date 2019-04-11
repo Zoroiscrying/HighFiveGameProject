@@ -9,8 +9,6 @@ using Game.Script;
 using Game.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -43,9 +41,20 @@ namespace Game.Control.Person
         public int drag;      //当前药引
 
 
+
         #endregion
 
         #region 连击
+
+        public override int BaseSkillCount
+        {
+            get
+            {
+                return base.BaseSkillCount + 2;
+            }
+        }
+
+
 
 
         public float airXMove;
@@ -88,6 +97,7 @@ namespace Game.Control.Person
 
         #endregion
 
+
         #region 消耗灵力的强化系统
 
 
@@ -109,6 +119,7 @@ namespace Game.Control.Person
         }
 
         #endregion
+
 
         #region BattleEffect
 
@@ -147,6 +158,7 @@ namespace Game.Control.Person
 
         #endregion
 
+
         #region 构造和初始化        
 
 
@@ -157,7 +169,6 @@ namespace Game.Control.Person
 
         public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes, Transform parent = null) : base(name, prefabPath, pos, skillTypes, parent)
         {
-
             GlobalVar.Player = this;
             Debug.Log("主角诞生啦");
             this.DefaultConstTime = 1.0f;
@@ -183,17 +194,41 @@ namespace Game.Control.Person
         {
             //            Debug.Log("玩家在" + Pos);
 
-            if (Input.GetKeyDown(KeyCode.L))
+
+            //一技能
+            if (Input.GetKeyDown(KeyCode.U))
             {
-                skillDic["L_Skill"].Execute(this, true);
+                if(this.MaxRealSkillCount>=this.BaseSkillCount+1)
+                {
+                    Debug.Log(skills[this.BaseSkillCount].name);
+                    skills[this.BaseSkillCount].Execute(this, true);
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.H))
+            //二技能
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                skillDic["H_Skill"].Execute(this);
+                if(this.MaxRealSkillCount>=this.BaseSkillCount+2)
+                {
+
+                    Debug.Log(skills[this.BaseSkillCount+1].name);
+                    skills[this.BaseSkillCount+1].Execute(this);
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.RightAlt))
+            //三技能
+            if(Input.GetKeyDown(KeyCode.O))
+            {
+                if (this.MaxRealSkillCount >= this.BaseSkillCount + 3)
+                {
+
+                    Debug.Log(skills[this.BaseSkillCount+2].name);
+                    skills[this.BaseSkillCount + 2].Execute(this);
+                }
+            }
+
+            //Z强化
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 TrySuper();
 
@@ -202,13 +237,12 @@ namespace Game.Control.Person
             #region 三连击
 
             SkillInstance lastSkill = null;
-            var e = skillNames.GetEnumerator();
-            for (var i = 0; i < this.comboNum; i++)
-                e.MoveNext();
+            var index = this.comboNum;
 
             if (this.comboNum > 0)
             {
-                lastSkill = skillDic[e.Current];
+                lastSkill = skills[index];
+
                 Assert.IsTrue(this.comboNum > 0 && this.comboNum < 4);
 
                 if (this.timer - lastSkill.startTime > canMoveTime[this.comboNum - 1])
@@ -217,7 +251,7 @@ namespace Game.Control.Person
                 if (this.timer - lastSkill.startTime >
                    lastSkill.LastTime * this.beginComboTest[this.comboNum - 1] + durTimes[this.comboNum - 1])
                 {
-                    //                    Debug.Log("归零");
+                    //Debug.Log("归零");
                     this.comboNum = 0;
                     MainLoop.Instance.RemoveUpdateFunc(_DeUpdate);
                     //恢复人物控制
@@ -236,9 +270,9 @@ namespace Game.Control.Person
 
                 //            Debug.Log("按下J");
 
-                e.MoveNext();
-                var thisSkill = skillDic[e.Current];
+                var thisSkill = skills[index];
 
+                index++;
 
 
                 if (this.comboNum == 0) //初次攻击
@@ -247,6 +281,7 @@ namespace Game.Control.Person
                     //开始增加时间
                     //                    Debug.Log("初次攻击");
                     MainLoop.Instance.AddUpdateFunc(_DeUpdate);
+                    Debug.Log("执行了技能" + index + " " + thisSkill.name);
                     thisSkill.Execute(this, ignoreInput[0], this.timer);
                     this.comboNum++;
                 }
@@ -257,7 +292,7 @@ namespace Game.Control.Person
                     lastSkill.LastTime * this.beginComboTest[this.comboNum - 1] + durTimes[this.comboNum - 1] &&
                     this.comboNum < skillNames.Count)
                 {
-                    //                    Debug.Log(this.comboNum+1+"次攻击");
+                    Debug.Log("执行了技能" + index + " " + thisSkill.name);
                     thisSkill.Execute(this, ignoreInput[this.comboNum - 1], this.timer);
                     this.comboNum++;
                 }
@@ -390,7 +425,7 @@ namespace Game.Control.Person
             reader.ReadStartElement("Skills");
             this.allSkillNames = (List<string>)strListSer.Deserialize(reader);
             foreach (var skill in allSkillNames)
-                this.skillDic.Add(skill, SkillTriggerMgr.skillInstanceDic[skill]);
+                this.skills.Add(SkillTriggerMgr.skillInstanceDic[skill]);
             reader.ReadEndElement();
 
             attackEffects = new List<IBattleEffect>();

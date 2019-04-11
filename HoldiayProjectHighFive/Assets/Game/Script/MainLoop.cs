@@ -241,6 +241,7 @@ namespace Game.Script
         #endregion
 
         private event Action updateEvent;
+        private event Action fixedUpdateEvent;
         private event Action guiEvent;
         private event Action startEvent;
 
@@ -261,6 +262,12 @@ namespace Game.Script
                 if (pair.IsOk())
                     pair.func();
             }
+        }
+
+        private void FixedUpdate()
+        {
+            if (fixedUpdateEvent != null)
+                fixedUpdateEvent();
         }
 
         void OnGUI()
@@ -301,6 +308,16 @@ namespace Game.Script
         {
             updateEvent -= func;
 
+        }
+
+        public void AddFixedUpdateFunc(Action func)
+        {
+            fixedUpdateEvent += func;
+        }
+
+        public void RemoveFixedUpdateFunc(Action func)
+        {
+            fixedUpdateEvent -= func;
         }
 
         public void AddGUIFunc(Action func)

@@ -52,11 +52,32 @@ namespace Game.Control.Person
         public int Attack { get; set; }               //攻击
 
         public bool IgnoreHitback { get; set; }       //忽略击退
-        public bool IsConst { protected set; get; }     //是否可选中
+        public bool IsConst { protected set; get; }     //是否可选中/无敌帧
         public float DefaultConstTime { protected set; get; } //硬直时间
         public bool InputOk { get; set; }             //接受技能输入
-        protected List<string> allSkillNames;
-        private event Action OnThisUpdate;
+
+
+        public event Action OnThisUpdate;
+
+        /// <summary>
+        /// 攻击速度
+        /// </summary>
+        private float attackSpeed = 1;
+        public float AttackSpeed
+        {
+            get
+            {
+                return this.attackSpeed;
+            }
+            set
+            {
+                if(value<=0)
+                {
+                    throw new Exception("攻速不能为零:"+this.name);
+                }
+                this.attackSpeed = value;
+            }
+        }
 
         /// <summary>
         /// 获取角色面对方向
@@ -104,26 +125,79 @@ namespace Game.Control.Person
 
         #region 技能
 
-        public SerializableDictionary<string, SkillInstance> skillDic = new SerializableDictionary<string, SkillInstance>();
+        private int maxRealSkillCount;
+        public virtual int BaseSkillCount
+        {
+            get
+            {
+                return 0;
+            }
+        }
+        public int MaxRealSkillCount
+        {
+            get
+            {
+                return maxRealSkillCount;
+            }
+        }
+        public void IncreaseMaxSkillCount(int count)
+        {
+            maxRealSkillCount += count;
+        }
+
+        /// <summary>
+        /// 存放所有可用的技能名
+        /// </summary>
+        protected List<string> allSkillNames;
+        /// <summary>
+        /// 存储技能实例
+        /// </summary>
+        protected List<SkillInstance> skills = new List<SkillInstance>();
+        //protected SerializableDictionary<string, SkillInstance> skillDic = new SerializableDictionary<string, SkillInstance>();
+        /// <summary>
+        /// 存储动态添加的技能及其触发条件
+        /// </summary>
+        //protected List<UpdateTestPair> dis = new List<UpdateTestPair>();
 
         /// <summary>
         /// 释放技能
         /// </summary>
         /// <param name="skillName"></param>
-        public void RunSkill(string skillName, bool ignoreInput = false)
+        public void RunSkill(int index, bool ignoreInput = false)
         {
-            this.skillDic[skillName].Execute(this, ignoreInput);
+            if(!(skills.Count>=this.BaseSkillCount+this.MaxRealSkillCount))
+            {
+                throw new Exception(this.name + "没有这个技能索引：" +index);
+            }
+            this.skills[index].Execute(this, ignoreInput);
         }
+
         /// <summary>
         /// 添加技能
         /// </summary>
         /// <param name="skillName"></param>
         /// <param name="trigger"></param>
-        public void AddSkill(string skillName, Func<bool> trigger)
+        public void AddSkill(string skillName, Func<bool> trigger, bool ignoreInput = false)
         {
+            foreach(var s in skills)
+            {
+                if (s.name == skillName)
+                {
+                    Debug.LogWarning("重复添加技能");
+                    return;
+                }
+            }
+            if(skills.Count>=this.MaxRealSkillCount+this.BaseSkillCount)
+            {
+                Debug.LogWarning("无法添加更多技能");
+                return;
+            }
             this.allSkillNames.Add(skillName);
-            this.skillDic.Add(skillName, SkillTriggerMgr.skillInstanceDic[skillName]);
-            dis.Add(trigger, skillName);
+            var skill = SkillTriggerMgr.skillInstanceDic[skillName];
+            this.skills.Add(skill);
+            var pair = new UpdateTestPair(trigger, () => RunSkill(skills.Count-1, ignoreInput));
+            MainLoop.Instance.AddUpdateTest(pair);
+            //dis.Add(pair);
         }
         #endregion
 
@@ -176,11 +250,6 @@ namespace Game.Control.Person
 
         #endregion
 
-        #region private
-
-        SerializableDictionary<Func<bool>, string> dis = new SerializableDictionary<Func<bool>, string>();
-
-        #endregion
 
         #region 构造及初始化
 
@@ -210,7 +279,10 @@ namespace Game.Control.Person
             //初始化技能
             if (skillTypes != null)
                 foreach (var str in skillTypes)
-                    skillDic.Add(str, SkillTriggerMgr.skillInstanceDic[str]);
+                    //skillDic.Add(str, SkillTriggerMgr.skillInstanceDic[str]);
+                    skills.Add(SkillTriggerMgr.skillInstanceDic[str]);
+
+            this.maxRealSkillCount = skillTypes.Count-this.BaseSkillCount;
 
             //添加基本攻击效果
             this.OnAttackListRefresh += AddBaseAttackEffects;
@@ -296,11 +368,6 @@ namespace Game.Control.Person
         {
             if (OnThisUpdate != null)
                 OnThisUpdate();
-            foreach (var w in dis)
-            {
-                if (w.Key())
-                    this.RunSkill(w.Value);
-            }
         }
 
         /// <summary>

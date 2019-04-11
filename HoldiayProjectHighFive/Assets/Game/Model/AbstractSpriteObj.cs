@@ -12,16 +12,21 @@ namespace Game.Model
     /// </summary>
     public abstract class AbstractSpriteObj
     {
-        protected GameObject go;
+        protected GameObject obj;
 
         protected AbstractSpriteObj(string path, Vector3 pos, Transform parent = null)
         {
             var res = Resources.Load<GameObject>(path);
             if (res == null)
-                Debug.LogError("图片路径错误");
-            go = GameObject.Instantiate(res, pos, Quaternion.identity, parent);
-
-            Init();
+            {
+                throw new Exception("图片路径错误");
+            }
+            obj = GameObject.Instantiate(res, pos, Quaternion.identity, parent);
+            if(obj==null)
+            {
+                throw new Exception("子弹生成失败");
+            }
+            MainLoop.Instance.AddUpdateFunc(Update);
         }
 
         protected virtual void Update()
@@ -29,22 +34,19 @@ namespace Game.Model
 
         }
 
-        public virtual void Init()
-        {
-            MainLoop.Instance.AddUpdateFunc(Update);
-        }
 
         public virtual void Release()
         {
             MainLoop.Instance.RemoveUpdateFunc(Update);
         }
 
-        protected virtual void DestoryThis()
+        protected void DestoryThis()
         {
-            if (this.go == null)
+            if (this.obj == null)
                 return;
             Release();
-            GameObject.Destroy(this.go);
+            //throw new Exception("怎么来的？");
+            GameObject.Destroy(this.obj);
 
         }
     }
