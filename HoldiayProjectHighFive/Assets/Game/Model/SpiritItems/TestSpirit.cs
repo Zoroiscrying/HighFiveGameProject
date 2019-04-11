@@ -11,7 +11,7 @@ namespace Game.Model.SpiritItems
     {
         private UpdateTestPair pair;
 
-        protected override void Execute()
+        private void Execute()
         {
             Debug.Log("灵器检测成功");
         }
@@ -28,10 +28,6 @@ namespace Game.Model.SpiritItems
 
             pair = null;
         }
-
-        public override void Init(string args)
-        {
-            base.Init(args);
-        }
+        
     }
 }

@@ -1,18 +1,15 @@
 ﻿using Game.Control.Person;
 using Game.Script;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Game.Control.SkillSystem
 {
     /// <summary>
-    /// 碰撞体触发器
+    /// 刀剑类碰撞体触发器
     /// </summary>
-    public class Trigger2DTrigger : AbstractSkillTrigger
+    public class SwordTrigger : AbstractSkillTrigger
     {
         private Vector2 personOffect;
         private Vector2 size;
@@ -22,6 +19,7 @@ namespace Game.Control.SkillSystem
         private GameObject empty;
         private AbstractPerson self;
         private float nowZ;
+        private float speed;
         public override void Init(string args)
         {
             //args
@@ -42,6 +40,9 @@ namespace Game.Control.SkillSystem
         public override void Execute(AbstractPerson self)
         {
             this.self = self;
+            this.LastTime /= self.AttackSpeed;
+            this.speed = (endDre - beginDre) / this.LastTime;
+
             empty = new GameObject();
             empty.transform.SetParent(self.obj.transform);
             empty.transform.localScale = this.size;
@@ -62,18 +63,16 @@ namespace Game.Control.SkillSystem
         {
             if (empty == null)
             {
-                Debug.Log("empty为空");
+                Debug.Log("伤害检测物体为空");
                 return;
             }
-            var r = empty.transform.rotation;
-            float z = Mathf.Lerp(r.z, endDre, 0.5f);
-            r = Quaternion.Euler(r.x, r.y, z);
+            empty.transform.Rotate(new Vector3(0, 0, this.speed));
         }
 
         private void End(AbstractPerson ap)
         {
             if (this.empty)
-                GameObject.Destroy(this.empty);
+                UnityEngine.Object.Destroy(this.empty);
         }
 
         private void OnTriggerEnter(Collider2D col)

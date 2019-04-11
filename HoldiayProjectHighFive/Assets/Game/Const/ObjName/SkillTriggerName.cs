@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Game.Const
+﻿namespace Game.Const
 {
     public static class SkillTriggerName
     {
@@ -13,5 +8,6 @@ namespace Game.Const
         public static readonly string dash = "DashTrigger";
         public static readonly string bullet = "BulletTrigger";
         public static readonly string trigger2D = "Trigger2DTrigger";
+        public static readonly string paraBullet = "ParaBulletTrigger";
     }
 }

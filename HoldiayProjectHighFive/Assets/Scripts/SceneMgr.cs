@@ -52,7 +52,7 @@ public class SceneMgr : BaseSceneMgr
 		{
 			foreach (var t in list)
 				if(t.obj!=null)
-					new Bullet(10, t.Dir, t.Pos+new Vector3(0,0.3f,0), t);
+					new DirectLineBullet(10, Vector3.right*t.Dir, t.Pos+new Vector3(0,0.3f,0), t,BulletPath.PlayerBullet);
 		}
 
 
@@ -69,7 +69,7 @@ public class SceneMgr : BaseSceneMgr
 		for (int i = 5; i > 0; i--)
 		{
 			var x = new TestPerson("TestPerson", GameObjectPath.TestPersonPath,
-				new Vector3(-25 + Random.Range(0, 20), 1.28f , -1), new List<string>(new []{"O_Skill","H_Skill","L_Skill"}), go.transform);
+				new Vector3(-25 + Random.Range(0, 20), 1.28f , -1), new List<string>(new []{"O_Skill","Shot","L_Skill"}), go.transform);
 			list.Add(x);
 		}
 	}
@@ -114,9 +114,11 @@ public class SceneMgr : BaseSceneMgr
 		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.dash,
 			SkillTriggerFactory<DashTrigger>.Instance);
 		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.bullet,
-			SkillTriggerFactory<BulletTrigger>.Instance);
+			SkillTriggerFactory<DirectLineBulletTrigger>.Instance);
 		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.trigger2D,
-			SkillTriggerFactory<Trigger2DTrigger>.Instance);
+			SkillTriggerFactory<SwordTrigger>.Instance);
+        SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.paraBullet,
+            SkillTriggerFactory<ParabloaBulletTrigger>.Instance);
 
 		//读取文件，获取所有技能
 		SkillTriggerMgr.LoadSkillsFromFile(FilePath.SkillFilePath);
