@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\a\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\a\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_HoldiayProjectHighFive.1754759029.00" t="ExcludeRecursive" />
-    <e p="D:\unreal pro\HighFiveGameProject\HoldiayProjectHighFive" t="IncludeRecursive">
+    <e p="C:\Program Files (x86)\Android\android-sdk\platforms\android-25\Data\res" t="IncludeRecursive" />
+    <e p="C:\Users\Admin\.Rider2018.3\config\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\Admin\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Admin\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_HoldiayProjectHighFive.384860981.00" t="ExcludeRecursive" />
+    <e p="E:\UnityNGithub\GameProjectGIT\HighFiveGameProject\HoldiayProjectHighFive" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -136,29 +138,126 @@
             </e>
           </e>
         </e>
-        <e p="Class" t="Include">
-          <e p="Actor.cs" t="Include" />
-          <e p="BackPack.cs" t="Include" />
-          <e p="Battle.cs" t="Include" />
-          <e p="Bullet.cs" t="Include" />
-          <e p="Game.cs" t="Include" />
-          <e p="GlobalAndConst.cs" t="Include" />
-          <e p="Item.cs" t="Include" />
-          <e p="Person.cs" t="Include" />
-          <e p="SceneMgr.cs" t="Include" />
-          <e p="SomeWindows.cs" t="Include" />
-          <e p="SpiritMent.cs" t="Include" />
-          <e p="SQLiteHelper.cs" t="Include" />
-          <e p="ThisGame.cs" t="Include" />
-        </e>
-        <e p="Editor" t="Include">
-          <e p="DialogController.cs" t="Include" />
-          <e p="TestEditorWindow.cs" t="Include" />
-          <e p="TreeNode.cs" t="Include" />
-        </e>
         <e p="fonts" t="Include">
           <e p="artianniugbbd_test" t="Include">
             <e p="Readme.txt" t="Include" />
+          </e>
+        </e>
+        <e p="Game" t="Include">
+          <e p="CEventCenter.cs" t="Include" />
+          <e p="Const" t="Include">
+            <e p="DefaultData.cs" t="Include" />
+            <e p="Message.cs" t="Include" />
+            <e p="ObjName" t="Include">
+              <e p="PanelName.cs" t="Include" />
+              <e p="SceneName.cs" t="Include" />
+              <e p="SkillTriggerName.cs" t="Include" />
+              <e p="SpiritName.cs" t="Include" />
+            </e>
+            <e p="ObjPath" t="Include">
+              <e p="BulletPath.cs" t="Include" />
+              <e p="FilePath.cs" t="Include" />
+              <e p="GameObjectPath.cs" t="Include" />
+              <e p="UIPath.cs" t="Include" />
+            </e>
+            <e p="Signal.cs" t="Include" />
+          </e>
+          <e p="Control" t="Include">
+            <e p="BattleEffects" t="Include">
+              <e p="AbstractBattleEffect.cs" t="Include" />
+              <e p="AudioEffect.cs" t="Include" />
+              <e p="DamageNumberEffect.cs" t="Include" />
+              <e p="HitbackEffect.cs" t="Include" />
+              <e p="IBattleEffect.cs" t="Include" />
+              <e p="InstantDamageEffect.cs" t="Include" />
+              <e p="RecoverBuffEffect.cs" t="Include" />
+              <e p="ShakeScreenEffect.cs" t="Include" />
+              <e p="ShineEffect.cs" t="Include" />
+            </e>
+            <e p="Person" t="Include">
+              <e p="AbstractPerson.cs" t="Include" />
+              <e p="AbstractSourcePerson.cs" t="Include" />
+              <e p="Player.cs" t="Include" />
+              <e p="TestPerson.cs" t="Include" />
+            </e>
+            <e p="SkillSystem" t="Include">
+              <e p="ISkillTriggerFactory.cs" t="Include" />
+              <e p="SkillInstance.cs" t="Include" />
+              <e p="SkillTriggerFactory.cs" t="Include" />
+              <e p="SkillTriggerMgr.cs" t="Include" />
+              <e p="Triggers" t="Include">
+                <e p="AbstractSkillTrigger.cs" t="Include" />
+                <e p="AnimationTrigger.cs" t="Include" />
+                <e p="AudioTrigger.cs" t="Include" />
+                <e p="BulletTrigger.cs" t="Include" />
+                <e p="DashTrigger.cs" t="Include" />
+                <e p="InstantRayDamageTrigger.cs" t="Include" />
+                <e p="ISkillTrigger.cs" t="Include" />
+                <e p="Trigger2DTrigger.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Global" t="Include">
+            <e p="GlobalFlag.cs" t="Include" />
+            <e p="GlobalVar.cs" t="Include" />
+          </e>
+          <e p="Math" t="Include">
+            <e p="GameMath.cs" t="Include" />
+          </e>
+          <e p="Model" t="Include">
+            <e p="AbstractSpriteObj.cs" t="Include" />
+            <e p="Bullet.cs" t="Include" />
+            <e p="PersonData.cs" t="Include" />
+            <e p="Scenes" t="Include">
+              <e p="BaseSceneInfo.cs" t="Include" />
+              <e p="JbSceneInfo.cs" t="Include" />
+              <e p="SceneMgr.cs" t="Include" />
+              <e p="TestSceneInfo.cs" t="Include" />
+              <e p="WelcomeScene.cs" t="Include" />
+            </e>
+            <e p="SpiritItems" t="Include">
+              <e p="AbstractSpiritItem.cs" t="Include" />
+              <e p="TestSpirit.cs" t="Include" />
+            </e>
+            <e p="SQLiteMgr.cs" t="Include" />
+          </e>
+          <e p="MonoSingleton.cs" t="Include" />
+          <e p="Others" t="Include">
+            <e p="AnimationWeight.cs" t="Include" />
+            <e p="GameAnimator.cs" t="Include" />
+          </e>
+          <e p="SafeSingleton.cs" t="Include" />
+          <e p="Script" t="Include">
+            <e p="AudioMgr.cs" t="Include" />
+            <e p="MainLoop.cs" t="Include" />
+            <e p="TriggerInputer.cs" t="Include" />
+            <e p="UIInputer.cs" t="Include" />
+            <e p="UpdateTestPair.cs" t="Include" />
+          </e>
+          <e p="Serialization" t="Include">
+            <e p="BitManager.cs" t="Include" />
+            <e p="JsonManager.cs" t="Include" />
+            <e p="SerializableDictionary.cs" t="Include" />
+            <e p="XmlManager.cs" t="Include" />
+          </e>
+          <e p="Singleton.cs" t="Include" />
+          <e p="StateMachine" t="Include">
+            <e p="IStateMachine.cs" t="Include" />
+            <e p="StateMachine.cs" t="Include" />
+            <e p="StateMachineRunner.cs" t="Include" />
+            <e p="StateMapping.cs" t="Include" />
+            <e p="StateTransition.cs" t="Include" />
+          </e>
+          <e p="View" t="Include">
+            <e p="AbstractUI.cs" t="Include" />
+            <e p="BloodBarUI.cs" t="Include" />
+            <e p="NumberTipUI.cs" t="Include" />
+            <e p="Panels" t="Include">
+              <e p="AbstractPanel.cs" t="Include" />
+              <e p="BattlePanel.cs" t="Include" />
+              <e p="IStackPanel.cs" t="Include" />
+              <e p="UIManager.cs" t="Include" />
+            </e>
           </e>
         </e>
         <e p="Scripts" t="Include">
@@ -270,6 +369,7 @@
             </e>
           </e>
           <e p="CharacterController2D" t="Include">
+            <e p="Actor.cs" t="Include" />
             <e p="CharacterController2D.cs" t="Include" />
             <e p="MainCharacter.cs" t="Include" />
             <e p="PlatformController2D.cs" t="Include" />
@@ -282,15 +382,12 @@
           <e p="PlayerAttackDebug.cs" t="Include" />
           <e p="PlayerMove.cs" t="Include" />
           <e p="PlayerWallJump.cs" t="Include" />
-          <e p="SceneManger.cs" t="Include" />
+          <e p="SceneMgr.cs" t="Include" />
           <e p="SceneTrigger.cs" t="Include" />
           <e p="ScreenShake.cs" t="Include" />
           <e p="Test.cs" t="Include" />
         </e>
         <e p="StreamingAssets" t="Include">
-          <e p="Data" t="Include">
-            <e p="PlayerData.xml" t="Include" />
-          </e>
           <e p="PersonData.txt" t="Include" />
           <e p="SkillData.txt" t="Include" />
         </e>

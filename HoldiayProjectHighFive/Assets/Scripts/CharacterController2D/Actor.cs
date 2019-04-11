@@ -15,8 +15,6 @@ public class Actor : MonoBehaviour {
 
 	#endregion
 	
-	
-	
 	#region Public Variables
 
 	public float PatrolStopTime = 1.0f;
@@ -254,6 +252,8 @@ public class Actor : MonoBehaviour {
 		//到达边角后，开启计时器（增加计时器），计时器到点，继续前进
 		if (IsAtCorner)
 		{
+			//设置一个event
+			
 			//开启计时器
 			_patrolStopTimer = 0.0f;
 			_movementMultiplier = -_movementMultiplier;
@@ -320,6 +320,10 @@ public class Actor : MonoBehaviour {
 	
 	private float _jumpStopTimer = 0.0f;
 	
+	/// <summary>
+	/// 跳跃一次，功能较为有限
+	/// </summary>
+	/// <param name="jumpForce"></param>
 	public void Jump(Vector2 jumpForce)
 	{
 		if (_controller.isGrounded)
@@ -335,7 +339,11 @@ public class Actor : MonoBehaviour {
 	}
 	
 	private int timeCounter = 0;
-	
+	/// <summary>
+	/// 跳跃几次，带有暂停效果，并可指定跳跃多少次，默认为1次
+	/// </summary>
+	/// <param name="jumpForce"></param>
+	/// <param name="howManyTimes"></param>
 	public void JumpSeveralTimes(Vector2 jumpForce, int howManyTimes = 1)
 	{
 		if (_jumpStopTimer <= JumpStopTime && _controller.isGrounded)
