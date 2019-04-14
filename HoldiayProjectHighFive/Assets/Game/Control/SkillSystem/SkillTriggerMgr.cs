@@ -37,7 +37,7 @@ namespace Game.Control.SkillSystem
             var strs = args.Split('|');
             var type = strs[0].Trim();
             if (!factoryDic.ContainsKey(type))
-                throw new Exception("工厂中没有这个触发器类型");
+                throw new Exception("工厂中没有这个触发器类型"+args);
             return factoryDic[type].CreateTrigger(args);//skillType,id,startTime,lastTime,args);
         }
 

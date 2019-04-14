@@ -43,6 +43,16 @@ skill|Shot
 	BulletTrigger		|0	 |501	|1	  |bullet_1	|0	|10	|40	|2
 	AudioTrigger		|0.1	 |502	|0.5	  |beiji
 }
+skill|ParaShoot
+{
+							//resName,	shootspeed timeToTarget offect.x.y.z damage maxlife
+	ParaBulletTrigger	|0	|601	|1	|bullet_1	|4		|20	|  10|-2|0	|20	|3						
+	ParaBulletTrigger	|0	|601	|1	|bullet_1	|4		|20	|   5|-2|0	|20	|3						
+	ParaBulletTrigger	|0	|601	|1	|bullet_1	|4		|20	| -10|-2|0	|20	|3						
+	ParaBulletTrigger	|0	|601	|1	|bullet_1	|4		|20	|  -5|-2|0	|20	|3
+
+
+}
 
 
 

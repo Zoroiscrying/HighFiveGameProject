@@ -34,7 +34,7 @@ namespace Game.Control.SkillSystem
                 Convert.ToSingle(strs[7].Trim()));
             this.beginDre = Convert.ToSingle(strs[8].Trim());
             this.endDre = Convert.ToSingle(strs[9].Trim());
-            base.Init(string.Join("|", strs, 0, 4));
+            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
         }
 
         public override void Execute(AbstractPerson self)

@@ -4,7 +4,7 @@ using Game.Control.SkillSystem;
 using Game.Global;
 using Game.Math;
 using Game.Model;
-using Game.Model.SpiritItems;
+using Game.Model.SpiritItemSystem;
 using Game.Script;
 using Game.Serialization;
 using System;
@@ -15,7 +15,8 @@ using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Assertions;
 using zoroiscrying;
-
+using Game.Model.ItemSystem;
+using Game.View.Panels;
 namespace Game.Control.Person
 {
     /// <summary>
@@ -24,6 +25,47 @@ namespace Game.Control.Person
     [Serializable]
     public class Player : AbstractPerson, IXmlSerializable
     {
+
+        #region 背包
+
+        public class ItemData
+        {
+            public int count;
+            public int itemId;
+            public ItemData(int itemid,int count)
+            {
+                this.count = count;
+                itemId = itemid;
+            }
+        }
+
+        public List<ItemData> itemList = new List<ItemData>();
+
+        public void AddItem(int itemId,int count)
+        {
+            foreach(var i in itemList)
+            {
+                if (i.itemId == itemId)
+                {
+                    i.count += count;
+                    return;
+                }
+            }
+            itemList.Add(new ItemData(itemId, count));
+        }
+        public void RemoveItem(int itemId,int count)
+        {
+            foreach(var i in itemList)
+            {
+                if(i.itemId==itemId&&i.count>=count)
+                {
+                    i.count -= count;
+                    return;
+                }
+            }
+            Debug.LogWarning("没有那么多这种东西：" + itemId);
+        }
+        #endregion
 
 
         #region 玩家专有外显属性
@@ -50,7 +92,7 @@ namespace Game.Control.Person
         {
             get
             {
-                return base.BaseSkillCount + 2;
+                return base.BaseSkillCount + 3;
             }
         }
 
@@ -171,6 +213,7 @@ namespace Game.Control.Person
         {
             GlobalVar.Player = this;
             Debug.Log("主角诞生啦");
+            Debug.Log("主角隐藏技能" + this.BaseSkillCount + " 主角真实技能：" + this.MaxRealSkillCount);
             this.DefaultConstTime = 1.0f;
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc != null);
@@ -198,9 +241,10 @@ namespace Game.Control.Person
             //一技能
             if (Input.GetKeyDown(KeyCode.U))
             {
-                if(this.MaxRealSkillCount>=this.BaseSkillCount+1)
+                Debug.Log("按U"+this.MaxRealSkillCount);
+                if(this.MaxRealSkillCount>=1)
                 {
-                    Debug.Log(skills[this.BaseSkillCount].name);
+                    Debug.Log("释放一技能："+skills[this.BaseSkillCount].name);
                     skills[this.BaseSkillCount].Execute(this, true);
                 }
             }
@@ -208,10 +252,11 @@ namespace Game.Control.Person
             //二技能
             if (Input.GetKeyDown(KeyCode.I))
             {
-                if(this.MaxRealSkillCount>=this.BaseSkillCount+2)
+                Debug.Log("按I" + this.MaxRealSkillCount);
+                if (this.MaxRealSkillCount>=2)
                 {
 
-                    Debug.Log(skills[this.BaseSkillCount+1].name);
+                    Debug.Log("释放二技能："+skills[this.BaseSkillCount+1].name);
                     skills[this.BaseSkillCount+1].Execute(this);
                 }
             }
@@ -219,10 +264,11 @@ namespace Game.Control.Person
             //三技能
             if(Input.GetKeyDown(KeyCode.O))
             {
-                if (this.MaxRealSkillCount >= this.BaseSkillCount + 3)
+                Debug.Log("按O" + this.MaxRealSkillCount);
+                if (this.MaxRealSkillCount >= 3)
                 {
 
-                    Debug.Log(skills[this.BaseSkillCount+2].name);
+                    Debug.Log("释放三技能："+skills[this.BaseSkillCount+2].name);
                     skills[this.BaseSkillCount + 2].Execute(this);
                 }
             }
@@ -232,6 +278,23 @@ namespace Game.Control.Person
             {
                 TrySuper();
 
+            }
+
+            if(Input.GetKeyDown(KeyCode.Tab))
+            {
+                UIManager.Instance.PushPanel(PanelName.packagePanel);
+            }
+            if(Input.GetKeyUp(KeyCode.Tab))
+            {
+                UIManager.Instance.PopPanel();
+            }
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                AddItem(ItemID.ShitId, 2);
+            }
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                RemoveItem(ItemID.ShitId, 1);
             }
 
             #region 三连击

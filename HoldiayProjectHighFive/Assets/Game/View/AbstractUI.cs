@@ -95,7 +95,7 @@ namespace Game.View
             if (null == canvas)
                 Debug.Log("画布获取失败");
 
-            var obj = UnityEngine.Object.Instantiate(go, canvas);
+            var obj = Object.Instantiate(go, canvas);
 
             if (obj == null)
             {
@@ -127,7 +127,7 @@ namespace Game.View
         /// <summary>
         /// 显示
         /// </summary>
-        protected void Show()
+        public void Show()
         {
             if (m_TransFrom && m_TransFrom.gameObject.activeSelf == false)
             {
@@ -140,7 +140,7 @@ namespace Game.View
         /// <summary>
         /// 隐藏
         /// </summary>
-        protected void Hide()
+        public void Hide()
         {
             if (m_TransFrom && m_TransFrom.gameObject.activeSelf == true)
             {
@@ -148,6 +148,8 @@ namespace Game.View
             }
 
             m_bIsVisible = false;
+
+            m_TransFrom.gameObject.SetActive(false);
         }
     }
 }

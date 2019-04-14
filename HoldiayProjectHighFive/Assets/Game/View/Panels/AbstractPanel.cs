@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 
 namespace Game.View.Panels
 {
@@ -44,8 +45,12 @@ namespace Game.View.Panels
             get { return this.panelName; }
         }
 
+        public sealed override void DestroyThis(PointerEventData eventData = null)
+        {
+            base.DestroyThis(eventData);
+        }
 
-        public void Enable()
+        public virtual void Enable()
         {
             if (m_TransFrom == null)
                 this.Load();
@@ -54,7 +59,7 @@ namespace Game.View.Panels
                 onPanelShow(panelName);
         }
 
-        public void Disable()
+        public virtual void Disable()
         {
             this.Hide();
             if (onPanelHide != null)
@@ -62,10 +67,11 @@ namespace Game.View.Panels
         }
 
 
-        public void Destory()
+        public virtual void Destory()
         {
             if (onPanelDestory != null)
                 onPanelDestory(this.panelName);
+            this.Disable();
             this.DestroyThis();
         }
 

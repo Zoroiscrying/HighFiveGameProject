@@ -18,6 +18,14 @@ namespace Game.Control.SkillSystem
         public string SkillType { get; set; }
         public bool IsExecuted { get; set; }
 
+        public virtual int BasePropertyCount
+        {
+            get
+            {
+                return 4;
+            }
+        }
+
         public virtual void Release()
         {
             this.IsExecuted = false;

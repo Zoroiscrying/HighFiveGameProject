@@ -43,7 +43,7 @@ namespace Game.Control.SkillSystem
             this.dur = Convert.ToSingle(strs[6].Trim());
             if (dur <= 0 || dur >= 1)
                 Debug.LogError("差值不合理 " + dur);
-            base.Init(string.Join("|", strs, 0, 4));
+            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
         }
     }
 }

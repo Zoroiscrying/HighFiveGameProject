@@ -33,7 +33,7 @@ namespace Game.Control.SkillSystem
             this.speed = Convert.ToInt32(strs[7].Trim());
             this.maxLife = Convert.ToSingle(strs[8].Trim());
             Debug.Log("解析出子弹寿命：" + this.maxLife);
-            base.Init(string.Join("|", strs, 0, 4));
+            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
         }
         
 

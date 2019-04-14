@@ -20,7 +20,7 @@ namespace Game.Control.SkillSystem
             var strs = args.Split('|');
             Assert.IsTrue(strs.Length >= 5);
             this.audioName = strs[4].Trim();
-            base.Init(string.Join("|", strs, 0, 4));
+            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
         }
 
         public override void Execute(AbstractPerson self)

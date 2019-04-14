@@ -13,10 +13,10 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using Game.Model;
 using Game.Control.Person;
-using Game.Const;
 using Game.Control.SkillSystem;
-using Game.Model.SpiritItems;
+using Game.Model.SpiritItemSystem;
 using Game.View.Panels;
+using Game.Model.ItemSystem;
 
 public class SceneMgr : BaseSceneMgr
 {
@@ -81,7 +81,9 @@ public class SceneMgr : BaseSceneMgr
 		RegisterSkillTrigger();
 		RegisterUiPanels();
 		RegisterSpiritItem();
-	}
+        RegisterItem();
+
+    }
 
 	/// <summary>
 	/// 注册UI面板
@@ -89,6 +91,7 @@ public class SceneMgr : BaseSceneMgr
 	void RegisterUiPanels()
 	{
 		AbstractPanel.RegisterPanel<BattlePanel>(PanelName.battlePanel);
+        AbstractPanel.RegisterPanel<PackagePanel>(PanelName.packagePanel);
 	}
 
 	/// <summary>
@@ -123,6 +126,13 @@ public class SceneMgr : BaseSceneMgr
 		//读取文件，获取所有技能
 		SkillTriggerMgr.LoadSkillsFromFile(FilePath.SkillFilePath);
 	}
+
+    void RegisterItem()
+    {
+        ItemMgr.RegisterItemFactory(ItemID.ShitId, ItemFactory<Shit>.Instance);
+
+        ItemMgr.LoadItemsFromFile(FilePath.ItemFilePath);
+    }
 
 
 	protected override void Initializer()

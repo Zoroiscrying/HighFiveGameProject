@@ -30,7 +30,7 @@ namespace Game.Control.SkillSystem
             this.hitSpeed = Convert.ToSingle(strs[6].Trim());
             this.shineLastTime = Convert.ToSingle(strs[7].Trim());
             this.shineDurTime = Convert.ToSingle(strs[8].Trim());
-            base.Init(string.Join("|", strs, 0, 4));
+            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
         }
 
         public override void Execute(AbstractPerson self)

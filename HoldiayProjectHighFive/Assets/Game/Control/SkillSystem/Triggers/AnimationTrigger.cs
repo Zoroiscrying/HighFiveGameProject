@@ -25,7 +25,7 @@ namespace Game.Control.SkillSystem
             this.animationName = strs[4].Trim();
             this.speed = Convert.ToSingle(strs[5].Trim());
             this.LastTime /= this.speed;
-            base.Init(string.Join("|", strs, 0, 4));
+            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
         }
 
         /// <summary>

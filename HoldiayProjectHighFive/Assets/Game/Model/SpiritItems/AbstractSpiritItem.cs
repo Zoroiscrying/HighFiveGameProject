@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Game.Model.SpiritItems
+namespace Game.Model.SpiritItemSystem
 {
     public abstract class AbstractSpiritItem
     {
