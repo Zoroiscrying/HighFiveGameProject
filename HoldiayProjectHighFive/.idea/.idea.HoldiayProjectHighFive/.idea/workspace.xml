@@ -8,15 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19a25c84-eac4-4bf2-90be-56455b4959d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.HoldiayProjectHighFive/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HoldiayProjectHighFive/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HoldiayProjectHighFive/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HoldiayProjectHighFive/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.HoldiayProjectHighFive/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HoldiayProjectHighFive/riderModule.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Class.DotSettings.user.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/GameObjects/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/GameObjects/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CharacterController2D/Actor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterController2D/Actor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Picture.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Data.meta" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,13 +20,13 @@
     <favorites_list name="HoldiayProjectHighFive" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.1">
+    <splitter split-orientation="horizontal" split-proportion="0.49545455">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Assets/Scripts/behaviac/runtime/Base/Utils.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1840">
+                <state relative-caret-position="-2116">
                   <caret line="1267" selection-start-line="1267" selection-end-line="1267" />
                   <folding>
                     <marker date="1552306732730" expanded="true" signature="0:939" ph="/* Tencent is pleased to support the open source community by making behaviac available. ... */" />
@@ -368,7 +360,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameInitializer.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-46">
+                <state relative-caret-position="230">
                   <caret line="17" selection-start-line="17" selection-end-line="17" />
                   <folding>
                     <marker date="1554899971173" expanded="false" signature="6:138" ph="..." />
@@ -383,7 +375,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Assets/Scripts/CharacterController2D/CharacterController2D.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-46">
+                <state relative-caret-position="299">
                   <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
                   <folding>
                     <marker date="1554458789701" expanded="false" signature="30:90" ph="..." />
@@ -477,7 +469,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Assets/Scripts/CharacterController2D/MainCharacter.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-115">
+                <state relative-caret-position="1587">
                   <caret line="240" column="5" selection-start-line="240" selection-start-column="5" selection-end-line="240" selection-end-column="5" />
                   <folding>
                     <marker date="1554899971172" expanded="false" signature="6:213" ph="..." />
@@ -597,7 +589,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Assets/Scripts/SceneTrigger.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
+                <state relative-caret-position="207">
                   <caret line="9" selection-start-line="9" selection-end-line="9" />
                   <folding>
                     <marker date="1554899971176" expanded="true" signature="6:243" ph="..." />
@@ -611,7 +603,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Assets/Scripts/Test.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-69">
+                <state relative-caret-position="230">
                   <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
                   <folding>
                     <marker date="1553429010601" expanded="false" signature="6:78" ph="..." />
@@ -628,8 +620,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Assets/Scripts/CharacterController2D/Actor.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3243">
-                  <caret line="386" column="49" lean-forward="true" selection-start-line="386" selection-start-column="49" selection-end-line="386" selection-end-column="49" />
+                <state relative-caret-position="86">
+                  <caret line="354" column="14" selection-start-line="354" selection-start-column="14" selection-end-line="354" selection-end-column="14" />
                   <folding>
                     <marker date="1554902988271" expanded="false" signature="6:143" ph="..." />
                     <marker date="1554902988271" expanded="true" signature="247:10145" ph="{...}" />
@@ -666,10 +658,10 @@
                     <marker date="1554902988271" expanded="true" signature="4888:4958" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="5003:5072" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="5089:8260" ph="Public Functions" />
-                    <marker date="1554902988271" expanded="true" signature="5116:6450" ph="Patroling Methods" />
+                    <marker date="1554902988271" expanded="false" signature="5116:6450" ph="Patroling Methods" />
                     <marker date="1554902988271" expanded="true" signature="5233:5623" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="5288:5429" ph="{...}" />
-                    <marker date="1554902988271" expanded="true" signature="5296:5322" ph="/* 开启计时器 ... */" />
+                    <marker date="1554902988271" expanded="true" signature="5296:5322" ph="/* 设置一个event ... */" />
                     <marker date="1554902988271" expanded="true" signature="5471:5538" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="5545:5617" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="5740:6043" ph="{...}" />
@@ -679,11 +671,11 @@
                     <marker date="1554902988271" expanded="true" signature="6180:6235" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="6323:6429" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="6453:7959" ph="Jumping Methods" />
-                    <marker date="1554902988271" expanded="true" signature="6520:6604" ph="///  ... " />
+                    <marker date="1554902988271" expanded="true" signature="6520:6604" ph="/// 跳跃一次，功能较为有限 ... " />
                     <marker date="1554902988271" expanded="true" signature="6641:6829" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="6674:6781" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="6788:6826" ph="{...}" />
-                    <marker date="1554902988271" expanded="true" signature="6863:7004" ph="///  ... " />
+                    <marker date="1554902988271" expanded="true" signature="6863:7004" ph="/// 跳跃几次，带有暂停效果，并可指定跳跃多少次，默认为1次 ... " />
                     <marker date="1554902988271" expanded="true" signature="7075:7672" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="7142:7198" ph="{...}" />
                     <marker date="1554902988271" expanded="true" signature="7244:7453" ph="{...}" />
@@ -847,19 +839,28 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="UnityExplorer" proportions="" version="1">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="FileSystemExplorer" />
-      <pane id="SolutionExplorer">
-        <option name="show-all-files" value="false" />
-      </pane>
-      <pane id="AssemblyExplorer" />
       <pane id="UnityExplorer">
         <option name="show-hidden-items" value="false" />
         <option name="show-project-names" value="true" />
       </pane>
+      <pane id="FileSystemExplorer" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="HoldiayProjectHighFive" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-all-files" value="false" />
+      </pane>
+      <pane id="AssemblyExplorer" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -994,11 +995,12 @@
       <workItem from="1554535438545" duration="6025000" />
       <workItem from="1554900614124" duration="940000" />
       <workItem from="1554901777195" duration="1228000" />
+      <workItem from="1555049474348" duration="37000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="719506000" />
+    <option name="totallyTimeSpent" value="719543000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1011,11 +1013,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" order="0" />
       <window_info id="Capture Tool" order="1" />
-      <window_info content_ui="combo" x="635" y="59" width="350" height="921" id="Project" order="2" sideWeight="0.5056657" visible="true" weight="0.06396589" />
+      <window_info active="true" content_ui="combo" x="635" y="59" width="350" height="921" id="Project" order="2" sideWeight="0.5056657" visible="true" weight="0.17910448" />
       <window_info id="Captures" order="3" sideWeight="0.49433428" weight="0.32942432" />
       <window_info id="Structure" order="4" weight="0.25" />
       <window_info id="Favorites" order="5" weight="0.32942432" />
@@ -1140,7 +1141,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Class/Actor.cs" />
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/behaviac/runtime/Base/Utils.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1840">
+        <state relative-caret-position="-2116">
           <caret line="1267" selection-start-line="1267" selection-end-line="1267" />
           <folding>
             <marker date="1552306732730" expanded="true" signature="0:939" ph="/* Tencent is pleased to support the open source community by making behaviac available. ... */" />
@@ -1468,7 +1469,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameInitializer.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
+        <state relative-caret-position="230">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
           <folding>
             <marker date="1554899971173" expanded="false" signature="6:138" ph="..." />
@@ -1481,7 +1482,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/CharacterController2D/CharacterController2D.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
+        <state relative-caret-position="299">
           <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
           <folding>
             <marker date="1554458789701" expanded="false" signature="30:90" ph="..." />
@@ -1573,7 +1574,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/CharacterController2D/MainCharacter.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-115">
+        <state relative-caret-position="1587">
           <caret line="240" column="5" selection-start-line="240" selection-start-column="5" selection-end-line="240" selection-end-column="5" />
           <folding>
             <marker date="1554899971172" expanded="false" signature="6:213" ph="..." />
@@ -1691,7 +1692,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/SceneTrigger.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="207">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
             <marker date="1554899971176" expanded="true" signature="6:243" ph="..." />
@@ -1703,7 +1704,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/Test.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-69">
+        <state relative-caret-position="230">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
           <folding>
             <marker date="1553429010601" expanded="false" signature="6:78" ph="..." />
@@ -1718,8 +1719,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/CharacterController2D/Actor.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3243">
-          <caret line="386" column="49" lean-forward="true" selection-start-line="386" selection-start-column="49" selection-end-line="386" selection-end-column="49" />
+        <state relative-caret-position="86">
+          <caret line="354" column="14" selection-start-line="354" selection-start-column="14" selection-end-line="354" selection-end-column="14" />
           <folding>
             <marker date="1554902988271" expanded="false" signature="6:143" ph="..." />
             <marker date="1554902988271" expanded="true" signature="247:10145" ph="{...}" />
@@ -1756,10 +1757,10 @@
             <marker date="1554902988271" expanded="true" signature="4888:4958" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="5003:5072" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="5089:8260" ph="Public Functions" />
-            <marker date="1554902988271" expanded="true" signature="5116:6450" ph="Patroling Methods" />
+            <marker date="1554902988271" expanded="false" signature="5116:6450" ph="Patroling Methods" />
             <marker date="1554902988271" expanded="true" signature="5233:5623" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="5288:5429" ph="{...}" />
-            <marker date="1554902988271" expanded="true" signature="5296:5322" ph="/* 开启计时器 ... */" />
+            <marker date="1554902988271" expanded="true" signature="5296:5322" ph="/* 设置一个event ... */" />
             <marker date="1554902988271" expanded="true" signature="5471:5538" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="5545:5617" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="5740:6043" ph="{...}" />
@@ -1769,11 +1770,11 @@
             <marker date="1554902988271" expanded="true" signature="6180:6235" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="6323:6429" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="6453:7959" ph="Jumping Methods" />
-            <marker date="1554902988271" expanded="true" signature="6520:6604" ph="///  ... " />
+            <marker date="1554902988271" expanded="true" signature="6520:6604" ph="/// 跳跃一次，功能较为有限 ... " />
             <marker date="1554902988271" expanded="true" signature="6641:6829" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="6674:6781" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="6788:6826" ph="{...}" />
-            <marker date="1554902988271" expanded="true" signature="6863:7004" ph="///  ... " />
+            <marker date="1554902988271" expanded="true" signature="6863:7004" ph="/// 跳跃几次，带有暂停效果，并可指定跳跃多少次，默认为1次 ... " />
             <marker date="1554902988271" expanded="true" signature="7075:7672" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="7142:7198" ph="{...}" />
             <marker date="1554902988271" expanded="true" signature="7244:7453" ph="{...}" />

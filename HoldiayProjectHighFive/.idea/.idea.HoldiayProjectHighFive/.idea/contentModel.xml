@@ -193,6 +193,7 @@
                 <e p="DashTrigger.cs" t="Include" />
                 <e p="InstantRayDamageTrigger.cs" t="Include" />
                 <e p="ISkillTrigger.cs" t="Include" />
+                <e p="ParabloaBulletTrigger.cs" t="Include" />
                 <e p="Trigger2DTrigger.cs" t="Include" />
               </e>
             </e>
@@ -206,7 +207,9 @@
           </e>
           <e p="Model" t="Include">
             <e p="AbstractSpriteObj.cs" t="Include" />
-            <e p="Bullet.cs" t="Include" />
+            <e p="BulletSprite.cs" t="Include" />
+            <e p="DirectLineBullet.cs" t="Include" />
+            <e p="ParabloaBullet.cs" t="Include" />
             <e p="PersonData.cs" t="Include" />
             <e p="Scenes" t="Include">
               <e p="BaseSceneInfo.cs" t="Include" />
