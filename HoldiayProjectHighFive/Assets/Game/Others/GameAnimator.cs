@@ -1,5 +1,4 @@
-﻿using Game.Common;
-using Game.Const;
+﻿using Game.Const;
 using Game.Script;
 using System;
 using System.Collections.Generic;

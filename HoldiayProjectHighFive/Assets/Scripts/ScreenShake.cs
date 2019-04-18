@@ -1,7 +1,6 @@
 ﻿// 相机震动效果
 
 using Game;
-using Game.Common;
 using UnityEngine;
  
 public class ScreenShake : MonoSingleton<ScreenShake>

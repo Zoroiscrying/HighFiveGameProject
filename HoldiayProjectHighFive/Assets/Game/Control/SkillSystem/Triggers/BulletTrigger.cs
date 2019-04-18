@@ -5,8 +5,6 @@ using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Game.Model;
-using Game.Model.SpriteObjSystem;
-
 namespace Game.Control.SkillSystem
 {
     /// <summary>

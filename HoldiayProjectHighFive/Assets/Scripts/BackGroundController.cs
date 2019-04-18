@@ -15,7 +15,7 @@ public class BackGroundController : MonoBehaviour
 
 	void Start()
 	{
-		this.player = Game.Global.GlobalVar.G_Player;
+		this.player = Game.Global.GlobalVar.Player;
 		this.beforePos = this.player.Pos;
 	}
 	// Update is called once per frame

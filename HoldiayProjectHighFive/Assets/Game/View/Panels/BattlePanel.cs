@@ -1,5 +1,4 @@
-﻿using Game.Common;
-using Game.Const;
+﻿using Game.Const;
 using Game.Control.Person;
 using Game.Global;
 using System;
@@ -27,7 +26,7 @@ namespace Game.View.Panels
 
             Create(UIPath.Panel_Battle);
 
-            this.player = GlobalVar.G_Player;
+            this.player = GlobalVar.Player;
             Assert.IsTrue(this.player != null);
 
             var trans_bloodBar = m_TransFrom.Find("Image_PlayerStateBar/BloodBar");

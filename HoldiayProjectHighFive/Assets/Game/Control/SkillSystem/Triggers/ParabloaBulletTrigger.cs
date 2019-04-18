@@ -6,8 +6,6 @@ using Game.Control.Person;
 using UnityEngine.Assertions;
 using Game.Model;
 using UnityEngine;
-using Game.Model.SpriteObjSystem;
-
 namespace Game.Control.SkillSystem
 {
     class ParabloaBulletTrigger : AbstractSkillTrigger
