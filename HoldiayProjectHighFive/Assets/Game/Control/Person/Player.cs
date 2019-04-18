@@ -18,7 +18,11 @@ using zoroiscrying;
 using Game.Model.ItemSystem;
 using Game.View.Panels;
 <<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
+<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
 using System.IO;
+=======
+using Game.Common;
+>>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
 
 =======
 >>>>>>> parent of 87a5688... 完善架构:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
@@ -30,6 +34,7 @@ namespace Game.Control.Person
     [Serializable]
     public class Player : AbstractPerson, IXmlSerializable
     {
+<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
         public static void InitPlayer()
         {
             if (File.Exists(DefaultData.PlayerDataFilePath))
@@ -64,6 +69,9 @@ namespace Game.Control.Person
             }
 
         }
+=======
+
+>>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
         #region 背包
 
         public class ItemData
@@ -249,7 +257,7 @@ namespace Game.Control.Person
 
         public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes, Transform parent = null) : base(name, prefabPath, pos, skillTypes, parent)
         {
-            GlobalVar.G_Player = this;
+            GlobalVar.Player = this;
             Debug.Log("主角诞生啦");
             Debug.Log("主角隐藏技能" + this.BaseSkillCount + " 主角真实技能：" + this.MaxRealSkillCount);
             this.DefaultConstTime = 1.0f;
@@ -543,7 +551,7 @@ namespace Game.Control.Person
             this.skillNames = new List<string>();
             this.ignoreInput = new List<bool>();
 
-            GlobalVar.G_Player = this;
+            GlobalVar.Player = this;
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc != null);
             cc = this.obj.GetComponent<CharacterController2D>();

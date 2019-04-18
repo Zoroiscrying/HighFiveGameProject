@@ -35,7 +35,7 @@ namespace Game.View.Panels
         {
             Create(UIPath.Panel_Package);
 
-            this.itemList = Global.GlobalVar.G_Player.itemList;
+            this.itemList = Global.GlobalVar.Player.itemList;
 
             this.backPackGridObj = this.m_TransFrom.Find("Image_BackGround/Image_BackPackGrid");
 

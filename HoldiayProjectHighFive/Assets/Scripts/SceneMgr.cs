@@ -25,36 +25,26 @@ public class SceneMgr : BaseSceneMgr
 	//private Player player;
 	public string UiPanelName;
 	public bool creatTestPeople = false;
-    public Vector3 PlayerPos;
-    public float signalSize=4;
 
 	void Start()
 	{
 	if(creatTestPeople)	
         CreateTestPeople();
 	}
-    // Use this for initialization
-
-    private void OnDrawGizmos()
-    {
-
-            Debug.DrawLine(PlayerPos + Vector3.left * this.signalSize, PlayerPos + Vector3.right * this.signalSize,Color.green);
-            Debug.DrawLine(PlayerPos + Vector3.up * this.signalSize, PlayerPos + Vector3.down * this.signalSize, Color.green);
-
-    }
-    void Update()
+	// Use this for initialization
+	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			Debug.Log("试图添加灵器" + SpiritName.C_First);
-			GlobalVar.G_Player.AddSpirit(SpiritName.C_First);
+			GlobalVar.Player.AddSpirit(SpiritName.C_First);
 			
 		}
 
 		if (Input.GetKeyDown(KeyCode.DownArrow))
 		{
 			Debug.Log("试图移出灵器" + SpiritName.C_First);
-			GlobalVar.G_Player.RemoveSpirit(SpiritName.C_First);
+			GlobalVar.Player.RemoveSpirit(SpiritName.C_First);
 		}
      			
 		
@@ -68,7 +58,7 @@ public class SceneMgr : BaseSceneMgr
 
 		if (Input.GetKeyDown(KeyCode.S))
 		{
-			XmlManager.SaveData(GlobalVar.G_Player,DefaultData.PlayerDataFilePath);
+			XmlManager.SaveData(GlobalVar.Player,DefaultData.PlayerDataFilePath);
 			AssetDatabase.Refresh();
 		}
 	}	
@@ -149,7 +139,7 @@ public class SceneMgr : BaseSceneMgr
 	{
 		base.Initializer();
 		InitializeSceneScripts();
-		InitializeGlobalVar(this.PlayerPos);
+		InitializeGlobalVar();
 		InitializeBehavic();
 	}
 
@@ -166,12 +156,9 @@ public class SceneMgr : BaseSceneMgr
 	/// <summary>
 	/// 初始化全局变量
 	/// </summary>
-	void InitializeGlobalVar(Vector3  pos)
+	void InitializeGlobalVar()
 	{
-        if (pos != Vector3.zero)
-            GlobalVar.Refresh(pos);
-        else
-            GlobalVar.Refresh();
+		GlobalVar.Refresh();
 	}
 	
 	/// <summary>
