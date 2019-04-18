@@ -17,6 +17,8 @@ using UnityEngine.Assertions;
 using zoroiscrying;
 using Game.Model.ItemSystem;
 using Game.View.Panels;
+using System.IO;
+
 namespace Game.Control.Person
 {
     /// <summary>
@@ -25,7 +27,40 @@ namespace Game.Control.Person
     [Serializable]
     public class Player : AbstractPerson, IXmlSerializable
     {
+        public static void InitPlayer()
+        {
+            if (File.Exists(DefaultData.PlayerDataFilePath))
+            {
+                Debug.Log("player comes from files");
+                GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
+                //                Debug.Log(player);
+                //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
+                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.G_Player.rank);
+            }
+            else
+            {
+                Debug.Log("player comes from new");
+                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, DefaultData.PlayerPos, DefaultData.PlayerDefaultSkills);
+            }
+            
+        }
+        public static void InitPlayer(Vector3 pos)
+        {
+            if (File.Exists(DefaultData.PlayerDataFilePath))
+            {
+                Debug.Log("player comes from files");
+                GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
+                //                Debug.Log(player);
+                //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
+                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.G_Player.rank);
+            }
+            else
+            {
+                Debug.Log("player comes from new");
+                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, pos, DefaultData.PlayerDefaultSkills);
+            }
 
+        }
         #region 背包
 
         public class ItemData
@@ -211,7 +246,7 @@ namespace Game.Control.Person
 
         public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes, Transform parent = null) : base(name, prefabPath, pos, skillTypes, parent)
         {
-            GlobalVar.Player = this;
+            GlobalVar.G_Player = this;
             Debug.Log("主角诞生啦");
             Debug.Log("主角隐藏技能" + this.BaseSkillCount + " 主角真实技能：" + this.MaxRealSkillCount);
             this.DefaultConstTime = 1.0f;
@@ -505,7 +540,7 @@ namespace Game.Control.Person
             this.skillNames = new List<string>();
             this.ignoreInput = new List<bool>();
 
-            GlobalVar.Player = this;
+            GlobalVar.G_Player = this;
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc != null);
             cc = this.obj.GetComponent<CharacterController2D>();
