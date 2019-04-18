@@ -8,6 +8,7 @@ using Game.Global;
 using UnityEngine;
 using Game.StateMachine;
 using Game.Control.Person;
+using Game.Common;
 
 public class MainCharacter : Actor 
 {

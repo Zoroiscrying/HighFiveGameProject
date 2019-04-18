@@ -10,24 +10,18 @@ namespace Game.View
 {
     public class ItemInfoUI:AbstractUI
     {
-        private Text name;
-        private Text function;
-        private Text story;
+        private Text content;
         public ItemInfoUI()
         {
             Create(UIPath.Image_ItemInfo);
-            this.name = m_TransFrom.Find("Text_Name").GetComponent<Text>();
-            this.function = m_TransFrom.Find("Text_Function").GetComponent<Text>();
-            this.story = m_TransFrom.Find("Text_Story").GetComponent<Text>();
+            this.content = m_TransFrom.Find("Text").GetComponent<Text>();
         }
         
         public void Set(int itemID,Vector3 pos)
         {
             
-             var item = ItemMgr.GetItem(itemID);
-            this.name.text = item.Name;
-            this.function.text = item.Capacity.ToString();
-            this.story.text = item.Description;
+            var item = ItemMgr.GetItem(itemID);
+            this.content.text = item.Name+"\n"+ item.Capacity.ToString()+"\n"+ item.Description;
             m_TransFrom.position = pos;
         }
     }

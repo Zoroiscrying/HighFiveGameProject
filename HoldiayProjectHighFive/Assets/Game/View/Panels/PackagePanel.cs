@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using Game.View;
+using Game.Common;
 namespace Game.View.Panels
 {
     public class PackagePanel : AbstractPanel
