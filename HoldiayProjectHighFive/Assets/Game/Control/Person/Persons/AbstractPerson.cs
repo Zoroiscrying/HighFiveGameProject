@@ -352,7 +352,7 @@ namespace Game.Control.Person
         public virtual void DestoryThis()
         {
             if (!(this is Player))
-                CEventCenter.BroadMessage(Message.M_ExpChange, 50 * GlobalVar.Player.rank);
+                CEventCenter.BroadMessage(Message.M_ExpChange, 50 * GlobalVar.G_Player.rank);
             OnRemoveListener();
             MainLoop.Instance.RemoveUpdateFunc(Update);
             instanceList.Remove(this);

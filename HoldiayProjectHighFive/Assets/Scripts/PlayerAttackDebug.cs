@@ -25,8 +25,8 @@ public class PlayerAttackDebug : MonoBehaviour
 	{
 //		print(this.gameObject);
 //		Debug.Log(Game.Global.CGameObjects.Player.GetInstanceID()+" "+this.gameObject.GetInstanceID());
-		Assert.IsTrue(Game.Global.GlobalVar.Player.obj == this.gameObject);
-		var ap = Game.Global.GlobalVar.Player;
+		Assert.IsTrue(Game.Global.GlobalVar.G_Player.obj == this.gameObject);
+		var ap = Game.Global.GlobalVar.G_Player;
 		ap.airXMove = this.airXMove;
 		foreach (var cur in skillInfoList)
 		{
