@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Game;
 using Game.Control;
 using Game.Control.Person;
-using Game.Model.SceneSystem;
+using Game.Model.Scenes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;

@@ -149,6 +149,7 @@
             <e p="DefaultData.cs" t="Include" />
             <e p="Message.cs" t="Include" />
             <e p="ObjName" t="Include">
+              <e p="ItemID.cs" t="Include" />
               <e p="PanelName.cs" t="Include" />
               <e p="SceneName.cs" t="Include" />
               <e p="SkillTriggerName.cs" t="Include" />
@@ -158,6 +159,7 @@
               <e p="BulletPath.cs" t="Include" />
               <e p="FilePath.cs" t="Include" />
               <e p="GameObjectPath.cs" t="Include" />
+              <e p="ItemPath.cs" t="Include" />
               <e p="UIPath.cs" t="Include" />
             </e>
             <e p="Signal.cs" t="Include" />
@@ -209,6 +211,17 @@
             <e p="AbstractSpriteObj.cs" t="Include" />
             <e p="BulletSprite.cs" t="Include" />
             <e p="DirectLineBullet.cs" t="Include" />
+            <e p="ItemSystem" t="Include">
+              <e p="IItemTriggerFactory.cs" t="Include" />
+              <e p="ItemFactory.cs" t="Include" />
+              <e p="ItemMgr.cs" t="Include" />
+              <e p="Items" t="Include">
+                <e p="AbstractItem.cs" t="Include" />
+                <e p="Shit.cs" t="Include" />
+              </e>
+              <e p="ItemUI.cs" t="Include" />
+              <e p="Slot.cs" t="Include" />
+            </e>
             <e p="ParabloaBullet.cs" t="Include" />
             <e p="PersonData.cs" t="Include" />
             <e p="Scenes" t="Include">
@@ -254,11 +267,13 @@
           <e p="View" t="Include">
             <e p="AbstractUI.cs" t="Include" />
             <e p="BloodBarUI.cs" t="Include" />
+            <e p="ItemInfoUI.cs" t="Include" />
             <e p="NumberTipUI.cs" t="Include" />
             <e p="Panels" t="Include">
               <e p="AbstractPanel.cs" t="Include" />
               <e p="BattlePanel.cs" t="Include" />
               <e p="IStackPanel.cs" t="Include" />
+              <e p="PackagePanel.cs" t="Include" />
               <e p="UIManager.cs" t="Include" />
             </e>
           </e>
@@ -391,6 +406,7 @@
           <e p="Test.cs" t="Include" />
         </e>
         <e p="StreamingAssets" t="Include">
+          <e p="ItemData.txt" t="Include" />
           <e p="PersonData.txt" t="Include" />
           <e p="SkillData.txt" t="Include" />
         </e>

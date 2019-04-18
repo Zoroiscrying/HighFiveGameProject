@@ -17,47 +17,9 @@ using UnityEngine.Assertions;
 using zoroiscrying;
 using Game.Model.ItemSystem;
 using Game.View.Panels;
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
 using System.IO;
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-using Game.Common;
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
 
-=======
->>>>>>> parent of 87a5688... 完善架构:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
+
 namespace Game.Control.Person
 {
     /// <summary>
@@ -66,76 +28,44 @@ namespace Game.Control.Person
     [Serializable]
     public class Player : AbstractPerson, IXmlSerializable
     {
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
-<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
+
         public static void InitPlayer()
         {
             if (File.Exists(DefaultData.PlayerDataFilePath))
             {
                 Debug.Log("player comes from files");
-                GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
+                GlobalVar.Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
                 //                Debug.Log(player);
                 //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
-                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.G_Player.rank);
+                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.Player.rank);
             }
             else
             {
                 Debug.Log("player comes from new");
-                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, DefaultData.PlayerPos, DefaultData.PlayerDefaultSkills);
+                GlobalVar.Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, DefaultData.PlayerPos, DefaultData.PlayerDefaultSkills);
             }
             
         }
+
         public static void InitPlayer(Vector3 pos)
         {
             if (File.Exists(DefaultData.PlayerDataFilePath))
             {
                 Debug.Log("player comes from files");
-                GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
+                GlobalVar.Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
                 //                Debug.Log(player);
                 //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
-                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.G_Player.rank);
+                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.Player.rank);
             }
             else
             {
                 Debug.Log("player comes from new");
-                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, pos, DefaultData.PlayerDefaultSkills);
+                GlobalVar.Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, pos,
+                    DefaultData.PlayerDefaultSkills);
             }
 
         }
-=======
 
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
-=======
-
->>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
         #region 背包
 
         public class ItemData
