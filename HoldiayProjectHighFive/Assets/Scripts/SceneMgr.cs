@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Game;
-using Game.Common;
 using Game.Const;
 using Game.Control;
 using Game.Global;
 using Game.Script;
-using Game.Data;
+using Game.Serialization;
 using Game.View;
 using UnityEngine;
 using Mono.Data.Sqlite;
@@ -18,7 +17,6 @@ using Game.Control.SkillSystem;
 using Game.Model.SpiritItemSystem;
 using Game.View.Panels;
 using Game.Model.ItemSystem;
-using Game.Model.SpriteObjSystem;
 
 public class SceneMgr : BaseSceneMgr
 {

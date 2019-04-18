@@ -17,8 +17,11 @@ using UnityEngine.Assertions;
 using zoroiscrying;
 using Game.Model.ItemSystem;
 using Game.View.Panels;
+<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
 using System.IO;
 
+=======
+>>>>>>> parent of 87a5688... 完善架构:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
 namespace Game.Control.Person
 {
     /// <summary>
