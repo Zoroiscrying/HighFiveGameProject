@@ -90,7 +90,7 @@ namespace Game.View
 
             var go = Resources.Load<GameObject>(m_sResName);
 
-            var canvas = Global.GlobalVar.Canvas.transform;
+            var canvas = Global.GlobalVar.G_Canvas.transform;
 
             if (null == canvas)
                 Debug.Log("画布获取失败");

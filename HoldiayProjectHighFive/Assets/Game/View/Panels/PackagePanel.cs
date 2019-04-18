@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using Game.View;
+using Game.Common;
 namespace Game.View.Panels
 {
     public class PackagePanel : AbstractPanel
@@ -35,7 +36,7 @@ namespace Game.View.Panels
         {
             Create(UIPath.Panel_Package);
 
-            this.itemList = Global.GlobalVar.Player.itemList;
+            this.itemList = Global.GlobalVar.G_Player.itemList;
 
             this.backPackGridObj = this.m_TransFrom.Find("Image_BackGround/Image_BackPackGrid");
 
