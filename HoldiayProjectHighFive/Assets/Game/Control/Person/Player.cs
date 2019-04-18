@@ -19,7 +19,11 @@ using Game.Model.ItemSystem;
 using Game.View.Panels;
 <<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
 <<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
+<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
 using System.IO;
+=======
+using Game.Common;
+>>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
 =======
 using Game.Common;
 >>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
@@ -34,6 +38,7 @@ namespace Game.Control.Person
     [Serializable]
     public class Player : AbstractPerson, IXmlSerializable
     {
+<<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
 <<<<<<< HEAD:HoldiayProjectHighFive/Assets/Game/Control/Person/Player.cs
         public static void InitPlayer()
         {
@@ -69,6 +74,9 @@ namespace Game.Control.Person
             }
 
         }
+=======
+
+>>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
 =======
 
 >>>>>>> parent of f93c798... 提供些辅助功能，详见石墨文档:HoldiayProjectHighFive/Assets/Game/Control/Person/Persons/Player.cs
