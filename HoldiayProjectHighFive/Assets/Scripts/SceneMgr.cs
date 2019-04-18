@@ -17,6 +17,7 @@ using Game.Control.SkillSystem;
 using Game.Model.SpiritItemSystem;
 using Game.View.Panels;
 using Game.Model.ItemSystem;
+using Game.Model;
 
 public class SceneMgr : BaseSceneMgr
 {
@@ -25,14 +26,24 @@ public class SceneMgr : BaseSceneMgr
 	//private Player player;
 	public string UiPanelName;
 	public bool creatTestPeople = false;
+    public Vector3 PlayerPos;
+    public float signalSize=4;
 
 	void Start()
 	{
 	if(creatTestPeople)	
         CreateTestPeople();
 	}
-	// Use this for initialization
-	void Update()
+    // Use this for initialization
+
+    private void OnDrawGizmos()
+    {
+
+            Debug.DrawLine(PlayerPos + Vector3.left * this.signalSize, PlayerPos + Vector3.right * this.signalSize,Color.green);
+            Debug.DrawLine(PlayerPos + Vector3.up * this.signalSize, PlayerPos + Vector3.down * this.signalSize, Color.green);
+
+    }
+    void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.UpArrow))
 		{
@@ -139,7 +150,7 @@ public class SceneMgr : BaseSceneMgr
 	{
 		base.Initializer();
 		InitializeSceneScripts();
-		InitializeGlobalVar();
+		InitializeGlobalVar(this.PlayerPos);
 		InitializeBehavic();
 	}
 
@@ -156,9 +167,12 @@ public class SceneMgr : BaseSceneMgr
 	/// <summary>
 	/// 初始化全局变量
 	/// </summary>
-	void InitializeGlobalVar()
+	void InitializeGlobalVar(Vector3  pos)
 	{
-		GlobalVar.Refresh();
+        if (pos != Vector3.zero)
+            GlobalVar.Refresh(pos);
+        else
+            GlobalVar.Refresh();
 	}
 	
 	/// <summary>
