@@ -17,6 +17,9 @@ namespace Game.Const
 
         public static readonly string Slider_BloodBar = LittleUiPath + "Slider";
 
+        public static readonly string Image_MiniMap = LittleUiPath + "Image_MiniMapBackGround";
+        
+        
         #region 背包
         public static readonly string Image_ItemInfo = LittleUiPath + "Image_ItemInfo";
         public static readonly string Image_ItemUI = LittleUiPath + "Image_ItemUI";

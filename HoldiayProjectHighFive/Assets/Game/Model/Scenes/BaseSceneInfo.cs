@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
-namespace Game.Model.Scenes
+namespace Game.Model.SceneSystem
 {
     public class BaseSceneInfo
     {

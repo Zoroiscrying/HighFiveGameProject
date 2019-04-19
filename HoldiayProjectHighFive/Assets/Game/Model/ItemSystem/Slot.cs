@@ -55,7 +55,7 @@ namespace Game.Model.ItemSystem
                     this.itemNum.text = value.ToString();
                 }
 
-                foreach(var v in Global.GlobalVar.Player.itemList)
+                foreach(var v in Global.GlobalVar.G_Player.itemList)
                     Debug.Log("v.count:" + v.count + " v.id" + v.itemId);
             }
         }

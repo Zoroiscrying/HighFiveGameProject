@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Program Files (x86)\Android\android-sdk\platforms\android-25\Data\res" t="IncludeRecursive" />
-    <e p="C:\Users\Admin\.Rider2018.3\config\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\Admin\.Rider2018.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Admin\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_HoldiayProjectHighFive.384860981.00" t="ExcludeRecursive" />
-    <e p="E:\UnityNGithub\GameProjectGIT\HighFiveGameProject\HoldiayProjectHighFive" t="IncludeRecursive">
+    <e p="C:\Users\ReadyGamerOne\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
+    <e p="F:\Projects\unity\HiFive\HoldiayProjectHighFive" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">

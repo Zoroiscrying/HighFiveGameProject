@@ -18,6 +18,7 @@ using Game.Model.SpiritItemSystem;
 using Game.View.Panels;
 using Game.Model.ItemSystem;
 using Game.Model;
+using UnityEngine.Assertions;
 
 public class SceneMgr : BaseSceneMgr
 {
@@ -25,14 +26,17 @@ public class SceneMgr : BaseSceneMgr
 	List<AbstractPerson> list=new List<AbstractPerson>();
 	//private Player player;
 	public string UiPanelName;
-	public bool creatTestPeople = false;
+	//public bool creatTestPeople = false;
     public Vector3 PlayerPos;
     public float signalSize=4;
-
+    private GameObject miniMap;
 	void Start()
 	{
-	if(creatTestPeople)	
-        CreateTestPeople();
+	//if(creatTestPeople)	
+    //    CreateTestPeople();
+	this.miniMap = Resources.Load<GameObject>(UIPath.Image_MiniMap);
+	Assert.IsTrue(this.miniMap);
+	GameObject.Instantiate(miniMap, GlobalVar.G_Canvas.transform);
 	}
     // Use this for initialization
 
@@ -48,14 +52,14 @@ public class SceneMgr : BaseSceneMgr
 		if (Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			Debug.Log("试图添加灵器" + SpiritName.C_First);
-			GlobalVar.Player.AddSpirit(SpiritName.C_First);
+			GlobalVar.G_Player.AddSpirit(SpiritName.C_First);
 			
 		}
 
 		if (Input.GetKeyDown(KeyCode.DownArrow))
 		{
 			Debug.Log("试图移出灵器" + SpiritName.C_First);
-			GlobalVar.Player.RemoveSpirit(SpiritName.C_First);
+			GlobalVar.G_Player.RemoveSpirit(SpiritName.C_First);
 		}
      			
 		
@@ -69,7 +73,7 @@ public class SceneMgr : BaseSceneMgr
 
 		if (Input.GetKeyDown(KeyCode.S))
 		{
-			XmlManager.SaveData(GlobalVar.Player,DefaultData.PlayerDataFilePath);
+			XmlManager.SaveData(GlobalVar.G_Player,DefaultData.PlayerDataFilePath);
 			AssetDatabase.Refresh();
 		}
 	}	

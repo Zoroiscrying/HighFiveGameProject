@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Game.Model.Scenes
+namespace Game.Model.SceneSystem
 {
     public class WelcomeScene : BaseSceneInfo
     {

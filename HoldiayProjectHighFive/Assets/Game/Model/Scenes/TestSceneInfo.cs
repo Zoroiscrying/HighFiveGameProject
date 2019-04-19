@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Game.Model.Scenes
+namespace Game.Model.SceneSystem
 {
     public class TestSceneInfo : BaseSceneInfo
     {

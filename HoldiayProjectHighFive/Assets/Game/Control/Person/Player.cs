@@ -34,15 +34,15 @@ namespace Game.Control.Person
             if (File.Exists(DefaultData.PlayerDataFilePath))
             {
                 Debug.Log("player comes from files");
-                GlobalVar.Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
+                GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
                 //                Debug.Log(player);
                 //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
-                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.Player.rank);
+                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.G_Player.rank);
             }
             else
             {
                 Debug.Log("player comes from new");
-                GlobalVar.Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, DefaultData.PlayerPos, DefaultData.PlayerDefaultSkills);
+                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, DefaultData.PlayerPos, DefaultData.PlayerDefaultSkills);
             }
             
         }
@@ -52,15 +52,15 @@ namespace Game.Control.Person
             if (File.Exists(DefaultData.PlayerDataFilePath))
             {
                 Debug.Log("player comes from files");
-                GlobalVar.Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
+                GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
                 //                Debug.Log(player);
                 //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
-                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.Player.rank);
+                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.G_Player.rank);
             }
             else
             {
                 Debug.Log("player comes from new");
-                GlobalVar.Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, pos,
+                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, pos,
                     DefaultData.PlayerDefaultSkills);
             }
 
@@ -251,7 +251,7 @@ namespace Game.Control.Person
 
         public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes, Transform parent = null) : base(name, prefabPath, pos, skillTypes, parent)
         {
-            GlobalVar.Player = this;
+            GlobalVar.G_Player = this;
             Debug.Log("主角诞生啦");
             Debug.Log("主角隐藏技能" + this.BaseSkillCount + " 主角真实技能：" + this.MaxRealSkillCount);
             this.DefaultConstTime = 1.0f;
@@ -545,7 +545,7 @@ namespace Game.Control.Person
             this.skillNames = new List<string>();
             this.ignoreInput = new List<bool>();
 
-            GlobalVar.Player = this;
+            GlobalVar.G_Player = this;
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc != null);
             cc = this.obj.GetComponent<CharacterController2D>();
