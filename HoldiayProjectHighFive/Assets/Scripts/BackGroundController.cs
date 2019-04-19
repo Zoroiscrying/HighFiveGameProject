@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Game.Control;
 using UnityEngine.Assertions;
-using Game.Control.Person;
+using Game.Control.PersonSystem;
 
 public class BackGroundController : MonoBehaviour
 {

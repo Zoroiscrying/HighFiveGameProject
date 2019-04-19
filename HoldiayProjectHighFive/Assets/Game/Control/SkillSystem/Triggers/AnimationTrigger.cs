@@ -1,4 +1,4 @@
-﻿using Game.Control.Person;
+﻿using Game.Control.PersonSystem;
 using System;
 using UnityEngine;
 using UnityEngine.Assertions;

@@ -1,9 +1,10 @@
 ﻿using Game.Const;
-using Game.Control.Person;
+using Game.Control.PersonSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Game.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

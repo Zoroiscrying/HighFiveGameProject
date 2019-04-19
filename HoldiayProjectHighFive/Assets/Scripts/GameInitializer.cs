@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Game.Script;
 using Game.View;
-using Game.View.Panels;
+using Game.View.PanelSystem;
 using UnityEngine;
 
 public class GameInitializer : MonoBehaviour {

@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
+using Game.Common;
 
 namespace Game.Model.ItemSystem
 {
@@ -116,7 +117,7 @@ namespace Game.Model.ItemSystem
             }
         }
 
-        public void AddItem(Control.Person.Player.ItemData itemData,int count)
+        public void AddItem(Control.PersonSystem.Player.ItemData itemData,int count)
         {
 
             AddItem(itemData.itemId, count);
@@ -149,7 +150,7 @@ namespace Game.Model.ItemSystem
         {
             if (IsEmpty)
                 return;
-            if(eventData.pointerEnter)
+            Debug.Log("???");
             CEventCenter.BroadMessage(Message.M_TouchItem, this);
         }
 
@@ -157,7 +158,7 @@ namespace Game.Model.ItemSystem
         {
             if (IsEmpty)
                 return;
-               CEventCenter.BroadMessage(Message.M_ReleaseItem, this);
+            CEventCenter.BroadMessage(Message.M_ReleaseItem, this);
         }
     }
 }

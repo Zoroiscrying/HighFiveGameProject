@@ -1,4 +1,4 @@
-﻿using Game.Control.Person;
+﻿using Game.Control.PersonSystem;
 using Game.Script;
 using System;
 using UnityEngine;

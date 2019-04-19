@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Game;
+using Game.Common;
 using Game.Const;
 using Game.Control;
 using Game.Global;
 using UnityEngine;
 using Game.StateMachine;
-using Game.Control.Person;
+using Game.Control.PersonSystem;
 
 public class MainCharacter : Actor 
 {

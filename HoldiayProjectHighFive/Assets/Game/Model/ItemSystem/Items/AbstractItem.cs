@@ -26,6 +26,11 @@ namespace Game.Model.ItemSystem
             }
         }
 
+        public override string ToString()
+        {
+            return this.Name + "\n" + this.Description;
+        }
+
         internal virtual void Init(string args)
         {
             var strs = args.Split('|');

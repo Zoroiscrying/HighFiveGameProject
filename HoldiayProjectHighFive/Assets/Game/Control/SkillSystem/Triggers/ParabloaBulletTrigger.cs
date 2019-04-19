@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Game.Control.Person;
+using Game.Control.PersonSystem;
 using UnityEngine.Assertions;
 using Game.Model;
+using Game.Model.SpriteObjSystem;
 using UnityEngine;
 namespace Game.Control.SkillSystem
 {

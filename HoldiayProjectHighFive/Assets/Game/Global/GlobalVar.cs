@@ -1,6 +1,6 @@
 ﻿using Game.Const;
-using Game.Control.Person;
-using Game.Serialization;
+using Game.Control.PersonSystem;
+using Game.Data;
 using System.IO;
 using UnityEngine;
 

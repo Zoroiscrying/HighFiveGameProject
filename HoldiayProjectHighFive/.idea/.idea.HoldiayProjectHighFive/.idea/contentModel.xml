@@ -142,7 +142,12 @@
           </e>
         </e>
         <e p="Game" t="Include">
-          <e p="CEventCenter.cs" t="Include" />
+          <e p="Common" t="Include">
+            <e p="CEventCenter.cs" t="Include" />
+            <e p="MonoSingleton.cs" t="Include" />
+            <e p="SafeSingleton.cs" t="Include" />
+            <e p="Singleton.cs" t="Include" />
+          </e>
           <e p="Const" t="Include">
             <e p="DefaultData.cs" t="Include" />
             <e p="Message.cs" t="Include" />
@@ -163,7 +168,7 @@
             <e p="Signal.cs" t="Include" />
           </e>
           <e p="Control" t="Include">
-            <e p="BattleEffects" t="Include">
+            <e p="BattleEffectSystem" t="Include">
               <e p="AbstractBattleEffect.cs" t="Include" />
               <e p="AudioEffect.cs" t="Include" />
               <e p="DamageNumberEffect.cs" t="Include" />
@@ -174,11 +179,13 @@
               <e p="ShakeScreenEffect.cs" t="Include" />
               <e p="ShineEffect.cs" t="Include" />
             </e>
-            <e p="Person" t="Include">
-              <e p="AbstractPerson.cs" t="Include" />
-              <e p="AbstractSourcePerson.cs" t="Include" />
-              <e p="Player.cs" t="Include" />
-              <e p="TestPerson.cs" t="Include" />
+            <e p="PersonSystem" t="Include">
+              <e p="Persons" t="Include">
+                <e p="AbstractPerson.cs" t="Include" />
+                <e p="AbstractSourcePerson.cs" t="Include" />
+                <e p="Player.cs" t="Include" />
+                <e p="TestPerson.cs" t="Include" />
+              </e>
             </e>
             <e p="SkillSystem" t="Include">
               <e p="ISkillTriggerFactory.cs" t="Include" />
@@ -198,6 +205,14 @@
               </e>
             </e>
           </e>
+          <e p="Data" t="Include">
+            <e p="BitManager.cs" t="Include" />
+            <e p="JsonManager.cs" t="Include" />
+            <e p="PersonData.cs" t="Include" />
+            <e p="SerializableDictionary.cs" t="Include" />
+            <e p="SQLiteMgr.cs" t="Include" />
+            <e p="XmlManager.cs" t="Include" />
+          </e>
           <e p="Global" t="Include">
             <e p="GlobalFlag.cs" t="Include" />
             <e p="GlobalVar.cs" t="Include" />
@@ -206,9 +221,6 @@
             <e p="GameMath.cs" t="Include" />
           </e>
           <e p="Model" t="Include">
-            <e p="AbstractSpriteObj.cs" t="Include" />
-            <e p="BulletSprite.cs" t="Include" />
-            <e p="DirectLineBullet.cs" t="Include" />
             <e p="ItemSystem" t="Include">
               <e p="IItemTriggerFactory.cs" t="Include" />
               <e p="ItemFactory.cs" t="Include" />
@@ -220,27 +232,28 @@
               <e p="ItemUI.cs" t="Include" />
               <e p="Slot.cs" t="Include" />
             </e>
-            <e p="ParabloaBullet.cs" t="Include" />
-            <e p="PersonData.cs" t="Include" />
-            <e p="Scenes" t="Include">
+            <e p="SceneSystem" t="Include">
               <e p="BaseSceneInfo.cs" t="Include" />
               <e p="JbSceneInfo.cs" t="Include" />
               <e p="SceneMgr.cs" t="Include" />
               <e p="TestSceneInfo.cs" t="Include" />
               <e p="WelcomeScene.cs" t="Include" />
             </e>
-            <e p="SpiritItems" t="Include">
+            <e p="SpiritItemSystem" t="Include">
               <e p="AbstractSpiritItem.cs" t="Include" />
               <e p="TestSpirit.cs" t="Include" />
             </e>
-            <e p="SQLiteMgr.cs" t="Include" />
+            <e p="SpriteObjSystem" t="Include">
+              <e p="AbstractSpriteObj.cs" t="Include" />
+              <e p="BulletSprite.cs" t="Include" />
+              <e p="DirectLineBullet.cs" t="Include" />
+              <e p="ParabloaBullet.cs" t="Include" />
+            </e>
           </e>
-          <e p="MonoSingleton.cs" t="Include" />
           <e p="Others" t="Include">
             <e p="AnimationWeight.cs" t="Include" />
             <e p="GameAnimator.cs" t="Include" />
           </e>
-          <e p="SafeSingleton.cs" t="Include" />
           <e p="Script" t="Include">
             <e p="AudioMgr.cs" t="Include" />
             <e p="MainLoop.cs" t="Include" />
@@ -248,13 +261,6 @@
             <e p="UIInputer.cs" t="Include" />
             <e p="UpdateTestPair.cs" t="Include" />
           </e>
-          <e p="Serialization" t="Include">
-            <e p="BitManager.cs" t="Include" />
-            <e p="JsonManager.cs" t="Include" />
-            <e p="SerializableDictionary.cs" t="Include" />
-            <e p="XmlManager.cs" t="Include" />
-          </e>
-          <e p="Singleton.cs" t="Include" />
           <e p="StateMachine" t="Include">
             <e p="IStateMachine.cs" t="Include" />
             <e p="StateMachine.cs" t="Include" />
@@ -267,7 +273,7 @@
             <e p="BloodBarUI.cs" t="Include" />
             <e p="ItemInfoUI.cs" t="Include" />
             <e p="NumberTipUI.cs" t="Include" />
-            <e p="Panels" t="Include">
+            <e p="PanelSystem" t="Include">
               <e p="AbstractPanel.cs" t="Include" />
               <e p="BattlePanel.cs" t="Include" />
               <e p="IStackPanel.cs" t="Include" />

@@ -1,10 +1,12 @@
 ﻿using Game.Const;
-using Game.Control.Person;
+using Game.Control.PersonSystem;
 using Game.Script;
 using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Game.Model;
+using Game.Model.SpriteObjSystem;
+
 namespace Game.Control.SkillSystem
 {
     /// <summary>

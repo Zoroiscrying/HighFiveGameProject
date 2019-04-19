@@ -5,19 +5,20 @@ using Game.Const;
 using Game.Control;
 using Game.Global;
 using Game.Script;
-using Game.Serialization;
+using Game.Data;
 using Game.View;
 using UnityEngine;
 using Mono.Data.Sqlite;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using Game.Model;
-using Game.Control.Person;
+using Game.Control.PersonSystem;
 using Game.Control.SkillSystem;
 using Game.Model.SpiritItemSystem;
-using Game.View.Panels;
+using Game.View.PanelSystem;
 using Game.Model.ItemSystem;
 using Game.Model;
+using Game.Model.SpriteObjSystem;
 using UnityEngine.Assertions;
 
 public class SceneMgr : BaseSceneMgr
