@@ -4644,7 +4644,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 902189352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.5078998, y: -2.6659577, z: 0.03125}
+  m_LocalPosition: {x: 5.81, y: -1.57, z: 0.03125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 410905255}
@@ -4664,6 +4664,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UiPanelName: 
   creatTestPeople: 0
+  PlayerPos: {x: -6.12, y: 4.98, z: 0}
+  signalSize: 4
 --- !u!1 &964102823
 GameObject:
   m_ObjectHideFlags: 0
