@@ -407,6 +407,7 @@
           <e p="SceneMgr.cs" t="Include" />
           <e p="SceneTrigger.cs" t="Include" />
           <e p="ScreenShake.cs" t="Include" />
+          <e p="ShowCollider2D.cs" t="Include" />
           <e p="Test.cs" t="Include" />
         </e>
         <e p="StreamingAssets" t="Include">

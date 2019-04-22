@@ -4663,7 +4663,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UiPanelName: 
-  creatTestPeople: 0
   PlayerPos: {x: -6.12, y: 4.98, z: 0}
   signalSize: 4
 --- !u!1 &964102823
