@@ -192,10 +192,11 @@ namespace Game.Control.PersonSystem
         public static float superTime = 3;
         private void TrySuper()
         {
-            if (Convert.ToSingle(this.Exp) / Convert.ToSingle(this.MaxExp) >= 1 / 3.0f && !isSuper)
+           // if (Convert.ToSingle(this.Exp) / Convert.ToSingle(this.MaxExp) >= 1 / 3.0f && !isSuper)
             {
                 //进入强化状态
                 //可能要UI，动画，特效，移动，各个领域配合
+                Debug.Log("Super");
                 CEventCenter.BroadMessage(Message.M_InitSuper);
                 MainLoop.Instance.ExecuteLater(() => { CEventCenter.BroadMessage(Message.M_ExitSuper); }, superTime);
             }

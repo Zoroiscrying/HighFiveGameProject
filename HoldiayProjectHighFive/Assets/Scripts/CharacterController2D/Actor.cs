@@ -17,10 +17,57 @@ public class Actor : MonoBehaviour {
 	
 	#region Public Variables
 
-	public float PatrolStopTime = 1.0f;
+	[Header("AutoJump")]
+	public JumpType ActorJumpType = JumpType.SimpleJump;
+	public Vector2 JumpForce = Vector2.right;
+	public bool AutoJump = false;
 	public float JumpStopTime = 1.0f;
 	
-	public bool IsAtCorner
+	[Header("AutoPatrol")]
+	[FormerlySerializedAs("_patrolType")] public PatrolType ActorPatrolType;
+	public bool _isPatrolling = false;
+	public float PatrolStopTime = 1.0f;
+	
+	[Header("PreciseMovementCtrl")]
+	public float _accelerationTimeAirborne = .2f;
+	public float _accelerationTimeGrounded = .0f;
+	[Space(5)]
+	public float _timeToJumpApex = .4f;
+	public float _maxJumpHeight = 1f;
+	[Space(5)]
+	public float _runSpeed = 8f;
+	[Space(5)]
+	public float _horizontalSpeedMultiplier = 1f;
+	public float _verticalSpeedMultiplier = 1f;
+	public bool _affectedByGravity = true;
+
+	public GameAnimator _animator;
+	
+	public int _normalizedDirX
+	{
+		get
+		{
+			if (_directionalInput.x > 0)
+			{
+				return 1;
+			}
+			if (_directionalInput.x < 0)
+			{
+				return -1;
+			}
+			return 0;
+			
+		}
+	}
+
+	public int _faceDir = 1;
+
+	
+	#endregion
+
+	#region Private Variables
+	
+	private bool IsAtCorner
 	{
 		//判断到达边角的条件：横向射线和竖向射线
 		get
@@ -67,51 +114,6 @@ public class Actor : MonoBehaviour {
 			return false;
 		}
 	}
-
-	public Vector2 JumpForce = Vector2.right;
-	public bool AutoJump = false;
-	
-	public bool _isPatrolling = false;
-	
-	[FormerlySerializedAs("_patrolType")] public PatrolType ActorPatrolType;
-	
-	public float _runSpeed = 8f;
-	public float _timeToJumpApex = .4f;
-	public float _accelerationTimeAirborne = .2f;
-	public float _accelerationTimeGrounded = .0f;
-	public float _maxJumpHeight = 1f;
-
-	public float _horizontalSpeedMultiplier = 1f;
-	public float _verticalSpeedMultiplier = 1f;
-	
-	public bool _affectedByGravity = true;
-
-	public GameAnimator _animator;
-	
-	public int _normalizedDirX
-	{
-		get
-		{
-			if (_directionalInput.x > 0)
-			{
-				return 1;
-			}
-			if (_directionalInput.x < 0)
-			{
-				return -1;
-			}
-			return 0;
-			
-		}
-	}
-
-	public int _faceDir = 1;
-
-	public JumpType ActorJumpType = JumpType.SimpleJump;
-	
-	#endregion
-
-	#region Private Variables
 	
 	private int _movementMultiplier = 1;
 	

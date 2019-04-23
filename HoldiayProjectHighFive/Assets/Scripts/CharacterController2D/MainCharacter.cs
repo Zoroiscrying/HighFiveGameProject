@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using Game;
 using Game.Common;
 using Game.Const;
@@ -12,38 +13,22 @@ using Game.Control.PersonSystem;
 
 public class MainCharacter : Actor 
 {
-
-	
-	
 	#region Consts
 
 	public const int _jumpPoint = 2;
 
 	#endregion
 
+	
 	#region Public Variables
-
-	//上升时的最大速度
-	public float _maxUpYSpeed = 999.0f;
-	//下降时的最大速度
-	public float _maxDownYSpeed = 9.0f;
 	
-	//原有基础上增加的速度
-	public float AccelerationSpeed = 2.0f;
-
-	public float AccelerationTime = 3.0f;
-	
-	//高跳的高度
-	public float HighJumpHeight = 6.0f;
-	
-	//public float _wallStickTime = 2f;//暂时不用
-	public float _wallSlideVelocity = 2f;
-	public float _dashTime = .5f;
-	public float _dashDistance = 8f;
 	public float _minJumpHeight = .25f;
-	public float _wallJumpTime = .25f;
-	public Vector2 _wallJumpClimb;
-	public Vector2 _wallJumpNormal;
+
+	
+	public bool CanHighJump;
+	public bool CanAcceleration;
+	public bool CanDash;
+	public bool CanDoubleJump;
 	
 	public float _playerVelocityX
 	{
@@ -55,10 +40,38 @@ public class MainCharacter : Actor
 		get { return _velocity.y;}
 		set { _velocity.y = value; }
 	}
+	[Space(10)]
+	//上升时的最大速度
+	public float _maxUpYSpeed = 999.0f;
+	//下降时的最大速度
+	public float _maxDownYSpeed = 9.0f;
+	
+	
+	[Header("HighJump")]
+	public float HighJumpHeight = 6.0f;
+	//原有基础上增加的速度
+	[Header("Acceleration")]
+	public float AccelerationSpeed = 2.0f;
+	public float AccelerationTime = 3.0f;
+	
+	[Header("Dash")]
+	public float _dashTime = .5f;
+	public float _dashDistance = 8f;
+	
+	[Header("Wall")]
+	//public float _wallStickTime = 2f;//暂时不用
+	public float _wallSlideVelocity = 2f;
+	public float _wallJumpTime = .25f;
+	public Vector2 _wallJumpClimb;
+	public Vector2 _wallJumpNormal;
+	
+
 
 	public int _canJump = _jumpPoint;
 
 	public bool _inControl = true;
+	
+	
 	#endregion
 
 	#region Private Variables
@@ -75,6 +88,7 @@ public class MainCharacter : Actor
 	private bool _wallSliding;
 	private bool _runningOnWall;
 	private bool _standingOnMovingPlatform = false;
+	private bool _afterSuperUpZ = false;
 	private int _wallDirX;
 	private float _wallJumpDisableInputTimer;
 	
@@ -124,13 +138,19 @@ public class MainCharacter : Actor
 		
 		//Variables
 
-		//灵力归元
+		//灵力归元加速
 		if (Player.isSuper)
 		{
-			if (Input.GetKeyDown(KeyCode.Z))
+			if (Input.GetKeyUp(KeyCode.Z))
+			{
+				_afterSuperUpZ = true;
+			}
+			if (_afterSuperUpZ && Input.GetKeyDown(KeyCode.Z))
 			{
 				Debug.Log("加速");
+				_afterSuperUpZ = false;
 				StartAcceleration(AccelerationTime);
+				CEventCenter.BroadMessage(Message.M_ExitSuper);
 			}
 		}
 		
@@ -253,16 +273,20 @@ public class MainCharacter : Actor
 	{
 		if (Player.isSuper)
 		{
+			//High jump
+			Debug.Log("High Jump");
 			_stateMachine.ChangeState(PlayerStates.InAir);
 			_velocity.y = _highJumpVelocity;
 			_canJump--;
+			_afterSuperUpZ = false;
 			CEventCenter.BroadMessage(Message.M_ExitSuper);
 		}
-		else if (_stateMachine.State == PlayerStates.InAir)
+		else if (_stateMachine.State == PlayerStates.InAir && _canJump > 0)
 		{
+			Debug.Log("DOUBLE JUMP");
 			_stateMachine.ChangeState(PlayerStates.DoubleJump);
 			_velocity.y = _maxJumpVelocity;
-			_canJump = _jumpPoint - 1;
+			_canJump --;
 		}
 		else if (_canJump >= 1)
 		{
@@ -474,7 +498,7 @@ public class MainCharacter : Actor
 			Debug.Log("In air");
 			//如果在空中，则自动认为主角已经失去一次跳跃机会
 			_animator.Play(Animator.StringToHash("Jump"));
-			_canJump = _jumpPoint - 1;
+			//_canJump = _jumpPoint - 1;
 		}
 			
 		private void InAir_Update()

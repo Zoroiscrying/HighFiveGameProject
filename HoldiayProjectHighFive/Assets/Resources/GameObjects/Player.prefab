@@ -309,7 +309,7 @@ MonoBehaviour:
   _maxDownYSpeed: 15
   AccelerationSpeed: 2
   AccelerationTime: 3
-  HighJumpHeight: 8
+  HighJumpHeight: 4.5
   _wallSlideVelocity: 6
   _dashTime: 0.15
   _dashDistance: 3
