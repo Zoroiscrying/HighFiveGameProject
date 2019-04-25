@@ -1,8 +1,11 @@
 ﻿using Game.Control.PersonSystem;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Game.Data;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Game.Control.SkillSystem
@@ -10,8 +13,9 @@ namespace Game.Control.SkillSystem
     /// <summary>
     /// 技能触发器抽象类
     /// </summary>
-    public abstract class AbstractSkillTrigger : ISkillTrigger
+    public abstract class AbstractSkillTrigger : ISkillTrigger,ITxtSerializable
     {
+
         public float LastTime { get; set; }
         public int id { get; set; }
         public float StartTime { get; set; }
@@ -22,7 +26,7 @@ namespace Game.Control.SkillSystem
         {
             get
             {
-                return 4;
+                return 3;
             }
         }
 
@@ -37,15 +41,14 @@ namespace Game.Control.SkillSystem
         /// </summary>
         /// <param name="type"></param>
         /// <param name="args"></param>
-        public virtual void Init(string args)//string type, int id,float startTime,float lastTime,string args="")
+        public virtual void LoadTxt(string args)//string type, int id,float startTime,float lastTime,string args="")
         {
             var strs = args.Split('|');
-            Assert.IsTrue(strs.Length >= 4);
+            Assert.IsTrue(strs.Length >= this.BasePropertyCount);
             this.IsExecuted = false;
-            this.LastTime = Convert.ToSingle(strs[3].Trim());
-            this.StartTime = Convert.ToSingle(strs[1].Trim());
-            this.id = Convert.ToInt32(strs[2].Trim());
-            this.SkillType = strs[0].Trim();
+            this.LastTime = Convert.ToSingle(strs[2].Trim());
+            this.StartTime = Convert.ToSingle(strs[0].Trim());
+            this.id = Convert.ToInt32(strs[1].Trim());
         }
 
         /// <summary>
@@ -54,7 +57,26 @@ namespace Game.Control.SkillSystem
         /// <param name="self"></param>
         /// <returns></returns>
         public abstract void Execute(AbstractPerson self);
-    }
 
+
+#region ITxtSerializable
+        public abstract string Sign { get; }
+
+        public void SignInit(string initLine)
+        {
+            this.SkillType = initLine.Trim();
+            Debug.Log(this.SkillType + " SignInit");
+        }
+
+        public void LoadTxt(StreamReader sr)
+        {
+            Debug.Log(this.SkillType + " Main");
+            var line = TxtManager.ReadUntilValue(sr);
+            Assert.IsFalse(string.IsNullOrEmpty(line));
+            LoadTxt(line);
+            Debug.Log(this.SkillType+" end Main");
+        }
+    }
+#endregion
 
 }

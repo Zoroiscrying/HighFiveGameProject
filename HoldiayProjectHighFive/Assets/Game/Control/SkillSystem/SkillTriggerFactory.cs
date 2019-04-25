@@ -16,7 +16,7 @@ namespace Game.Control.SkillSystem
         public ISkillTrigger CreateTrigger(string args)//type,int id,float startTime,float lastTime,string args)
         {
             var t = new T();
-            t.Init(args);//type,id,startTime,lastTime,args);
+            t.LoadTxt(args);//type,id,startTime,lastTime,args);
             return t;
         }
     }

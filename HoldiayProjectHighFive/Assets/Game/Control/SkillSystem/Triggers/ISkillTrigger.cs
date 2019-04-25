@@ -14,7 +14,7 @@ namespace Game.Control.SkillSystem
 
         int id { get; set; }
 
-        void Init(string args);
+        void LoadTxt(string args);
         //        void Init(string type,int id,float startTime,float lastTime,string args);
         void Release();
         void Execute(AbstractPerson self);

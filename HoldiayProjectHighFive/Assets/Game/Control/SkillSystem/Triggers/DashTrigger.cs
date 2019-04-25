@@ -1,6 +1,7 @@
 ﻿using Game.Control.PersonSystem;
 using Game.Script;
 using System;
+using Game.Const;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -34,16 +35,24 @@ namespace Game.Control.SkillSystem
             controller._playerVelocityX = self.Dir * Mathf.Lerp(Mathf.Abs(controller._playerVelocityX), this.EndSpeed, this.dur);
         }
 
-        public override void Init(string args)//type, int id,float startTime, float lastTime, string args = "")
+        public override void LoadTxt(string args)//type, int id,float startTime, float lastTime, string args = "")
         {
             var strs = args.Split('|');
-            Assert.IsTrue(strs.Length >= 7);
-            this.StartSpeed = Convert.ToSingle(strs[4].Trim());
-            this.EndSpeed = Convert.ToSingle(strs[5].Trim());
-            this.dur = Convert.ToSingle(strs[6].Trim());
+            Assert.IsTrue(strs.Length >= BasePropertyCount+3);
+            this.StartSpeed = Convert.ToSingle(strs[BasePropertyCount].Trim());
+            this.EndSpeed = Convert.ToSingle(strs[BasePropertyCount+1].Trim());
+            this.dur = Convert.ToSingle(strs[BasePropertyCount+2].Trim());
             if (dur <= 0 || dur >= 1)
                 Debug.LogError("差值不合理 " + dur);
-            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
+        }
+        
+        public override string Sign
+        {
+            get
+            {
+                return DataSign.dash;
+            }
         }
     }
 }

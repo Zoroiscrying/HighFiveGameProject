@@ -22,20 +22,20 @@ namespace Game.Control.SkillSystem
         private float maxLife;
         private DirectLineBullet bullet;
 
-        public override void Init(string args)
+        public override void LoadTxt(string args)
         {
             var strs = args.Split('|');
-            Assert.IsTrue(strs.Length >= 9);
+            Assert.IsTrue(strs.Length >= BasePropertyCount+5);
             //resName,degree,damage,speed,time
-            this.resName = strs[4].Trim();
-            var dre = Convert.ToSingle(strs[5].Trim());
+            this.resName = strs[BasePropertyCount].Trim();
+            var dre = Convert.ToSingle(strs[BasePropertyCount+1].Trim());
             this.dir = new Vector2(Mathf.Cos(Mathf.Deg2Rad * dre), Mathf.Sin(Mathf.Deg2Rad * dre));
             //            Debug.Log("原始方向："+this.dir);
-            this.damage = Convert.ToInt32(strs[6].Trim());
-            this.speed = Convert.ToInt32(strs[7].Trim());
-            this.maxLife = Convert.ToSingle(strs[8].Trim());
+            this.damage = Convert.ToInt32(strs[BasePropertyCount+2].Trim());
+            this.speed = Convert.ToInt32(strs[BasePropertyCount+3].Trim());
+            this.maxLife = Convert.ToSingle(strs[BasePropertyCount+4].Trim());
             Debug.Log("解析出子弹寿命：" + this.maxLife);
-            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
         }
         
 
@@ -50,5 +50,13 @@ namespace Game.Control.SkillSystem
             
         }
 
+        
+        public override string Sign
+        {
+            get
+            {
+                return DataSign.bullet;
+            }
+        }
     }
 }

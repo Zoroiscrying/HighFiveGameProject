@@ -19,6 +19,7 @@ using Game.Model.ItemSystem;
 using Game.View.PanelSystem;
 using System.IO;
 using Game.Common;
+using Game.Model.RankSystem;
 
 
 namespace Game.Control.PersonSystem
@@ -30,6 +31,7 @@ namespace Game.Control.PersonSystem
     public class Player : AbstractPerson, IXmlSerializable
     {
 
+        #region 初始化玩家
         public static void InitPlayer()
         {
             if (File.Exists(DefaultData.PlayerDataFilePath))
@@ -38,7 +40,7 @@ namespace Game.Control.PersonSystem
                 GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
                 //                Debug.Log(player);
                 //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
-                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.G_Player.rank);
+               
             }
             else
             {
@@ -56,7 +58,6 @@ namespace Game.Control.PersonSystem
                 GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
                 //                Debug.Log(player);
                 //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
-                CEventCenter.BroadMessage(Message.M_LevelUp, GlobalVar.G_Player.rank);
             }
             else
             {
@@ -66,7 +67,9 @@ namespace Game.Control.PersonSystem
             }
 
         }
-
+    #endregion
+    
+    
         #region 背包
 
         public class ItemData
@@ -117,15 +120,18 @@ namespace Game.Control.PersonSystem
         public int attackAdder = 0;        //攻击力叠加
 
         public float hitBackSpeed = 0.08f;    //击退
-        public int rank;      //灵力等级
-        public int MaxExp;    //最大灵力上限
-        public int Exp;       //当前灵力
+        
+        
+        public readonly RankMgr rankMgr=new RankMgr();
+        
+        
         public int Maxdrag;   //最大药引上限
         public int drag;      //当前药引
 
 
 
         #endregion
+        
 
         #region 连击
 
@@ -267,7 +273,6 @@ namespace Game.Control.PersonSystem
         {
             base.Init(args);
             this.DefaultConstTime = 0.7f;
-            OnLevelUp(1);
         }
 
 
@@ -415,9 +420,7 @@ namespace Game.Control.PersonSystem
             base.OnAddListener();
             CEventCenter.AddListener(Message.M_InitSuper, InitSuper);
             CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
-            CEventCenter.AddListener<int>(Message.M_ExpChange, OnExpChanged);
-            CEventCenter.AddListener<int>(Message.M_LevelUp, OnLevelUp);
-            CEventCenter.AddListener<int>(Message.M_DragChange, OnDragChanged);
+     
         }
 
         public override void OnRemoveListener()
@@ -425,9 +428,7 @@ namespace Game.Control.PersonSystem
             base.OnRemoveListener();
             CEventCenter.RemoveListener(Message.M_InitSuper, InitSuper);
             CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
-            CEventCenter.RemoveListener<int>(Message.M_ExpChange, OnExpChanged);
-            CEventCenter.RemoveListener<int>(Message.M_LevelUp, OnLevelUp);
-            CEventCenter.RemoveListener<int>(Message.M_DragChange, OnDragChanged);
+
         }
 
         void InitSuper()
@@ -438,50 +439,6 @@ namespace Game.Control.PersonSystem
         void ExitSuper()
         {
             isSuper = false;
-        }
-
-
-        /// <summary>
-        /// 药引改变
-        /// </summary>
-        /// <param name="change"></param>
-        void OnDragChanged(int change)
-        {
-            this.drag += change;
-            if (this.drag > this.Maxdrag)
-                this.drag = this.Maxdrag;
-        }
-
-        /// <summary>
-        /// 灵力改变
-        /// </summary>
-        /// <param name="change"></param>
-        void OnExpChanged(int change)
-        {
-            if (this.Exp + change >= this.MaxExp)
-            {
-                CEventCenter.BroadMessage(Message.M_LevelUp, this.rank + 1);
-            }
-            else
-            {
-                this.Exp += change;
-            }
-        }
-
-        /// <summary>
-        /// 升级
-        /// </summary>
-        public void OnLevelUp(int newRank)
-        {
-            //            Debug.Log("人物升级："+newRank);
-            this.Exp = 0;
-            this.rank = newRank;
-            var strs = PersonData.Instance.rankArgs[this.rank - 1].Split('|');
-            Assert.IsTrue(strs.Length >= 4);
-            this.Hp = this.MaxHp = Convert.ToInt32(strs[0].Trim());
-            this.Attack = Convert.ToInt32(strs[1].Trim());
-            this.MaxExp = Convert.ToInt32(strs[2].Trim());
-            this.Maxdrag = Convert.ToInt32(strs[3].Trim());
         }
 
         #endregion
@@ -560,9 +517,6 @@ namespace Game.Control.PersonSystem
             this.hitBackSpeed = (float)floatSer.Deserialize(reader);
             reader.ReadEndElement();
 
-            reader.ReadStartElement("Rank");
-            this.rank = (int)intSer.Deserialize(reader);
-            reader.ReadEndElement();
 
             //添加基本攻击效果
             this.OnAttackListRefresh += AddBaseAttackEffects;
@@ -612,9 +566,6 @@ namespace Game.Control.PersonSystem
             floatSer.Serialize(writer, this.hitBackSpeed);
             writer.WriteEndElement();
 
-            writer.WriteStartElement("Rank");
-            intSer.Serialize(writer, this.rank);
-            writer.WriteEndElement();
 
             //            writer.WriteStartElement("Skills");
             //            skillDicSer.Serialize(writer,this.skillDic);

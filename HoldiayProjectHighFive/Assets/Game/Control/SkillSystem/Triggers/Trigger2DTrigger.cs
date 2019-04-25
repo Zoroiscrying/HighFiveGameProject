@@ -1,6 +1,7 @@
 ﻿using Game.Control.PersonSystem;
 using Game.Script;
 using System;
+using Game.Const;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -20,21 +21,21 @@ namespace Game.Control.SkillSystem
         private AbstractPerson self;
         private float nowZ;
         private float speed;
-        public override void Init(string args)
+        public override void LoadTxt(string args)
         {
             //args
             //offect.x,offect.y,size.x,size.y,beginDre,endDre,shineLastTime,shineDurTime,hitSpeed
             var strs = args.Split('|');
-            Assert.IsTrue(strs.Length >= 10);
+            Assert.IsTrue(strs.Length >= BasePropertyCount+6);
             this.personOffect = new Vector2(
-                Convert.ToSingle(strs[4].Trim()),
-                Convert.ToSingle(strs[5].Trim()));
+                Convert.ToSingle(strs[BasePropertyCount].Trim()),
+                Convert.ToSingle(strs[BasePropertyCount+1].Trim()));
             this.size = new Vector2(
-                Convert.ToSingle(strs[6].Trim()),
-                Convert.ToSingle(strs[7].Trim()));
-            this.beginDre = Convert.ToSingle(strs[8].Trim());
-            this.endDre = Convert.ToSingle(strs[9].Trim());
-            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
+                Convert.ToSingle(strs[BasePropertyCount+2].Trim()),
+                Convert.ToSingle(strs[BasePropertyCount+3].Trim()));
+            this.beginDre = Convert.ToSingle(strs[BasePropertyCount+4].Trim());
+            this.endDre = Convert.ToSingle(strs[BasePropertyCount+5].Trim());
+            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
         }
 
         public override void Execute(AbstractPerson self)
@@ -90,6 +91,14 @@ namespace Game.Control.SkillSystem
         {
             base.Release();
             End(this.self);
+        }
+        
+        public override string Sign
+        {
+            get
+            {
+                return DataSign.trigger2D;
+            }
         }
     }
 }

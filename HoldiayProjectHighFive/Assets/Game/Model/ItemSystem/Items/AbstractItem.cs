@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine.Assertions;
+using Game.Data;
+using System.IO;
+
 namespace Game.Model.ItemSystem
 {
-    public class AbstractItem
+    public abstract class AbstractItem:ITxtSerializable
     {
         public int ID { get; set; }
 
@@ -17,6 +20,7 @@ namespace Game.Model.ItemSystem
 
         public string SpritePath { get; set; }
 
+
         //基类属性数量
         protected virtual int BasePropertyCount
         {
@@ -25,6 +29,7 @@ namespace Game.Model.ItemSystem
                 return 5;
             }
         }
+
 
         public override string ToString()
         {
@@ -42,6 +47,17 @@ namespace Game.Model.ItemSystem
             this.SpritePath = strs[4].Trim();
 
         }
-        
+
+        #region ITxtSerializable
+        public abstract string Sign{get;} 
+        public  void LoadTxt(StreamReader sr){
+            var line=TxtManager.ReadUntilValue(sr);
+            Assert.IsFalse(string.IsNullOrEmpty(line));
+            Init(line);
+        }
+        public  void SignInit(string initLine){}
+
+
+        #endregion
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Game.Control.PersonSystem;
 using System;
+using System.IO;
+using Game.Const;
+using Game.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -8,7 +11,7 @@ namespace Game.Control.SkillSystem
     /// <summary>
     /// 动画触发器
     /// </summary>
-    public class AnimationTrigger : AbstractSkillTrigger
+    public class AnimationTrigger : AbstractSkillTrigger,ITxtSerializable
     {
         private string animationName;
         private float speed;
@@ -18,14 +21,14 @@ namespace Game.Control.SkillSystem
         /// </summary>
         /// <param name="type"></param>
         /// <param name="args"></param>
-        public override void Init(string args)//type,int id,float startTime,float lastTime, string args)
+        public override void LoadTxt(string args)//type,int id,float startTime,float lastTime, string args)
         {
             var strs = args.Split('|');
-            Assert.IsTrue(strs.Length >= 6);
-            this.animationName = strs[4].Trim();
-            this.speed = Convert.ToSingle(strs[5].Trim());
+            Assert.IsTrue(strs.Length >= BasePropertyCount+2);
+            this.animationName = strs[BasePropertyCount+0].Trim();
+            this.speed = Convert.ToSingle(strs[BasePropertyCount+1].Trim());
             this.LastTime /= this.speed;
-            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
         }
 
         /// <summary>
@@ -56,5 +59,12 @@ namespace Game.Control.SkillSystem
             //            Debug.Log("播放动画了");
             animator.Play(Animator.StringToHash(this.animationName), AnimationWeight.High);
         }
+
+        public override string Sign
+        {
+            get { return DataSign.animation; }
+        }
+
+
     }
 }

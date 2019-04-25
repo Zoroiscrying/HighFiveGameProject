@@ -269,13 +269,6 @@ namespace Game.Control.PersonSystem
             this.obj = Object.Instantiate(this.obj, pos, Quaternion.identity, parent);
 
 
-            //初始化外显属性
-            if (this is Player)
-                Init(PersonData.Instance.rankArgs[0]);
-            else
-                Init(PersonData.Instance.enenyArgs[this.name]);
-
-
             allSkillNames = skillTypes;
             //初始化技能
             if (skillTypes != null)
@@ -351,8 +344,7 @@ namespace Game.Control.PersonSystem
         /// <returns></returns>
         public virtual void DestoryThis()
         {
-            if (!(this is Player))
-                CEventCenter.BroadMessage(Message.M_ExpChange, 50 * GlobalVar.G_Player.rank);
+           
             OnRemoveListener();
             MainLoop.Instance.RemoveUpdateFunc(Update);
             instanceList.Remove(this);

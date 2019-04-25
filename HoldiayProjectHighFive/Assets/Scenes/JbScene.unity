@@ -11228,6 +11228,12 @@ Prefab:
       propertyPath: m_Tiles.Array.data[325].second.m_ColliderType
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114319922902583608, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
+        type: 2}
+      propertyPath: UiPanelName
+      value: Panel_BattleScenery
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 81048878633304644, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_IsPrefabAsset: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Game.Data;
 using UnityEngine;
 
 namespace Game.Model.ItemSystem
@@ -10,18 +11,6 @@ namespace Game.Model.ItemSystem
     public static class ItemMgr
     {
         private static Dictionary<int, IItemTriggerFactory> factoryDic = new Dictionary<int, IItemTriggerFactory>();
-
-        /// <summary>
-        /// 注册不同种类的触发器
-        /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="factory"></param>
-        public static void RegisterItemFactory(int itemId, IItemTriggerFactory factory)
-        {
-            if (!factoryDic.ContainsKey(itemId))
-                factoryDic.Add(itemId, factory);
-        }
-
 
         private static AbstractItem CreateItem(string args)//skillType,int id,float startTime, float lastTime,string args)
         {
@@ -53,25 +42,18 @@ namespace Game.Model.ItemSystem
         {
             path = Application.streamingAssetsPath + "\\" + path;
             var sr = new StreamReader(path);
-            AbstractItem item = null;
             do
             {
-                string line = sr.ReadLine();
-                if (line == null)
+                var item = TxtManager.LoadData(sr) as AbstractItem;
+                if (item == null)
+                {
+                    Debug.LogWarning("item is null");
                     break;
+                }
 
-                line = line.Trim();
-
-                //注释写法   //注释
-                if (line.StartsWith("//") || line == "")
-                    continue;
-
-                var strs = line.Split('|');
-                item = CreateItem(line);
-                itemDic.Add(Convert.ToInt32(strs[0].Trim()), item);
-
-
+                itemDic.Add(item.ID, item);
             } while (true);
+            sr.Close();
         }
     }
 }

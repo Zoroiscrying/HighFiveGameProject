@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -13,6 +14,8 @@ namespace Game.Data
     /// </summary>
     public static class XmlManager
     {
+
+        
         public static T LoadData<T>(string fullPath) where T : class
         {
             StreamReader r = File.OpenText(fullPath);//_FileLocation是unity3D当前project的路径名，_FileName是xml的文件名。定义为成员变量了

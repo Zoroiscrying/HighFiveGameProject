@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Game.Const;
 using UnityEngine.Assertions;
 namespace Game.Model.ItemSystem
 {
-    public class Shit:AbstractItem
+    public class ShitItem:AbstractItem
     {
         private float weight;
+
+        public override string Sign
+        {
+            get
+            {
+                return DataSign.shitItem;
+            }
+        }
+
         internal override void Init(string args)
         {
             var strs = args.Split('|');

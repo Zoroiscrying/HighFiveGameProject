@@ -18,8 +18,10 @@ using Game.Model.SpiritItemSystem;
 using Game.View.PanelSystem;
 using Game.Model.ItemSystem;
 using Game.Model;
+using Game.Model.RankSystem;
 using Game.Model.SpriteObjSystem;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 
 public class SceneMgr : BaseSceneMgr
 {
@@ -35,9 +37,11 @@ public class SceneMgr : BaseSceneMgr
 	{
 	//if(creatTestPeople)	
     //    CreateTestPeople();
-	this.miniMap = Resources.Load<GameObject>(UIPath.Image_MiniMap);
-	Assert.IsTrue(this.miniMap);
-	GameObject.Instantiate(miniMap, GlobalVar.G_Canvas.transform);
+		this.miniMap = Resources.Load<GameObject>(UIPath.Image_MiniMap);
+		Assert.IsTrue(this.miniMap);
+		GameObject.Instantiate(miniMap, GlobalVar.G_Canvas.transform);
+		if(!string.IsNullOrEmpty(UiPanelName))
+			UIManager.Instance.PushPanel(UiPanelName);
 	}
     // Use this for initialization
 
@@ -48,6 +52,7 @@ public class SceneMgr : BaseSceneMgr
             Debug.DrawLine(PlayerPos + Vector3.up * this.signalSize, PlayerPos + Vector3.down * this.signalSize, Color.green);
 
     }
+    
     void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -91,13 +96,15 @@ public class SceneMgr : BaseSceneMgr
 	}
 
 	#region 全局初始化
+	
+	#region Register
 	protected override void Register()
 	{
 		base.Register();
-		RegisterSkillTrigger();
+		RegisterData();
 		RegisterUiPanels();
 		RegisterSpiritItem();
-        RegisterItem();
+        LoadDataFromFile();
 
     }
 
@@ -116,39 +123,58 @@ public class SceneMgr : BaseSceneMgr
 	void RegisterSpiritItem()
 	{
 		AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_First);
+		
+		AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_Second);
 	}
 
 	/// <summary>
-	/// 注册技能
+	/// 注册Data工厂
 	/// </summary>
-	void RegisterSkillTrigger()
+	void RegisterData()
 	{
-		//所有触发器种类的注册
-		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.animation,
-			SkillTriggerFactory<AnimationTrigger>.Instance);
-		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.instantDamage,
-			SkillTriggerFactory<InstantRayDamageTrigger>.Instance);
-		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.audio,
-			SkillTriggerFactory<AudioTrigger>.Instance);
-		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.dash,
-			SkillTriggerFactory<DashTrigger>.Instance);
-		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.bullet,
-			SkillTriggerFactory<DirectLineBulletTrigger>.Instance);
-		SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.trigger2D,
-			SkillTriggerFactory<SwordTrigger>.Instance);
-        SkillTriggerMgr.RegisterTriggerFactory(SkillTriggerName.paraBullet,
-            SkillTriggerFactory<ParabloaBulletTrigger>.Instance);
+		TxtManager.RegisterDataFactory(DataSign.shitItem,
+			DataFactory<ShitItem>.Instance);
+		
+		TxtManager.RegisterDataFactory(DataSign.skill,
+			DataFactory<SkillInstance>.Instance);
+		
+		TxtManager.RegisterDataFactory(DataSign.animation,
+			DataFactory<AnimationTrigger>.Instance);
+		TxtManager.RegisterDataFactory(DataSign.instantDamage,
+			DataFactory<InstantRayDamageTrigger>.Instance);
+		TxtManager.RegisterDataFactory(DataSign.audio,
+			DataFactory<AudioTrigger>.Instance);
+		TxtManager.RegisterDataFactory(DataSign.dash,
+			DataFactory<DashTrigger>.Instance);
+		TxtManager.RegisterDataFactory(DataSign.bullet,
+			DataFactory<DirectLineBulletTrigger>.Instance);
+		TxtManager.RegisterDataFactory(DataSign.trigger2D,
+			DataFactory<SwordTrigger>.Instance);
+		TxtManager.RegisterDataFactory(DataSign.paraBullet,
+			DataFactory<ParabloaBulletTrigger>.Instance);
 
-		//读取文件，获取所有技能
-		SkillTriggerMgr.LoadSkillsFromFile(FilePath.SkillFilePath);
 	}
 
-    void RegisterItem()
+	/// <summary>
+	/// 从文件中加载数据
+	/// </summary>
+    void LoadDataFromFile()
     {
-        ItemMgr.RegisterItemFactory(ItemID.ShitId, ItemFactory<Shit>.Instance);
-
-        ItemMgr.LoadItemsFromFile(FilePath.ItemFilePath);
+	    TxtManager.LoadDataFromFile<AbstractLargeRank>(FilePath.RankFilePath,
+		    (largeRank) => { RankMgr.LargeRankList.Add(largeRank); });
+        
+		TxtManager.LoadDataFromFile<SkillInstance>(FilePath.SkillFilePath,
+			(skillInstance) => { SkillTriggerMgr.skillInstanceDic.Add(skillInstance.name, skillInstance); });
+        
+		TxtManager.LoadDataFromFile<AbstractItem>(FilePath.ItemFilePath,
+			(item) =>{ ItemMgr.itemDic.Add(item.ID, item); });
+		
+		
     }
+    
+    #endregion
+    
+    #region Initializer
 
 
 	protected override void Initializer()
@@ -190,6 +216,8 @@ public class SceneMgr : BaseSceneMgr
      	behaviac.Workspace.Instance.FileFormat = behaviac.Workspace.EFileFormat.EFF_xml;
      	return true;
     }
+	
+	#endregion
 	
 	#endregion
 	

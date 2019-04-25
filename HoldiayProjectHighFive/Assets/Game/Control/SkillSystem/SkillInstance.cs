@@ -2,8 +2,12 @@
 using Game.Script;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Game.Data;
+using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Game.Control.SkillSystem
 {
@@ -11,7 +15,7 @@ namespace Game.Control.SkillSystem
     /// 技能实例类，一个具体的技能对应一个这个类的实例
     /// 技能由多个触发器构成
     /// </summary>
-    public class SkillInstance
+    public class SkillInstance:ITxtSerializable
     {
         public event Action<SkillInstance> onSkillBegin = null;
         public event Action<SkillInstance> onSkillExit = null;
@@ -21,10 +25,7 @@ namespace Game.Control.SkillSystem
         private float lastTime = 0f;//是否正在使用
         private List<ISkillTrigger> skillTriggers = new List<ISkillTrigger>();//所有触发器
 
-        public SkillInstance(string name)
-        {
-            this.name = name;
-        }
+        
         public float LastTime
         {
             get { return lastTime; }
@@ -101,5 +102,42 @@ namespace Game.Control.SkillSystem
                 trigger.Execute(self);
             MainLoop.Instance.ExecuteLater(Reset, this.lastTime);
         }
+
+        
+        
+        #region ITxtSerializable
+        public string Sign
+        {
+            get { return "skill"; }
+        }
+
+        public void SignInit(string args)
+        {
+            var strs = args.Split('|');
+            Assert.IsTrue(strs.Length >= 2);
+            this.name = strs[1].Trim();
+//            Debug.Log(this.name + " SignInit");
+        }
+
+        public void LoadTxt(StreamReader sr)
+        {
+//            Debug.Log(this.name + " Main");
+            do
+            {
+
+                var trigger = TxtManager.LoadData(sr) as AbstractSkillTrigger;
+                //throw new Exception(sr.ReadLine());
+                if (trigger == null)
+                {
+//                    Debug.LogWarning("trigger is null");
+                    break;
+                }
+
+                this.AddTrigger(trigger);
+            } while (true);
+//            Debug.Log(this.name+" end Main");
+        }
+
+        #endregion
     }
 }

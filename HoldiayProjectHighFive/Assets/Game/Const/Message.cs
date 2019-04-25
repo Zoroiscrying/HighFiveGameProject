@@ -7,15 +7,23 @@ namespace Game.Const
 {
     public static class Message
     {
-        public static readonly string M_AddItem = "at";
-        public static readonly string M_RemoveItem = "rt";
-        public static readonly string M_TouchItem = "tm";
-        public static readonly string M_ReleaseItem = "rm";
-        public static readonly string M_LevelUp = "LevelUp";
-        public static readonly string M_ExpChange = "ExpChanged";
-        public static readonly string M_DragChange = "DragChanged";
-        public static readonly string M_InitSuper = "InitSuper";
-        public static readonly string M_ExitSuper = "ExitSuper";
+        #region 背包
+        public static readonly string M_AddItem = "at";       //    int 
+        public static readonly string M_RemoveItem = "rt";    //    int
+        public static readonly string M_TouchItem = "tm";     //    Slot
+        public static readonly string M_ReleaseItem = "rm";   //    Slot
+        #endregion
+        
+        #region 等级
+        
+        public static readonly string M_AchieveSmallLevel = "SLU";    //    int 
+        public static readonly string M_AchieveLargeLevel = "LLU";    //    int 
+        public static readonly string M_ChangeSmallLevel = "ASL";     //    int
+        
+        #endregion
+        
+        public static readonly string M_InitSuper = "InitSuper";    //    void
+        public static readonly string M_ExitSuper = "ExitSuper";    //    void
 
         public static string M_BloodChange(GameObject go)
         {

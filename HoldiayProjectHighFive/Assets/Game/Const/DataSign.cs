@@ -1,7 +1,12 @@
-﻿namespace Game.Const
+namespace Game.Const
 {
-    public static class SkillTriggerName
+    public static class DataSign
     {
+        
+        
+        public static readonly string skill="skill";
+        public static readonly string shitItem="shit";
+
         public static readonly string animation = "AnimationTrigger";
         public static readonly string instantDamage = "InstantDamageTrigger";
         public static readonly string audio = "AudioTrigger";

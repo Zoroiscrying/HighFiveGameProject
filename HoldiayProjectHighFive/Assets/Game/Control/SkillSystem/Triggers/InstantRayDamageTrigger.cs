@@ -1,6 +1,7 @@
 ﻿using Game.Control.PersonSystem;
 using Game.Script;
 using System;
+using Game.Const;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -17,20 +18,20 @@ namespace Game.Control.SkillSystem
         private LayerMask layer;
         private float shineLastTime;
         private float shineDurTime;
-        public override void Init(string args)//type, int id,float startTime,float lastTime,string args = "")
+        public override void LoadTxt(string args)//type, int id,float startTime,float lastTime,string args = "")
         {
 
             this.layer = 1 << LayerMask.NameToLayer("Enemy");
             var strs = args.Split('|');
-            var dre = Convert.ToSingle(strs[4].Trim());
-            Assert.IsTrue(strs.Length >= 9);
+            Assert.IsTrue(strs.Length >= BasePropertyCount+5);
+            var dre = Convert.ToSingle(strs[BasePropertyCount].Trim());
             this.dir = new Vector2(Mathf.Cos(Mathf.Deg2Rad * dre), Mathf.Sin(Mathf.Deg2Rad * dre));
             //            Debug.Log(this.dir);
-            this.len = Convert.ToSingle(strs[5].Trim());
-            this.hitSpeed = Convert.ToSingle(strs[6].Trim());
-            this.shineLastTime = Convert.ToSingle(strs[7].Trim());
-            this.shineDurTime = Convert.ToSingle(strs[8].Trim());
-            base.Init(string.Join("|", strs, 0, this.BasePropertyCount));
+            this.len = Convert.ToSingle(strs[BasePropertyCount+1].Trim());
+            this.hitSpeed = Convert.ToSingle(strs[BasePropertyCount+2].Trim());
+            this.shineLastTime = Convert.ToSingle(strs[BasePropertyCount+3].Trim());
+            this.shineDurTime = Convert.ToSingle(strs[BasePropertyCount+4].Trim());
+            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
         }
 
         public override void Execute(AbstractPerson self)
@@ -72,6 +73,14 @@ namespace Game.Control.SkillSystem
                 //                Debug.Log(self.name + "将对" + hitPerson.name + "造成" + GameMath.Damage(self, hitPerson) + "伤害");
                 hitPerson.TakeBattleEffect(self.AttackEffect);
                 //                hitPerson.TakeBattleEffect(new LockFrame());
+            }
+        }
+        
+        public override string Sign
+        {
+            get
+            {
+                return DataSign.instantDamage;
             }
         }
     }
