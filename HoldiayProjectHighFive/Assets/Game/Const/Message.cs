@@ -15,10 +15,11 @@ namespace Game.Const
         #endregion
         
         #region 等级
-        
+
+        public static readonly string M_RankAwake = "RA";    
         public static readonly string M_AchieveSmallLevel = "SLU";    //    int 
         public static readonly string M_AchieveLargeLevel = "LLU";    //    int 
-        public static readonly string M_ChangeSmallLevel = "ASL";     //    int
+        public static readonly string M_ChangeSmallLevel = "CSL";     //    int
         
         #endregion
         

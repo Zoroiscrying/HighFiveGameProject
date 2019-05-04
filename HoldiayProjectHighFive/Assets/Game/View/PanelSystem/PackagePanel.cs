@@ -58,6 +58,7 @@ namespace Game.View.PanelSystem
             {
                 AddItem(item.itemId, item.count);
             }
+            //LayoutRebuilder.ForceRebuildLayoutImmediate(挂载HorizontalLayoutGroup的物体的RectTransform);
             Debug.Log("Load:   slots.Length:" + slots.Length);
         }
 

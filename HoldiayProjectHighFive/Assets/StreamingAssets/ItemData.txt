@@ -1,4 +1,5 @@
 shit
 {
-1	|Shit	|5	|дяЁт	|shit	|20
+1	,Shit	,5	,дяЁт	,shit	,20
+
 }

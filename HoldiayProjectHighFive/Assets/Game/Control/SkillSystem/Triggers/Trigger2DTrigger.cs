@@ -2,6 +2,7 @@
 using Game.Script;
 using System;
 using Game.Const;
+using Game.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -25,7 +26,7 @@ namespace Game.Control.SkillSystem
         {
             //args
             //offect.x,offect.y,size.x,size.y,beginDre,endDre,shineLastTime,shineDurTime,hitSpeed
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= BasePropertyCount+6);
             this.personOffect = new Vector2(
                 Convert.ToSingle(strs[BasePropertyCount].Trim()),
@@ -35,7 +36,7 @@ namespace Game.Control.SkillSystem
                 Convert.ToSingle(strs[BasePropertyCount+3].Trim()));
             this.beginDre = Convert.ToSingle(strs[BasePropertyCount+4].Trim());
             this.endDre = Convert.ToSingle(strs[BasePropertyCount+5].Trim());
-            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 0, this.BasePropertyCount));
         }
 
         public override void Execute(AbstractPerson self)

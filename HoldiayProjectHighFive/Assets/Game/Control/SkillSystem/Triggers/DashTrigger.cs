@@ -2,6 +2,7 @@
 using Game.Script;
 using System;
 using Game.Const;
+using Game.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -37,14 +38,14 @@ namespace Game.Control.SkillSystem
 
         public override void LoadTxt(string args)//type, int id,float startTime, float lastTime, string args = "")
         {
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= BasePropertyCount+3);
             this.StartSpeed = Convert.ToSingle(strs[BasePropertyCount].Trim());
             this.EndSpeed = Convert.ToSingle(strs[BasePropertyCount+1].Trim());
             this.dur = Convert.ToSingle(strs[BasePropertyCount+2].Trim());
             if (dur <= 0 || dur >= 1)
                 Debug.LogError("差值不合理 " + dur);
-            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 0, this.BasePropertyCount));
         }
         
         public override string Sign

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Game;
+using Game.Common;
 using Game.Const;
 using Game.Control;
 using Game.Global;
@@ -25,11 +26,12 @@ using UnityEngine.UI;
 
 public class SceneMgr : BaseSceneMgr
 {
-
+	
 	List<AbstractPerson> list=new List<AbstractPerson>();
 	//private Player player;
 	public string UiPanelName;
-	//public bool creatTestPeople = false;
+	public bool creatTestPeople = false;
+	public Vector3 EnemyPos;
     public Vector3 PlayerPos;
     public float signalSize=4;
     private GameObject miniMap;
@@ -42,15 +44,25 @@ public class SceneMgr : BaseSceneMgr
 		GameObject.Instantiate(miniMap, GlobalVar.G_Canvas.transform);
 		if(!string.IsNullOrEmpty(UiPanelName))
 			UIManager.Instance.PushPanel(UiPanelName);
+		if (creatTestPeople)
+			new TestPerson("Test", GameObjectPath.TestPersonPath, EnemyPos);
+		
+		
+		CEventCenter.BroadMessage(Message.M_RankAwake,0,0);
 	}
     // Use this for initialization
 
+    void DrawV3(Vector3 pos,Color color)
+    {
+	    Debug.DrawLine(pos + Vector3.left * this.signalSize, pos + Vector3.right * this.signalSize,color);
+	    Debug.DrawLine(pos + Vector3.up * this.signalSize, pos + Vector3.down * this.signalSize, color); 
+    }
+
     private void OnDrawGizmos()
     {
-
-            Debug.DrawLine(PlayerPos + Vector3.left * this.signalSize, PlayerPos + Vector3.right * this.signalSize,Color.green);
-            Debug.DrawLine(PlayerPos + Vector3.up * this.signalSize, PlayerPos + Vector3.down * this.signalSize, Color.green);
-
+		DrawV3(PlayerPos,Color.green);
+		if(creatTestPeople)
+			DrawV3(EnemyPos,Color.red);
     }
     
     void Update()
@@ -125,6 +137,8 @@ public class SceneMgr : BaseSceneMgr
 		AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_First);
 		
 		AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_Second);
+		
+		
 	}
 
 	/// <summary>
@@ -132,26 +146,22 @@ public class SceneMgr : BaseSceneMgr
 	/// </summary>
 	void RegisterData()
 	{
-		TxtManager.RegisterDataFactory(DataSign.shitItem,
-			DataFactory<ShitItem>.Instance);
+		TxtManager.RegisterDataFactory<ShitItem>(DataSign.shitItem);
 		
-		TxtManager.RegisterDataFactory(DataSign.skill,
-			DataFactory<SkillInstance>.Instance);
+		TxtManager.RegisterDataFactory<SkillInstance>(DataSign.skill);
+
+		TxtManager.RegisterDataFactory<L1Rank>(DataSign.L1Rank);
+		TxtManager.RegisterDataFactory<L2Rank>(DataSign.L2Rank);
+		TxtManager.RegisterDataFactory<S1Rank>(DataSign.S1Rank);
+		TxtManager.RegisterDataFactory<S2Rank>(DataSign.S2Rank);
 		
-		TxtManager.RegisterDataFactory(DataSign.animation,
-			DataFactory<AnimationTrigger>.Instance);
-		TxtManager.RegisterDataFactory(DataSign.instantDamage,
-			DataFactory<InstantRayDamageTrigger>.Instance);
-		TxtManager.RegisterDataFactory(DataSign.audio,
-			DataFactory<AudioTrigger>.Instance);
-		TxtManager.RegisterDataFactory(DataSign.dash,
-			DataFactory<DashTrigger>.Instance);
-		TxtManager.RegisterDataFactory(DataSign.bullet,
-			DataFactory<DirectLineBulletTrigger>.Instance);
-		TxtManager.RegisterDataFactory(DataSign.trigger2D,
-			DataFactory<SwordTrigger>.Instance);
-		TxtManager.RegisterDataFactory(DataSign.paraBullet,
-			DataFactory<ParabloaBulletTrigger>.Instance);
+		TxtManager.RegisterDataFactory<AnimationTrigger>(DataSign.animation);
+		TxtManager.RegisterDataFactory<InstantRayDamageTrigger>(DataSign.instantDamage);
+		TxtManager.RegisterDataFactory<AudioTrigger>(DataSign.audio);
+		TxtManager.RegisterDataFactory<DashTrigger>(DataSign.dash);
+		TxtManager.RegisterDataFactory<DirectLineBulletTrigger>(DataSign.bullet);
+		TxtManager.RegisterDataFactory<SwordTrigger>(DataSign.trigger2D);
+		TxtManager.RegisterDataFactory<ParabloaBulletTrigger>(DataSign.paraBullet);
 
 	}
 
@@ -168,7 +178,11 @@ public class SceneMgr : BaseSceneMgr
         
 		TxtManager.LoadDataFromFile<AbstractItem>(FilePath.ItemFilePath,
 			(item) =>{ ItemMgr.itemDic.Add(item.ID, item); });
-		
+
+		foreach (var v in RankMgr.LargeRankList)
+		{
+			Debug.Log(v.name);
+		}
 		
     }
     

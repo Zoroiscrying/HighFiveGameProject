@@ -2,6 +2,7 @@
 using Game.Script;
 using System;
 using Game.Const;
+using Game.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -22,7 +23,7 @@ namespace Game.Control.SkillSystem
         {
 
             this.layer = 1 << LayerMask.NameToLayer("Enemy");
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= BasePropertyCount+5);
             var dre = Convert.ToSingle(strs[BasePropertyCount].Trim());
             this.dir = new Vector2(Mathf.Cos(Mathf.Deg2Rad * dre), Mathf.Sin(Mathf.Deg2Rad * dre));
@@ -31,7 +32,7 @@ namespace Game.Control.SkillSystem
             this.hitSpeed = Convert.ToSingle(strs[BasePropertyCount+2].Trim());
             this.shineLastTime = Convert.ToSingle(strs[BasePropertyCount+3].Trim());
             this.shineDurTime = Convert.ToSingle(strs[BasePropertyCount+4].Trim());
-            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 0, this.BasePropertyCount));
         }
 
         public override void Execute(AbstractPerson self)
@@ -69,6 +70,7 @@ namespace Game.Control.SkillSystem
                     Debug.Log(r.transform.gameObject);
                     continue;
                 }
+
 
                 //                Debug.Log(self.name + "将对" + hitPerson.name + "造成" + GameMath.Damage(self, hitPerson) + "伤害");
                 hitPerson.TakeBattleEffect(self.AttackEffect);

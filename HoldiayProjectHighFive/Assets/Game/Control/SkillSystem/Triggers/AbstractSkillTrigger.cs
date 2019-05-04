@@ -43,7 +43,7 @@ namespace Game.Control.SkillSystem
         /// <param name="args"></param>
         public virtual void LoadTxt(string args)//string type, int id,float startTime,float lastTime,string args="")
         {
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= this.BasePropertyCount);
             this.IsExecuted = false;
             this.LastTime = Convert.ToSingle(strs[2].Trim());
@@ -65,16 +65,16 @@ namespace Game.Control.SkillSystem
         public void SignInit(string initLine)
         {
             this.SkillType = initLine.Trim();
-            Debug.Log(this.SkillType + " SignInit");
+//            Debug.Log(this.SkillType + " SignInit");
         }
 
         public void LoadTxt(StreamReader sr)
         {
-            Debug.Log(this.SkillType + " Main");
+//            Debug.Log(this.SkillType + " Main");
             var line = TxtManager.ReadUntilValue(sr);
             Assert.IsFalse(string.IsNullOrEmpty(line));
             LoadTxt(line);
-            Debug.Log(this.SkillType+" end Main");
+//            Debug.Log(this.SkillType+" end Main");
         }
     }
 #endregion

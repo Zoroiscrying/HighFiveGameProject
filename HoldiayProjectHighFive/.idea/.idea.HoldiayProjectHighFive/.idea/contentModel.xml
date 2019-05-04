@@ -241,10 +241,14 @@
               <e p="AbstractLimit.cs" t="Include" />
               <e p="LargeRank" t="Include">
                 <e p="AbstractLargeRank.cs" t="Include" />
+                <e p="L1Rank.cs" t="Include" />
+                <e p="L2Rank.cs" t="Include" />
               </e>
               <e p="RankMgr.cs" t="Include" />
               <e p="SmallRank" t="Include">
                 <e p="AbstractSmallRank.cs" t="Include" />
+                <e p="S1Rank.cs" t="Include" />
+                <e p="S2Rank.cs" t="Include" />
               </e>
             </e>
             <e p="SceneSystem" t="Include">

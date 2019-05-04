@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Game.Const;
+using Game.Data;
 using UnityEngine.Assertions;
 
 namespace Game.Control.SkillSystem
@@ -18,10 +19,10 @@ namespace Game.Control.SkillSystem
 
         public override void LoadTxt(string args)//type, int id,float startTime, float lastTime, string args = "")
         {
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= BasePropertyCount+1);
             this.audioName = strs[BasePropertyCount].Trim();
-            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 0, this.BasePropertyCount));
         }
 
         public override void Execute(AbstractPerson self)

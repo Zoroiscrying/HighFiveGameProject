@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Game.Const;
+using Game.Data;
 using UnityEngine.Assertions;
 namespace Game.Model.ItemSystem
 {
@@ -20,10 +21,10 @@ namespace Game.Model.ItemSystem
 
         internal override void Init(string args)
         {
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= base.BasePropertyCount + 1);
             this.weight = Convert.ToSingle(strs[base.BasePropertyCount].Trim());
-            base.Init(string.Join("|", strs, 0, base.BasePropertyCount));
+            base.Init(string.Join(TxtManager.SplitChar.ToString(), strs, 0, base.BasePropertyCount));
         }
     }
 }

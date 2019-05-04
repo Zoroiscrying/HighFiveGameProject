@@ -23,12 +23,12 @@ namespace Game.Control.SkillSystem
         /// <param name="args"></param>
         public override void LoadTxt(string args)//type,int id,float startTime,float lastTime, string args)
         {
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= BasePropertyCount+2);
             this.animationName = strs[BasePropertyCount+0].Trim();
             this.speed = Convert.ToSingle(strs[BasePropertyCount+1].Trim());
             this.LastTime /= this.speed;
-            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 0, this.BasePropertyCount));
         }
 
         /// <summary>

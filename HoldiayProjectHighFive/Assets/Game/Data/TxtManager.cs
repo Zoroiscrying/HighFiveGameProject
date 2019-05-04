@@ -2,12 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Game.Const;
 using UnityEngine;
 
 namespace Game.Data
 {
-	public static class TxtManager 
+	public static class TxtManager
 	{
+		public static char SplitChar
+		{
+			get { return DataSign.txtSplitChar; }
+		}
+	
 		/// <summary>
 		/// 记录下所有物品的工厂
 		/// </summary>
@@ -21,10 +27,13 @@ namespace Game.Data
 		/// </summary>
 		/// <param name="skillType"></param>
 		/// <param name="factory"></param>
-		public static void RegisterDataFactory(string skillType, IDataFactory factory)
+		public static void RegisterDataFactory<T>(string dataType)
+			where T:class,ITxtSerializable,new()
 		{
-			if (!factoryDic.ContainsKey(skillType))
-				factoryDic.Add(skillType, factory);
+			if (!factoryDic.ContainsKey(dataType))
+				factoryDic.Add(dataType, DataFactory<T>.Instance);
+			else
+				Debug.LogWarning("重复添加物品: "+dataType);
 		}
 
 		
@@ -70,7 +79,8 @@ namespace Game.Data
 						break;
 					}
 
-					action(item);
+					if(action!=null)
+						action(item);
 				} while (true);
 				sr.Close();
 		}
@@ -123,7 +133,7 @@ namespace Game.Data
 				{
 					if (backet==false)
 					{
-						var sign = line.Split('|')[0];
+						var sign = line.Split(SplitChar)[0];
 						data = factoryDic[sign].CreateData(line);
 
 						

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Game.Data;
@@ -20,13 +21,25 @@ namespace Game.Model.RankSystem
 		}
 		public abstract bool BreakLimit();
 		public abstract void ImprovePlayer();
+
+		public virtual void LoadTxt(string args)
+		{
+			var strs = args.Split(TxtManager.SplitChar);
+			if (strs.Length < BasePropertyCount)
+			{
+				throw new Exception(args+"\n"+"AbstractLargeRank.strs.Length: "+strs.Length);
+			}
+			//Assert.IsTrue(strs.Length==BasePropertyCount);
+			this.name = strs[0].Trim();
+		}
+
 		public abstract string Sign { get; }
 
 		public void SignInit(string initLine)
 		{
-			var strs = initLine.Split('|');
-			Assert.IsTrue(strs.Length >= 2);
-			this.name = strs[1].Trim();
+			var strs = initLine.Split(TxtManager.SplitChar);
+			Debug.Log("L1Rank strs.Length: "+strs.Length);
+			LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 1,strs.Length-1));
 		}
 
 		public void LoadTxt(StreamReader sr)

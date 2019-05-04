@@ -38,7 +38,7 @@ namespace Game.Model.ItemSystem
 
         internal virtual void Init(string args)
         {
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length == 5);
             this.ID = Convert.ToInt32(strs[0].Trim());
             this.Name = strs[1].Trim();

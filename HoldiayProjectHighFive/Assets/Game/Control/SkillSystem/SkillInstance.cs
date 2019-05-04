@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Game.Const;
 using Game.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -108,12 +109,12 @@ namespace Game.Control.SkillSystem
         #region ITxtSerializable
         public string Sign
         {
-            get { return "skill"; }
+            get { return DataSign.skill; }
         }
 
         public void SignInit(string args)
         {
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= 2);
             this.name = strs[1].Trim();
 //            Debug.Log(this.name + " SignInit");

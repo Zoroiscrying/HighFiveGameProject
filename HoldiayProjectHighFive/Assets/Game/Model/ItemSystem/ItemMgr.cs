@@ -34,26 +34,5 @@ namespace Game.Model.ItemSystem
         /// </summary>
         public static Dictionary<int, AbstractItem> itemDic = new Dictionary<int, AbstractItem>();
 
-        /// <summary>
-        /// 文件读取Item
-        /// </summary>
-        /// <param name="path"></param>
-        public static void LoadItemsFromFile(string path)
-        {
-            path = Application.streamingAssetsPath + "\\" + path;
-            var sr = new StreamReader(path);
-            do
-            {
-                var item = TxtManager.LoadData(sr) as AbstractItem;
-                if (item == null)
-                {
-                    Debug.LogWarning("item is null");
-                    break;
-                }
-
-                itemDic.Add(item.ID, item);
-            } while (true);
-            sr.Close();
-        }
     }
 }

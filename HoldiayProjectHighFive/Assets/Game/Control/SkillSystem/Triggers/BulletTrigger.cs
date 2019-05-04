@@ -2,6 +2,7 @@
 using Game.Control.PersonSystem;
 using Game.Script;
 using System;
+using Game.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Game.Model;
@@ -24,7 +25,7 @@ namespace Game.Control.SkillSystem
 
         public override void LoadTxt(string args)
         {
-            var strs = args.Split('|');
+            var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= BasePropertyCount+5);
             //resName,degree,damage,speed,time
             this.resName = strs[BasePropertyCount].Trim();
@@ -35,7 +36,7 @@ namespace Game.Control.SkillSystem
             this.speed = Convert.ToInt32(strs[BasePropertyCount+3].Trim());
             this.maxLife = Convert.ToSingle(strs[BasePropertyCount+4].Trim());
             Debug.Log("解析出子弹寿命：" + this.maxLife);
-            base.LoadTxt(string.Join("|", strs, 0, this.BasePropertyCount));
+            base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 0, this.BasePropertyCount));
         }
         
 

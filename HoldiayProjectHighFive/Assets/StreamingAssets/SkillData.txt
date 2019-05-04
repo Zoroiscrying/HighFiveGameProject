@@ -1,113 +1,113 @@
-skill|L_Skill
+skill,L_Skill
 {
-        //触发器   		|开始时间|id	|持续时间|args
+        //触发器   		,开始时间,id	,持续时间,args
 						 	//AniName, speed
 	AnimationTrigger	
 	{
-		0	 |101	|0.65	  |Skill2	|  1
+		0	 ,101	,0.65	  ,Skill2	,  1
 	}
 
 	DashTrigger
 	{
-		0.1	 |102	|0.4	  |30	|10	|   0.1	
+		0.1	 ,102	,0.4	  ,30	,10	,   0.1	
 	}	
 	End
 }
-skill|U_Skill
+skill,U_Skill
 {
 						 	//AniName, speed
 	AnimationTrigger	
 	{
-		0	 |201	|1	  |Attack1	|2
+		0	 ,201	,1	  ,Attack1	,2
 	}
 
 	DashTrigger		
 	{
-		0.1	 |202	|0.4	  |1	|0	| 0.1
+		0.1	 ,202	,0.4	  ,1	,0	, 0.1
 	}
 	
 	AudioTrigger	  	
 	{
-		0.2	 |203	|0.5	  |1
+		0.2	 ,203	,0.5	  ,1
 	}
 
 				//offect.x,offect.y,size.x,size.y,beginDre,endDre
 	Trigger2DTrigger	
 	{
-		0.1	 |205	|0.6	  |0|0.12|0.08|0.02|120|-20
+		0.1	 ,205	,0.6	  ,0,0.12,0.08,0.02,120,-20
 	}
 	
 	End
 }
 
-skill|I_Skill
+skill,I_Skill
 {
 						 //AniName, speed
 	AnimationTrigger	
 	{
-		0	 |301	|0.4	  |Attack2| 1
+		0	 ,301	,0.4	  ,Attack2, 1
 	}
 	
 	End
 }
 
-skill|O_Skill
+skill,O_Skill
 {
-        //触发器   		|开始时间|id	|持续时间|args
+        //触发器   		,开始时间,id	,持续时间,args
 						 	//AniName, speed
 	AnimationTrigger	
 	{
-		0	 |401	|0.5	  |Attack3| 1.7
+		0	 ,401	,0.5	  ,Attack3, 1.7
 	}
 	DashTrigger		
 	{
-		0.1	 |402	|0.4	  |1.5| 0|   0.1
+		0.1	 ,402	,0.4	  ,1.5, 0,   0.1
 	}
 	AudioTrigger	  	
 	{
-		0.2	 |403	|0.5	  |3
+		0.2	 ,403	,0.5	  ,3
 	}
-//	LockFrameTrigger 	|0.28 	 |404	|0.04	  |
+//	LockFrameTrigger 	,0.28 	 ,404	,0.04	  ,
 				//offect.x,offect.y,size.x,size.y,beginDre,endDre	
 	Trigger2DTrigger	
 	{
-		0.1	 |405	|0.6	  |0|0.12|0.2|0.02|120|-20|1	
+		0.1	 ,405	,0.6	  ,0,0.12,0.2,0.02,120,-20,1	
 	}
 	
 	End
 }
-skill|Shot
+skill,Shot
 {
             						//resName,	degree,	damage,	speed,	time
 	BulletTrigger		
 	{
-		0	 |501	|1	  |bullet_1	|0	|10	|40	|2
+		0	 ,501	,1	  ,bullet_1	,0	,10	,40	,2
 	}
 	AudioTrigger
 	{
-		0.1	 |502	|0.5	  |beiji
+		0.1	 ,502	,0.5	  ,beiji
 	}
 	
 	End
 }
-skill|ParaShoot
+skill,ParaShoot
 {
 							//resName,	shootspeed timeToTarget offect.x.y.z damage maxlife
 	ParaBulletTrigger	
 	{
-		0	|601	|1	|bullet_1	|4		|20	|  10|-2|0	|20	|3			
+		0	,601	,1	,bullet_1	,4		,20	,  10,-2,0	,20	,3			
 	}			
 	ParaBulletTrigger	
 	{
-		0	|601	|1	|bullet_1	|4		|20	|   5|-2|0	|20	|3		
+		0	,601	,1	,bullet_1	,4		,20	,   5,-2,0	,20	,3		
 	}				
 	ParaBulletTrigger	
 	{
-		0	|601	|1	|bullet_1	|4		|20	| -10|-2|0	|20	|3		
+		0	,601	,1	,bullet_1	,4		,20	, -10,-2,0	,20	,3		
 	}				
 	ParaBulletTrigger	
 	{
-		0	|601	|1	|bullet_1	|4		|20	|  -5|-2|0	|20	|3
+		0	,601	,1	,bullet_1	,4		,20	,  -5,-2,0	,20	,3
 	}
 
 

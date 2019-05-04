@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Game.Const;
 using Game.Control.PersonSystem;
+using Game.Data;
 using UnityEngine.Assertions;
 using Game.Model;
 using Game.Model.SpriteObjSystem;
@@ -22,7 +23,7 @@ namespace Game.Control.SkillSystem
         public override void LoadTxt(string args)
         {
             //shootspeed timeToTarget offect.x.y.z damage maxlife 
-            var strs = args.Trim().Split('|');
+            var strs = args.Trim().Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length >= BasePropertyCount+8);
 
 
@@ -37,7 +38,7 @@ namespace Game.Control.SkillSystem
             };
             this.damage = Convert.ToSingle(strs[BasePropertyCount+6].Trim());
             this.maxLife = Convert.ToSingle(strs[BasePropertyCount+7].Trim());
-            base.LoadTxt(string.Join("|", strs,0, this.BasePropertyCount));
+            base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs,0, this.BasePropertyCount));
             
         }
         public override void Execute(AbstractPerson self)

@@ -276,7 +276,12 @@ namespace Game.Control.PersonSystem
                     //skillDic.Add(str, SkillTriggerMgr.skillInstanceDic[str]);
                     skills.Add(SkillTriggerMgr.skillInstanceDic[str]);
 
-            this.maxRealSkillCount = skillTypes.Count-this.BaseSkillCount;
+            if(skillTypes!=null)
+                this.maxRealSkillCount = skillTypes.Count-this.BaseSkillCount;
+            else
+            {
+                this.maxRealSkillCount = 0;
+            }
 
             //添加基本攻击效果
             this.OnAttackListRefresh += AddBaseAttackEffects;
@@ -289,21 +294,6 @@ namespace Game.Control.PersonSystem
             //记录每个实例
             instanceList.Add(this);
         }
-
-        /// <summary>
-        /// 初始化属性
-        /// 这里通过从字符串args中获取信息初始化除了名字以外其他属性
-        /// </summary>
-        /// <param name="args"></param>
-        protected virtual void Init(string args)
-        {
-            var strs = args.Split('|');
-            Assert.IsTrue(strs.Length >= 2);
-            this.MaxHp = Convert.ToInt32(strs[0].Trim());
-            this.Attack = Convert.ToInt32(strs[1].Trim());
-            this.Hp = this.MaxHp;
-        }
-
 
         /// <summary>
         /// 添加基础攻击效果

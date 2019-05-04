@@ -24,17 +24,19 @@ namespace Game.Model.RankSystem
 		public abstract void ImprovePlayer();
 
 
-		public abstract void LoadTxt(string args);
+		public virtual void LoadTxt(string args)
+		{
+			var strs = args.Split(TxtManager.SplitChar);
+			Assert.IsTrue(strs.Length == BasePropertyCount);
+			this.name = strs[0].Trim();
+			this.max = Convert.ToInt32(strs[1].Trim());
+		}
 
 		
 		#region ITxtSerializable
 		public abstract string Sign { get; }
 		public void SignInit(string initLine)
 		{
-			var strs = initLine.Split('|');
-			Assert.IsTrue(strs.Length >= 3);
-			this.name = strs[1].Trim();
-			this.max = Convert.ToInt32(strs[2].Trim());
 		}
 
 		public void LoadTxt(StreamReader sr)

@@ -26,6 +26,7 @@ namespace Game.Model.RankSystem
 			CEventCenter.AddListener<int>(Message.M_ChangeSmallLevel,this.OnChangeSmallRankAdder);
 			CEventCenter.AddListener<int>(Message.M_AchieveLargeLevel,LargeLevelUp);
 			CEventCenter.AddListener<int>(Message.M_AchieveSmallLevel,SmallLevelUp);
+			CEventCenter.AddListener<int,int>(Message.M_RankAwake,OnRankAwake);
 		}
 		
 		
@@ -44,11 +45,11 @@ namespace Game.Model.RankSystem
 		#region 属性
 		
 		//获取当前小等级和大等级
-		private AbstractSmallRank SmallRank
+		public AbstractSmallRank SmallRank
 		{
 			get { return LargeRankList[this.currentLargeRank].smallRanks[this.currentSmallRank]; }
 		}
-		private AbstractLargeRank LargeRank
+		public AbstractLargeRank LargeRank
 		{
 			get { return LargeRankList[this.currentLargeRank]; }
 		}
@@ -119,12 +120,20 @@ namespace Game.Model.RankSystem
 				}
 			}
 		}
+
+		private void OnRankAwake(int large, int small)
+		{
+			this.currentLargeRank = large;
+			this.currentSmallRank = small;
+			this.Adder = 0;
+		}
 		
 		//小升级
 		void SmallLevelUp(int newRankIndex)
 		{
 			SmallRank.ImprovePlayer();
 			this.currentSmallRank = newRankIndex;
+			this.Adder = 0;
 		}
 		
 		//大升级
@@ -132,6 +141,8 @@ namespace Game.Model.RankSystem
 		{
 			LargeRank.ImprovePlayer();
 			this.currentLargeRank = newRankIndex;
+			
+			this.Adder = 0;
 		}
 		
 		

@@ -72,6 +72,9 @@ namespace Game.Control.PersonSystem
     
         #region 背包
 
+        /// <summary>
+        /// 保存存储物品信息的内部类
+        /// </summary>
         public class ItemData
         {
             public int count;
@@ -85,6 +88,11 @@ namespace Game.Control.PersonSystem
 
         public List<ItemData> itemList = new List<ItemData>();
 
+        /// <summary>
+        /// 添加物品
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <param name="count"></param>
         public void AddItem(int itemId,int count)
         {
             foreach(var i in itemList)
@@ -97,6 +105,11 @@ namespace Game.Control.PersonSystem
             }
             itemList.Add(new ItemData(itemId, count));
         }
+        /// <summary>
+        /// 移出物品
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <param name="count"></param>
         public void RemoveItem(int itemId,int count)
         {
             foreach(var i in itemList)
@@ -109,13 +122,27 @@ namespace Game.Control.PersonSystem
             }
             Debug.LogWarning("没有那么多这种东西：" + itemId);
         }
+
+        /// <summary>
+        /// 获取指定物品数量
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int HaveItem(int id)
+        {
+            foreach(var item in itemList)
+                if (item.itemId == id)
+                    return item.count;
+            return 0;
+        }
+        
         #endregion
 
 
         #region 玩家专有外显属性
 
         [HideInInspector]
-        public int attackMultipulier = 1;  //攻击力翻倍
+        public float attackMultipulier = 1;  //攻击力翻倍
         [HideInInspector]
         public int attackAdder = 0;        //攻击力叠加
 
@@ -267,13 +294,12 @@ namespace Game.Control.PersonSystem
             Assert.IsTrue(mainc != null);
             cc = this.obj.GetComponent<CharacterController2D>();
             Assert.IsTrue(cc != null);
+
+            this.Attack = 20;
+            this.MaxHp = 100;
+
         }
 
-        protected override void Init(string args)
-        {
-            base.Init(args);
-            this.DefaultConstTime = 0.7f;
-        }
 
 
         #endregion
