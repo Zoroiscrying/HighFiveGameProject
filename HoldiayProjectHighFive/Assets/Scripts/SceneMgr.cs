@@ -26,7 +26,6 @@ using UnityEngine.UI;
 
 public class SceneMgr : BaseSceneMgr
 {
-	
 	List<AbstractPerson> list=new List<AbstractPerson>();
 	//private Player player;
 	public string UiPanelName;
@@ -35,6 +34,11 @@ public class SceneMgr : BaseSceneMgr
     public Vector3 PlayerPos;
     public float signalSize=4;
     private GameObject miniMap;
+    
+    
+    #region MonoBehavior
+    
+    
 	void Start()
 	{
 	//if(creatTestPeople)	
@@ -51,12 +55,6 @@ public class SceneMgr : BaseSceneMgr
 		CEventCenter.BroadMessage(Message.M_RankAwake,0,0);
 	}
     // Use this for initialization
-
-    void DrawV3(Vector3 pos,Color color)
-    {
-	    Debug.DrawLine(pos + Vector3.left * this.signalSize, pos + Vector3.right * this.signalSize,color);
-	    Debug.DrawLine(pos + Vector3.up * this.signalSize, pos + Vector3.down * this.signalSize, color); 
-    }
 
     private void OnDrawGizmos()
     {
@@ -95,7 +93,16 @@ public class SceneMgr : BaseSceneMgr
 			AssetDatabase.Refresh();
 		}
 	}	
+    
+    
+    #endregion
 	
+    void DrawV3(Vector3 pos,Color color)
+    {
+	    Debug.DrawLine(pos + Vector3.left * this.signalSize, pos + Vector3.right * this.signalSize,color);
+	    Debug.DrawLine(pos + Vector3.up * this.signalSize, pos + Vector3.down * this.signalSize, color); 
+    }
+
 	void CreateTestPeople()
 	{
 		var go = new GameObject("TestPeople");

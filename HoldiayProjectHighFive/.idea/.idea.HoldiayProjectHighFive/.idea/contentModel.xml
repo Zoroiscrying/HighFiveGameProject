@@ -293,10 +293,21 @@
             <e p="ItemInfoUI.cs" t="Include" />
             <e p="NumberTipUI.cs" t="Include" />
             <e p="PanelSystem" t="Include">
-              <e p="AbstractPanel.cs" t="Include" />
-              <e p="BattlePanel.cs" t="Include" />
               <e p="IStackPanel.cs" t="Include" />
-              <e p="PackagePanel.cs" t="Include" />
+              <e p="Panels" t="Include">
+                <e p="AbstractPanel.cs" t="Include" />
+                <e p="BattlePanel.cs" t="Include" />
+                <e p="PackagePanel.cs" t="Include" />
+              </e>
+              <e p="ScreenEffect" t="Include">
+                <e p="AbstractScreenEffect.cs" t="Include" />
+                <e p="FadeInOut.cs" t="Include" />
+              </e>
+              <e p="TransionType.cs" t="Include" />
+              <e p="Transition" t="Include">
+                <e p="AbstractTransition.cs" t="Include" />
+                <e p="ScollTransition.cs" t="Include" />
+              </e>
               <e p="UIManager.cs" t="Include" />
             </e>
           </e>

@@ -11,6 +11,25 @@ namespace Game.Global
         public static GameObject G_Canvas;
         //在玩家创建的时候初始化
         public static Player G_Player;
+        public static Vector3 GCanvasButton
+        {
+            get { return G_Canvas.transform.position - new Vector3(0, Screen.height, 0); }
+        }
+
+        public static Vector3 GCanvasTop
+        {
+            get { return G_Canvas.transform.position + new Vector3(0, Screen.height, 0); }
+        }
+
+        public static Vector3 GCanvasLeft
+        {
+            get { return G_Canvas.transform.position - new Vector3(Screen.width, 0, 0); }
+        }
+
+        public static Vector3 GCanvasRight
+        {
+            get { return G_Canvas.transform.position + new Vector3(Screen.width, 0, 0); }
+        }
 
         public static void Refresh()
         {

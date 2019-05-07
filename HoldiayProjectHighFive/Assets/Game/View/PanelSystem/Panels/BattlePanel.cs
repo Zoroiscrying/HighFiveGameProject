@@ -96,26 +96,28 @@ namespace Game.View.PanelSystem
 
         void OnSmallLevelUp(int newLevel)
         {
-            this.smallRank.text = GlobalVar.G_Player.rankMgr.LargeRank.smallRanks[newLevel-1].name;
+            this.smallRank.text = GlobalVar.G_Player.rankMgr.LargeRank.smallRanks[newLevel].name;
             this.ExpBar.value = 0;
+            //Debug.Log("小升级："+this.smallRank.text);
         }
 
         void OnLargeLevelUp(int newLevel)
         {
-            this.largeRank.text = RankMgr.LargeRankList[newLevel - 1].name;
-            Debug.Log("LargeRank.name: "+ RankMgr.LargeRankList[newLevel - 1].name);
+            var rank = RankMgr.LargeRankList[newLevel];
+            this.largeRank.text = rank.name;
+            this.smallRank.text = rank.smallRanks[0].name;
+            //Debug.Log("大升级: "+ this.largeRank.text);
             this.ExpBar.value = 0;
         }
 
         void OnRankAwake(int large, int small)
         {
             var rank = RankMgr.LargeRankList[large];
-            Debug.Log("LargeRank.name: "+rank.name);
+            //Debug.Log("LargeRank.name: "+rank.name);
             this.largeRank.text = rank.name;
             this.smallRank.text = rank.smallRanks[small].name;
+            //Debug.Log("初始等级："+this.largeRank.text+"  "+this.smallRank.text);
             this.ExpBar.value = 0;
         }
-        
-        
     }
 }

@@ -355,7 +355,7 @@ namespace Game.Control.PersonSystem
 
             if(Input.GetKeyDown(KeyCode.Tab))
             {
-                UIManager.Instance.PushPanel(PanelName.packagePanel);
+                UIManager.Instance.PushPanel(PanelName.packagePanel,new FadeInOut(0.5f));
             }
             if(Input.GetKeyUp(KeyCode.Tab))
             {

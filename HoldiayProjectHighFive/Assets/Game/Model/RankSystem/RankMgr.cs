@@ -100,12 +100,14 @@ namespace Game.Model.RankSystem
 			{
 				//升级！
 
-				if (this.SmallRankIndex == SmallRank.max - 1)
+				//Debug.Log("当前SmallRankIndex: "+this.SmallRankIndex);
+				if (this.SmallRankIndex == this.LargeRank.smallRanks.Count - 1)
 				{
 					//巅峰
 					if (LargeRank.BreakLimit())
 					{
 						//大突破
+						//Debug.Log("即将进入下一大等级的Index: "+this.LargeRankIndex+1);
 						CEventCenter.BroadMessage(Message.M_AchieveLargeLevel,this.LargeRankIndex+1);
 					}
 					else
@@ -116,6 +118,7 @@ namespace Game.Model.RankSystem
 				else
 				{
 					//小升级
+					//Debug.Log("即将进入下一小等级Index: "+this.SmallRankIndex+1);
 					CEventCenter.BroadMessage(Message.M_AchieveSmallLevel,this.SmallRankIndex+1);
 				}
 			}
@@ -131,6 +134,7 @@ namespace Game.Model.RankSystem
 		//小升级
 		void SmallLevelUp(int newRankIndex)
 		{
+			//Debug.Log(newRankIndex);
 			SmallRank.ImprovePlayer();
 			this.currentSmallRank = newRankIndex;
 			this.Adder = 0;
@@ -141,7 +145,7 @@ namespace Game.Model.RankSystem
 		{
 			LargeRank.ImprovePlayer();
 			this.currentLargeRank = newRankIndex;
-			
+			this.currentSmallRank = 0;
 			this.Adder = 0;
 		}
 		

@@ -39,6 +39,32 @@ namespace Game.View.PanelSystem
             Debug.Log("入栈：" + this.panelStack.Count + " name:" + name);
         }
 
+        public void PushPanel(string panelName, AbstractTransition transition)
+        {
+            var panel = AbstractPanel.GetPanel(panelName);
+            transition.PushPanel(panel);
+            panelStack.Push(panel);
+
+            Debug.Log("入栈：" + this.panelStack.Count + " name:" + panelName);
+        }
+
+        public void PushPanel(string panelName, AbstractScreenEffect abstractScreenEffect)
+        {
+            var panel = AbstractPanel.GetPanel(panelName);
+            abstractScreenEffect.OnBegin(CurrentPanel as AbstractPanel, panel);
+            panelStack.Push(panel);
+        }
+
+        public void PushPanel(string panelName, AbstractTransition transition,
+            AbstractScreenEffect abstractScreenEffect)
+        {
+            var panel = AbstractPanel.GetPanel(panelName);
+            transition.onBegin += abstractScreenEffect.OnBegin;
+            transition.PushPanel(panel);
+            panelStack.Push(panel);
+        }
+        
+
 
         public void PopPanel()
         {
