@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: EE
+  m_Name: ColliderBox48
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 54f81f18767ba9f46849bdae78db9765, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9a7239fb65629014aa5ff14d0dad449a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
