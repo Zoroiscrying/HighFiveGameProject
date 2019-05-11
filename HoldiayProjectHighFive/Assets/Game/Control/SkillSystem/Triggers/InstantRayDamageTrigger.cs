@@ -3,6 +3,7 @@ using Game.Script;
 using System;
 using Game.Const;
 using Game.Data;
+using Game.Math;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -72,8 +73,10 @@ namespace Game.Control.SkillSystem
                 }
 
 
-                //                Debug.Log(self.name + "将对" + hitPerson.name + "造成" + GameMath.Damage(self, hitPerson) + "伤害");
-                hitPerson.TakeBattleEffect(self.AttackEffect);
+               self.OnCauseDamage(GameMath.Damage(self.Attack));
+               hitPerson.TakeBattleEffect(self.AttackEffect);
+                
+                
                 //                hitPerson.TakeBattleEffect(new LockFrame());
             }
         }

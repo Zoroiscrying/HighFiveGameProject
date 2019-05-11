@@ -1,6 +1,6 @@
-skill,L_Skill
+ï»¿skill,L_Skill
 {
-        //´¥·¢Æ÷   		,¿ªÊ¼Ê±¼ä,id	,³ÖĞøÊ±¼ä,args
+        //è§¦å‘å™¨   		,å¼€å§‹æ—¶é—´,id	,æŒç»­æ—¶é—´,args
 						 	//AniName, speed
 	AnimationTrigger	
 	{
@@ -53,7 +53,7 @@ skill,I_Skill
 
 skill,O_Skill
 {
-        //´¥·¢Æ÷   		,¿ªÊ¼Ê±¼ä,id	,³ÖĞøÊ±¼ä,args
+        //è§¦å‘å™¨   		,å¼€å§‹æ—¶é—´,id	,æŒç»­æ—¶é—´,args
 						 	//AniName, speed
 	AnimationTrigger	
 	{

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Game.MemorySystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
@@ -88,14 +89,13 @@ namespace Game.View
                 return;
             }
 
-            var go = Resources.Load<GameObject>(m_sResName);
 
             var canvas = Global.GlobalVar.G_Canvas.transform;
 
             if (null == canvas)
                 Debug.Log("画布获取失败");
 
-            var obj = Object.Instantiate(go, canvas);
+            var obj = MemoryMgr.Instantiate(m_sResName, canvas);
 
             if (obj == null)
             {
@@ -145,11 +145,11 @@ namespace Game.View
             if (m_TransFrom && m_TransFrom.gameObject.activeSelf == true)
             {
                 OnRemoveListener();
+                m_TransFrom.gameObject.SetActive(false);
             }
 
             m_bIsVisible = false;
 
-            m_TransFrom.gameObject.SetActive(false);
         }
     }
 }

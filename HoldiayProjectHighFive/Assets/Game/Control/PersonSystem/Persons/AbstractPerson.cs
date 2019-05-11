@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Game.Common;
+using Game.MemorySystem;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
@@ -21,7 +22,7 @@ namespace Game.Control.PersonSystem
     /// 所有接受战斗效果的单位都要继承这个抽象类
     /// </summary>
     [Serializable]
-    public abstract class AbstractPerson : AbstractSourcePerson
+    public abstract class AbstractPerson 
     {
         #region 根据GameObject获取AbstractPerson
 
@@ -47,6 +48,9 @@ namespace Game.Control.PersonSystem
 
         #region 属性
 
+        [HideInInspector]
+        public GameObject obj;
+        
         public string name { get; set; }              //名字
         public int Hp { get; set; }                   //血量
         public int MaxHp { get; set; }                //最大血量
@@ -56,8 +60,6 @@ namespace Game.Control.PersonSystem
         public bool IsConst { protected set; get; }     //是否可选中/无敌帧
         public float DefaultConstTime { protected set; get; } //硬直时间
         public bool InputOk { get; set; }             //接受技能输入
-
-
         public event Action OnThisUpdate;
 
         /// <summary>
@@ -258,7 +260,7 @@ namespace Game.Control.PersonSystem
         {
         }
 
-        public AbstractPerson(string name, string prefabPath, Vector3 pos, List<string> skillTypes = null, Transform parent = null) : base(prefabPath)
+        public AbstractPerson(string path, string prefabPath, Vector3 pos, List<string> skillTypes = null, Transform parent = null)
         {
             //初始化默认属性
             this.name = name;
@@ -266,7 +268,8 @@ namespace Game.Control.PersonSystem
             this.IsConst = false;
             this.IgnoreHitback = false;
             this.DefaultConstTime = 0;
-            this.obj = Object.Instantiate(this.obj, pos, Quaternion.identity, parent);
+            
+            this.obj = MemoryMgr.Instantiate(path, pos, Quaternion.identity, parent);
 
 
             allSkillNames = skillTypes;
@@ -305,6 +308,15 @@ namespace Game.Control.PersonSystem
 
         #region 战斗
 
+        public virtual void  OnCauseDamage(int damage)
+        {
+            
+        }
+
+        public virtual void OnTakeDamage(int damage)
+        {
+            
+        }
 
         /// <summary>
         /// 变为硬直状态

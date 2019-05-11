@@ -63,8 +63,19 @@ namespace Game.View.PanelSystem
             if ( cg== null)
                 cg=newPanel.m_TransFrom.gameObject.AddComponent<CanvasGroup>();
             cg.alpha = 0;
-            MainLoop.Instance.UpdateForSeconds(() => { cg.alpha += Time.deltaTime / time; }, time,
-                () => { newPanel.m_TransFrom.position = GlobalVar.G_Canvas.transform.position; });
+            MainLoop.Instance.UpdateForSeconds(() =>
+                {
+                    if(!newPanel.IsVisable())
+                        return;
+                    cg.alpha += Time.deltaTime / time;
+                }, 
+                time,
+                () =>
+                {
+                    if(!newPanel.IsVisable())
+                        return;
+                    newPanel.m_TransFrom.position = GlobalVar.G_Canvas.transform.position;
+                });
 
 
 

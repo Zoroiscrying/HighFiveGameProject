@@ -18,7 +18,8 @@ namespace Game.Const
         public static readonly string Slider_BloodBar = LittleUiPath + "Slider";
 
         public static readonly string Image_MiniMap = LittleUiPath + "Image_MiniMapBackGround";
-        
+
+        public static readonly string Image_ItemData = LittleUiPath + "Image_ItemBk";
         
         #region 背包
         public static readonly string Image_ItemInfo = LittleUiPath + "Image_ItemInfo";
@@ -27,9 +28,5 @@ namespace Game.Const
         #endregion
 
 
-        #region Panels
-        public static readonly string Panel_Battle = PanelDir + "Panel_BattleScenery";
-        public static readonly string Panel_Package = PanelDir + "Panel_Package";
-        #endregion
     }
 }

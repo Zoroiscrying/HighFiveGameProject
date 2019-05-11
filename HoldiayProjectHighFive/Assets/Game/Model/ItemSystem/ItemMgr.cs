@@ -20,6 +20,7 @@ namespace Game.Model.ItemSystem
                 throw new Exception("工厂中没有这个触发器类型" + args);
             return factoryDic[type].CreateItem(args);//skillType,id,startTime,lastTime,args);
         }
+        
 
         public static AbstractItem GetItem(int id)
         {
@@ -29,8 +30,13 @@ namespace Game.Model.ItemSystem
             }
             return itemDic[id];
         }
+
+        public static T GetItem<T>(int id) where T : AbstractItem
+        {
+            return GetItem(id) as T;
+        }
         /// <summary>
-        /// AbstractPerson通过技能名从这里获取技能索引
+        /// AbstractPerson通过技能名从这里获取Item索引
         /// </summary>
         public static Dictionary<int, AbstractItem> itemDic = new Dictionary<int, AbstractItem>();
 

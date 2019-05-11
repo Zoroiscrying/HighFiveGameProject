@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Game.Common;
 using Game.Const;
+using Game.MemorySystem;
 using Game.Model.ItemSystem;
 using Game.Script;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Game.View.PanelSystem
 
         protected override void Load()
         {
-            Create(UIPath.Panel_Package);
+            Create(UIPath.PanelDir+Const.PanelName.packagePanel);
 
             this.itemList = Global.GlobalVar.G_Player.itemList;
 
@@ -305,7 +306,7 @@ namespace Game.View.PanelSystem
             this.itemInfoUi.Set(slot.itemUi.itemId, slot.transform.position);
             this.itemInfoUi.Show();
             this.moreInfoTextObj.GetComponent<Text>().text = item.ToString();
-            var sprite= Resources.Load<Sprite>(ItemPath.Dir+item.SpritePath);
+            var sprite = MemoryMgr.GetSourceFromResources<Sprite>(item.SpritePath);
             Assert.IsTrue(sprite);
             this.moreInfoSpriteObj.GetComponent<Image>().sprite = sprite;
         }

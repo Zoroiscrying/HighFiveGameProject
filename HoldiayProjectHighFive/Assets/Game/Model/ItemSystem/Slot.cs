@@ -8,17 +8,13 @@ using UnityEngine.UI;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using Game.Common;
+using Game.MemorySystem;
 
 namespace Game.Model.ItemSystem
 {
     public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        private static GameObject itemUIObjSource;
 
-        private void Start()
-        {
-            itemUIObjSource = Resources.Load<GameObject>(UIPath.Image_ItemUI);
-        }
         public bool IsEmpty
         {
             get
@@ -72,10 +68,11 @@ namespace Game.Model.ItemSystem
             {
                 throw new Exception("????????????");
             }
-            this.itemUi.obj = GameObject.Instantiate(itemUIObjSource, this.transform);
+
+            this.itemUi.obj = MemoryMgr.Instantiate(UIPath.Image_ItemUI, transform);
             this.itemImage = this.itemUi.obj.GetComponent<Image>();
             Assert.IsTrue(this.itemImage);
-            this.itemImage.sprite = Resources.Load<Sprite>(ItemPath.Dir+this.itemUi.SpritePath);
+            this.itemImage.sprite = MemoryMgr.GetSourceFromResources<Sprite>(this.itemUi.SpritePath);
             this.itemNum = this.itemUi.obj.GetComponentInChildren<Text>();
             Assert.IsTrue(this.itemNum);
         }

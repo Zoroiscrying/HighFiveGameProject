@@ -20,6 +20,7 @@ using Game.View.PanelSystem;
 using System.IO;
 using Game.Common;
 using Game.Model.RankSystem;
+using UnityEngine.Networking.NetworkSystem;
 
 
 namespace Game.Control.PersonSystem
@@ -68,9 +69,16 @@ namespace Game.Control.PersonSystem
 
         }
     #endregion
-    
-    
-        #region 背包
+
+
+    public override void OnCauseDamage(int damage)
+    {
+        base.OnCauseDamage(damage);
+        Debug.Log("damage");
+        CEventCenter.BroadMessage<int,AbstractCommodity>(Message.M_TryChangeMoney,damage,null);
+    }
+
+    #region 背包
 
         /// <summary>
         /// 保存存储物品信息的内部类
@@ -147,6 +155,13 @@ namespace Game.Control.PersonSystem
         public int attackAdder = 0;        //攻击力叠加
 
         public float hitBackSpeed = 0.08f;    //击退
+
+        private int money = 0;
+
+        public int Money
+        {
+            get { return this.money; }
+        }
         
         
         public readonly RankMgr rankMgr=new RankMgr();
@@ -284,7 +299,7 @@ namespace Game.Control.PersonSystem
 
         }
 
-        public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes, Transform parent = null) : base(name, prefabPath, pos, skillTypes, parent)
+        public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes, Transform parent = null) : base(DefaultData.PlayerPath, prefabPath, pos, skillTypes, parent)
         {
             GlobalVar.G_Player = this;
             Debug.Log("主角诞生啦");
@@ -353,21 +368,14 @@ namespace Game.Control.PersonSystem
 
             }
 
+            //背包
             if(Input.GetKeyDown(KeyCode.Tab))
             {
-                UIManager.Instance.PushPanel(PanelName.packagePanel,new FadeInOut(0.5f));
+                UIManager.Instance.PushPanel(PanelName.packagePanel);
             }
             if(Input.GetKeyUp(KeyCode.Tab))
             {
                 UIManager.Instance.PopPanel();
-            }
-            if(Input.GetKeyDown(KeyCode.Q))
-            {
-                AddItem(ItemID.ShitId, 2);
-            }
-            if(Input.GetKeyDown(KeyCode.E))
-            {
-                RemoveItem(ItemID.ShitId, 1);
             }
 
             #region 三连击
@@ -446,7 +454,9 @@ namespace Game.Control.PersonSystem
             base.OnAddListener();
             CEventCenter.AddListener(Message.M_InitSuper, InitSuper);
             CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
-     
+            CEventCenter.AddListener<int,AbstractCommodity>(Message.M_TryChangeMoney, OnTryBuy);
+            CEventCenter.AddListener<int,int>(Message.M_AddItem,AddItem);
+            CEventCenter.AddListener<int,int>(Message.M_RemoveItem,RemoveItem);
         }
 
         public override void OnRemoveListener()
@@ -454,7 +464,28 @@ namespace Game.Control.PersonSystem
             base.OnRemoveListener();
             CEventCenter.RemoveListener(Message.M_InitSuper, InitSuper);
             CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
+            CEventCenter.RemoveListener<int,AbstractCommodity>(Message.M_TryChangeMoney, OnTryBuy);
+            CEventCenter.RemoveListener<int,int>(Message.M_AddItem,AddItem);
+            CEventCenter.RemoveListener<int,int>(Message.M_RemoveItem,RemoveItem);
 
+        }
+
+        private void OnTryBuy(int money,AbstractCommodity item)
+        {
+            if (this.money + money < 0)
+            {
+                Debug.LogWarning("你只有: "+this.money);
+                return;
+            }
+
+            this.money += money;
+            Debug.Log("当前金钱："+this.money);
+            CEventCenter.BroadMessage(Message.M_MoneyChange, money);
+            if (item != null)
+            {
+                Debug.Log("添加了物品，id: " + item.ID);
+                CEventCenter.BroadMessage(Message.M_AddItem,item.ID,1);
+            }
         }
 
         void InitSuper()

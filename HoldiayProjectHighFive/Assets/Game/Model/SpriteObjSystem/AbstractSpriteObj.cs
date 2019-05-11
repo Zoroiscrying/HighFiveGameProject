@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Game.MemorySystem;
 using UnityEngine;
 
 namespace Game.Model.SpriteObjSystem
@@ -16,12 +17,7 @@ namespace Game.Model.SpriteObjSystem
 
         protected AbstractSpriteObj(string path, Vector3 pos, Transform parent = null)
         {
-            var res = Resources.Load<GameObject>(path);
-            if (res == null)
-            {
-                throw new Exception("图片路径错误");
-            }
-            obj = GameObject.Instantiate(res, pos, Quaternion.identity, parent);
+            obj = MemoryMgr.Instantiate(path, pos, Quaternion.identity, parent);
             if(obj==null)
             {
                 throw new Exception("子弹生成失败");

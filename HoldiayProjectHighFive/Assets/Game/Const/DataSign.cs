@@ -1,3 +1,5 @@
+using System;
+
 namespace Game.Const
 {
     /// <summary>
@@ -17,6 +19,7 @@ namespace Game.Const
         public static readonly string skill="skill";
         
         public static readonly string shitItem="shit";
+        public static readonly string boxItem = "box";
 
         public static readonly string animation = "AnimationTrigger";
         public static readonly string instantDamage = "InstantDamageTrigger";

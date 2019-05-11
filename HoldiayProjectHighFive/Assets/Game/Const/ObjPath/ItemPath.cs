@@ -8,6 +8,5 @@ namespace Game.Const
     public static class ItemPath
     {
         public static string Dir = "Items/";
-        public static string ShitPath = Dir+"Shit";
     }
 }

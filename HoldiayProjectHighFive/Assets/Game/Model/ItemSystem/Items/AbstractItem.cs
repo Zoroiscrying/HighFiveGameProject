@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine.Assertions;
 using Game.Data;
 using System.IO;
+using Game.Const;
 
 namespace Game.Model.ItemSystem
 {
@@ -18,7 +19,12 @@ namespace Game.Model.ItemSystem
         
         public int Capacity { get; set; }
 
-        public string SpritePath { get; set; }
+        private string spritePath;
+
+        public string SpritePath
+        {
+            get { return ItemPath.Dir + spritePath; }
+        }
 
 
         //基类属性数量
@@ -38,13 +44,14 @@ namespace Game.Model.ItemSystem
 
         internal virtual void Init(string args)
         {
+            // id,name,capcity,description,spritepath
             var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length == 5);
             this.ID = Convert.ToInt32(strs[0].Trim());
             this.Name = strs[1].Trim();
             this.Capacity =Convert.ToInt32( strs[2].Trim());
             this.Description = strs[3].Trim();
-            this.SpritePath = strs[4].Trim();
+            this.spritePath = strs[4].Trim();
 
         }
 

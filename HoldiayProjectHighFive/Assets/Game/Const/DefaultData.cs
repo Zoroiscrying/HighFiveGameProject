@@ -8,6 +8,8 @@ namespace Game.Const
 {
     public static class DefaultData
     {
+        public static readonly int[] shop = new[] {1,2};
+        
         public static readonly int DefaultPackageSlotCount = 16;
         public static readonly string PlayerName = "Player";
         public static readonly string PlayerPath = "GameObjects/Player";

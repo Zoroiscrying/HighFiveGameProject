@@ -3,6 +3,7 @@ using Game.Control.PersonSystem;
 using Game.Script;
 using System;
 using Game.Data;
+using Game.Math;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Game.Model;
@@ -45,7 +46,7 @@ namespace Game.Control.SkillSystem
         {
             this.dir = new Vector2(self.Dir * Mathf.Abs(this.dir.x), this.dir.y);
             Debug.Log(this.maxLife);
-            this.bullet=new DirectLineBullet(this.damage, this.dir, self.Pos + new Vector3(0, 0.3f * self.Scanler, 0)
+            this.bullet=new DirectLineBullet(GameMath.Damage(self.Attack), this.dir, self.Pos + new Vector3(0, 0.3f * self.Scanler, 0)
                 , self, BulletPath.Dir + this.resName, speed:this.speed,maxLife:this.maxLife);
             
             

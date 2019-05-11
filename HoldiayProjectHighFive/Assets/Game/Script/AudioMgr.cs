@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Game.MemorySystem;
 using UnityEngine;
 
 namespace Game.Script
@@ -29,6 +30,15 @@ namespace Game.Script
         protected override void Awake()
         {
             base.Awake();
+            if (!Directory.Exists(Application.dataPath + "//Resources"))
+            {
+                Directory.CreateDirectory(Application.dataPath + "//Resources");
+                Directory.CreateDirectory(Application.dataPath + "//Resources/Audio");
+            }
+            else if(!Directory.Exists(Application.dataPath + "//Resources/Audio"))
+            {
+                Directory.CreateDirectory(Application.dataPath + "//Resources/Audio");
+            }
             //实现从文件夹读取所有文件
             DirectoryInfo source = new DirectoryInfo(Application.dataPath + "//Resources/Audio");
             foreach (FileInfo diSourceSubDir in source.GetFiles())
@@ -36,9 +46,9 @@ namespace Game.Script
                 if (diSourceSubDir.Name.EndsWith(".meta"))
                     continue;
                 var strs = diSourceSubDir.Name.Split('.');
-                var res = Resources.Load<AudioClip>("Audio/" + strs[0]);
+                var res = MemoryMgr.GetSourceFromResources<AudioClip>("Audio/" + strs[0]);
                 if (res == null)
-                    Debug.Log("资源加载失败");
+                    Debug.Log("音频资源加载失败");
                 audioclips.Add(strs[0], res);
             }
 

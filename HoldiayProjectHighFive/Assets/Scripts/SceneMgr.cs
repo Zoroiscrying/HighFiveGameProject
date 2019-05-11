@@ -1,28 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Mono.Data.Sqlite;
 using Game;
 using Game.Common;
 using Game.Const;
-using Game.Control;
 using Game.Global;
 using Game.Script;
 using Game.Data;
 using Game.View;
-using UnityEngine;
-using Mono.Data.Sqlite;
-using UnityEditor;
-using UnityEngine.SceneManagement;
-using Game.Model;
+using Game.View.PanelSystem;
+using Game.Control;
 using Game.Control.PersonSystem;
 using Game.Control.SkillSystem;
-using Game.Model.SpiritItemSystem;
-using Game.View.PanelSystem;
-using Game.Model.ItemSystem;
 using Game.Model;
+using Game.Model.SpiritItemSystem;
+using Game.Model.ItemSystem;
 using Game.Model.RankSystem;
 using Game.Model.SpriteObjSystem;
-using UnityEngine.Assertions;
-using UnityEngine.UI;
 
 public class SceneMgr : BaseSceneMgr
 {
@@ -65,33 +64,33 @@ public class SceneMgr : BaseSceneMgr
     
     void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.UpArrow))
-		{
-			Debug.Log("试图添加灵器" + SpiritName.C_First);
-			GlobalVar.G_Player.AddSpirit(SpiritName.C_First);
-			
-		}
+//		if (Input.GetKeyDown(KeyCode.UpArrow))
+//		{
+//			Debug.Log("试图添加灵器" + SpiritName.C_First);
+//			GlobalVar.G_Player.AddSpirit(SpiritName.C_First);
+//			
+//		}
+//
+//		if (Input.GetKeyDown(KeyCode.DownArrow))
+//		{
+//			Debug.Log("试图移出灵器" + SpiritName.C_First);
+//			GlobalVar.G_Player.RemoveSpirit(SpiritName.C_First);
+//		}
+//     			
+//		
+//		if (Input.GetKeyDown(KeyCode.K))
+//		{
+//			foreach (var t in list)
+//				if(t.obj!=null)
+//					new DirectLineBullet(10, Vector3.right*t.Dir, t.Pos+new Vector3(0,0.3f,0), t,BulletPath.PlayerBullet);
+//		}
 
-		if (Input.GetKeyDown(KeyCode.DownArrow))
-		{
-			Debug.Log("试图移出灵器" + SpiritName.C_First);
-			GlobalVar.G_Player.RemoveSpirit(SpiritName.C_First);
-		}
-     			
-		
-		if (Input.GetKeyDown(KeyCode.K))
-		{
-			foreach (var t in list)
-				if(t.obj!=null)
-					new DirectLineBullet(10, Vector3.right*t.Dir, t.Pos+new Vector3(0,0.3f,0), t,BulletPath.PlayerBullet);
-		}
 
-
-		if (Input.GetKeyDown(KeyCode.S))
-		{
-			XmlManager.SaveData(GlobalVar.G_Player,DefaultData.PlayerDataFilePath);
-			AssetDatabase.Refresh();
-		}
+		//if (Input.GetKeyDown(KeyCode.S))
+		//{
+		//	XmlManager.SaveData(GlobalVar.G_Player,DefaultData.PlayerDataFilePath);
+		//	AssetDatabase.Refresh();
+		//}
 	}	
     
     
@@ -134,6 +133,7 @@ public class SceneMgr : BaseSceneMgr
 	{
 		AbstractPanel.RegisterPanel<BattlePanel>(PanelName.battlePanel);
         AbstractPanel.RegisterPanel<PackagePanel>(PanelName.packagePanel);
+        AbstractPanel.RegisterPanel<ShopPanel>(PanelName.shopPanel);
 	}
 
 	/// <summary>
@@ -154,6 +154,7 @@ public class SceneMgr : BaseSceneMgr
 	void RegisterData()
 	{
 		TxtManager.RegisterDataFactory<ShitItem>(DataSign.shitItem);
+		TxtManager.RegisterDataFactory<BoxItem>(DataSign.boxItem);
 		
 		TxtManager.RegisterDataFactory<SkillInstance>(DataSign.skill);
 

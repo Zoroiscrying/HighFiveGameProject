@@ -7,7 +7,7 @@ using Game.Data;
 using UnityEngine.Assertions;
 namespace Game.Model.ItemSystem
 {
-    public class ShitItem:AbstractItem
+    public class ShitItem:AbstractCommodity
     {
         private float weight;
 

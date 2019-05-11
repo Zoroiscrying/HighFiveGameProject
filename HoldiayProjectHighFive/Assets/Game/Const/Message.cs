@@ -8,7 +8,7 @@ namespace Game.Const
     public static class Message
     {
         #region 背包
-        public static readonly string M_AddItem = "at";       //    int 
+        public static readonly string M_AddItem = "at";       //    int (id) int (count)
         public static readonly string M_RemoveItem = "rt";    //    int
         public static readonly string M_TouchItem = "tm";     //    Slot
         public static readonly string M_ReleaseItem = "rm";   //    Slot
@@ -25,6 +25,10 @@ namespace Game.Const
         
         public static readonly string M_InitSuper = "InitSuper";    //    void
         public static readonly string M_ExitSuper = "ExitSuper";    //    void
+
+        public static readonly string M_MoneyChange = "mc";    //    int    
+        public static readonly string M_TryChangeMoney = "TryCm";    //    int abstractcommodity
+        
 
         public static string M_BloodChange(GameObject go)
         {

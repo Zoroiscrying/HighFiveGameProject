@@ -1,5 +1,10 @@
+﻿// id,name,capcity,description,spritepath|price|others
 shit
 {
-1	,Shit	,5	,�ѳ�	,shit	,20
+    1	,Shit	,5	,难吃	,shit	,20 ,20
 
+}
+box
+{
+    2   ,Box    ,3  ,很沉  ,box   ,30
 }

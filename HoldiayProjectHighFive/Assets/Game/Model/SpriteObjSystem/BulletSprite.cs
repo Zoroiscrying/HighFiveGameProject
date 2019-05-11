@@ -7,11 +7,11 @@ namespace Game.Model.SpriteObjSystem
     public class BulletSpriteObj:AbstractSpriteObj
     {
         private TriggerInputer triggerEvent;
-        private float damage;
+        private int damage;
         private AbstractPerson origin;
         private float maxLife;
 
-        public BulletSpriteObj(float damage,AbstractPerson ap,string path, Vector3 pos, float maxLife,Transform parent = null) : base(path, pos, parent)
+        public BulletSpriteObj(int damage,AbstractPerson ap,string path, Vector3 pos, float maxLife,Transform parent = null) : base(path, pos, parent)
         {
 
             this.maxLife = maxLife;
@@ -64,8 +64,9 @@ namespace Game.Model.SpriteObjSystem
                 Debug.Log("两个都不是Player");
                 return;
             }
-            
 
+
+            this.origin.OnCauseDamage(damage);
             ap.TakeBattleEffect(this.origin.AttackEffect);
             DestoryThis();
         }

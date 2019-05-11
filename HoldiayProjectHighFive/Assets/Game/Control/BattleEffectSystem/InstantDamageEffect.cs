@@ -37,7 +37,9 @@ namespace Game.Control.BattleEffectSystem
             if (!ap.IsConst)
                 ap.TakeBattleEffect(new DamageNumberEffect(this.damage, 0.3f * ap.Scanler, Color.red, this.dir, 1f, UnityEngine.Random.Range(10, 60)));
 
+            
             CEventCenter.BroadMessage(Message.M_BloodChange(ap.obj), -this.damage);
+            ap.OnTakeDamage(this.damage);
             if (!(ap is Player))
             {
                 Debug.Log(Message.M_ChangeSmallLevel + " " + this.damage);

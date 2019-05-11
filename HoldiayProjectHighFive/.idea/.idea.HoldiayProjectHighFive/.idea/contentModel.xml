@@ -7,6 +7,7 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="chinese.txt" t="Include" />
         <e p="Cinemachine" t="Include">
           <e p="Base" t="Include">
             <e p="Editor" t="Include">
@@ -183,7 +184,6 @@
             <e p="PersonSystem" t="Include">
               <e p="Persons" t="Include">
                 <e p="AbstractPerson.cs" t="Include" />
-                <e p="AbstractSourcePerson.cs" t="Include" />
                 <e p="Player.cs" t="Include" />
                 <e p="TestPerson.cs" t="Include" />
               </e>
@@ -225,13 +225,18 @@
           <e p="Math" t="Include">
             <e p="GameMath.cs" t="Include" />
           </e>
+          <e p="Memory" t="Include">
+            <e p="MemoryMgr.cs" t="Include" />
+          </e>
           <e p="Model" t="Include">
             <e p="ItemSystem" t="Include">
               <e p="IItemTriggerFactory.cs" t="Include" />
               <e p="ItemFactory.cs" t="Include" />
               <e p="ItemMgr.cs" t="Include" />
               <e p="Items" t="Include">
+                <e p="AbstractCommodity.cs" t="Include" />
                 <e p="AbstractItem.cs" t="Include" />
+                <e p="BoxItem.cs" t="Include" />
                 <e p="ShitItem.cs" t="Include" />
               </e>
               <e p="ItemUI.cs" t="Include" />
@@ -298,6 +303,7 @@
                 <e p="AbstractPanel.cs" t="Include" />
                 <e p="BattlePanel.cs" t="Include" />
                 <e p="PackagePanel.cs" t="Include" />
+                <e p="ShopPanel.cs" t="Include" />
               </e>
               <e p="ScreenEffect" t="Include">
                 <e p="AbstractScreenEffect.cs" t="Include" />
@@ -429,6 +435,7 @@
             <e p="PlayerInputManagerEx.cs" t="Include" />
             <e p="RayCastController2D.cs" t="Include" />
           </e>
+          <e p="CloseEnough.cs" t="Include" />
           <e p="Ctrl.cs" t="Include" />
           <e p="GameInitializer.cs" t="Include" />
           <e p="PlayerAttackDebug.cs" t="Include" />
@@ -437,6 +444,7 @@
           <e p="SceneMgr.cs" t="Include" />
           <e p="SceneTrigger.cs" t="Include" />
           <e p="ScreenShake.cs" t="Include" />
+          <e p="ShopNpc.cs" t="Include" />
           <e p="ShowCollider2D.cs" t="Include" />
           <e p="Test.cs" t="Include" />
         </e>
@@ -444,6 +452,31 @@
           <e p="ItemData.txt" t="Include" />
           <e p="RankData.txt" t="Include" />
           <e p="SkillData.txt" t="Include" />
+        </e>
+        <e p="TextMesh Pro" t="Include">
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+            <e p="Shaders" t="Include">
+              <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+              <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+              <e p="TMP_Bitmap.shader" t="Include" />
+              <e p="TMP_SDF Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface.shader" t="Include" />
+              <e p="TMP_SDF.shader" t="Include" />
+              <e p="TMP_Sprite.shader" t="Include" />
+              <e p="TMPro.cginc" t="Include" />
+              <e p="TMPro_Properties.cginc" t="Include" />
+              <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
+          </e>
         </e>
       </e>
       <e p="HoldiayProjectHighFive.sln" t="IncludeFlat" />

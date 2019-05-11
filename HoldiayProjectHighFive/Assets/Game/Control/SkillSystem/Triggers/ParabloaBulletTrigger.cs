@@ -14,7 +14,7 @@ namespace Game.Control.SkillSystem
     class ParabloaBulletTrigger : AbstractSkillTrigger
     {
         private string resName;
-        private float damage;
+        private int damage;
         private float maxLife;
         private float shootSpeed;
         private float timeToTarget;
@@ -36,7 +36,7 @@ namespace Game.Control.SkillSystem
                 y = Convert.ToSingle(strs[BasePropertyCount+4].Trim()),
                 z = Convert.ToSingle(strs[BasePropertyCount+5].Trim())
             };
-            this.damage = Convert.ToSingle(strs[BasePropertyCount+6].Trim());
+            this.damage = Convert.ToInt32(strs[BasePropertyCount+6].Trim());
             this.maxLife = Convert.ToSingle(strs[BasePropertyCount+7].Trim());
             base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs,0, this.BasePropertyCount));
             
