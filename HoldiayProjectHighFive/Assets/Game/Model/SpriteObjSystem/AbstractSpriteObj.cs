@@ -17,7 +17,7 @@ namespace Game.Model.SpriteObjSystem
 
         protected AbstractSpriteObj(string path, Vector3 pos, Transform parent = null)
         {
-            obj = MemoryMgr.Instantiate(path, pos, Quaternion.identity, parent);
+            obj = MemoryMgr.InstantiateGameObject(path, pos, Quaternion.identity, parent);
             if(obj==null)
             {
                 throw new Exception("子弹生成失败");

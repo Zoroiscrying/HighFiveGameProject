@@ -139,13 +139,13 @@ namespace Cinemachine.PostFX.Editor
                 var path = AssetDatabase.GetAssetPath(origin);
                 path = AssetDatabase.GenerateUniqueAssetPath(path);
 
-                var asset = Instantiate(origin);
+                var asset = InstantiateGameObject(origin);
                 asset.settings.Clear();
                 AssetDatabase.CreateAsset(asset, path);
 
                 foreach (var item in origin.settings)
                 {
-                    var itemCopy = Instantiate(item);
+                    var itemCopy = InstantiateGameObject(item);
                     itemCopy.hideFlags = HideFlags.HideInInspector | HideFlags.HideInHierarchy;
                     itemCopy.name = item.name;
                     asset.settings.Add(itemCopy);

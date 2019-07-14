@@ -146,7 +146,7 @@ namespace Game.View.PanelSystem
 			GameObject itemObj;
 			foreach (var id in itemIdList)
 			{
-			    itemObj=MemoryMgr.Instantiate(this.itemDataPath, this.itemList);
+			    itemObj=MemoryMgr.InstantiateGameObject(this.itemDataPath, this.itemList);
 				Assert.IsTrue(itemObj);
 				var itemInfo = ItemMgr.GetItem<AbstractCommodity>(id);
 				itemObj.transform.Find("Image_ItemAvator").GetComponent<Image>().sprite =

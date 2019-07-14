@@ -95,7 +95,7 @@ namespace Game.View
             if (null == canvas)
                 Debug.Log("画布获取失败");
 
-            var obj = MemoryMgr.Instantiate(m_sResName, canvas);
+            var obj = MemoryMgr.InstantiateGameObject(m_sResName, canvas);
 
             if (obj == null)
             {

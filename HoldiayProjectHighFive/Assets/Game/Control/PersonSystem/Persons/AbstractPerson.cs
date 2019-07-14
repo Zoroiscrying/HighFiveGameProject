@@ -269,7 +269,7 @@ namespace Game.Control.PersonSystem
             this.IgnoreHitback = false;
             this.DefaultConstTime = 0;
             
-            this.obj = MemoryMgr.Instantiate(path, pos, Quaternion.identity, parent);
+            this.obj = MemoryMgr.InstantiateGameObject(path, pos, Quaternion.identity, parent);
 
 
             allSkillNames = skillTypes;

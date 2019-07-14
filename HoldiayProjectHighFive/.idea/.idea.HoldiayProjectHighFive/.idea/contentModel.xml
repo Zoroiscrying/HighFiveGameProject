@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\ReadyGamerOne\.Rider2018.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\ReadyGamerOne\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
     <e p="F:\Projects\unity\HiFive\HoldiayProjectHighFive" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -155,6 +156,7 @@
             <e p="DefaultData.cs" t="Include" />
             <e p="Message.cs" t="Include" />
             <e p="ObjName" t="Include">
+              <e p="AudioName.cs" t="Include" />
               <e p="ItemID.cs" t="Include" />
               <e p="PanelName.cs" t="Include" />
               <e p="SceneName.cs" t="Include" />
@@ -480,12 +482,9 @@
         </e>
       </e>
       <e p="HoldiayProjectHighFive.sln" t="IncludeFlat" />
-      <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
-      <e p="Temp" t="ExcludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-      </e>
+      <e p="Temp\bin" t="ExcludeRecursive" />
     </e>
   </component>
 </project>

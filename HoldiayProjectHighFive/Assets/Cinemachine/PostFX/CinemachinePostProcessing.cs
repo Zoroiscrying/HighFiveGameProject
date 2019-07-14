@@ -60,7 +60,7 @@ namespace Cinemachine.PostFX
             {
                 foreach (var item in m_Profile.settings)
                 {
-                    var itemCopy = Instantiate(item);
+                    var itemCopy = InstantiateGameObject(item);
                     profile.settings.Add(itemCopy);
                 }
             }

@@ -17,6 +17,7 @@ using Game.View.PanelSystem;
 using Game.Control;
 using Game.Control.PersonSystem;
 using Game.Control.SkillSystem;
+using Game.MemorySystem;
 using Game.Model;
 using Game.Model.SpiritItemSystem;
 using Game.Model.ItemSystem;
@@ -26,7 +27,7 @@ using Game.Model.SpriteObjSystem;
 public class SceneMgr : BaseSceneMgr
 {
 	List<AbstractPerson> list=new List<AbstractPerson>();
-	//private Player player;
+
 	public string UiPanelName;
 	public bool creatTestPeople = false;
 	public Vector3 EnemyPos;
@@ -40,13 +41,12 @@ public class SceneMgr : BaseSceneMgr
     
 	void Start()
 	{
-	//if(creatTestPeople)	
-    //    CreateTestPeople();
-		this.miniMap = Resources.Load<GameObject>(UIPath.Image_MiniMap);
-		Assert.IsTrue(this.miniMap);
-		GameObject.Instantiate(miniMap, GlobalVar.G_Canvas.transform);
+
+		MemoryMgr.InstantiateGameObject(UIPath.Image_MiniMap, GlobalVar.G_Canvas.transform);
+		
 		if(!string.IsNullOrEmpty(UiPanelName))
 			UIManager.Instance.PushPanel(UiPanelName);
+		
 		if (creatTestPeople)
 			new TestPerson("Test", GameObjectPath.TestPersonPath, EnemyPos);
 		
@@ -62,56 +62,34 @@ public class SceneMgr : BaseSceneMgr
 			DrawV3(EnemyPos,Color.red);
     }
     
-    void Update()
-	{
-//		if (Input.GetKeyDown(KeyCode.UpArrow))
-//		{
-//			Debug.Log("试图添加灵器" + SpiritName.C_First);
-//			GlobalVar.G_Player.AddSpirit(SpiritName.C_First);
-//			
-//		}
-//
-//		if (Input.GetKeyDown(KeyCode.DownArrow))
-//		{
-//			Debug.Log("试图移出灵器" + SpiritName.C_First);
-//			GlobalVar.G_Player.RemoveSpirit(SpiritName.C_First);
-//		}
-//     			
-//		
-//		if (Input.GetKeyDown(KeyCode.K))
-//		{
-//			foreach (var t in list)
-//				if(t.obj!=null)
-//					new DirectLineBullet(10, Vector3.right*t.Dir, t.Pos+new Vector3(0,0.3f,0), t,BulletPath.PlayerBullet);
-//		}
 
-
-		//if (Input.GetKeyDown(KeyCode.S))
-		//{
-		//	XmlManager.SaveData(GlobalVar.G_Player,DefaultData.PlayerDataFilePath);
-		//	AssetDatabase.Refresh();
-		//}
-	}	
     
     
     #endregion
-	
-    void DrawV3(Vector3 pos,Color color)
-    {
-	    Debug.DrawLine(pos + Vector3.left * this.signalSize, pos + Vector3.right * this.signalSize,color);
-	    Debug.DrawLine(pos + Vector3.up * this.signalSize, pos + Vector3.down * this.signalSize, color); 
-    }
 
-	void CreateTestPeople()
-	{
-		var go = new GameObject("TestPeople");
-		for (int i = 5; i > 0; i--)
-		{
-			var x = new TestPerson("TestPerson", GameObjectPath.TestPersonPath,
-				new Vector3(-25 + Random.Range(0, 20), 1.28f , -1), new List<string>(new []{"O_Skill","Shot","L_Skill"}), go.transform);
-			list.Add(x);
-		}
-	}
+
+    #region private
+
+        void DrawV3(Vector3 pos,Color color)
+        {
+    	    Debug.DrawLine(pos + Vector3.left * this.signalSize, pos + Vector3.right * this.signalSize,color);
+    	    Debug.DrawLine(pos + Vector3.up * this.signalSize, pos + Vector3.down * this.signalSize, color); 
+        }
+    
+    	void CreateTestPeople()
+    	{
+    		var go = new GameObject("TestPeople");
+    		for (int i = 5; i > 0; i--)
+    		{
+    			var x = new TestPerson("TestPerson", GameObjectPath.TestPersonPath,
+    				new Vector3(-25 + Random.Range(0, 20), 1.28f , -1), new List<string>(new []{"O_Skill","Shot","L_Skill"}), go.transform);
+    			list.Add(x);
+    		}
+    	}
+
+    #endregion
+	
+
 
 	#region 全局初始化
 	
@@ -212,7 +190,6 @@ public class SceneMgr : BaseSceneMgr
 	/// </summary>
 	void InitializeSceneScripts()
 	{
-		
 		this.gameObject.AddComponent<MainLoop>();
 		this.gameObject.AddComponent<AudioMgr>();
 	}
