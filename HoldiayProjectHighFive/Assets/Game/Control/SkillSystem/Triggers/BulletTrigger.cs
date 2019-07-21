@@ -36,7 +36,7 @@ namespace Game.Control.SkillSystem
             this.damage = Convert.ToInt32(strs[BasePropertyCount+2].Trim());
             this.speed = Convert.ToInt32(strs[BasePropertyCount+3].Trim());
             this.maxLife = Convert.ToSingle(strs[BasePropertyCount+4].Trim());
-            Debug.Log("解析出子弹寿命：" + this.maxLife);
+//            Debug.Log("解析出子弹寿命：" + this.maxLife);
             base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 0, this.BasePropertyCount));
         }
         
@@ -47,7 +47,7 @@ namespace Game.Control.SkillSystem
             this.dir = new Vector2(self.Dir * Mathf.Abs(this.dir.x), this.dir.y);
             Debug.Log(this.maxLife);
             this.bullet=new DirectLineBullet(GameMath.Damage(self.Attack), this.dir, self.Pos + new Vector3(0, 0.3f * self.Scanler, 0)
-                , self, BulletPath.Dir + this.resName, speed:this.speed,maxLife:this.maxLife);
+                , self, DirPath.BulletDir + this.resName, speed:this.speed,maxLife:this.maxLife);
             
             
         }
@@ -57,7 +57,7 @@ namespace Game.Control.SkillSystem
         {
             get
             {
-                return DataSign.bullet;
+                return TxtSign.bullet;
             }
         }
     }

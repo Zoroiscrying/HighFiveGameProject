@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Game.Model.RankSystem
 {
-	public class RankMgr:SafeSingleton<RankMgr>,IXmlSerializable
+	public class RankMgr:Singleton<RankMgr>,IXmlSerializable
 	{
 		#region Static
 		

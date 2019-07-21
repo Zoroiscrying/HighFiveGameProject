@@ -38,7 +38,7 @@ namespace Game.Model.RankSystem
 		public void SignInit(string initLine)
 		{
 			var strs = initLine.Split(TxtManager.SplitChar);
-			Debug.Log("L1Rank strs.Length: "+strs.Length);
+//			Debug.Log("L1Rank strs.Length: "+strs.Length);
 			LoadTxt(string.Join(TxtManager.SplitChar.ToString(), strs, 1,strs.Length-1));
 		}
 

@@ -42,7 +42,7 @@ namespace Game.Control.BattleEffectSystem
             ap.OnTakeDamage(this.damage);
             if (!(ap is Player))
             {
-                Debug.Log(Message.M_ChangeSmallLevel + " " + this.damage);
+//                Debug.Log(Message.M_ChangeSmallLevel + " " + this.damage);
                 CEventCenter.BroadMessage(Message.M_ChangeSmallLevel, this.damage);
             }
             this.Release(ap);

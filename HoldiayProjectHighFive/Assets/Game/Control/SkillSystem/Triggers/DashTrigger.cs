@@ -52,7 +52,7 @@ namespace Game.Control.SkillSystem
         {
             get
             {
-                return DataSign.dash;
+                return TxtSign.dash;
             }
         }
     }

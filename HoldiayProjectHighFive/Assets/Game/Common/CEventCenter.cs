@@ -11,6 +11,7 @@ namespace Game.Common
     /// </summary>CallBack
     public static class CEventCenter
     {
+        #region Private
 
         /// <summary>
         /// 消息字典
@@ -19,6 +20,9 @@ namespace Game.Common
             new Dictionary<string, List<Delegate>>();
 
         private static List<Delegate> onceActions = new List<Delegate>();
+        
+
+        #endregion
 
 
         /// <summary>
@@ -143,7 +147,7 @@ namespace Game.Common
                 }
             }
         }
-        public static void RemoveAll()
+        public static void Clear()
         {
             listeners.Clear();
             onceActions.Clear();

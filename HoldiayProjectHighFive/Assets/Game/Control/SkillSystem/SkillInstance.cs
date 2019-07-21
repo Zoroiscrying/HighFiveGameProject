@@ -109,7 +109,7 @@ namespace Game.Control.SkillSystem
         #region ITxtSerializable
         public string Sign
         {
-            get { return DataSign.skill; }
+            get { return TxtSign.skill; }
         }
 
         public void SignInit(string args)

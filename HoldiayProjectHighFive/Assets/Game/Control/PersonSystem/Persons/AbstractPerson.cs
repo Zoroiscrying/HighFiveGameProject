@@ -198,7 +198,7 @@ namespace Game.Control.PersonSystem
             this.allSkillNames.Add(skillName);
             var skill = SkillTriggerMgr.skillInstanceDic[skillName];
             this.skills.Add(skill);
-            var pair = new UpdateTestPair(trigger, () => RunSkill(skills.Count-1, ignoreInput));
+            var pair = new MainLoop.UpdateTestPair(trigger, () => RunSkill(skills.Count-1, ignoreInput));
             MainLoop.Instance.AddUpdateTest(pair);
             //dis.Add(pair);
         }
@@ -260,7 +260,7 @@ namespace Game.Control.PersonSystem
         {
         }
 
-        public AbstractPerson(string path, string prefabPath, Vector3 pos, List<string> skillTypes = null, Transform parent = null)
+        public AbstractPerson(string name, string prefabPath, Vector3 pos, List<string> skillTypes = null, Transform parent = null)
         {
             //初始化默认属性
             this.name = name;
@@ -269,7 +269,8 @@ namespace Game.Control.PersonSystem
             this.IgnoreHitback = false;
             this.DefaultConstTime = 0;
             
-            this.obj = MemoryMgr.InstantiateGameObject(path, pos, Quaternion.identity, parent);
+//            Debug.Log("TestPerson_PrefabPath:"+ prefabPath);
+            this.obj = MemoryMgr.InstantiateGameObject(prefabPath, pos, Quaternion.identity, parent);
 
 
             allSkillNames = skillTypes;

@@ -44,13 +44,13 @@ namespace Game.Control.SkillSystem
         public override void Execute(AbstractPerson self)
         {
             new ParabloaBullet(this.damage, this.shootSpeed, this.timeToTarget, self.Pos + this.offect,
-                self.Pos, self, Const.BulletPath.Dir+this.resName, this.maxLife);
+                self.Pos, self, Const.DirPath.BulletDir+this.resName, this.maxLife);
         }
         public override string Sign
         {
             get
             {
-                return DataSign.paraBullet;
+                return TxtSign.paraBullet;
             }
         }
     }

@@ -22,7 +22,7 @@ namespace Game.Model.RankSystem
 
 		public override string Sign
 		{
-			get { return DataSign.L2Rank; }
+			get { return TxtSign.L2Rank; }
 		}
 	}
 	

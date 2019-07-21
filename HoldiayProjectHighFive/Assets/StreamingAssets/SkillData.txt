@@ -68,7 +68,7 @@ skill,O_Skill
 		0.2	 ,403	,0.5	  ,3
 	}
 //	LockFrameTrigger 	,0.28 	 ,404	,0.04	  ,
-				//offect.x,offect.y,size.x,size.y,beginDre,endDre	
+//				offect.x,offect.y,size.x,size.y,beginDre,endDre	
 	Trigger2DTrigger	
 	{
 		0.1	 ,405	,0.6	  ,0,0.12,0.2,0.02,120,-20,1	

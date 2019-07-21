@@ -26,7 +26,7 @@ namespace Game.Model.RankSystem
 
 		public override string Sign
 		{
-			get { return DataSign.S1Rank; }
+			get { return TxtSign.S1Rank; }
 		}
 	}
 }

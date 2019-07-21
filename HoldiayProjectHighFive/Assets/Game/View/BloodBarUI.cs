@@ -21,7 +21,7 @@ namespace Game.View
         public BloodBarUI(AbstractPerson ap)
         {
             this.ap = ap;
-            base.Create(UIPath.Slider_BloodBar);
+            base.Create(DirPath.LittleUiDir+ UiName.Slider_BloodBar);
             m_TransFrom.position = Camera.main.WorldToScreenPoint(ap.Pos + new Vector3(0, ap.Scanler * 0.3f, 0));
             this.slider = m_TransFrom.GetComponent<Slider>();
             this.slider.value = (float)this.ap.Hp / this.ap.MaxHp;

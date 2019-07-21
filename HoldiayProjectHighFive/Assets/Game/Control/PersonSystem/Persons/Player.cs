@@ -164,7 +164,7 @@ namespace Game.Control.PersonSystem
         }
         
         
-        public readonly RankMgr rankMgr=new RankMgr();
+        public readonly RankMgr rankMgr=RankMgr.Instance;
         
         
         public int Maxdrag;   //最大药引上限
@@ -302,8 +302,8 @@ namespace Game.Control.PersonSystem
         public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes, Transform parent = null) : base(DefaultData.PlayerPath, prefabPath, pos, skillTypes, parent)
         {
             GlobalVar.G_Player = this;
-            Debug.Log("主角诞生啦");
-            Debug.Log("主角隐藏技能" + this.BaseSkillCount + " 主角真实技能：" + this.MaxRealSkillCount);
+//            Debug.Log("主角诞生啦");
+//            Debug.Log("主角隐藏技能" + this.BaseSkillCount + " 主角真实技能：" + this.MaxRealSkillCount);
             this.DefaultConstTime = 1.0f;
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc != null);
@@ -329,7 +329,7 @@ namespace Game.Control.PersonSystem
             //一技能
             if (Input.GetKeyDown(KeyCode.U))
             {
-                Debug.Log("按U"+this.MaxRealSkillCount);
+ //               Debug.Log("按U"+this.MaxRealSkillCount);
                 if(this.MaxRealSkillCount>=1)
                 {
                     Debug.Log("释放一技能："+skills[this.BaseSkillCount].name);
@@ -340,7 +340,7 @@ namespace Game.Control.PersonSystem
             //二技能
             if (Input.GetKeyDown(KeyCode.I))
             {
-                Debug.Log("按I" + this.MaxRealSkillCount);
+ //               Debug.Log("按I" + this.MaxRealSkillCount);
                 if (this.MaxRealSkillCount>=2)
                 {
 
@@ -356,7 +356,7 @@ namespace Game.Control.PersonSystem
                 if (this.MaxRealSkillCount >= 3)
                 {
 
-                    Debug.Log("释放三技能："+skills[this.BaseSkillCount+2].name);
+//                    Debug.Log("释放三技能："+skills[this.BaseSkillCount+2].name);
                     skills[this.BaseSkillCount + 2].Execute(this);
                 }
             }
@@ -371,11 +371,11 @@ namespace Game.Control.PersonSystem
             //背包
             if(Input.GetKeyDown(KeyCode.Tab))
             {
-                UIManager.Instance.PushPanel(PanelName.packagePanel);
+                PanelMgr.PushPanel(PanelName.packagePanel);
             }
             if(Input.GetKeyUp(KeyCode.Tab))
             {
-                UIManager.Instance.PopPanel();
+                PanelMgr.PopPanel();
             }
 
             #region 三连击
@@ -479,7 +479,7 @@ namespace Game.Control.PersonSystem
             }
 
             this.money += money;
-            Debug.Log("当前金钱："+this.money);
+//            Debug.Log("当前金钱："+this.money);
             CEventCenter.BroadMessage(Message.M_MoneyChange, money);
             if (item != null)
             {

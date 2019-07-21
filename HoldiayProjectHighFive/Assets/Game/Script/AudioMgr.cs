@@ -13,82 +13,161 @@ namespace Game.Script
 {
     public class AudioMgr : MonoSingleton<AudioMgr>
     {
+        #region Private
+
         private Dictionary<string, AudioClip> audioclips = new Dictionary<string, AudioClip>();
-        private AudioSource audioBg;
-        private AudioSource audioEffect;
-        private string currentBgName;
-
-        public float BgSound
-        {
-            get => audioBg.volume;
-            set => audioBg.volume = value;
-        }
-
-        public float EffectVolume
-        {
-            get => audioEffect.volume;
-            set => audioEffect.volume = value;
-        }
 
         protected override void Awake()
         {
             base.Awake();
             //实现从文件夹读取所有文件
-            MemoryMgr.LoadAssetFromResourceDir<AudioClip>(typeof(AudioName), "Audio/",(name,audio)=>audioclips.Add(name,audio));
-
-
-            //加载组件
-            this.audioBg = this.gameObject.AddComponent<AudioSource>();
-            this.audioBg.loop = true;
-            this.audioBg.playOnAwake = true;
-            
-            
-
-            this.audioEffect = this.gameObject.AddComponent<AudioSource>();
-            this.audioBg.loop = false;
-            this.audioBg.playOnAwake = false;
-
-
-
+            MemoryMgr.LoadAssetFromResourceDir<AudioClip>(typeof(AudioName), "Audio/", (name, audio) =>
+            audioclips.Add(name, audio));
         }
 
-        void Start()
+        private List<AudioSource> effectSources = new List<AudioSource>();
+        private AudioSource bgmAudioSource;
+
+        /// <summary>
+        /// 获取一个闲置的AudioEffect
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private AudioSource GetAudioSource()
         {
-            //PlayAuBg("Bg");
-            //this.audioBg.volume = 0f;
+            foreach (var source in effectSources)
+            {
+                if (!source.isPlaying)
+                    return source;
+            }
+
+            var newSource = gameObject.AddComponent<AudioSource>();
+            newSource.volume = 1;
+            newSource.loop = false;
+
+            effectSources.Add(newSource);
+
+            return newSource;
         }
 
+        #endregion
 
 
-        public void PlayAuBg(string name)
+        /// <summary>
+        /// 背景音乐AudioSource组件
+        /// </summary>
+        public AudioSource BgmAudioSource
         {
-            if (!audioclips.ContainsKey(name))
-                throw new Exception("没有这个音频文件");
-            currentBgName = name;
-            PlayBg();
+            get
+            {
+                if (bgmAudioSource == null)
+                {
+                    bgmAudioSource = (GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>());
+                }
+
+                return bgmAudioSource;
+            }
         }
 
-        public void PlayAuEffect(string name, float delayTime = 0)
+        /// <summary>
+        /// 音乐、音效播放开关
+        /// </summary>
+        public bool enableBgmAudio = true;
+
+        public bool enableEffectAudio = true;
+
+
+        /// <summary>
+        /// 背景音乐音量
+        /// </summary>
+        public float BgmVolume
         {
-            if (!audioclips.ContainsKey(name))
-                throw new Exception("没有这个音频文件");
-            this.audioEffect.clip = audioclips[name];
-            this.audioEffect.PlayDelayed(delayTime);
+            set { BgmAudioSource.volume = value; }
+            get { return BgmAudioSource.volume; }
         }
 
-        public void PlayAuEffect(string name, Vector3 pos)
+        /// <summary>
+        /// 设置音效的音量
+        /// </summary>
+        public float EffectVolume
         {
-            if (!audioclips.ContainsKey(name))
-                throw new Exception("没有这个音频文件");
-            AudioSource.PlayClipAtPoint(this.audioclips[name], pos);
+            set
+            {
+                foreach (var VARIABLE in effectSources)
+                {
+                    VARIABLE.volume = value;
+                }
+            }
         }
 
-        void PlayBg()
+
+        /// <summary>
+        /// 播放指定名字的背景音乐
+        /// </summary>
+        /// <param name="name"></param>
+        public void PlayBgm(string name)
         {
-            this.audioBg.clip = audioclips[currentBgName];
-            this.audioBg.PlayDelayed(0);
-            MainLoop.Instance.ExecuteLater(() => { PlayBg(); }, this.audioBg.clip.length);
+            if (!enableBgmAudio)
+                return;
+
+            var clip = MemoryMgr.GetSourceFromResources<AudioClip>(name);
+            if (clip == null)
+            {
+                Debug.Log("音效获取失败：" + name);
+                return;
+            }
+
+            BgmAudioSource.clip = clip;
+            BgmAudioSource.loop = true;
+            BgmAudioSource.volume = 1;
+            BgmAudioSource.Play();
         }
-        
+
+        /// <summary>
+        /// 播放指定名字音效
+        /// </summary>
+        /// <param name="name"></param>
+        public void PlayEffect(string name)
+        {
+            if (!enableEffectAudio)
+                return;
+
+            var clip = MemoryMgr.GetSourceFromResources<AudioClip>(name);
+
+            if (clip == null)
+            {
+                Debug.Log("音效获取失败：" + name);
+                return;
+            }
+
+            var audioSource = GetAudioSource();
+            audioSource.clip = clip;
+            audioSource.loop = false;
+            audioSource.Play();
+        }
+
+
+        /// <summary>
+        /// 关闭指定名字音效
+        /// </summary>
+        /// <param name="name"></param>
+        public void CloseEffect(string name)
+        {
+            foreach (var VARIABLE in effectSources)
+            {
+                if (VARIABLE.clip.name == name)
+                    VARIABLE.Stop();
+            }
+        }
+
+        /// <summary>
+        /// 在指定位置播放音效
+        /// </summary>
+        /// <param name="audioName"></param>
+        /// <param name="position"></param>
+        public void PlayEffect(string audioName, Vector3 position)
+        {
+            AudioSource.PlayClipAtPoint(audioclips[audioName], position);
+        }
     }
 }

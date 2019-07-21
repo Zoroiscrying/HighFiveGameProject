@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Game.Control.BattleEffectSystem
 {
@@ -21,7 +22,8 @@ namespace Game.Control.BattleEffectSystem
 
         public override void Execute(AbstractPerson ap)
         {
-            AudioMgr.Instance.PlayAuEffect(this.audioName, ap.obj.transform.position);
+//            Debug.Log("音乐："+audioName);
+            AudioMgr.Instance.PlayEffect(this.audioName, ap.obj.transform.position);
             this.Release(ap);
         }
     }

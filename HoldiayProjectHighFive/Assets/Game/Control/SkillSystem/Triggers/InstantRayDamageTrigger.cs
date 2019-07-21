@@ -85,7 +85,7 @@ namespace Game.Control.SkillSystem
         {
             get
             {
-                return DataSign.instantDamage;
+                return TxtSign.instantDamage;
             }
         }
     }

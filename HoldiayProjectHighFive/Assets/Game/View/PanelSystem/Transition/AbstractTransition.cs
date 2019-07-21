@@ -23,7 +23,7 @@ namespace Game.View.PanelSystem
 
         public void PushPanel(AbstractPanel newPanel)
         {
-            var panelBefore = UIManager.Instance.CurrentPanel as AbstractPanel;
+            var panelBefore = PanelMgr.CurrentPanel as AbstractPanel;
             MainLoop.Instance.ExecuteLater(() =>
             {
                 OnBegin(panelBefore, newPanel);

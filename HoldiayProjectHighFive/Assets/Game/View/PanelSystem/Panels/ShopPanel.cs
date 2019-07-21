@@ -58,14 +58,14 @@ namespace Game.View.PanelSystem
 		
 		protected override void Load()
 		{
-			Create(UIPath.PanelDir + Const.PanelName.shopPanel);
+			Create(DirPath.PanelDir + Const.PanelName.shopPanel);
 			this.itemList = m_TransFrom.Find("Image_ShopBk/Image_Back/Empty_ItemList");
 			this.buyBtn = m_TransFrom.Find("Image_ShopBk/Image_ItemInfo/Tmp_BtnBuy");
 			this.itemInfo = m_TransFrom.Find("Image_ShopBk/Image_ItemInfo/Tmp_ItemInfo")
 				.GetComponent<TextMeshProUGUI>();
-			this.itemDataPath = UIPath.Image_ItemData;
+			this.itemDataPath = UiName.Image_ItemData;
 			this.playerMoney = m_TransFrom.Find("Image_MoneyBk/Tmp_Num").GetComponent<TextMeshProUGUI>();
-			//this.itemDataObj = MemoryMgr.GetSourceFromResources<GameObject>(UIPath.Image_ItemData);
+			//this.itemDataObj = MemoryMgr.GetSourceFromResources<GameObject>(UiName.Image_ItemData);
 			Assert.IsTrue(itemList&&buyBtn&&itemInfo&&this.playerMoney);
 			InitItemList();
 			this.CurrentItemIndex = 0;
@@ -146,7 +146,7 @@ namespace Game.View.PanelSystem
 			GameObject itemObj;
 			foreach (var id in itemIdList)
 			{
-			    itemObj=MemoryMgr.InstantiateGameObject(this.itemDataPath, this.itemList);
+			    itemObj=MemoryMgr.InstantiateGameObject(DirPath.LittleUiDir+ this.itemDataPath, this.itemList);
 				Assert.IsTrue(itemObj);
 				var itemInfo = ItemMgr.GetItem<AbstractCommodity>(id);
 				itemObj.transform.Find("Image_ItemAvator").GetComponent<Image>().sprite =

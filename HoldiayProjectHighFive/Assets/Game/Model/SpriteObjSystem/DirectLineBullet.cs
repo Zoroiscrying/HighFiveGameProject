@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Game.Const;
 using UnityEngine;
 
 namespace Game.Model.SpriteObjSystem
@@ -21,7 +22,7 @@ namespace Game.Model.SpriteObjSystem
         {
             this.dir = dir;
             this.speed = speed;
-            AudioMgr.Instance.PlayAuEffect("beiji", this.obj.transform.position);
+            AudioMgr.Instance.PlayEffect(AudioName._beiji, this.obj.transform.position);
         }
         protected override void Update()
         {

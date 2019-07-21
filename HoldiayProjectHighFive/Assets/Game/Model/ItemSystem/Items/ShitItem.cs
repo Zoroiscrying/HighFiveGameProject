@@ -15,7 +15,7 @@ namespace Game.Model.ItemSystem
         {
             get
             {
-                return DataSign.shitItem;
+                return TxtSign.shitItem;
             }
         }
 

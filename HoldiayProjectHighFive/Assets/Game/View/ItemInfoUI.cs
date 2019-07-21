@@ -13,7 +13,7 @@ namespace Game.View
         private Text name;
         public ItemInfoUI()
         {
-            Create(UIPath.Image_ItemInfo);
+            Create(DirPath.LittleUiDir+ UiName.Image_ItemInfo);
             this.name = m_TransFrom.Find("Text").GetComponent<Text>();
         }
         

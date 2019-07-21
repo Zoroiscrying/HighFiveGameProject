@@ -34,13 +34,13 @@ namespace Game.Control.SkillSystem
         {
             get
             {
-                return DataSign.audio;
+                return TxtSign.audio;
             }
         }
 
         private void _Execute(AbstractPerson ap)
         {
-            AudioMgr.Instance.PlayAuEffect(this.audioName, ap.obj.transform.position);
+            AudioMgr.Instance.PlayEffect(this.audioName, ap.obj.transform.position);
 
         }
     }

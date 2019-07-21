@@ -39,7 +39,7 @@ namespace Game.View.PanelSystem
 
         protected override void Load()
         {
-            Create(UIPath.PanelDir+Const.PanelName.packagePanel);
+            Create(DirPath.PanelDir+Const.PanelName.packagePanel);
 
             this.itemList = Global.GlobalVar.G_Player.itemList;
 

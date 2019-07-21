@@ -152,24 +152,20 @@
             <e p="Trigger2DMessage.cs" t="Include" />
           </e>
           <e p="Const" t="Include">
-            <e p="DataSign.cs" t="Include" />
+            <e p="AudioName.cs" t="Include" />
+            <e p="BulletName.cs" t="Include" />
             <e p="DefaultData.cs" t="Include" />
+            <e p="DirPath.cs" t="Include" />
+            <e p="FilePath.cs" t="Include" />
+            <e p="GameObjectName.cs" t="Include" />
+            <e p="ItemID.cs" t="Include" />
             <e p="Message.cs" t="Include" />
-            <e p="ObjName" t="Include">
-              <e p="AudioName.cs" t="Include" />
-              <e p="ItemID.cs" t="Include" />
-              <e p="PanelName.cs" t="Include" />
-              <e p="SceneName.cs" t="Include" />
-              <e p="SpiritName.cs" t="Include" />
-            </e>
-            <e p="ObjPath" t="Include">
-              <e p="BulletPath.cs" t="Include" />
-              <e p="FilePath.cs" t="Include" />
-              <e p="GameObjectPath.cs" t="Include" />
-              <e p="ItemPath.cs" t="Include" />
-              <e p="UIPath.cs" t="Include" />
-            </e>
+            <e p="PanelName.cs" t="Include" />
+            <e p="SceneName.cs" t="Include" />
             <e p="Signal.cs" t="Include" />
+            <e p="SpiritName.cs" t="Include" />
+            <e p="TxtSign.cs" t="Include" />
+            <e p="UiName.cs" t="Include" />
           </e>
           <e p="Control" t="Include">
             <e p="BattleEffectSystem" t="Include">
@@ -221,7 +217,6 @@
             <e p="XmlManager.cs" t="Include" />
           </e>
           <e p="Global" t="Include">
-            <e p="GlobalFlag.cs" t="Include" />
             <e p="GlobalVar.cs" t="Include" />
           </e>
           <e p="Math" t="Include">
@@ -245,25 +240,27 @@
               <e p="Slot.cs" t="Include" />
             </e>
             <e p="RankSystem" t="Include">
+              <e p="AbstractLargeRank.cs" t="Include" />
               <e p="AbstractLimit.cs" t="Include" />
+              <e p="AbstractSmallRank.cs" t="Include" />
               <e p="LargeRank" t="Include">
-                <e p="AbstractLargeRank.cs" t="Include" />
                 <e p="L1Rank.cs" t="Include" />
                 <e p="L2Rank.cs" t="Include" />
               </e>
               <e p="RankMgr.cs" t="Include" />
               <e p="SmallRank" t="Include">
-                <e p="AbstractSmallRank.cs" t="Include" />
                 <e p="S1Rank.cs" t="Include" />
                 <e p="S2Rank.cs" t="Include" />
               </e>
             </e>
             <e p="SceneSystem" t="Include">
-              <e p="BaseSceneInfo.cs" t="Include" />
-              <e p="JbSceneInfo.cs" t="Include" />
+              <e p="AbstractScene.cs" t="Include" />
               <e p="SceneMgr.cs" t="Include" />
-              <e p="TestSceneInfo.cs" t="Include" />
-              <e p="WelcomeScene.cs" t="Include" />
+              <e p="Scenes" t="Include">
+                <e p="JbSceneInfo.cs" t="Include" />
+                <e p="TestSceneInfo.cs" t="Include" />
+                <e p="WelcomeScene.cs" t="Include" />
+              </e>
             </e>
             <e p="SpiritItemSystem" t="Include">
               <e p="AbstractSpiritItem.cs" t="Include" />
@@ -285,7 +282,6 @@
             <e p="MainLoop.cs" t="Include" />
             <e p="TriggerInputer.cs" t="Include" />
             <e p="UIInputer.cs" t="Include" />
-            <e p="UpdateTestPair.cs" t="Include" />
           </e>
           <e p="StateMachine" t="Include">
             <e p="IStateMachine.cs" t="Include" />
@@ -294,6 +290,10 @@
             <e p="StateMapping.cs" t="Include" />
             <e p="StateTransition.cs" t="Include" />
           </e>
+          <e p="Utility" t="Include">
+            <e p="FileUtil.cs" t="Include" />
+            <e p="WindowsUtil.cs" t="Include" />
+          </e>
           <e p="View" t="Include">
             <e p="AbstractUI.cs" t="Include" />
             <e p="BloodBarUI.cs" t="Include" />
@@ -301,9 +301,11 @@
             <e p="NumberTipUI.cs" t="Include" />
             <e p="PanelSystem" t="Include">
               <e p="IStackPanel.cs" t="Include" />
+              <e p="PanelMgr.cs" t="Include" />
               <e p="Panels" t="Include">
                 <e p="AbstractPanel.cs" t="Include" />
                 <e p="BattlePanel.cs" t="Include" />
+                <e p="LoadingPanel.cs" t="Include" />
                 <e p="PackagePanel.cs" t="Include" />
                 <e p="ShopPanel.cs" t="Include" />
               </e>
@@ -316,13 +318,11 @@
                 <e p="AbstractTransition.cs" t="Include" />
                 <e p="ScollTransition.cs" t="Include" />
               </e>
-              <e p="UIManager.cs" t="Include" />
             </e>
           </e>
         </e>
         <e p="Scripts" t="Include">
           <e p="BackGroundController.cs" t="Include" />
-          <e p="BaseSceneMgr.cs" t="Include" />
           <e p="behaviac" t="Include">
             <e p="Runtime" t="Include">
               <e p="Agent" t="Include">
@@ -440,11 +440,12 @@
           <e p="CloseEnough.cs" t="Include" />
           <e p="Ctrl.cs" t="Include" />
           <e p="GameInitializer.cs" t="Include" />
+          <e p="GameMgr.cs" t="Include" />
           <e p="PlayerAttackDebug.cs" t="Include" />
           <e p="PlayerMove.cs" t="Include" />
           <e p="PlayerWallJump.cs" t="Include" />
-          <e p="SceneMgr.cs" t="Include" />
           <e p="SceneTrigger.cs" t="Include" />
+          <e p="SceneUtil.cs" t="Include" />
           <e p="ScreenShake.cs" t="Include" />
           <e p="ShopNpc.cs" t="Include" />
           <e p="ShowCollider2D.cs" t="Include" />

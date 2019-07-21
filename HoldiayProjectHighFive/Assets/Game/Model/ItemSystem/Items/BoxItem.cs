@@ -9,7 +9,7 @@ namespace Game.Model.ItemSystem
 	{
 		public override string Sign
 		{
-			get { return DataSign.boxItem; }
+			get { return TxtSign.boxItem; }
 		}
 	}
 }

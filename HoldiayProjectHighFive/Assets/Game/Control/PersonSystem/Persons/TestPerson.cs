@@ -23,7 +23,7 @@ namespace Game.Control.PersonSystem
 
         #endregion
 
-        public TestPerson(string name, string prefabPath, Vector3 pos, List<string> skillTypes=null, Transform parent = null) : base(GameObjectPath.TestPersonPath, prefabPath, pos, skillTypes, parent)
+        public TestPerson(string name, string prefabPath, Vector3 pos, List<string> skillTypes=null, Transform parent = null) : base(name, prefabPath, pos, skillTypes, parent)
         {
             this.MaxHp = 100000000;
             this.Hp = 2000000000;
@@ -33,7 +33,7 @@ namespace Game.Control.PersonSystem
         public override void TakeBattleEffect(List<IBattleEffect> beList)
         {
             base.TakeBattleEffect(beList);
-            new AudioEffect("Fuck").Execute(this);
+            new AudioEffect(AudioName._Fuck).Execute(this);
             new ShineEffect(this.shineLastTime, this.shineDurTime, Color.red).Execute(this);
             new ShakeScreenEffect(0.02f, Time.deltaTime).Execute(this);
         }

@@ -18,20 +18,25 @@ namespace Game.MemorySystem
 	/// </summary>
 	public static  class MemoryMgr 
 	{
-		//private static List<AssetBundle> assetBundleList=new List<AssetBundle>();
-		private static Dictionary<string, Object> sourceObjectDic;
+		#region Private
 
-		private static Dictionary<string, Object> SourceObjects
-		{
-			get
-			{
-				if(sourceObjectDic==null)
-					sourceObjectDic=new Dictionary<string, Object>();
-				
-				return sourceObjectDic;
-			}
-			set { sourceObjectDic = value; }
-		}
+		//private static List<AssetBundle> assetBundleList=new List<AssetBundle>();
+        private static Dictionary<string, Object> sourceObjectDic;
+
+        private static Dictionary<string, Object> SourceObjects
+        {
+        	get
+        	{
+        		if(sourceObjectDic==null)
+        			sourceObjectDic=new Dictionary<string, Object>();
+        		
+        		return sourceObjectDic;
+        	}
+        	set { sourceObjectDic = value; }
+        }
+
+		#endregion
+
 
 		/// <summary>
 		/// 根据路径获取资源引用，如果原来加载过，不会重写加载
@@ -68,6 +73,12 @@ namespace Game.MemorySystem
 
 		}
 		
+		/// <summary>
+		/// 释放通过Resources.Load方法加载来的对象
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="sourceObj"></param>
+		/// <typeparam name="T"></typeparam>
 		public static void ReleaseSourceFromResources<T>(string path, ref T sourceObj) where T : Object
 		{
 			if (!SourceObjects.ContainsKey(path))
@@ -87,7 +98,6 @@ namespace Game.MemorySystem
 			Resources.UnloadAsset(ans);
 			sourceObj = null;
 		}
-
 		public static void ReleaseSourceFromResources<T>(ref T sourceObj) where T : Object
 		{
 			if (!SourceObjects.ContainsValue(sourceObj))
@@ -113,24 +123,38 @@ namespace Game.MemorySystem
 			sourceObj = null;
 		}
 
+		/// <summary>
+		/// 释放游离资源
+		/// </summary>
 		public static void ReleaseUnusedAssets()
 		{
-			SourceObjects = null;
+			SourceObjects.Clear();
 			Resources.UnloadUnusedAssets();
 		}
 
+		/// <summary>
+		/// 根据路径实例化对象
+		/// </summary>
+		/// <param name="path"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
 		public static T Instantiate<T>(string path)where T:Object
 		{
 			return Object.Instantiate(GetSourceFromResources<T>(path));
 		}
 		
+		/// <summary>
+		/// 实例化GameObject
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="parent"></param>
+		/// <returns></returns>
 		public static GameObject InstantiateGameObject(string path,Transform parent=null)
 		{
 			var source = GetSourceFromResources<GameObject>(path);
 			Assert.IsTrue(source);
 			return Object.Instantiate(source,parent);
 		}
-		
 		public static GameObject InstantiateGameObject(string path, Vector3 pos, Quaternion quaternion, Transform parent = null)
 		{
 			var source = GetSourceFromResources<GameObject>(path);

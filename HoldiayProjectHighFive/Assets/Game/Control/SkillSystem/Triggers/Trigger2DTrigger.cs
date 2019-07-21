@@ -98,7 +98,7 @@ namespace Game.Control.SkillSystem
         {
             get
             {
-                return DataSign.trigger2D;
+                return TxtSign.trigger2D;
             }
         }
     }

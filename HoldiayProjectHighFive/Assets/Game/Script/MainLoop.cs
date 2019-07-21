@@ -13,10 +13,24 @@ namespace Game.Script
     /// 在外部调用，实现脱离MonoBehavior进行更新
     /// 封装多种协程便于调用
     /// </summary>
-	public class MainLoop : MonoSingleton<MainLoop>
+    public class MainLoop : MonoSingleton<MainLoop>
     {
+        public class UpdateTestPair
+        {
+            public Func<bool> IsOk;
+            public Action func;
+
+            public UpdateTestPair(Func<bool> isok, Action func)
+            {
+                this.IsOk = isok;
+                this.func = func;
+            }
+        }
+
 
         #region 协程（延时调用，间隔调用，一段时间内每帧调用）
+
+        #region 开始关闭协程
 
         /// <summary>
         /// 开始关闭协程
@@ -33,6 +47,10 @@ namespace Game.Script
             StopCoroutine(Coroutine);
         }
 
+        #endregion
+
+
+        #region 运行直到为真
 
         /// <summary>
         /// 运行直到为真
@@ -45,8 +63,10 @@ namespace Game.Script
             return StartCoroutine(_ExecuteUntilTrue(method, endCall));
         }
 
-        
+        #endregion
 
+
+        #region 延时调用
 
         /// <summary>
         /// 延时调用
@@ -62,6 +82,11 @@ namespace Game.Script
         {
             return StartCoroutine(_ExecuteLater_T<T>(method, seconds, args));
         }
+
+        #endregion
+
+
+        #region 间隔调用
 
         /// <summary>
         /// 间隔调用
@@ -90,6 +115,11 @@ namespace Game.Script
             return StartCoroutine(_ExecuteSeconds_Action_T(method, times, duringTime, args, endCall));
         }
 
+        #endregion
+
+
+        #region 一段时间内每帧调用
+
         /// <summary>
         /// 一段时间内每帧调用
         /// </summary>
@@ -114,6 +144,9 @@ namespace Game.Script
         {
             return StartCoroutine(_UpdateForSeconds_T(method, seconds, args, delay));
         }
+
+        #endregion
+
 
         #region 内部调用
 
@@ -194,7 +227,6 @@ namespace Game.Script
                 yield return 0;
                 mathdom(args);
             }
-
         }
 
         private IEnumerator _UpdateForSeconds_Action(Action method, float time, Action endcall)
@@ -239,26 +271,32 @@ namespace Game.Script
 
         #endregion
 
-
         #endregion
+
+
+        #region Private
+
+        #region Fields
 
         private event Action updateEvent;
         private event Action fixedUpdateEvent;
         private event Action guiEvent;
         private event Action startEvent;
 
-        private List<UpdateTestPair> callBackPairs = new List<UpdateTestPair>();
+        private List<UpdateTestPair> callBackPairs = new List<UpdateTestPair>();     
+
+        #endregion
+
+
 
         void Start()
         {
-            if (startEvent != null)
-                startEvent();
+            startEvent?.Invoke();
         }
 
         void Update()
         {
-            if (updateEvent != null)
-                updateEvent();
+            updateEvent?.Invoke();
             foreach (var pair in callBackPairs)
             {
                 if (pair.IsOk())
@@ -268,15 +306,17 @@ namespace Game.Script
 
         private void FixedUpdate()
         {
-            if (fixedUpdateEvent != null)
-                fixedUpdateEvent();
+            fixedUpdateEvent?.Invoke();
         }
 
         void OnGUI()
         {
-            if (guiEvent != null)
-                guiEvent();
+            guiEvent?.Invoke();
         }
+
+        #endregion
+
+        #region StartHelper
 
         public void AddStartFunc(Action func)
         {
@@ -287,6 +327,11 @@ namespace Game.Script
         {
             startEvent -= func;
         }
+
+        #endregion
+
+
+        #region UpdateHelper
 
         public void AddUpdateTest(UpdateTestPair pair)
         {
@@ -309,8 +354,12 @@ namespace Game.Script
         public void RemoveUpdateFunc(Action func)
         {
             updateEvent -= func;
-
         }
+
+        #endregion
+
+
+        #region FixedUpdateHelper
 
         public void AddFixedUpdateFunc(Action func)
         {
@@ -322,6 +371,11 @@ namespace Game.Script
             fixedUpdateEvent -= func;
         }
 
+        #endregion
+
+
+        #region GUIHelper
+
         public void AddGUIFunc(Action func)
         {
             guiEvent += func;
@@ -332,7 +386,24 @@ namespace Game.Script
             guiEvent -= func;
         }
 
+        #endregion
 
 
+        /// <summary>
+        /// 清空所有辅助调用的事件
+        /// </summary>
+        public void Clear()
+        {
+            updateEvent = null;
+            startEvent = null;
+            fixedUpdateEvent = null;
+            guiEvent = null;
+        }
+
+
+        private void OnDestroy()
+        {
+            Debug.LogWarning("MainLoop_OnDestory函数被调用！");
+        }
     }
 }

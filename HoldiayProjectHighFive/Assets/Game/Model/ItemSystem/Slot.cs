@@ -69,7 +69,7 @@ namespace Game.Model.ItemSystem
                 throw new Exception("????????????");
             }
 
-            this.itemUi.obj = MemoryMgr.InstantiateGameObject(UIPath.Image_ItemUI, transform);
+            this.itemUi.obj = MemoryMgr.InstantiateGameObject(UiName.Image_ItemUI, transform);
             this.itemImage = this.itemUi.obj.GetComponent<Image>();
             Assert.IsTrue(this.itemImage);
             this.itemImage.sprite = MemoryMgr.GetSourceFromResources<Sprite>(this.itemUi.SpritePath);

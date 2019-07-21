@@ -9,7 +9,7 @@ namespace Game.Model.SpiritItemSystem
 {
     public class TestSpirit : AbstractSpiritItem
     {
-        private UpdateTestPair pair;
+        private MainLoop.UpdateTestPair pair;
 
         private void Execute()
         {
@@ -18,7 +18,7 @@ namespace Game.Model.SpiritItemSystem
 
         public override void OnEnable()
         {
-            pair = new UpdateTestPair(() => Input.GetKeyDown(KeyCode.K), Execute);
+            pair = new MainLoop.UpdateTestPair(() => Input.GetKeyDown(KeyCode.K), Execute);
             MainLoop.Instance.AddUpdateTest(pair);
         }
 

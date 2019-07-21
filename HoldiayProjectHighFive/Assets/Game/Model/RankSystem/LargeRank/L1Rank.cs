@@ -20,7 +20,7 @@ namespace Game.Model.RankSystem
 		public override void LoadTxt(string args)
 		{
 			var strs = args.Split(TxtManager.SplitChar);
-			Debug.Log("L1Rank.strs.Length: "+strs.Length);
+//			Debug.Log("L1Rank.strs.Length: "+strs.Length);
 			Assert.IsTrue(strs.Length>=BasePropertyCount+1);
 			this.attackMut = Convert.ToSingle(strs[BasePropertyCount].Trim());
 			base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(),strs,0,BasePropertyCount));
@@ -33,7 +33,7 @@ namespace Game.Model.RankSystem
 
 		public override string Sign
 		{
-			get { return DataSign.L1Rank; }
+			get { return TxtSign.L1Rank; }
 		}
 	}
 }

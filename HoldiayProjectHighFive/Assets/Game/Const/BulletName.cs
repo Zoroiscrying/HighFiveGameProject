@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Game.Const
 {
-    public static class ItemPath
+    public static class BulletName
     {
-        public static string Dir = "Items/";
+        public static readonly string PlayerBullet ="bullet_1";
     }
 }

@@ -24,12 +24,12 @@ public class ShopNpc : CloseEnough
 				Debug.Log("KeyDown");
 				if (isShowing)
 				{
-					UIManager.Instance.PopPanel();
+					PanelMgr.PopPanel();
 					isShowing = false;
 				}
 				else
 				{
-					UIManager.Instance.PushPanel(PanelName.shopPanel);
+					PanelMgr.PushPanel(PanelName.shopPanel);
 					isShowing = true;
 				}
 			}
@@ -40,6 +40,6 @@ public class ShopNpc : CloseEnough
 	{
 		base.OnTriggerExit2D(col);
 		if(isShowing)
-			UIManager.Instance.PopPanel();
+			PanelMgr.PopPanel();
 	}
 }

@@ -27,7 +27,7 @@ namespace Game.View
 
         public NumberTipUI(int number, float yOffect, int size, Color color, Transform targetPerson, int dir, float dur = 0.5f, float time = 1f)
         {
-            Create(UIPath.text_number);
+            Create(DirPath.LittleUiDir+ UiName.text_number);
             this.go = m_TransFrom.gameObject;
             this.target = targetPerson;
 

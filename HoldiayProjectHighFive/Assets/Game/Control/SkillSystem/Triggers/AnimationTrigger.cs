@@ -62,7 +62,7 @@ namespace Game.Control.SkillSystem
 
         public override string Sign
         {
-            get { return DataSign.animation; }
+            get { return TxtSign.animation; }
         }
 
 

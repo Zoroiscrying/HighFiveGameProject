@@ -23,7 +23,7 @@ namespace Game.Model.ItemSystem
 
         public string SpritePath
         {
-            get { return ItemPath.Dir + spritePath; }
+            get { return DirPath.ItemDir + spritePath; }
         }
 
 

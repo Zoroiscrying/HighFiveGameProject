@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
@@ -20,7 +21,8 @@ namespace Game.View.PanelSystem
 
         internal static AbstractPanel GetPanel(string name)
         {
-            Assert.IsTrue(panelDic.ContainsKey(name));
+            if(!panelDic.ContainsKey(name))
+                Debug.LogError("你好像没有在GameMgr_RegisterUiPanel中注册这个Panel类："+name);
             return panelDic[name];
         }
 
@@ -40,10 +42,7 @@ namespace Game.View.PanelSystem
         public event Action<string> onPanelDestory;
 
         /// /////////////////     继承接口      ////////////////////////
-        public string PanelName
-        {
-            get { return this.panelName; }
-        }
+        public string PanelName => this.panelName;
 
         public sealed override void DestroyThis(PointerEventData eventData = null)
         {

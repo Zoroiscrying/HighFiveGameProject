@@ -495,7 +495,7 @@ public class MainCharacter : Actor
 			
 		private void InAir_Enter()
 		{
-			Debug.Log("In air");
+//			Debug.Log("In air");
 			//如果在空中，则自动认为主角已经失去一次跳跃机会
 			_animator.Play(Animator.StringToHash("Jump"));
 			//_canJump = _jumpPoint - 1;
