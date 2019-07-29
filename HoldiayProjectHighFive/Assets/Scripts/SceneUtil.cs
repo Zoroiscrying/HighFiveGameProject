@@ -23,7 +23,7 @@ public class SceneUtil : MonoBehaviour
     #region Public_Fields
     
     [Header("设定当前场景UIPanel")]
-    public string UiPanelName;
+    public StringChooser UiPanelName=new StringChooser(typeof(PanelName));
     
     [Header("是否生成敌方假人")]
     public bool creatTestPeople = false;
@@ -53,27 +53,25 @@ public class SceneUtil : MonoBehaviour
 
     private void Awake()
     {
-        print("Normal_Awake");
-        if (GameObject.FindGameObjectsWithTag("GameController").Length <= 0)
-            MemoryMgr.InstantiateGameObject(DirPath.GameObjectDir + GameObjectName.GameMgr);
-        
+        //print("Normal_Awake");
+        GameMgr.Instance.PlayerPos = this.PlayerPos;
+//        if (GameObject.FindGameObjectsWithTag("GameController").Length <= 0)
+//            MemoryMgr.InstantiateGameObject(DirPath.GameObjectDir + GameObjectName.GameMgr);
+//        
     }
 
     void Start()
     {
-        print("Normal_Start");
+        //print("Normal_Start");
 
-        GameMgr.Instance.PlayerPos = this.PlayerPos;
+        //Debug.Log("SceneUtil: " + PlayerPos);
         
         if (enableMiniMap)
             MemoryMgr.InstantiateGameObject(DirPath.LittleUiDir + UiName.Image_MiniMap, GlobalVar.G_Canvas.transform);
 
-        if (!string.IsNullOrEmpty(UiPanelName))
-        {
-            PanelMgr.PushPanel(UiPanelName);
-            if(UiPanelName==PanelName.battlePanel)
-                CEventCenter.BroadMessage(Message.M_RankAwake,0,0);
-        }
+        PanelMgr.PushPanel(UiPanelName.StringValue);
+        if(UiPanelName.StringValue==PanelName.battlePanel)
+            CEventCenter.BroadMessage(Message.M_RankAwake,0,0);
 
         if (creatTestPeople)
             new TestPerson("Test", DirPath.GameObjectDir + GameObjectName.TestPerson, EnemyPos);

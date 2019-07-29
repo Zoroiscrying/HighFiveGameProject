@@ -10,10 +10,10 @@ namespace Game.Common
     public class StringChooseDrawer : PropertyDrawer
     {
         private List<string> values;
-        private int index = 0;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            var index = property.FindPropertyRelative("selectedIndex");
             if (values == null)
             {
                 values = new List<string>();
@@ -28,21 +28,21 @@ namespace Game.Common
             //base.OnGUI(position, property, label);
             EditorGUI.BeginChangeCheck();
             //得到描述在列表中的下标
-            index = EditorGUI.Popup(position, property.displayName, index, values.ToArray());
-            if (EditorGUI.EndChangeCheck())
-            {
-                if (values == null)
-                    throw new Exception("values is null");
-                var sp = property.FindPropertyRelative("selectedValue");
-                if(null==sp)
-                    throw new Exception("没有找到这个属性："+"selectedValue");
-                sp.stringValue = values[index];
-
-                //根据下标从id列表中找出技能id进行赋值
-
-//                Debug.Log(property.FindPropertyRelative("selectedValue").stringValue);
-                
-            }
+            index.intValue = EditorGUI.Popup(position, property.displayName, index.intValue, values.ToArray());
+//            if (EditorGUI.EndChangeCheck())
+//            {
+//                if (values == null)
+//                    throw new Exception("values is null");
+//                var sp = property.FindPropertyRelative("selectedValue");
+//                if(null==sp)
+//                    throw new Exception("没有找到这个属性："+"selectedValue");
+//                sp.stringValue = values[index];
+//
+//                //根据下标从id列表中找出技能id进行赋值
+//
+////                Debug.Log(property.FindPropertyRelative("selectedValue").stringValue);
+//                
+//            }
         }
     }
 }

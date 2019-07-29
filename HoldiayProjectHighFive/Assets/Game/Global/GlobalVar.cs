@@ -39,6 +39,7 @@ namespace Game.Global
         }
         public static void Refresh(Vector3 pos)
         {
+//            Debug.Log("GlobalVar: "+pos);
             G_Canvas = GameMgr.Instance.gameObject;
 
             Player.InitPlayer(pos);

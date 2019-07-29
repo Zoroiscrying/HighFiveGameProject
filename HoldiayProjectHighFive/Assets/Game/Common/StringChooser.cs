@@ -10,9 +10,9 @@ namespace Game.Common
         //private static Type typeToShow;
         [SerializeField] 
         private string[] values;
-        [SerializeField]
-        private string selectedValue;
-        public string StringValue => selectedValue;
+
+        [SerializeField] private int selectedIndex = 0;
+        public string StringValue => values[selectedIndex];
 
         public StringChooser(Type type)
         {

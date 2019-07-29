@@ -21,8 +21,17 @@ namespace Game.View.PanelSystem
 
         internal static AbstractPanel GetPanel(string name)
         {
-            if(!panelDic.ContainsKey(name))
+            if (string.IsNullOrEmpty(name))
+            {
+                Debug.LogError("PanelName 为空！！！");
+                return null;
+            }
+
+            if (!panelDic.ContainsKey(name))
+            {
                 Debug.LogError("你好像没有在GameMgr_RegisterUiPanel中注册这个Panel类："+name);
+                return null;
+            }
             return panelDic[name];
         }
 

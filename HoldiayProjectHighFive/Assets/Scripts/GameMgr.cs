@@ -19,6 +19,12 @@ public class GameMgr : MonoSingleton<GameMgr> {
 	
 	protected override void Awake()
 	{
+		if (GameMgr.Instance&&this != GameMgr.Instance)
+		{
+			this.gameObject.SetActive(false);
+			return;
+		}
+		
 		base.Awake();
 		
 		print("GameMgr_Awake_这句话应该只打印一次才对");
@@ -43,13 +49,13 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
 		InitializeBehavic();
 		
-		SceneMgr.LoadActiveScene();
 		
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
+		SceneMgr.LoadActiveScene();
 		print("GameMgr_Start_这句话也应该只打印一次才对");
 		DontDestroyOnLoad(this.gameObject);
 		
@@ -57,6 +63,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
 
 	private void OnAnySceneLoad()
 	{
+		Debug.Log("GameMgr_OnAnySceneLoad");
 		InitializeGlobalVar(this.PlayerPos);
 	}
 
@@ -183,6 +190,7 @@ public class GameMgr : MonoSingleton<GameMgr> {
 	/// </summary>
 	void InitializeGlobalVar(Vector3  pos)
 	{
+//		Debug.Log("GameMgr_RefreshGlobalVar: "+pos);
         if (pos != Vector3.zero)
             GlobalVar.Refresh(pos);
         else
