@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.Const;
+﻿using Game.Const;
 using UnityEngine;
 using UnityEngine.UI;
 using Game.Model.ItemSystem;
+using ReadyGamerOne.View;
+
 namespace Game.View
 {
     public class ItemInfoUI:AbstractUI

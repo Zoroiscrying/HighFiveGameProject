@@ -1,74 +1,70 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Game;
-using Game.Common;
-using Game.Const;
-using Game.Control;
+﻿using Game.Const;
 using Game.Control.PersonSystem;
-using Game.Model.SceneSystem;
-using Game.View.PanelSystem;
+using ReadyGamerOne.EditorExtension;
+using ReadyGamerOne.Model.SceneSystem;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class SceneTrigger : MonoBehaviour
+namespace Game.Scripts
 {
-    public enum BoundryShowType
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class SceneTrigger : MonoBehaviour
     {
-        NeverShow,
-        ShowOnSelect,
-        ShowAlways
+        public enum BoundryShowType
+        {
+            NeverShow,
+            ShowOnSelect,
+            ShowAlways
+        }
+    
+        public BoundryShowType boundryShowType=BoundryShowType.ShowOnSelect;
+    
+        public StringChooser newSceneName = new StringChooser(typeof(SceneName));
+        public StringChooser newUIName = new StringChooser(typeof(PanelName));
+        public Vector3 newPosition;
+    
+        void OnTriggerExit2D(Collider2D col)
+        {
+            if (null == AbstractPerson.GetInstance<Player>(col.gameObject))
+                return;
+            Game.Const.DefaultData.PlayerPos = this.newPosition;
+    
+            SceneMgr.LoadScene(newSceneName.StringValue, newUIName.StringValue);
+        }
+    
+        private BoxCollider2D _collider2D;
+    
+        private void OnDrawGizmos()
+        {
+            if(boundryShowType==BoundryShowType.ShowAlways)
+                DrawBoundry();
+        }
+    
+        private void OnDrawGizmosSelected()
+        {
+            if(boundryShowType==BoundryShowType.ShowOnSelect)
+                DrawBoundry();
+        }
+    
+        private void DrawBoundry()
+        {
+            if (_collider2D == null)
+                _collider2D = GetComponent<BoxCollider2D>();
+            var offset = _collider2D.offset;
+            var size = _collider2D.size;
+            var scale = transform.localScale;
+            var startPos = transform.position;
+    
+            var c = startPos + new Vector3(scale.x * offset.x, scale.y * offset.y);
+    
+            var height = size.y * scale.y;
+            var width = size.x * scale.x;
+    
+            var lt = c + new Vector3(-width / 2, height / 2);
+            Gizmos.DrawLine(lt, lt + new Vector3(width, 0, 0));
+            Gizmos.DrawLine(lt + new Vector3(0, -height, 0), lt + new Vector3(width, -height, 0));
+            Gizmos.DrawLine(lt, lt + new Vector3(0, -height, 0));
+            Gizmos.DrawLine(lt + new Vector3(width, 0, 0), lt + new Vector3(width, -height, 0));
+        }
     }
 
-    public BoundryShowType boundryShowType=BoundryShowType.ShowOnSelect;
-
-    public StringChooser newSceneName = new StringChooser(typeof(SceneName));
-    public StringChooser newUIName = new StringChooser(typeof(PanelName));
-    public Vector3 newPosition;
-
-    void OnTriggerExit2D(Collider2D col)
-    {
-        if (null == AbstractPerson.GetInstance<Player>(col.gameObject))
-            return;
-        Game.Const.DefaultData.PlayerPos = this.newPosition;
-
-        SceneMgr.LoadScene(newSceneName.StringValue, newUIName.StringValue);
-    }
-
-    private BoxCollider2D _collider2D;
-
-    private void OnDrawGizmos()
-    {
-        if(boundryShowType==BoundryShowType.ShowAlways)
-            DrawBoundry();
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if(boundryShowType==BoundryShowType.ShowOnSelect)
-            DrawBoundry();
-    }
-
-    private void DrawBoundry()
-    {
-        if (_collider2D == null)
-            _collider2D = GetComponent<BoxCollider2D>();
-        var offset = _collider2D.offset;
-        var size = _collider2D.size;
-        var scale = transform.localScale;
-        var startPos = transform.position;
-
-        var c = startPos + new Vector3(scale.x * offset.x, scale.y * offset.y);
-
-        var height = size.y * scale.y;
-        var width = size.x * scale.x;
-
-        var lt = c + new Vector3(-width / 2, height / 2);
-        Gizmos.DrawLine(lt, lt + new Vector3(width, 0, 0));
-        Gizmos.DrawLine(lt + new Vector3(0, -height, 0), lt + new Vector3(width, -height, 0));
-        Gizmos.DrawLine(lt, lt + new Vector3(0, -height, 0));
-        Gizmos.DrawLine(lt + new Vector3(width, 0, 0), lt + new Vector3(width, -height, 0));
-    }
 }

@@ -1,9 +1,6 @@
 ﻿using Game.Const;
-using Game.Script;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using ReadyGamerOne.Script;
+using ReadyGamerOne.View;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

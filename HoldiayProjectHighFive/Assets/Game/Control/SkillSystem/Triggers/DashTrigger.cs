@@ -1,8 +1,8 @@
 ﻿using Game.Control.PersonSystem;
-using Game.Script;
 using System;
 using Game.Const;
-using Game.Data;
+using ReadyGamerOne.Data;
+using ReadyGamerOne.Script;
 using UnityEngine;
 using UnityEngine.Assertions;
 

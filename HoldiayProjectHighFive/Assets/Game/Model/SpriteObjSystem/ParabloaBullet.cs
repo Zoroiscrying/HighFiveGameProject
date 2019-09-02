@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using Game.Control.PersonSystem;
-using Game.Script;
+using ReadyGamerOne.Script;
+
 namespace Game.Model.SpriteObjSystem
 {
     class ParabloaBullet : BulletSpriteObj
@@ -39,7 +36,7 @@ namespace Game.Model.SpriteObjSystem
                 (pointB.z - pointA.z) / time);
             // 重力初始速度为0
             Gravity = Vector3.zero;
-            MainLoop.Instance.AddFixedUpdateFunc(FixedUpdate);
+            MainLoop.AddFixedUpdateFunc(FixedUpdate);
         }
         
         private float dTime = 0;
@@ -63,7 +60,7 @@ namespace Game.Model.SpriteObjSystem
         public override void Release()
         {
             base.Release();
-            MainLoop.Instance.RemoveFixedUpdateFunc(FixedUpdate);
+            MainLoop.RemoveFixedUpdateFunc(FixedUpdate);
         }
     }
 }

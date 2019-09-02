@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Game.Data;
-using UnityEngine;
 
 namespace Game.Model.ItemSystem
 {

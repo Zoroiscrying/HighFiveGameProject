@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using zoroiscrying;
 
+namespace Game.Scripts
+{
+	
 [RequireComponent(typeof(CharacterController2D))]
 public class PlayerMove : MonoBehaviour
 {
@@ -364,4 +364,6 @@ public class PlayerMove : MonoBehaviour
 			Debug.Log("Attack!");
 		}
 	}
+}
+
 }

@@ -113,6 +113,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &169760418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1611617283708418, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
+    type: 2}
+  m_PrefabInternal: {fileID: 784176607}
+--- !u!114 &169760420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 169760418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 275a8d9e5e250ce4abb843b1db401d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UiPanelName:
+    values:
+    - Panel_Battle
+    - Panel_Package
+    - Panel_Shop
+    - Panel_Loading
+    selectedIndex: 0
+  creatTestPeople: 0
+  EnemyPos: {x: 0, y: 0, z: 0}
+  PlayerPos: {x: 5.6, y: 0, z: 0}
+  signalSize: 4
+  enableMiniMap: 1
+  enable_V_loadAsync: 1
+  Enable_C_ChangeScene: 1
 --- !u!1 &226478473
 GameObject:
   m_ObjectHideFlags: 0
@@ -11408,7 +11438,7 @@ Prefab:
     - target: {fileID: 114319922902583608, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
         type: 2}
       propertyPath: PlayerPos.x
-      value: 37
+      value: 34.2
       objectReference: {fileID: 0}
     - target: {fileID: 114319922902583608, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
         type: 2}
@@ -11420,8 +11450,19 @@ Prefab:
       propertyPath: PlayerPos.y
       value: 25.28
       objectReference: {fileID: 0}
+    - target: {fileID: 114319922902583608, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
+        type: 2}
+      propertyPath: UiPanelName.selectedIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114319922902583608, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
+        type: 2}
+      propertyPath: enableMiniMap
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 81048878633304644, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
+    - {fileID: 114319922902583608, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &784176608 stripped

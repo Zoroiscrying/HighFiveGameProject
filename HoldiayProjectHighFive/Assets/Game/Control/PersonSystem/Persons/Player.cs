@@ -1,12 +1,8 @@
 ﻿using Game.Const;
 using Game.Control.BattleEffectSystem;
 using Game.Control.SkillSystem;
-using Game.Global;
 using Game.Math;
-using Game.Model;
 using Game.Model.SpiritItemSystem;
-using Game.Script;
-using Game.Data;
 using System;
 using System.Collections.Generic;
 using System.Xml;
@@ -16,11 +12,13 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using zoroiscrying;
 using Game.Model.ItemSystem;
-using Game.View.PanelSystem;
 using System.IO;
-using Game.Common;
 using Game.Model.RankSystem;
-using UnityEngine.Networking.NetworkSystem;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.Data;
+using ReadyGamerOne.Global;
+using ReadyGamerOne.Script;
+using ReadyGamerOne.View.PanelSystem;
 
 
 namespace Game.Control.PersonSystem
@@ -397,7 +395,7 @@ namespace Game.Control.PersonSystem
                 {
                     //Debug.Log("归零");
                     this.comboNum = 0;
-                    MainLoop.Instance.RemoveUpdateFunc(_DeUpdate);
+                    MainLoop.RemoveUpdateFunc(_DeUpdate);
                     //恢复人物控制
                     mainc._inControl = true;
                 }
@@ -424,7 +422,7 @@ namespace Game.Control.PersonSystem
                     this.timer = 0;
                     //开始增加时间
                     //                    Debug.Log("初次攻击");
-                    MainLoop.Instance.AddUpdateFunc(_DeUpdate);
+                    MainLoop.AddUpdateFunc(_DeUpdate);
                     Debug.Log("执行了技能" + index + " " + thisSkill.name);
                     thisSkill.Execute(this, ignoreInput[0], this.timer);
                     this.comboNum++;
@@ -582,7 +580,7 @@ namespace Game.Control.PersonSystem
             OnAddListener();
 
             //开始每帧Update
-            MainLoop.Instance.AddUpdateFunc(Update);
+            MainLoop.AddUpdateFunc(Update);
 
             //记录每个实例
             instanceList.Add(this);

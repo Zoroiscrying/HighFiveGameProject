@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-#if BEHAVIAC_USE_HTN
+﻿#if BEHAVIAC_USE_HTN
 namespace behaviac
 {
     public class Planner

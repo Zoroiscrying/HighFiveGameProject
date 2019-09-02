@@ -1,8 +1,8 @@
-using Game.Common;
 using Game.Const;
-using Game.Model.SceneSystem;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.Model.SceneSystem;
+using ReadyGamerOne.View.PanelSystem;
 using TMPro;
-using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 

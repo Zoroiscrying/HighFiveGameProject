@@ -1,5 +1,5 @@
 ﻿using Game.Control.PersonSystem;
-using Game.Script;
+using ReadyGamerOne.Script;
 using UnityEngine;
 
 namespace Game.Model.SpriteObjSystem

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Game.Const;
-using Game.Data;
-using UnityEngine;
+using ReadyGamerOne.Data;
+using ReadyGamerOne.Global;
 using UnityEngine.Assertions;
 
 namespace Game.Model.RankSystem
@@ -13,7 +11,7 @@ namespace Game.Model.RankSystem
 		private float hitback;
 		public override void ImprovePlayer()
 		{
-			Global.GlobalVar.G_Player.hitBackSpeed += this.hitback;
+			GlobalVar.G_Player.hitBackSpeed += this.hitback;
 		}
 
 		public override void LoadTxt(string args)

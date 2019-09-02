@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.Common;
+﻿using System.Collections.Generic;
 using Game.Const;
-using Game.MemorySystem;
 using Game.Model.ItemSystem;
-using Game.Script;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.EventSystems;
-using Game.View;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.Global;
+using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.View.PanelSystem;
 using UnityEngine.UI;
 
 namespace Game.View.PanelSystem
@@ -41,7 +37,7 @@ namespace Game.View.PanelSystem
         {
             Create(DirPath.PanelDir+Const.PanelName.packagePanel);
 
-            this.itemList = Global.GlobalVar.G_Player.itemList;
+            this.itemList =GlobalVar.G_Player.itemList;
 
             this.backPackGridObj = this.m_TransFrom.Find("Image_BackGround/Image_BackPackGrid");
             this.moreInfoTextObj = this.m_TransFrom.Find("Image_BackGround/Image_MoreInfo/Image_TextBackGround/Text");

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Game.Const
+﻿namespace Game.Const
 {
     public static class BulletName
     {

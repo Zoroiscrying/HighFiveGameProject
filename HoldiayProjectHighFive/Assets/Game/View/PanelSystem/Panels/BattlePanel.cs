@@ -1,15 +1,11 @@
 ﻿using Game.Const;
 using Game.Control.PersonSystem;
-using Game.Global;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.Common;
-using Game.Model.ItemSystem;
 using Game.Model.RankSystem;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.Global;
+using ReadyGamerOne.View.PanelSystem;
 using TMPro;
-using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 

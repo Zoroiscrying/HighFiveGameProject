@@ -1,9 +1,6 @@
-﻿using Game.Script;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.MemorySystem;
+﻿using System;
+using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.Script;
 using UnityEngine;
 
 namespace Game.Model.SpriteObjSystem
@@ -22,7 +19,7 @@ namespace Game.Model.SpriteObjSystem
             {
                 throw new Exception("子弹生成失败");
             }
-            MainLoop.Instance.AddUpdateFunc(Update);
+            MainLoop.AddUpdateFunc(Update);
         }
 
         protected virtual void Update()
@@ -33,7 +30,7 @@ namespace Game.Model.SpriteObjSystem
 
         public virtual void Release()
         {
-            MainLoop.Instance.RemoveUpdateFunc(Update);
+            MainLoop.RemoveUpdateFunc(Update);
         }
 
         protected void DestoryThis()

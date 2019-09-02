@@ -1,14 +1,12 @@
 ﻿using Game.Const;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
-using Game.Common;
-using Game.MemorySystem;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.Global;
+using ReadyGamerOne.MemorySystem;
 
 namespace Game.Model.ItemSystem
 {
@@ -52,7 +50,7 @@ namespace Game.Model.ItemSystem
                     this.itemNum.text = value.ToString();
                 }
 
-                foreach(var v in Global.GlobalVar.G_Player.itemList)
+                foreach(var v in GlobalVar.G_Player.itemList)
                     Debug.Log("v.count:" + v.count + " v.id" + v.itemId);
             }
         }

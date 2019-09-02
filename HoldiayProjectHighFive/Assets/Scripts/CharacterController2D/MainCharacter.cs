@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Permissions;
-using Game;
-using Game.Common;
-using Game.Const;
-using Game.Control;
-using Game.Global;
+﻿using Game.Const;
 using UnityEngine;
 using Game.StateMachine;
 using Game.Control.PersonSystem;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.Script;
 
 public class MainCharacter : Actor 
 {
@@ -261,7 +255,7 @@ public class MainCharacter : Actor
 	private void StartAcceleration(float time)
 	{
 		CEventCenter.BroadMessage(Message.M_ExitSuper);
-		Game.Script.MainLoop.Instance.ExecuteLater(() => _runSpeed -= AccelerationSpeed, time);
+		MainLoop.Instance.ExecuteLater(() => _runSpeed -= AccelerationSpeed, time);
 		_runSpeed += AccelerationSpeed;
 	}
 	

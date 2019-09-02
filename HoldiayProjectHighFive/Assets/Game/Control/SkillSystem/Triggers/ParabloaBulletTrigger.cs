@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Game.Const;
 using Game.Control.PersonSystem;
-using Game.Data;
 using UnityEngine.Assertions;
-using Game.Model;
 using Game.Model.SpriteObjSystem;
+using ReadyGamerOne.Data;
 using UnityEngine;
 namespace Game.Control.SkillSystem
 {

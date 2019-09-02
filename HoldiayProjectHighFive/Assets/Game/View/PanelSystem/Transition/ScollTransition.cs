@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Global;
-using Game.Script;
+﻿using ReadyGamerOne.Global;
+using ReadyGamerOne.Script;
+using ReadyGamerOne.View.PanelSystem;
 using UnityEngine;
 
 namespace Game.View.PanelSystem

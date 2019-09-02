@@ -15,11 +15,9 @@
 #if !BEHAVIAC_NOT_USE_UNITY
 // if you have compiling errors complaining the following using 'UnityEngine',
 //usually, you need to define BEHAVIAC_NOT_USE_UNITY in your project file
-using UnityEngine;
 #endif//!BEHAVIAC_NOT_USE_UNITY
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 

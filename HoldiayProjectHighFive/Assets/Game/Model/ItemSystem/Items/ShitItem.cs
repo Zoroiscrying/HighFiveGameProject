@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Game.Const;
-using Game.Data;
+using ReadyGamerOne.Data;
 using UnityEngine.Assertions;
 namespace Game.Model.ItemSystem
 {

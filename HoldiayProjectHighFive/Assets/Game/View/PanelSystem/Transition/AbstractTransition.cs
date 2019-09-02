@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Game.Script;
-using UnityEngine;
+using ReadyGamerOne.Script;
+using ReadyGamerOne.View.PanelSystem;
 
 namespace Game.View.PanelSystem
 {

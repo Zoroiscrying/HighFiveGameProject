@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game;
+﻿using Game;
 using UnityEngine;
 using UnityEngine.Serialization;
 using zoroiscrying;

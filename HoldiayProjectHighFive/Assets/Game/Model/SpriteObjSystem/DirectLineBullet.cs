@@ -1,10 +1,6 @@
 ﻿using Game.Control.PersonSystem;
-using Game.Script;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Game.Const;
+using ReadyGamerOne.Script;
 using UnityEngine;
 
 namespace Game.Model.SpriteObjSystem

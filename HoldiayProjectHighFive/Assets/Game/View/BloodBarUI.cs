@@ -1,10 +1,7 @@
 ﻿using Game.Const;
 using Game.Control.PersonSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.Common;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.View;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

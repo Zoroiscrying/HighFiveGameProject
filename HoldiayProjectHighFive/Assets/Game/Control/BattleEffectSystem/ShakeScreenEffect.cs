@@ -1,8 +1,5 @@
 ﻿using Game.Control.PersonSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Game.Scripts;
 using UnityEngine;
 
 namespace Game.Control.BattleEffectSystem

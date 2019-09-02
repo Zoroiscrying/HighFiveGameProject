@@ -1,16 +1,11 @@
 ﻿using Game.Const;
 using Game.Control.BattleEffectSystem;
 using Game.Control.SkillSystem;
-using Game.Global;
-using Game.Model;
-using Game.Script;
-using Game.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.Common;
-using Game.MemorySystem;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.Script;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
@@ -199,7 +194,7 @@ namespace Game.Control.PersonSystem
             var skill = SkillTriggerMgr.skillInstanceDic[skillName];
             this.skills.Add(skill);
             var pair = new MainLoop.UpdateTestPair(trigger, () => RunSkill(skills.Count-1, ignoreInput));
-            MainLoop.Instance.AddUpdateTest(pair);
+            MainLoop.AddUpdateTest(pair);
             //dis.Add(pair);
         }
         #endregion
@@ -293,7 +288,7 @@ namespace Game.Control.PersonSystem
             OnAddListener();
 
             //开始每帧Update
-            MainLoop.Instance.AddUpdateFunc(Update);
+            MainLoop.AddUpdateFunc(Update);
 
             //记录每个实例
             instanceList.Add(this);
@@ -349,7 +344,7 @@ namespace Game.Control.PersonSystem
         {
            
             OnRemoveListener();
-            MainLoop.Instance.RemoveUpdateFunc(Update);
+            MainLoop.RemoveUpdateFunc(Update);
             instanceList.Remove(this);
             Object.Destroy(this.obj);
         }

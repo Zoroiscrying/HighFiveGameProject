@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Game.Control.SkillSystem
+﻿namespace Game.Control.SkillSystem
 {
     /// <summary>
     /// 触发器工厂接口

@@ -1,10 +1,8 @@
 ﻿using Game.Const;
-using Game.Script;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game.Common;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.Script;
 using UnityEngine;
 
 namespace Game

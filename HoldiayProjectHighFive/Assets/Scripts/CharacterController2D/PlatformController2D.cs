@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
 using zoroiscrying;
 
 public class PlatformController2D : RayCastController2D

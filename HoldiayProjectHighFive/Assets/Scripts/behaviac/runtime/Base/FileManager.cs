@@ -12,7 +12,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 
 // please define BEHAVIAC_NOT_USE_UNITY in your project file if you are not using unity

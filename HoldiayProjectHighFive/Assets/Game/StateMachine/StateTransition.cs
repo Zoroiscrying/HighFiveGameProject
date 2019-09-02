@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Game.StateMachine
+﻿namespace Game.StateMachine
 {
     /*
      * Copyright (c) 2016 Made With Mosnter Love (Pty) Ltd

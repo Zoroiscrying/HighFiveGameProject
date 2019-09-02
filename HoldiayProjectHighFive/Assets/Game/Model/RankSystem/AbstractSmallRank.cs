@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using behaviac;
-using Game.Data;
-using UnityEngine;
+using ReadyGamerOne.Data;
 using UnityEngine.Assertions;
 using Debug = behaviac.Debug;
 

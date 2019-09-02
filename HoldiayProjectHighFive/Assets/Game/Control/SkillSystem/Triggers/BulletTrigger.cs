@@ -1,13 +1,12 @@
 ﻿using Game.Const;
 using Game.Control.PersonSystem;
-using Game.Script;
 using System;
-using Game.Data;
 using Game.Math;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Game.Model;
 using Game.Model.SpriteObjSystem;
+using ReadyGamerOne.Data;
+using ReadyGamerOne.Script;
 
 namespace Game.Control.SkillSystem
 {

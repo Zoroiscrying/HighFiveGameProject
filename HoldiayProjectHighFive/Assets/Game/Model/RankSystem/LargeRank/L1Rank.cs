@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Game.Const;
-using Game.Data;
-using UnityEngine;
+using ReadyGamerOne.Data;
+using ReadyGamerOne.Global;
 using UnityEngine.Assertions;
 
 namespace Game.Model.RankSystem
@@ -28,7 +26,7 @@ namespace Game.Model.RankSystem
 
 		public override void ImprovePlayer()
 		{
-			Global.GlobalVar.G_Player.attackMultipulier *= this.attackMut;
+			GlobalVar.G_Player.attackMultipulier *= this.attackMut;
 		}
 
 		public override string Sign

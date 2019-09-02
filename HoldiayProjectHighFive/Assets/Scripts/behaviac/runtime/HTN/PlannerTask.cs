@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-
-
 #if BEHAVIAC_USE_HTN
 namespace behaviac
 {

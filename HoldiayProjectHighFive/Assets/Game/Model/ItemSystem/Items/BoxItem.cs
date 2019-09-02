@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Const;
-using UnityEngine;
+﻿using Game.Const;
 
 namespace Game.Model.ItemSystem
 {

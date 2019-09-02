@@ -9,5 +9,6 @@ namespace Game.Const
         
         public static readonly string PanelDir = "UI/Panels/";
         public static readonly string LittleUiDir ="UI/LittleUI/";
+        public static readonly string AudioDir = "Audio/";
     }
 }

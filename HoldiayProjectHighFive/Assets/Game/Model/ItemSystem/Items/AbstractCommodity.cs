@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Game.Data;
-using UnityEngine;
+using ReadyGamerOne.Data;
 using UnityEngine.Assertions;
 
 namespace Game.Model.ItemSystem

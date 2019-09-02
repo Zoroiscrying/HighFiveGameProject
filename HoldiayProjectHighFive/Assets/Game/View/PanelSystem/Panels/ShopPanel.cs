@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Game.Common;
 using Game.Const;
-using Game.Global;
-using Game.MemorySystem;
 using Game.Model.ItemSystem;
-using Game.Script;
+using ReadyGamerOne.Common;
+using ReadyGamerOne.Global;
+using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.Script;
+using ReadyGamerOne.View.PanelSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;

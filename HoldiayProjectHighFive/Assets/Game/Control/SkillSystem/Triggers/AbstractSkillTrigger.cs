@@ -1,11 +1,7 @@
 ﻿using Game.Control.PersonSystem;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using Game.Data;
-using UnityEngine;
+using ReadyGamerOne.Data;
 using UnityEngine.Assertions;
 
 namespace Game.Control.SkillSystem

@@ -1,9 +1,5 @@
 ﻿using Game.Control.PersonSystem;
-using Game.Script;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using ReadyGamerOne.Script;
 using UnityEngine;
 
 namespace Game.Control.BattleEffectSystem

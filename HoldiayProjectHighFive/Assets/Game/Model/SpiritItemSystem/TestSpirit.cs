@@ -1,8 +1,4 @@
-﻿using Game.Script;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ReadyGamerOne.Script;
 using UnityEngine;
 
 namespace Game.Model.SpiritItemSystem
@@ -19,12 +15,12 @@ namespace Game.Model.SpiritItemSystem
         public override void OnEnable()
         {
             pair = new MainLoop.UpdateTestPair(() => Input.GetKeyDown(KeyCode.K), Execute);
-            MainLoop.Instance.AddUpdateTest(pair);
+            MainLoop.AddUpdateTest(pair);
         }
 
         public override void OnDisable()
         {
-            MainLoop.Instance.RemoveUpdateTest(pair);
+            MainLoop.RemoveUpdateTest(pair);
 
             pair = null;
         }
