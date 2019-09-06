@@ -543,16 +543,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1611617283708418}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 275a8d9e5e250ce4abb843b1db401d79, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bce054d8415df54ab1c56250cc7614a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UiPanelName: 
+  UiPanelName:
+    values:
+    - Panel_Battle
+    - Panel_Package
+    - Panel_Shop
+    - Panel_Loading
+    selectedIndex: 0
   creatTestPeople: 0
   EnemyPos: {x: 0, y: 0, z: 0}
   PlayerPos: {x: 0, y: 0, z: 0}
   signalSize: 4
   enableMiniMap: 1
-  Enable_C_TestChangeScene: 1
+  enable_V_loadAsync: 1
+  Enable_C_ChangeScene: 1
 --- !u!114 &114853341006498972
 MonoBehaviour:
   m_ObjectHideFlags: 1
