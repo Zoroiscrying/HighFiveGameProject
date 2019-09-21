@@ -1207,7 +1207,7 @@ namespace behaviac
                 string varName = varNameValue.Substring(0, posb);
                 string varValue = varNameValue.Substring(posb + 2, size);
 
-                // If pAgent.name is "null", pAgent != null will return false.
+                // If pAgent.CharacterName is "null", pAgent != null will return false.
                 if (pAgent != null && !System.Object.ReferenceEquals(pAgent, null))
                 {
                     pAgent.SetVariableFromString(varName, varValue);

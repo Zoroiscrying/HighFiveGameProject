@@ -37,7 +37,7 @@ namespace Game.View.PanelSystem
         {
             Create(DirPath.PanelDir+Const.PanelName.packagePanel);
 
-            this.itemList =GlobalVar.G_Player.itemList;
+            this.itemList =GlobalVar.G_Player.playerInfo.itemList;
 
             this.backPackGridObj = this.m_TransFrom.Find("Image_BackGround/Image_BackPackGrid");
             this.moreInfoTextObj = this.m_TransFrom.Find("Image_BackGround/Image_MoreInfo/Image_TextBackGround/Text");
@@ -88,8 +88,8 @@ namespace Game.View.PanelSystem
         /// <summary>
         /// 从fromIndex寻找第一个id相同的物品
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="fromIndex"></param>
+        /// <param CharacterName="itemId"></param>
+        /// <param CharacterName="fromIndex"></param>
         /// <returns></returns>
         private Slot FindSlot(int itemId,int fromIndex=0)
         {
@@ -105,8 +105,8 @@ namespace Game.View.PanelSystem
         /// <summary>
         /// 从fromIndex寻找第一个没有装满的id相同的物品
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="fromIndex"></param>
+        /// <param CharacterName="itemId"></param>
+        /// <param CharacterName="fromIndex"></param>
         /// <returns></returns>
         private Slot FindSlotNotFill(int itemId,int fromIndex=0)
         {
@@ -200,8 +200,8 @@ namespace Game.View.PanelSystem
         /// <summary>
         /// 添加物品
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="count"></param>
+        /// <param CharacterName="itemId"></param>
+        /// <param CharacterName="count"></param>
         public void AddItem(int itemId,int count)
         {
             int capcity = ItemMgr.GetItem(itemId).Capacity;
@@ -271,8 +271,8 @@ namespace Game.View.PanelSystem
         /// <summary>
         /// 移除物品
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="count"></param>
+        /// <param CharacterName="itemId"></param>
+        /// <param CharacterName="count"></param>
         public void RemoveItem(int itemId,int count)
         {
             var slot = FindSlot(itemId);

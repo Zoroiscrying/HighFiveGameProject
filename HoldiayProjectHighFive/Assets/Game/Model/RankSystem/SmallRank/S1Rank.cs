@@ -11,7 +11,7 @@ namespace Game.Model.RankSystem
 		private float hitback;
 		public override void ImprovePlayer()
 		{
-			GlobalVar.G_Player.hitBackSpeed += this.hitback;
+			GlobalVar.G_Player.HitBackSpeed += this.hitback;
 		}
 
 		public override void LoadTxt(string args)

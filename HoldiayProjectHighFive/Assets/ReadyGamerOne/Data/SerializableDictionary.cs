@@ -8,8 +8,8 @@ namespace ReadyGamerOne.Data
     /// <summary>
     /// 可序列化字典
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
+    /// <typeparam CharacterName="TKey"></typeparam>
+    /// <typeparam CharacterName="TValue"></typeparam>
     [System.Serializable]
     public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable,
         ISerializationCallbackReceiver
@@ -59,7 +59,7 @@ namespace ReadyGamerOne.Data
         /// <summary>  
         /// 从对象的 XML 表示形式生成该对象  
         /// </summary>  
-        /// <param name="reader"></param>  
+        /// <param CharacterName="reader"></param>  
         public void ReadXml(System.Xml.XmlReader reader)
         {
             XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
@@ -88,7 +88,7 @@ namespace ReadyGamerOne.Data
         /// <summary>  
         /// 将对象转换为其 XML 表示形式  
         /// </summary>  
-        /// <param name="writer"></param>  
+        /// <param CharacterName="writer"></param>  
         public void WriteXml(System.Xml.XmlWriter writer)
         {
             XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));

@@ -63,8 +63,8 @@ namespace behaviac
         /// you may need to override this function if you gave a customized 'workspaceExportPath' or used a AssetBundle.
         /// </summary>
         /// <returns>The open.</returns>
-        /// <param name="filePath">without extension</param>
-        /// <param name="ext">'ext' coult be .xml or .bson</param>
+        /// <param CharacterName="filePath">without extension</param>
+        /// <param CharacterName="ext">'ext' coult be .xml or .bson</param>
         public virtual byte[] FileOpen(string filePath, string ext)
         {
             try
@@ -184,7 +184,7 @@ namespace behaviac
 
                         foreach (TextAsset mf in metaFiles)
                         {
-                            //Debug.LogWarning("mf.name: " + mf.name);
+                            //Debug.LogWarning("mf.CharacterName: " + mf.CharacterName);
 
                             if (!string.IsNullOrEmpty(mf.name))
                             {

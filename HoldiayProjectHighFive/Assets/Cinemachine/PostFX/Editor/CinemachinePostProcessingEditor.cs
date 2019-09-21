@@ -1,7 +1,7 @@
 #if UNITY_POST_PROCESSING_STACK_V2
 
 // NOTE: If you are getting errors of the sort that say something like:
-//     "The type or namespace name `PostProcessing' does not exist in the namespace"
+//     "The type or namespace CharacterName `PostProcessing' does not exist in the namespace"
 // it is because the PostProcessing v2 module has been removed from your project.
 //
 // To make the errors go away, you can either:
@@ -122,7 +122,7 @@ namespace Cinemachine.PostFX.Editor
             {
                 // By default, try to put assets in a folder next to the currently active
                 // scene file. If the user isn't a scene, put them in root instead.
-                var targetName = Target.name;
+                var targetName = Target.CharacterName;
                 var scene = Target.gameObject.scene;
                 var asset = ProfileFactory.CreatePostProcessProfile(scene, targetName);
                 m_Profile.objectReferenceValue = asset;
@@ -147,7 +147,7 @@ namespace Cinemachine.PostFX.Editor
                 {
                     var itemCopy = InstantiateGameObject(item);
                     itemCopy.hideFlags = HideFlags.HideInInspector | HideFlags.HideInHierarchy;
-                    itemCopy.name = item.name;
+                    itemCopy.CharacterName = item.CharacterName;
                     asset.settings.Add(itemCopy);
                     AssetDatabase.AddObjectToAsset(itemCopy, asset);
                 }

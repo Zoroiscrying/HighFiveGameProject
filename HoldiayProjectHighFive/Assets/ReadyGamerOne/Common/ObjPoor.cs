@@ -6,7 +6,7 @@ namespace ReadyGamerOne.Common
     /// <summary>
     /// 模板对象池
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam CharacterName="T"></typeparam>
     public class ObjPoor<T>where T:class
     {
 
@@ -56,7 +56,7 @@ namespace ReadyGamerOne.Common
         /// <summary>
         /// 释放对象
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param CharacterName="obj"></param>
         public void ReleaseObj(T obj)
         {
             this.onRelease?.Invoke(obj);

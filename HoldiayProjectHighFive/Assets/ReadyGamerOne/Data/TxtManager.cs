@@ -21,8 +21,8 @@ namespace ReadyGamerOne.Data
         /// <summary>
         /// 注册不同种类的工厂
         /// </summary>
-        /// <param name="skillType"></param>
-        /// <param name="factory"></param>
+        /// <param CharacterName="skillType"></param>
+        /// <param CharacterName="factory"></param>
         public static void RegisterDataFactory<T>(string dataType)
             where T : class, ITxtSerializable, new()
         {
@@ -36,7 +36,7 @@ namespace ReadyGamerOne.Data
         /// <summary>
         /// 读取有效行
         /// </summary>
-        /// <param name="sr"></param>
+        /// <param CharacterName="sr"></param>
         /// <returns></returns>
         public static string ReadUntilValue(StreamReader sr)
         {
@@ -59,9 +59,9 @@ namespace ReadyGamerOne.Data
         /// <summary>
         /// 根据路径从文件中加载数据
         /// </summary>
-        /// <param name="streamingAssertPath"></param>
-        /// <param name="action"></param>
-        /// <typeparam name="DataType"></typeparam>
+        /// <param CharacterName="streamingAssertPath"></param>
+        /// <param CharacterName="action"></param>
+        /// <typeparam CharacterName="DataType"></typeparam>
         public static void LoadDataFromFile<DataType>(string streamingAssertPath, Action<DataType> action)
             where DataType : class, ITxtSerializable
         {
@@ -86,7 +86,7 @@ namespace ReadyGamerOne.Data
         /// <summary>
         /// 从文件流中解析数据
         /// </summary>
-        /// <param name="sr"></param>
+        /// <param CharacterName="sr"></param>
         /// <returns></returns>
         public static object LoadData(StreamReader sr)
         {

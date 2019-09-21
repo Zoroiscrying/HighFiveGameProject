@@ -228,7 +228,7 @@ namespace behaviac
                     //[property]WorldState.World WorldState.time.276854364
                     //[property]Ship.Ship_1 GameObject.HP.100
                     //[property]Ship.Ship_1 GameObject.age.0
-                    //[property]Ship.Ship_1 GameObject.speed.0.000000
+                    //[property]Ship.Ship_1 GameObject.animationSpeed.0.000000
                     string buffer;
 
                     buffer = string.Format("[property]{0}#{1} {2}->{3}\n", agentClassName, agentInstanceName, varName, value);

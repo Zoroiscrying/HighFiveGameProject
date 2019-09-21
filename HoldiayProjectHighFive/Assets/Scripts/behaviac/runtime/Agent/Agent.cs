@@ -141,13 +141,13 @@ namespace behaviac
             Init_(this.m_contextId, this, this.m_priority);
 
 #if !BEHAVIAC_RELEASE
-            //this.SetName(this.name);
+            //this.SetName(this.CharacterName);
             this._members.Clear();
 #endif
         }
 
 #if BEHAVIAC_NOT_USE_MONOBEHAVIOUR
-        private string name;
+        private string CharacterName;
 #endif
 
         void OnDestroy()
@@ -365,7 +365,7 @@ namespace behaviac
 
             return this.name;
 #else
-            return this.name;
+            return this.CharacterName;
 #endif
         }
 
@@ -520,11 +520,11 @@ namespace behaviac
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
         /**
-        A name can be bound to an instance. before a name is bound to an instance, that name has to be registered by 'RegisterInstanceName'
+        A CharacterName can be bound to an instance. before a CharacterName is bound to an instance, that CharacterName has to be registered by 'RegisterInstanceName'
 
         @param agentInstanceName
-        the specified name to be used to access an instance of type 'TAGENT' or its derivative.
-        if 'agentInstanceName' is 0, the class name of 'TAGENT' will be used to be registered.
+        the specified CharacterName to be used to access an instance of type 'TAGENT' or its derivative.
+        if 'agentInstanceName' is 0, the class CharacterName of 'TAGENT' will be used to be registered.
 
         @sa CreateInstance
         */
@@ -610,7 +610,7 @@ namespace behaviac
         }
 
         /**
-        return the registered class name
+        return the registered class CharacterName
 
         @sa RegisterInstanceName
         */
@@ -629,7 +629,7 @@ namespace behaviac
         bind 'agentInstanceName' to 'pAgentInstance'.
         'agentInstanceName' should have been registered to the class of 'pAgentInstance' or its parent class.
 
-        if 'agentInstanceName' is not specified, the class type name of 'pAgentInstance' will be used.
+        if 'agentInstanceName' is not specified, the class type CharacterName of 'pAgentInstance' will be used.
         @sa RegisterInstanceName
         */
 
@@ -651,9 +651,9 @@ namespace behaviac
         }
 
         /**
-        bind 'pAgentInstance' to the class type name of 'pAgentInstance'.
+        bind 'pAgentInstance' to the class type CharacterName of 'pAgentInstance'.
 
-        RegisterInstanceName<TAGENT>() should have been called to regiser 'the class type name'.
+        RegisterInstanceName<TAGENT>() should have been called to regiser 'the class type CharacterName'.
         @sa RegisterInstanceName
         */
 
@@ -1240,7 +1240,7 @@ namespace behaviac
                 }
             }
 
-            Debug.Check(false, string.Format("The variable \"{0}\" with type \"{1}\" can not be found! please check the variable name or be after loading type info(btload)!", variableName, typeof(VariableType).Name));
+            Debug.Check(false, string.Format("The variable \"{0}\" with type \"{1}\" can not be found! please check the variable CharacterName or be after loading type info(btload)!", variableName, typeof(VariableType).Name));
         }
 
         public void SetVariable<VariableType>(string variableName, uint variableId, VariableType value, int index)
@@ -1802,7 +1802,7 @@ namespace behaviac
 
             this.BehaviorTreeTasks.Clear();
 
-            //just clear the name vector, don't unload it from cache
+            //just clear the CharacterName vector, don't unload it from cache
             this.CurrentTreeTask = null;
             this.BTStack.Clear();
 

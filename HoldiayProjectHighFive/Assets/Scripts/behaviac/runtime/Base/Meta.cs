@@ -1074,7 +1074,7 @@ namespace behaviac
 
                                         if (!bIsMember)
                                         {
-                                            string propName = propertyNode.Attribute("name");
+                                            string propName = propertyNode.Attribute("CharacterName");
                                             string propType = propertyNode.Attribute("type").Replace("::", ".");
                                             string valueStr = propertyNode.Attribute("defaultvalue");
                                             string isStatic = propertyNode.Attribute("static");

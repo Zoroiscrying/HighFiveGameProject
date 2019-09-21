@@ -408,7 +408,7 @@ public class MainCharacter : Actor
 		private void Idle_Enter()
 		{
 			_positionYLastFrame = this.transform.position.y;
-			_animator.Play(Animator.StringToHash("Idle"));
+			_animator.Play(Animator.StringToHash("Player@Idle"));
 		}
 	
 		private void Idle_Update()
@@ -491,7 +491,7 @@ public class MainCharacter : Actor
 		{
 //			Debug.Log("In air");
 			//如果在空中，则自动认为主角已经失去一次跳跃机会
-			_animator.Play(Animator.StringToHash("Jump"));
+			_animator.Play(Animator.StringToHash("Player@Jump"));
 			//_canJump = _jumpPoint - 1;
 		}
 			
@@ -528,7 +528,7 @@ public class MainCharacter : Actor
 	
 		private void Run_Enter()
 		{
-			_animator.Play(Animator.StringToHash("Move"));
+			_animator.Play(Animator.StringToHash("Player@Run"));
 		}
 	
 		private void Run_Update()
@@ -596,7 +596,7 @@ public class MainCharacter : Actor
 		private void DoubleJump_Enter()
 		{
 			//Debug.Log("DoubleJump Enter");
-			_animator.Play(Animator.StringToHash("Jump"));
+			_animator.Play(Animator.StringToHash("Player@Jump"));
 		}
 	
 		private void DoubleJump_Update()

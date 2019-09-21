@@ -50,7 +50,7 @@ namespace Game.Model.ItemSystem
                     this.itemNum.text = value.ToString();
                 }
 
-                foreach(var v in GlobalVar.G_Player.itemList)
+                foreach(var v in GlobalVar.G_Player.ItemDatas)
                     Debug.Log("v.count:" + v.count + " v.id" + v.itemId);
             }
         }
@@ -90,8 +90,8 @@ namespace Game.Model.ItemSystem
         /// <summary>
         /// 添加物品
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="count"></param>
+        /// <param CharacterName="itemId"></param>
+        /// <param CharacterName="count"></param>
         public void AddItem(int itemId,int count)
         {
             if (count == 0)
@@ -127,7 +127,7 @@ namespace Game.Model.ItemSystem
         /// <summary>
         /// 移除物品
         /// </summary>
-        /// <param name="count"></param>
+        /// <param CharacterName="count"></param>
         public void RemoveItem(int count)
         {
             Assert.IsTrue(!IsEmpty && count > 0 && count <= this.ItemCount);

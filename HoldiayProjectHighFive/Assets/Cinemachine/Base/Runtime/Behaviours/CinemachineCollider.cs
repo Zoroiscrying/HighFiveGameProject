@@ -101,7 +101,7 @@ namespace Cinemachine
         public float m_OptimalTargetDistance = 0;
 
         /// <summary>See wheter an object is blocking the camera's view of the target</summary>
-        /// <param name="vcam">The virtual camera in question.  This might be different from the
+        /// <param CharacterName="vcam">The virtual camera in question.  This might be different from the
         /// virtual camera that owns the collider, in the event that the camera has children</param>
         /// <returns>True if something is blocking the view</returns>
         public bool IsTargetObscured(ICinemachineCamera vcam)
@@ -110,7 +110,7 @@ namespace Cinemachine
         }
 
         /// <summary>See whether the virtual camera has been moved nby the collider</summary>
-        /// <param name="vcam">The virtual camera in question.  This might be different from the
+        /// <param CharacterName="vcam">The virtual camera in question.  This might be different from the
         /// virtual camera that owns the collider, in the event that the camera has children</param>
         /// <returns>True if the virtual camera has been displaced due to collision or
         /// target obstruction</returns>

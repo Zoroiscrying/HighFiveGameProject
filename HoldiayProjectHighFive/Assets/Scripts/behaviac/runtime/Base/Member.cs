@@ -768,7 +768,7 @@ namespace behaviac
             CSerializationID variableId = new CSerializationID("var");
             ISerializableNode varNode = node.newChild(variableId);
 
-            CSerializationID nameId = new CSerializationID("name");
+            CSerializationID nameId = new CSerializationID("CharacterName");
             varNode.setAttr(nameId, this._name);
 
             CSerializationID valueId = new CSerializationID("value");

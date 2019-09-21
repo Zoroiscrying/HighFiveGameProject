@@ -48,8 +48,8 @@ namespace Cinemachine
 
         /// <summary>Applies noise to the Correction channel of the CameraState if the
         /// delta time is greater than 0.  Otherwise, does nothing.</summary>
-        /// <param name="curState">The current camera state</param>
-        /// <param name="deltaTime">How much to advance the perlin noise generator.
+        /// <param CharacterName="curState">The current camera state</param>
+        /// <param CharacterName="deltaTime">How much to advance the perlin noise generator.
         /// Noise is only applied if this value is greater than or equal to 0</param>
         public override void MutateCameraState(ref CameraState curState, float deltaTime)
         {

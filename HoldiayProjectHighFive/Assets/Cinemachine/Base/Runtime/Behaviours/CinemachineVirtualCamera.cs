@@ -80,7 +80,7 @@ namespace Cinemachine
         [LensSettingsProperty]
         public LensSettings m_Lens = LensSettings.Default;
 
-        /// <summary>This is the name of the hidden GameObject that will be created as a child object
+        /// <summary>This is the CharacterName of the hidden GameObject that will be created as a child object
         /// of the virtual camera.  This hidden game object acts as a container for the polymorphic
         /// CinemachineComponent pipeline.  The Inspector UI for the Virtual Camera
         /// provides access to this pipleline, as do the CinemachineComponent-family of
@@ -275,7 +275,7 @@ namespace Cinemachine
         public CinemachineComponentBase[] GetComponentPipeline() { UpdateComponentPipeline(); return m_ComponentPipeline; }
 
         /// <summary>Get the component set for a specific stage.</summary>
-        /// <param name="stage">The stage for which we want the component</param>
+        /// <param CharacterName="stage">The stage for which we want the component</param>
         /// <returns>The Cinemachine component for that stage, or null if not defined</returns>
         public CinemachineComponentBase GetCinemachineComponent(CinemachineCore.Stage stage)
         {
@@ -344,7 +344,7 @@ namespace Cinemachine
         /// <summary>API for the editor, to make the dragging of position handles behave better.</summary>
         public bool UserIsDragging { get; set; }
 
-        /// <summary>API for the editor, to process a position drag from the user.</summary>
+        /// <summary>API for the editor, to process a position Drag from the user.</summary>
         public void OnPositionDragged(Vector3 delta)
         {
             CinemachineComponentBase[] components = GetComponentPipeline();

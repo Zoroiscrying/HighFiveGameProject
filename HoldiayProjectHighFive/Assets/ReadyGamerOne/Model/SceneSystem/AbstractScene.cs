@@ -26,7 +26,7 @@ namespace ReadyGamerOne.Model.SceneSystem
         {
             if (!sceneDis.ContainsKey(name))
             {
-                //if (SceneManager.GetSceneByName(name).IsValid())
+                //if (SceneManager.GetSceneByName(CharacterName).IsValid())
                 {
                     Debug.Log("使用了DefaultSceneInfo: "+name);
                     var newScene = new DefaultSceneInfo()

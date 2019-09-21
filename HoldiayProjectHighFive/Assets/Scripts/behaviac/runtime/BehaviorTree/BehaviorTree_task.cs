@@ -556,7 +556,7 @@ namespace behaviac
 
                     string bClassName = n.GetClassNameString();
 
-                    //filter out intermediate bt, whose class name is empty
+                    //filter out intermediate bt, whose class CharacterName is empty
                     if (!string.IsNullOrEmpty(bClassName))
                     {
                         string btName = GetParentTreeName(pAgent, n);

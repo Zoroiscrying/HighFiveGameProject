@@ -41,7 +41,7 @@ namespace Game.Model.ItemSystem
 
         internal virtual void Init(string args)
         {
-            // id,name,capcity,description,spritepath
+            // id,CharacterName,capcity,description,spritepath
             var strs = args.Split(TxtManager.SplitChar);
             Assert.IsTrue(strs.Length == 5);
             this.ID = Convert.ToInt32(strs[0].Trim());

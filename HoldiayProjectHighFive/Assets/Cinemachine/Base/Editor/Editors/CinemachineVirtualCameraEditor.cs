@@ -62,7 +62,7 @@ namespace Cinemachine.Editor
                 Vector3 delta = Target.transform.position - mPreviousPosition;
                 if (!delta.AlmostZero())
                 {
-                    Undo.RegisterFullObjectHierarchyUndo(Target.gameObject, "Camera drag");
+                    Undo.RegisterFullObjectHierarchyUndo(Target.gameObject, "Camera Drag");
                     Target.OnPositionDragged(delta);
                     mPreviousPosition = Target.transform.position;
                 }

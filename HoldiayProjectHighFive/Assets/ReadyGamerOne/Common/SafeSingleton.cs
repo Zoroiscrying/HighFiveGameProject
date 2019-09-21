@@ -5,7 +5,7 @@ namespace ReadyGamerOne.Common
     /// <summary>
     /// 安全单例
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam CharacterName="T"></typeparam>
     public class SafeSingleton<T>
         where T : class, new()
     {

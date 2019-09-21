@@ -91,7 +91,7 @@ public class CharacterController2D : RayCastController2D
 
 
 	/// <summary>
-	/// curve for multiplying speed based on slope (negative = down slope and positive = up slope)
+	/// curve for multiplying animationSpeed based on slope (negative = down slope and positive = up slope)
 	/// </summary>
 	public AnimationCurve slopeSpeedMultiplier = new AnimationCurve( new Keyframe( -90f, 1.5f ), new Keyframe( 0f, 1f ), new Keyframe( 90f, 0f ) );
 
@@ -187,7 +187,7 @@ public class CharacterController2D : RayCastController2D
 	/// attempts to move the character to position + deltaMovement. Any colliders in the way will cause the movement to
 	/// stop when run into.
 	/// </summary>
-	/// <param name="deltaMovement">Delta movement.</param>
+	/// <param CharacterName="deltaMovement">Delta movement.</param>
 	public void Move( Vector2 deltaMovement,Vector2 input,bool standingOnPlatform = false )
 	{
 		PrimeRaycastOrigins();
@@ -416,8 +416,8 @@ public class CharacterController2D : RayCastController2D
 	/// handles adjusting deltaMovement if we are going up a slope.
 	/// </summary>
 	/// <returns><c>true</c>, if horizontal slope was handled, <c>false</c> otherwise.</returns>
-	/// <param name="deltaMovement">Delta movement.</param>
-	/// <param name="angle">Angle.</param>
+	/// <param CharacterName="deltaMovement">Delta movement.</param>
+	/// <param CharacterName="angle">Angle.</param>
 	bool HandleHorizontalSlope( ref Vector2 deltaMovement, float angle )
 	{
 		// disregard 90 degree angles (walls)
@@ -544,9 +544,9 @@ public class CharacterController2D : RayCastController2D
 
 	/// <summary>
 	/// checks the center point under the BoxCollider2D for a slope. If it finds one then the deltaMovement is adjusted so that
-	/// the player stays grounded and the slopeSpeedModifier is taken into account to speed up movement.
+	/// the player stays grounded and the slopeSpeedModifier is taken into account to animationSpeed up movement.
 	/// </summary>
-	/// <param name="deltaMovement">Delta movement.</param>
+	/// <param CharacterName="deltaMovement">Delta movement.</param>
 	private void DecendSlope( ref Vector2 deltaMovement )
 	{
 		// slope check from the center of our collider
@@ -570,7 +570,7 @@ public class CharacterController2D : RayCastController2D
 			var isMovingDownSlope = Mathf.Sign( _raycastHit.normal.x ) == Mathf.Sign( deltaMovement.x );
 			if( isMovingDownSlope )
 			{
-				// going down we want to speed up in most cases so the slopeSpeedMultiplier curve should be > 1 for negative angles
+				// going down we want to animationSpeed up in most cases so the slopeSpeedMultiplier curve should be > 1 for negative angles
 				var slopeModifier = slopeSpeedMultiplier.Evaluate( -angle );
 				// we add the extra downward movement here to ensure we "stick" to the surface below
 				deltaMovement.y += _raycastHit.point.y - slopeRay.y - skinWidth;

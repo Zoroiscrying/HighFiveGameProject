@@ -135,7 +135,7 @@ namespace Cinemachine
         }
 
         /// <summary>The axis-aligned bounding box of the group, in a specific reference frame</summary>
-        /// <param name="mView">The frame of reference in which to compute the bounding box</param>
+        /// <param CharacterName="mView">The frame of reference in which to compute the bounding box</param>
         /// <returns>The axis-aligned bounding box of the group, in the desired frame of reference</returns>
         public Bounds GetViewSpaceBoundingBox(Matrix4x4 mView)
         {

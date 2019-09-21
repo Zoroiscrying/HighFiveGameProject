@@ -141,9 +141,9 @@ namespace ReadyGamerOne.Model.SceneSystem
         /// <summary>
         /// 无资源加载场景（伪同步）
         /// </summary>
-        /// <param name="newSceneName">新场景名字</param>
-        /// <param name="onLeaveOldScene">离开原场景回调</param>
-        /// <param name="onEnterNewScene">进入新场景回调</param>
+        /// <param CharacterName="newSceneName">新场景名字</param>
+        /// <param CharacterName="onLeaveOldScene">离开原场景回调</param>
+        /// <param CharacterName="onEnterNewScene">进入新场景回调</param>
         public static void LoadScene(string newSceneName, Action onLeaveOldScene = null, Action onEnterNewScene = null)
         {
             if(currentSceneName==newSceneName)
@@ -157,8 +157,8 @@ namespace ReadyGamerOne.Model.SceneSystem
         /// <summary>
         /// 加载场景，并加载新UI
         /// </summary>
-        /// <param name="newSceneName"></param>
-        /// <param name="newPanelName"></param>
+        /// <param CharacterName="newSceneName"></param>
+        /// <param CharacterName="newPanelName"></param>
         public static void LoadScene(string newSceneName, string newPanelName)
         {
             if(currentSceneName==newSceneName)
@@ -172,10 +172,10 @@ namespace ReadyGamerOne.Model.SceneSystem
         /// <summary>
         /// 异步无资源加载场景
         /// </summary>
-        /// <param name="newSceneName">新场景名字</param>
-        /// <param name="onLoading">正在加载的回调</param>
-        /// <param name="onLeaveOldScene">离开原场景回调</param>
-        /// <param name="onEnterNewScene">进入新场景回调</param>
+        /// <param CharacterName="newSceneName">新场景名字</param>
+        /// <param CharacterName="onLoading">正在加载的回调</param>
+        /// <param CharacterName="onLeaveOldScene">离开原场景回调</param>
+        /// <param CharacterName="onEnterNewScene">进入新场景回调</param>
         public static void LoadSceneAsync(string newSceneName, bool stopTime=true, Action<int> onLoading=null,Action onLeaveOldScene=null,Action onEnterNewScene=null)
         {
             if(currentSceneName==newSceneName)

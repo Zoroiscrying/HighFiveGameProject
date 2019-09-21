@@ -12,8 +12,8 @@ namespace Game.StateMachine
         /// <summary>
         /// Creates a stateMachine token object which is used to managed to the state of a monobehaviour. 
         /// </summary>
-        /// <typeparam name="T">An Enum listing different state transitions</typeparam>
-        /// <param name="component">The component whose state will be managed</param>
+        /// <typeparam CharacterName="T">An Enum listing different state transitions</typeparam>
+        /// <param CharacterName="component">The component whose state will be managed</param>
         /// <returns></returns>
         public StateMachine<T> Initialize<T>(MonoBehaviour component) where T : struct, IConvertible, IComparable
         {
@@ -27,9 +27,9 @@ namespace Game.StateMachine
         /// <summary>
         /// Creates a stateMachine token object which is used to managed to the state of a monobehaviour. Will automatically transition the startState
         /// </summary>
-        /// <typeparam name="T">An Enum listing different state transitions</typeparam>
-        /// <param name="component">The component whose state will be managed</param>
-        /// <param name="startState">The default start state</param>
+        /// <typeparam CharacterName="T">An Enum listing different state transitions</typeparam>
+        /// <param CharacterName="component">The component whose state will be managed</param>
+        /// <param CharacterName="startState">The default start state</param>
         /// <returns></returns>
         public StateMachine<T> Initialize<T>(MonoBehaviour component, T startState) where T : struct, IConvertible, IComparable
         {

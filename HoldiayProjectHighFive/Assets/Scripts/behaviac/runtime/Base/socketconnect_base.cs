@@ -660,7 +660,7 @@ namespace behaviac
     /// <summary>
     /// Represents a pool of objects with a size limit.
     /// </summary>
-    /// <typeparam name="T">The type of object in the pool.</typeparam>
+    /// <typeparam CharacterName="T">The type of object in the pool.</typeparam>
     public class ObjectPool<T> : IDisposable
         where T : new()
     {
@@ -672,7 +672,7 @@ namespace behaviac
         /// <summary>
         /// Initializes a new instance of the ObjectPool class.
         /// </summary>
-        /// <param name="size">The size of the object pool.</param>
+        /// <param CharacterName="size">The size of the object pool.</param>
         public ObjectPool(int size)
         {
             if (size <= 0)
@@ -707,7 +707,7 @@ namespace behaviac
         /// <summary>
         /// Places an item in the pool.
         /// </summary>
-        /// <param name="item">The item to place to the pool.</param>
+        /// <param CharacterName="item">The item to place to the pool.</param>
         public void Put(T item)
         {
             lock (locker)

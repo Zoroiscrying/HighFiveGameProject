@@ -140,7 +140,7 @@ namespace Game.View.PanelSystem
         void OnRankAwake(int large, int small)
         {
             var rank = RankMgr.LargeRankList[large];
-            //Debug.Log("LargeRank.name: "+rank.name);
+            //Debug.Log("LargeRank.CharacterName: "+rank.CharacterName);
             this.largeRank.text = rank.name;
             this.smallRank.text = rank.smallRanks[small].name;
             //Debug.Log("初始等级："+this.largeRank.text+"  "+this.smallRank.text);

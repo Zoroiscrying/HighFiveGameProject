@@ -26,7 +26,7 @@ namespace Game.Model.RankSystem
 
 		public override void ImprovePlayer()
 		{
-			GlobalVar.G_Player.attackMultipulier *= this.attackMut;
+			GlobalVar.G_Player.playerInfo.attack_scaler *= this.attackMut;
 		}
 
 		public override string Sign

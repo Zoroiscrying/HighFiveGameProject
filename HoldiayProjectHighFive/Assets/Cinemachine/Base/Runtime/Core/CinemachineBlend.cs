@@ -58,7 +58,7 @@ namespace Cinemachine
         }
 
         /// <summary>Does the blend use a specific Cinemachine Virtual Camera?</summary>
-        /// <param name="cam">The camera to test</param>
+        /// <param CharacterName="cam">The camera to test</param>
         /// <returns>True if the camera is involved in the blend</returns>
         public bool Uses(ICinemachineCamera cam)
         {
@@ -74,10 +74,10 @@ namespace Cinemachine
         }
 
         /// <summary>Construct a blend</summary>
-        /// <param name="a">First camera</param>
-        /// <param name="b">Second camera</param>
-        /// <param name="curve">Blend curve</param>
-        /// <param name="t">Current time in blend, relative to the start of the blend</param>
+        /// <param CharacterName="a">First camera</param>
+        /// <param CharacterName="b">Second camera</param>
+        /// <param CharacterName="curve">Blend curve</param>
+        /// <param CharacterName="t">Current time in blend, relative to the start of the blend</param>
         public CinemachineBlend(
             ICinemachineCamera a, ICinemachineCamera b, AnimationCurve curve, float duration, float t)
         {
@@ -91,8 +91,8 @@ namespace Cinemachine
         }
 
         /// <summary>Make sure the source cameras get updated.</summary>
-        /// <param name="worldUp">Default world up.  Individual vcams may modify this</param>
-        /// <param name="deltaTime">Time increment used for calculating time-based behaviours (e.g. damping)</param>
+        /// <param CharacterName="worldUp">Default world up.  Individual vcams may modify this</param>
+        /// <param CharacterName="deltaTime">Time increment used for calculating time-based behaviours (e.g. damping)</param>
         public void UpdateCameraState(Vector3 worldUp, float deltaTime)
         {
             // Make sure both cameras have been updated (they are not necessarily
@@ -141,8 +141,8 @@ namespace Cinemachine
         public float m_Time;
 
         /// <summary>Constructor</summary>
-        /// <param name="style">The shape of the blend curve.</param>
-        /// <param name="time">The duration (in seconds) of the blend</param>
+        /// <param CharacterName="style">The shape of the blend curve.</param>
+        /// <param CharacterName="time">The duration (in seconds) of the blend</param>
         public CinemachineBlendDefinition(Style style, float time)
         {
             m_Style = style;

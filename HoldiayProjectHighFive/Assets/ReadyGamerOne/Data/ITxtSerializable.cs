@@ -15,13 +15,13 @@ namespace ReadyGamerOne.Data
 		/// <summary>
 		/// 读取标志行
 		/// </summary>
-		/// <param name="initLine"></param>
+		/// <param CharacterName="initLine"></param>
 		void SignInit(string initLine);
 		
 		/// <summary>
 		/// 读取大括号以内的部分
 		/// </summary>
-		/// <param name="sr"></param>
+		/// <param CharacterName="sr"></param>
 		void LoadTxt(StreamReader sr);
 	}
 }

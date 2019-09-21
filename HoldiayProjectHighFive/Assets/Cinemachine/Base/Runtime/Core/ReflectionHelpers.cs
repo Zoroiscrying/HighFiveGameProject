@@ -13,9 +13,9 @@ namespace Cinemachine.Utility
     public static class ReflectionHelpers
     {
         /// <summary>Copy the fields from one object to another</summary>
-        /// <param name="src">The source object to copy from</param>
-        /// <param name="dst">The destination object to copy to</param>
-        /// <param name="bindingAttr">The mask to filter the attributes.
+        /// <param CharacterName="src">The source object to copy from</param>
+        /// <param CharacterName="dst">The destination object to copy to</param>
+        /// <param CharacterName="bindingAttr">The mask to filter the attributes.
         /// Only those fields that get caught in the filter will be copied</param>
         public static void CopyFields(
             Object src, Object dst,
@@ -33,8 +33,8 @@ namespace Cinemachine.Utility
 
 #if UNITY_EDITOR
         /// <summary>Search the assembly for all types that match a predicate</summary>
-        /// <param name="assembly">The assembly to search</param>
-        /// <param name="predicate">The type to look for</param>
+        /// <param CharacterName="assembly">The assembly to search</param>
+        /// <param CharacterName="predicate">The type to look for</param>
         /// <returns>A list of types found in the assembly that inherit from the predicate</returns>
         public static IEnumerable<Type> GetTypesInAssembly(
             Assembly assembly, Predicate<Type> predicate)
@@ -57,9 +57,9 @@ namespace Cinemachine.Utility
             return types;
         }
 
-        /// <summary>Get a type from a name</summary>
-        /// <param name="typeName">The name of the type to search for</param>
-        /// <returns>The type matching the name, or null if not found</returns>
+        /// <summary>Get a type from a CharacterName</summary>
+        /// <param CharacterName="typeName">The CharacterName of the type to search for</param>
+        /// <returns>The type matching the CharacterName, or null if not found</returns>
         public static Type GetTypeInAllLoadedAssemblies(string typeName)
         {
             foreach (Type type in GetTypesInAllLoadedAssemblies(t => t.Name == typeName))
@@ -68,7 +68,7 @@ namespace Cinemachine.Utility
         }
 
         /// <summary>Search all assemblies for all types that match a predicate</summary>
-        /// <param name="predicate">The type to look for</param>
+        /// <param CharacterName="predicate">The type to look for</param>
         /// <returns>A list of types found in the assembly that inherit from the predicate</returns>
         public static IEnumerable<Type> GetTypesInAllLoadedAssemblies(Predicate<Type> predicate)
         {
@@ -83,8 +83,8 @@ namespace Cinemachine.Utility
         }
 
         /// <summary>call GetTypesInAssembly() for all assemblies that match a predicate</summary>
-        /// <param name="assemblyPredicate">Which assemblies to search</param>
-        /// <param name="predicate">What type to look for</param>
+        /// <param CharacterName="assemblyPredicate">Which assemblies to search</param>
+        /// <param CharacterName="predicate">What type to look for</param>
         public static IEnumerable<Type> GetTypesInLoadedAssemblies(
             Predicate<Assembly> assemblyPredicate, Predicate<Type> predicate)
         {
@@ -113,9 +113,9 @@ namespace Cinemachine.Utility
 #endif
 
         /// <summary>Cheater extension to access internal field of an object</summary>
-        /// <param name="type">The type of the field</param>
-        /// <param name="obj">The object to access</param>
-        /// <param name="memberName">The string name of the field to access</param>
+        /// <param CharacterName="type">The type of the field</param>
+        /// <param CharacterName="obj">The object to access</param>
+        /// <param CharacterName="memberName">The string CharacterName of the field to access</param>
         /// <returns>The value of the field in the objects</returns>
         public static T AccessInternalField<T>(this Type type, object obj, string memberName)
         {
@@ -138,8 +138,8 @@ namespace Cinemachine.Utility
         /// <summary>Get the object owner of a field.  This method processes
         /// the '.' separator to get from the object that owns the compound field
         /// to the object that owns the leaf field</summary>
-        /// <param name="path">The name of the field, which may contain '.' separators</param>
-        /// <param name="obj">the owner of the compound field</param>
+        /// <param CharacterName="path">The CharacterName of the field, which may contain '.' separators</param>
+        /// <param CharacterName="obj">the owner of the compound field</param>
         public static object GetParentObject(string path, object obj)
         {
             var fields = path.Split('.');

@@ -330,7 +330,7 @@ public class PlayerMove : MonoBehaviour
 	void CalculateVelocity()
 	{
 		float targetVelocityX = directionalInput.x * runSpeed * horizontalSpeedMultiplier;
-		// apply horizontal speed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
+		// apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
 		//var smoothedMovementFactor = _controller.isGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
 		_velocity.x = Mathf.SmoothDamp( _velocity.x, targetVelocityX, ref movementDamping,(_controller.collisionState.below)?accelerationTimeGrounded:accelerationTimeAirborne);
 		// apply gravity before moving
@@ -351,17 +351,17 @@ public class PlayerMove : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.J))
 		{
 			_animator.Play(Animator.StringToHash("Attack1"));
-			Debug.Log("Attack!");
+			Debug.Log("BaseAttack!");
 		}
 		if (Input.GetKeyDown(KeyCode.K))
 		{
 			_animator.Play(Animator.StringToHash("Attack2"));
-			Debug.Log("Attack!");
+			Debug.Log("BaseAttack!");
 		}
 		if (Input.GetKeyDown(KeyCode.L))
 		{
 			_animator.Play(Animator.StringToHash("Attack3"));
-			Debug.Log("Attack!");
+			Debug.Log("BaseAttack!");
 		}
 	}
 }

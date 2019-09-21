@@ -140,8 +140,8 @@ namespace Cinemachine
             public float m_Weight; 
 
             /// <summary>Constructor with specific values</summary>
-            /// <param name="custom">The custom stuff that the extention module will consider</param>
-            /// <param name="weight">The weight of the custom stuff.  Must be 0...1</param>
+            /// <param CharacterName="custom">The custom stuff that the extention module will consider</param>
+            /// <param CharacterName="weight">The weight of the custom stuff.  Must be 0...1</param>
             public CustomBlendable(Object custom, float weight) 
                 { m_Custom = custom; m_Weight = weight; }
         };
@@ -161,7 +161,7 @@ namespace Cinemachine
         /// <summary>Get a custom blendable that will be applied to the camera.  
         /// The base system manages but otherwise ignores this data - it is intended for 
         /// extension modules</summary>
-        /// <param name="index">Which one to get.  Must be in range [0...NumCustomBlendables)</param>
+        /// <param CharacterName="index">Which one to get.  Must be in range [0...NumCustomBlendables)</param>
         /// <returns>The custom blendable at the specified index.</returns>
         public CustomBlendable GetCustomBlendable(int index)
         {
@@ -203,7 +203,7 @@ namespace Cinemachine
         /// <summary>Add a custom blendable to the pot for eventual application to the camera.
         /// The base system manages but otherwise ignores this data - it is intended for 
         /// extension modules</summary>
-        /// <param name="b">The custom blendable to add.  If b.m_Custom is the same as an 
+        /// <param CharacterName="b">The custom blendable to add.  If b.m_Custom is the same as an 
         /// already-added custom blendable, then they will be merged and the weights combined.</param>
         public void AddCustomBlendable(CustomBlendable b)
         {
@@ -233,9 +233,9 @@ namespace Cinemachine
          }
 
         /// <summary>Intelligently blend the contents of two states.</summary>
-        /// <param name="stateA">The first state, corresponding to t=0</param>
-        /// <param name="stateB">The second state, corresponding to t=1</param>
-        /// <param name="t">How much to interpolate.  Internally clamped to 0..1</param>
+        /// <param CharacterName="stateA">The first state, corresponding to t=0</param>
+        /// <param CharacterName="stateB">The second state, corresponding to t=1</param>
+        /// <param CharacterName="t">How much to interpolate.  Internally clamped to 0..1</param>
         /// <returns>Linearly interpolated CameraState</returns>
         public static CameraState Lerp(CameraState stateA, CameraState stateB, float t)
         {

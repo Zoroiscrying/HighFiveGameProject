@@ -13,7 +13,7 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 获取父级目录
         /// </summary>
-        /// <param name="pathNum"></param>
+        /// <param CharacterName="pathNum"></param>
         /// <returns></returns>
         public static string GetRunDirectoryInParentPath(int pathNum=3)
         {
@@ -30,7 +30,7 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 创建文件夹
         /// </summary>
-        /// <param name="path"></param>
+        /// <param CharacterName="path"></param>
         /// <returns></returns>
         public static string CreateFolder(string path)
         {
@@ -47,8 +47,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 创建目录
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="foldName"></param>
+        /// <param CharacterName="path"></param>
+        /// <param CharacterName="foldName"></param>
         /// <returns></returns>
         public static string CreateFolder(string path,string foldName)
         {
@@ -62,9 +62,9 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 创建文件（初始化文本）
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="fileName"></param>
-        /// <param name="info"></param>
+        /// <param CharacterName="path"></param>
+        /// <param CharacterName="fileName"></param>
+        /// <param CharacterName="info"></param>
         public static void CreateFile(string path,string fileName,string info=null)
         {
             CreateFolder(path);
@@ -82,9 +82,9 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 向文件中添加信息
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="fileName"></param>
-        /// <param name="info"></param>
+        /// <param CharacterName="path"></param>
+        /// <param CharacterName="fileName"></param>
+        /// <param CharacterName="info"></param>
         public static void AddInfoToFile(string path,string fileName,string info)
         {
             CreateFolder(path);
@@ -104,8 +104,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 读取文件
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="fileName"></param>
+        /// <param CharacterName="path"></param>
+        /// <param CharacterName="fileName"></param>
         /// <returns></returns>
         public static string LoadFile(string path,string fileName)
         {
@@ -134,8 +134,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 判断文件是否存在
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="fileName"></param>
+        /// <param CharacterName="path"></param>
+        /// <param CharacterName="fileName"></param>
         /// <returns></returns>
         public static bool FileExist(string path,string fileName)
         {

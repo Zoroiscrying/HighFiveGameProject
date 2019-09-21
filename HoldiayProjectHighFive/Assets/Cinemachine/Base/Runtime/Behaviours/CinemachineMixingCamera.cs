@@ -50,7 +50,7 @@ namespace Cinemachine
         public float m_Weight7 = 0.5f;
 
         /// <summary>Get the weight of the child at an index.</summary>
-        /// <param name="index">The child index. Only immediate CinemachineVirtualCameraBase 
+        /// <param CharacterName="index">The child index. Only immediate CinemachineVirtualCameraBase 
         /// children are counted.</param>
         /// <returns>The weight of the camera.  Valid only if camera is active and enabled.</returns>
         public float GetWeight(int index)
@@ -71,9 +71,9 @@ namespace Cinemachine
         }
 
         /// <summary>Set the weight of the child at an index.</summary>
-        /// <param name="index">The child index. Only immediate CinemachineVirtualCameraBase 
+        /// <param CharacterName="index">The child index. Only immediate CinemachineVirtualCameraBase 
         /// children are counted.</param>
-        /// <param name="w">The weight to set.  Can be any non-negative number.</param>
+        /// <param CharacterName="w">The weight to set.  Can be any non-negative number.</param>
         public void SetWeight(int index, float w)
         {
             switch (index)
@@ -91,7 +91,7 @@ namespace Cinemachine
         }
 
         /// <summary>Get the weight of the child CinemachineVirtualCameraBase.</summary>
-        /// <param name="vcam">The child camera.</param>
+        /// <param CharacterName="vcam">The child camera.</param>
         /// <returns>The weight of the camera.  Valid only if camera is active and enabled.</returns>
         public float GetWeight(CinemachineVirtualCameraBase vcam)
         {
@@ -104,8 +104,8 @@ namespace Cinemachine
         }
 
         /// <summary>Set the weight of the child CinemachineVirtualCameraBase.</summary>
-        /// <param name="vcam">The child camera.</param>
-        /// <param name="w">The weight to set.  Can be any non-negative number.</param>
+        /// <param CharacterName="vcam">The child camera.</param>
+        /// <param CharacterName="w">The weight to set.  Can be any non-negative number.</param>
         public void SetWeight(CinemachineVirtualCameraBase vcam, float w)
         {
             int index;
@@ -137,7 +137,7 @@ namespace Cinemachine
 
         /// <summary>Remove a Pipeline stage hook callback.
         /// Make sure it is removed from all the children.</summary>
-        /// <param name="d">The delegate to remove.</param>
+        /// <param CharacterName="d">The delegate to remove.</param>
         public override void RemovePostPipelineStageHook(OnPostPipelineStageDelegate d)
         {
             base.RemovePostPipelineStageHook(d);
@@ -168,7 +168,7 @@ namespace Cinemachine
         }
         
         /// <summary>Check whether the vcam a live child of this camera.</summary>
-        /// <param name="vcam">The Virtual Camera to check</param>
+        /// <param CharacterName="vcam">The Virtual Camera to check</param>
         /// <returns>True if the vcam is currently actively influencing the state of this vcam</returns>
         public override bool IsLiveChild(ICinemachineCamera vcam) 
         { 
@@ -225,8 +225,8 @@ namespace Cinemachine
         /// <summary>Called by CinemachineCore at designated update time
         /// so the vcam can position itself and track its targets.  This implementation
         /// computes and caches the weighted blend of the tracked cameras.</summary>
-        /// <param name="worldUp">Default world Up, set by the CinemachineBrain</param>
-        /// <param name="deltaTime">Delta time for time-based effects (ignore if less than 0)</param>
+        /// <param CharacterName="worldUp">Default world Up, set by the CinemachineBrain</param>
+        /// <param CharacterName="deltaTime">Delta time for time-based effects (ignore if less than 0)</param>
         public override void UpdateCameraState(Vector3 worldUp, float deltaTime)
         {
             //UnityEngine.Profiling.Profiler.BeginSample("CinemachineMixingCamera.UpdateCameraState");

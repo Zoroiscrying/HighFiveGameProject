@@ -19,7 +19,7 @@ namespace Game.Control.PersonSystem
 
         #endregion
 
-        public TestPerson(string name, string prefabPath, Vector3 pos, List<string> skillTypes=null, Transform parent = null) : base(name, prefabPath, pos, skillTypes, parent)
+        public TestPerson(BaseCharacterInfo characterInfo, Transform parent = null) : base(characterInfo, parent)
         {
             this.MaxHp = 100000000;
             this.Hp = 2000000000;
@@ -38,7 +38,7 @@ namespace Game.Control.PersonSystem
         {
             TestPerson tp = self as TestPerson;
             Assert.IsTrue(tp != null);
-            tp.attackEffects.Add(new InstantDamageEffect(this.Attack, this.Dir));
+            tp.attackEffects.Add(new InstantDamageEffect(this.BaseAttack, this.Dir));
             tp.attackEffects.Add(new HitbackEffect(new Vector2(this.hitback, 0)));
         }
         #endregion

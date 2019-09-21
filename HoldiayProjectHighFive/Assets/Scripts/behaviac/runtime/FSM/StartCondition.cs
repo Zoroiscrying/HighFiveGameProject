@@ -91,7 +91,7 @@ namespace behaviac
                 }
                 else
                 {
-                    //Debug.Check(0, "unrecognised property %s", p.name);
+                    //Debug.Check(0, "unrecognised property %s", p.CharacterName);
                 }
             }
         }

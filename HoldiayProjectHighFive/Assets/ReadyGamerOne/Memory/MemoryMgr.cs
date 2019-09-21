@@ -39,8 +39,8 @@ namespace ReadyGamerOne.MemorySystem
 		/// <summary>
 		/// 根据路径获取资源引用，如果原来加载过，不会重写加载
 		/// </summary>
-		/// <param name="path"></param>
-		/// <typeparam name="T"></typeparam>
+		/// <param CharacterName="path"></param>
+		/// <typeparam CharacterName="T"></typeparam>
 		/// <returns></returns>
 		/// <exception cref="Exception"></exception>
 		public static T GetSourceFromResources<T>(string path)where T : Object
@@ -74,9 +74,9 @@ namespace ReadyGamerOne.MemorySystem
 		/// <summary>
 		/// 释放通过Resources.Load方法加载来的对象
 		/// </summary>
-		/// <param name="path"></param>
-		/// <param name="sourceObj"></param>
-		/// <typeparam name="T"></typeparam>
+		/// <param CharacterName="path"></param>
+		/// <param CharacterName="sourceObj"></param>
+		/// <typeparam CharacterName="T"></typeparam>
 		public static void ReleaseSourceFromResources<T>(string path, ref T sourceObj) where T : Object
 		{
 			if (!SourceObjects.ContainsKey(path))
@@ -133,8 +133,8 @@ namespace ReadyGamerOne.MemorySystem
 		/// <summary>
 		/// 根据路径实例化对象
 		/// </summary>
-		/// <param name="path"></param>
-		/// <typeparam name="T"></typeparam>
+		/// <param CharacterName="path"></param>
+		/// <typeparam CharacterName="T"></typeparam>
 		/// <returns></returns>
 		public static T Instantiate<T>(string path)where T:Object
 		{
@@ -144,8 +144,8 @@ namespace ReadyGamerOne.MemorySystem
 		/// <summary>
 		/// 实例化GameObject
 		/// </summary>
-		/// <param name="path"></param>
-		/// <param name="parent"></param>
+		/// <param CharacterName="path"></param>
+		/// <param CharacterName="parent"></param>
 		/// <returns></returns>
 		public static GameObject InstantiateGameObject(string path,Transform parent=null)
 		{
@@ -165,10 +165,10 @@ namespace ReadyGamerOne.MemorySystem
 		/// <summary>
 		/// 从Resources目录中动态加载指定目录下所有内容
 		/// </summary>
-		/// <param name="nameClassType">目录下所有资源的名字要作为一个静态类的public static 成员，这里传递 这个静态类的Type</param>
-		/// <param name="dirPath">从Resources开始的根目录，比如“Audio/"</param>
-		/// <param name="onLoadAsset">加载资源时调用的委托，不能为空</param>
-		/// <typeparam name="TAssetType">加载资源的类型</typeparam>
+		/// <param CharacterName="nameClassType">目录下所有资源的名字要作为一个静态类的public static 成员，这里传递 这个静态类的Type</param>
+		/// <param CharacterName="dirPath">从Resources开始的根目录，比如“Audio/"</param>
+		/// <param CharacterName="onLoadAsset">加载资源时调用的委托，不能为空</param>
+		/// <typeparam CharacterName="TAssetType">加载资源的类型</typeparam>
 		/// <exception cref="Exception">委托为空会抛异常</exception>
 		public static void LoadAssetFromResourceDir<TAssetType>(Type nameClassType, string dirPath = "",Action<string,TAssetType> onLoadAsset=null)
 			where TAssetType : Object

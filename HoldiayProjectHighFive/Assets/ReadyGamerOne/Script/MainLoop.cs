@@ -137,7 +137,7 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 开始关闭协程
         /// </summary>
-        /// <param name="Coroutine"></param>
+        /// <param CharacterName="Coroutine"></param>
         /// <returns></returns>
         public Coroutine StartCoroutines(IEnumerator Coroutine)
         {
@@ -157,8 +157,8 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 运行直到为真
         /// </summary>
-        /// <param name="method"></param>
-        /// <param name="endCall"></param>
+        /// <param CharacterName="method"></param>
+        /// <param CharacterName="endCall"></param>
         /// <returns></returns>
         public Coroutine ExecuteUntilTrue(Func<bool> method, Action endCall = null)
         {
@@ -173,8 +173,8 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 延时调用
         /// </summary>
-        /// <param name="method"></param>          c
-        /// <param name="seconds"></param>
+        /// <param CharacterName="method"></param>          c
+        /// <param CharacterName="seconds"></param>
         public Coroutine ExecuteLater(Action method, float seconds)
         {
             return StartCoroutine(_ExecuteLater(method, seconds));
@@ -193,9 +193,9 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 间隔调用
         /// </summary>
-        /// <param name="method"></param>
-        /// <param name="times"></param>
-        /// <param name="duringTime"></param>
+        /// <param CharacterName="method"></param>
+        /// <param CharacterName="times"></param>
+        /// <param CharacterName="duringTime"></param>
         public Coroutine ExecuteEverySeconds(Action method, float times, float duringTime)
         {
             return StartCoroutine(_ExecuteSeconds(method, times, duringTime));
@@ -225,8 +225,8 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 一段时间内每帧调用
         /// </summary>
-        /// <param name="method"></param>
-        /// <param name="seconds"></param>
+        /// <param CharacterName="method"></param>
+        /// <param CharacterName="seconds"></param>
         public Coroutine UpdateForSeconds(Action method, float seconds, Action endCall)
         {
             return StartCoroutine(_UpdateForSeconds_Action(method, seconds, endCall));

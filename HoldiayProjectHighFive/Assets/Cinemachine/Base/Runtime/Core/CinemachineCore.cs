@@ -67,7 +67,7 @@ namespace Cinemachine
 
         /// <summary>Access the array of active CinemachineBrains in the scene 
         /// without gebnerating garbage</summary>
-        /// <param name="index">Index of the brain to access, range 0-BrainCount</param>
+        /// <param CharacterName="index">Index of the brain to access, range 0-BrainCount</param>
         /// <returns>The brain at the specified index</returns>
         public CinemachineBrain GetActiveBrain(int index)
         {
@@ -99,7 +99,7 @@ namespace Cinemachine
 
         /// <summary>Access the array of active ICinemachineCamera in the scene 
         /// without gebnerating garbage</summary>
-        /// <param name="index">Index of the camera to access, range 0-VirtualCameraCount</param>
+        /// <param CharacterName="index">Index of the camera to access, range 0-VirtualCameraCount</param>
         /// <returns>The virtual camera at the specified index</returns>
         public ICinemachineCamera GetVirtualCamera(int index)
         {
@@ -402,7 +402,7 @@ namespace Cinemachine
         /// Brains with OutputCamera == null will not be returned.
         /// Final result may be null.
         /// </summary>
-        /// <param name="vcam">Virtual camera whose potential brain we need.</param>
+        /// <param CharacterName="vcam">Virtual camera whose potential brain we need.</param>
         /// <returns>First CinemachineBrain found that might be
         /// appropriate for this vcam, or null</returns>
         public CinemachineBrain FindPotentialTargetBrain(ICinemachineCamera vcam)

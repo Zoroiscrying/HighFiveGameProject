@@ -41,7 +41,7 @@ namespace Cinemachine
         public abstract bool Looped { get; }
 
         /// <summary>Get a normalized path position, taking spins into account if looped</summary>
-        /// <param name="pos">Position along the path</param>
+        /// <param CharacterName="pos">Position along the path</param>
         /// <returns>Normalized position, between MinPos and MaxPos</returns>
         public virtual float NormalizePos(float pos)
         {
@@ -58,30 +58,30 @@ namespace Cinemachine
         }
 
         /// <summary>Get a worldspace position of a point along the path</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
         /// <returns>World-space position of the point along at path at pos</returns>
         public abstract Vector3 EvaluatePosition(float pos);
 
         /// <summary>Get the tangent of the curve at a point along the path.</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
         /// <returns>World-space direction of the path tangent.
         /// Length of the vector represents the tangent strength</returns>
         public abstract Vector3 EvaluateTangent(float pos);
 
         /// <summary>Get the orientation the curve at a point along the path.</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
         /// <returns>World-space orientation of the path</returns>
         public abstract Quaternion EvaluateOrientation(float pos);
 
         /// <summary>Find the closest point on the path to a given worldspace target point.</summary>
         /// <remarks>Performance could be improved by checking the bounding polygon of each segment,
         /// and only entering the best segment(s)</remarks>
-        /// <param name="p">Worldspace target that we want to approach</param>
-        /// <param name="startSegment">In what segment of the path to start the search.
+        /// <param CharacterName="p">Worldspace target that we want to approach</param>
+        /// <param CharacterName="startSegment">In what segment of the path to start the search.
         /// A Segment is a section of path between 2 waypoints.</param>
-        /// <param name="searchRadius">How many segments on either side of the startSegment
+        /// <param CharacterName="searchRadius">How many segments on either side of the startSegment
         /// to search.  -1 means no limit, i.e. search the entire path</param>
-        /// <param name="stepsPerSegment">We search a segment by dividing it into this many
+        /// <param CharacterName="stepsPerSegment">We search a segment by dividing it into this many
         /// straight pieces.  The higher the number, the more accurate the result, but performance
         /// is proportionally slower for higher numbers</param>
         /// <returns>The position along the path that is closest to the target point.  
@@ -140,7 +140,7 @@ namespace Cinemachine
         }
 
         /// <summary>Get the minimum value, for the given unity type</summary>
-        /// <param name="units">The uniot type</param>
+        /// <param CharacterName="units">The uniot type</param>
         /// <returns>The minimum allowable value for this path</returns>
         public float MinUnit(PositionUnits units)
         { 
@@ -148,7 +148,7 @@ namespace Cinemachine
         }
 
         /// <summary>Get the maximum value, for the given unity type</summary>
-        /// <param name="units">The uniot type</param>
+        /// <param CharacterName="units">The uniot type</param>
         /// <returns>The maximum allowable value for this path</returns>
         public float MaxUnit(PositionUnits units)
         { 
@@ -156,8 +156,8 @@ namespace Cinemachine
         }
 
         /// <summary>Normalize the unit, so that it lies between MinUmit and MaxUnit</summary>
-        /// <param name="pos">The value to be normalized</param>
-        /// <param name="units">The unit type</param>
+        /// <param CharacterName="pos">The value to be normalized</param>
+        /// <param CharacterName="units">The unit type</param>
         /// <returns>The normalized value of pos, between MinUnit and MaxUnit</returns>
         public virtual float NormalizeUnit(float pos, PositionUnits units)
         {
@@ -167,8 +167,8 @@ namespace Cinemachine
         }
 
         /// <summary>Get a worldspace position of a point along the path</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
-        /// <param name="units">The unit to use when interpreting the value of pos.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="units">The unit to use when interpreting the value of pos.</param>
         /// <returns>World-space position of the point along at path at pos</returns>
         public Vector3 EvaluatePositionAtUnit(float pos, PositionUnits units)
         {
@@ -178,8 +178,8 @@ namespace Cinemachine
         }
 
         /// <summary>Get the tangent of the curve at a point along the path.</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
-        /// <param name="units">The unit to use when interpreting the value of pos.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="units">The unit to use when interpreting the value of pos.</param>
         /// <returns>World-space direction of the path tangent.
         /// Length of the vector represents the tangent strength</returns>
         public Vector3 EvaluateTangentAtUnit(float pos, PositionUnits units)
@@ -190,8 +190,8 @@ namespace Cinemachine
         }
 
         /// <summary>Get the orientation the curve at a point along the path.</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
-        /// <param name="units">The unit to use when interpreting the value of pos.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="units">The unit to use when interpreting the value of pos.</param>
         /// <returns>World-space orientation of the path</returns>
         public Quaternion EvaluateOrientationAtUnit(float pos, PositionUnits units)
         {
@@ -217,7 +217,7 @@ namespace Cinemachine
         /// <summary>See whether the distance cache is valid.  If it's not valid,
         /// then any call to GetPathLength() or GetPathPositionFromDistance() will
         /// trigger a potentially costly regeneration of the path distance cache</summary>
-        /// <param name="stepsPerSegment">The number of steps to take between path points</param>
+        /// <param CharacterName="stepsPerSegment">The number of steps to take between path points</param>
         /// <returns>Whether the cache is valid for this sampling rate</returns>
         public bool DistanceCacheIsValid()
         {
@@ -246,7 +246,7 @@ namespace Cinemachine
         /// <summary>Normalize a distance along the path based on the path length.  
         /// If the distance cache is not valid, then calling this will 
         /// trigger a potentially costly regeneration of the path distance cache</summary>
-        /// <param name="distance">The distance to normalize</param>
+        /// <param CharacterName="distance">The distance to normalize</param>
         /// <returns>The normalized distance, ranging from 0 to path length</returns>
         public float NormalizePathDistance(float distance)
         {

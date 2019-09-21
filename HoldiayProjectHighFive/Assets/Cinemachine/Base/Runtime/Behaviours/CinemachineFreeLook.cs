@@ -123,7 +123,7 @@ namespace Cinemachine
         }
 
         /// <summary>Get a child rig</summary>
-        /// <param name="i">Rig index.  Can be 0, 1, or 2</param>
+        /// <param CharacterName="i">Rig index.  Can be 0, 1, or 2</param>
         /// <returns>The rig, or null if index is bad.</returns>
         public CinemachineVirtualCamera GetRig(int i) 
         { 
@@ -207,7 +207,7 @@ namespace Cinemachine
 
         /// <summary>Check whether the vcam a live child of this camera.  
         /// Returns true if the child is currently contributing actively to the camera state.</summary>
-        /// <param name="vcam">The Virtual Camera to check</param>
+        /// <param CharacterName="vcam">The Virtual Camera to check</param>
         /// <returns>True if the vcam is currently actively influencing the state of this vcam</returns>
         public override bool IsLiveChild(ICinemachineCamera vcam) 
         {
@@ -224,7 +224,7 @@ namespace Cinemachine
 
         /// <summary>Remove a Pipeline stage hook callback.
         /// Make sure it is removed from all the children.</summary>
-        /// <param name="d">The delegate to remove.</param>
+        /// <param CharacterName="d">The delegate to remove.</param>
         public override void RemovePostPipelineStageHook(OnPostPipelineStageDelegate d)
         {
             base.RemovePostPipelineStageHook(d);
@@ -238,8 +238,8 @@ namespace Cinemachine
         /// <summary>Called by CinemachineCore at designated update time
         /// so the vcam can position itself and track its targets.  All 3 child rigs are updated,
         /// and a blend calculated, depending on the value of the Y axis.</summary>
-        /// <param name="worldUp">Default world Up, set by the CinemachineBrain</param>
-        /// <param name="deltaTime">Delta time for time-based effects (ignore if less than 0)</param>
+        /// <param CharacterName="worldUp">Default world Up, set by the CinemachineBrain</param>
+        /// <param CharacterName="deltaTime">Delta time for time-based effects (ignore if less than 0)</param>
         override public void UpdateCameraState(Vector3 worldUp, float deltaTime)
         {
             //UnityEngine.Profiling.Profiler.BeginSample("CinemachineFreeLook.UpdateCameraState");
@@ -280,9 +280,9 @@ namespace Cinemachine
         }
 
         /// <summary>If we are transitioning from another FreeLook, grab the axis values from it.</summary>
-        /// <param name="fromCam">The camera being deactivated.  May be null.</param>
-        /// <param name="worldUp">Default world Up, set by the CinemachineBrain</param>
-        /// <param name="deltaTime">Delta time for time-based effects (ignore if less than or equal to 0)</param>
+        /// <param CharacterName="fromCam">The camera being deactivated.  May be null.</param>
+        /// <param CharacterName="worldUp">Default world Up, set by the CinemachineBrain</param>
+        /// <param CharacterName="deltaTime">Delta time for time-based effects (ignore if less than or equal to 0)</param>
         public override void OnTransitionFromCamera(
             ICinemachineCamera fromCam, Vector3 worldUp, float deltaTime) 
         {
@@ -613,7 +613,7 @@ namespace Cinemachine
         /// three camera rigs. Does not take into account the current heading of the
         /// camera (or its target)
         /// </summary>
-        /// <param name="t">The t-value for the camera on its spline. Internally clamped to
+        /// <param CharacterName="t">The t-value for the camera on its spline. Internally clamped to
         /// the value [0,1]</param>
         /// <returns>The local offset (back + up) of the camera WRT its target based on the
         /// supplied t-value</returns>

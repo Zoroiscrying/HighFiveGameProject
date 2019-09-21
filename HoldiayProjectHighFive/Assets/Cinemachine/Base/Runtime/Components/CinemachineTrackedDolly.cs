@@ -147,8 +147,8 @@ namespace Cinemachine
         public override CinemachineCore.Stage Stage { get { return CinemachineCore.Stage.Body; } }
 
         /// <summary>Positions the virtual camera according to the transposer rules.</summary>
-        /// <param name="curState">The current camera state</param>
-        /// <param name="deltaTime">Used for damping.  If less that 0, no damping is done.</param>
+        /// <param CharacterName="curState">The current camera state</param>
+        /// <param CharacterName="deltaTime">Used for damping.  If less that 0, no damping is done.</param>
         public override void MutateCameraState(ref CameraState curState, float deltaTime)
         {
             // Init previous frame state info
@@ -257,9 +257,9 @@ namespace Cinemachine
             //UnityEngine.Profiling.Profiler.EndSample();
         }
 
-        /// <summary>API for the editor, to process a position drag from the user.
+        /// <summary>API for the editor, to process a position Drag from the user.
         /// This implementation adds the delta to the follow offset.</summary>
-        /// <param name="delta">The amount dragged this frame</param>
+        /// <param CharacterName="delta">The amount dragged this frame</param>
         public override void OnPositionDragged(Vector3 delta)
         {
             Quaternion targetOrientation = m_Path.EvaluateOrientationAtUnit(m_PathPosition, m_PositionUnits);

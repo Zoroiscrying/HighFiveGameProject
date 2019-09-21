@@ -18,7 +18,33 @@ skill,U_Skill
 						 	//AniName, speed
 	AnimationTrigger	
 	{
-		0	 ,201	,1	  ,Attack1	,2
+		0	 ,201	,1	  ,Player@Attack5sa	,2
+	}
+
+	DashTrigger		
+	{
+		0.1	 ,202	,0.4	  ,1	,0	, 0.1
+	}
+	
+	AudioTrigger	  	
+	{
+		0.2	 ,203	,0.5	  ,1
+	}
+
+				//offect.x,offect.y,size.x,size.y,beginDre,endDre
+	Trigger2DTrigger	
+	{
+		0.1	 ,205	,0.6	  ,0,0.12,0.08,0.02,120,-20
+	}
+	
+	End
+}
+skill,I_Skill
+{
+						 	//AniName, speed
+	AnimationTrigger	
+	{
+		0	 ,201	,1	  ,Player@Attack3	,2
 	}
 
 	DashTrigger		
@@ -40,24 +66,13 @@ skill,U_Skill
 	End
 }
 
-skill,I_Skill
-{
-						 //AniName, speed
-	AnimationTrigger	
-	{
-		0	 ,301	,0.4	  ,Attack2, 1
-	}
-	
-	End
-}
-
 skill,O_Skill
 {
         //触发器   		,开始时间,id	,持续时间,args
 						 	//AniName, speed
 	AnimationTrigger	
 	{
-		0	 ,401	,0.5	  ,Attack3, 1.7
+		0	 ,401	,0.5	  ,Player@Attack2, 1.7
 	}
 	DashTrigger		
 	{

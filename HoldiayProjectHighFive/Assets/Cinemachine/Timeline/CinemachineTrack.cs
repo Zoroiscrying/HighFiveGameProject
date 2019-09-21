@@ -15,7 +15,7 @@ namespace Cinemachine.Timeline
         public override Playable CreateTrackMixer(
             PlayableGraph graph, GameObject go, int inputCount)
         {
-            // Hack to set the display name of the clip to match the vcam
+            // Hack to set the display CharacterName of the clip to match the vcam
             foreach (var c in GetClips())
             {
                 CinemachineShot shot = (CinemachineShot)c.asset;
