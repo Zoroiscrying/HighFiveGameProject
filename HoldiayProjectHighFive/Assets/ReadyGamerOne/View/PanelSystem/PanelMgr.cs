@@ -30,7 +30,7 @@ namespace ReadyGamerOne.View.PanelSystem
         /// <summary>
         /// 加载一个新面板
         /// </summary>
-        /// <param name="name"></param>
+        /// <param CharacterName="name"></param>
         public static void PushPanel(string name)
         {
             if (panelStack.Count != 0)
@@ -39,28 +39,28 @@ namespace ReadyGamerOne.View.PanelSystem
             var panel = AbstractPanel.GetPanel(name);
             panel.Enable();
             panelStack.Push(panel);
-//            Debug.Log("入栈：" + panelStack.Count + " name:" + name);
+//            Debug.Log("入栈：" + panelStack.Count + " CharacterName:" + CharacterName);
         }
 
         /// <summary>
         /// 加载新面板，带动画
         /// </summary>
-        /// <param name="panelName"></param>
-        /// <param name="transition"></param>
+        /// <param CharacterName="panelName"></param>
+        /// <param CharacterName="transition"></param>
         public static void PushPanel(string panelName, AbstractTransition transition)
         {
             var panel = AbstractPanel.GetPanel(panelName);
             transition.PushPanel(panel);
             panelStack.Push(panel);
 
-//            Debug.Log("入栈：" + panelStack.Count + " name:" + panelName);
+//            Debug.Log("入栈：" + panelStack.Count + " CharacterName:" + panelName);
         }
 
         /// <summary>
         /// 加载新面板，带效果
         /// </summary>
-        /// <param name="panelName"></param>
-        /// <param name="abstractScreenEffect"></param>
+        /// <param CharacterName="panelName"></param>
+        /// <param CharacterName="abstractScreenEffect"></param>
         public static void PushPanel(string panelName, AbstractScreenEffect abstractScreenEffect)
         {
             var panel = AbstractPanel.GetPanel(panelName);
@@ -71,9 +71,9 @@ namespace ReadyGamerOne.View.PanelSystem
         /// <summary>
         /// 加载新面板，都带
         /// </summary>
-        /// <param name="panelName"></param>
-        /// <param name="transition"></param>
-        /// <param name="abstractScreenEffect"></param>
+        /// <param CharacterName="panelName"></param>
+        /// <param CharacterName="transition"></param>
+        /// <param CharacterName="abstractScreenEffect"></param>
         public static void PushPanel(string panelName, AbstractTransition transition,
             AbstractScreenEffect abstractScreenEffect)
         {
@@ -117,9 +117,9 @@ namespace ReadyGamerOne.View.PanelSystem
         /// </summary>
         public static void PopPanel()
         {
-            //Debug.Log("1出栈：" + this.panelStack.Count + " name:" +CurrentPanel.PanelName);
+            //Debug.Log("1出栈：" + this.panelStack.Count + " CharacterName:" +CurrentPanel.PanelName);
             panelStack.Peek().Destory();
-            //Debug.Log("2出栈：" + this.panelStack.Count + " name:" + CurrentPanel.PanelName);
+            //Debug.Log("2出栈：" + this.panelStack.Count + " CharacterName:" + CurrentPanel.PanelName);
             panelStack.Pop();
             if (panelStack.Count > 0)
                 panelStack.Peek().Enable();
@@ -146,9 +146,9 @@ namespace ReadyGamerOne.View.PanelSystem
         /// <summary>
         /// 淡出效果，全屏幕逐渐变为 Color颜色
         /// </summary>
-        /// <param name="time"></param>
-        /// <param name="color"></param>
-        /// <param name="callBack"></param>
+        /// <param CharacterName="time"></param>
+        /// <param CharacterName="color"></param>
+        /// <param CharacterName="callBack"></param>
         public static Coroutine FadeOut(float time, Color color,Action callBack=null)
         {
             var image = GetEffectImage();
@@ -159,9 +159,9 @@ namespace ReadyGamerOne.View.PanelSystem
         /// <summary>
         /// 淡入效果，全屏幕渐变为正常色
         /// </summary>
-        /// <param name="time"></param>
-        /// <param name="color"></param>
-        /// <param name="callBack"></param>
+        /// <param CharacterName="time"></param>
+        /// <param CharacterName="color"></param>
+        /// <param CharacterName="callBack"></param>
         public static Coroutine FadeIn(float time,  Action callBack=null)
         {
             var image = GetEffectImage();

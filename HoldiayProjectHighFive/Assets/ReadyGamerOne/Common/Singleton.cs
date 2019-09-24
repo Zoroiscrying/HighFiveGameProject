@@ -3,7 +3,7 @@
     /// <summary>
     /// 单例泛型类
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam CharacterName="T"></typeparam>
     public class Singleton<T>
     where T : class, new()
     {

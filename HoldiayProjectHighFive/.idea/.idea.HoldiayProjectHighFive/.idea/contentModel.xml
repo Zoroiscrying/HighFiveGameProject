@@ -151,7 +151,6 @@
             <e p="DirPath.cs" t="Include" />
             <e p="FilePath.cs" t="Include" />
             <e p="GameObjectName.cs" t="Include" />
-            <e p="ItemID.cs" t="Include" />
             <e p="Message.cs" t="Include" />
             <e p="PanelName.cs" t="Include" />
             <e p="SceneName.cs" t="Include" />
@@ -175,25 +174,22 @@
             <e p="PersonSystem" t="Include">
               <e p="Persons" t="Include">
                 <e p="AbstractPerson.cs" t="Include" />
+                <e p="BaseCharacterInfo.cs" t="Include" />
                 <e p="Player.cs" t="Include" />
+                <e p="PlayerInfo.cs" t="Include" />
                 <e p="TestPerson.cs" t="Include" />
               </e>
             </e>
             <e p="SkillSystem" t="Include">
-              <e p="ISkillTriggerFactory.cs" t="Include" />
-              <e p="SkillInstance.cs" t="Include" />
-              <e p="SkillTriggerFactory.cs" t="Include" />
-              <e p="SkillTriggerMgr.cs" t="Include" />
+              <e p="Editor" t="Include">
+                <e p="SkillInfoEditor.cs" t="Include" />
+              </e>
+              <e p="SkillInfoAsset.cs" t="Include" />
               <e p="Triggers" t="Include">
-                <e p="AbstractSkillTrigger.cs" t="Include" />
-                <e p="AnimationTrigger.cs" t="Include" />
-                <e p="AudioTrigger.cs" t="Include" />
-                <e p="BulletTrigger.cs" t="Include" />
-                <e p="DashTrigger.cs" t="Include" />
-                <e p="InstantRayDamageTrigger.cs" t="Include" />
-                <e p="ISkillTrigger.cs" t="Include" />
-                <e p="ParabloaBulletTrigger.cs" t="Include" />
-                <e p="Trigger2DTrigger.cs" t="Include" />
+                <e p="Editor" t="Include">
+                  <e p="TriggerUnitInfoDrawer.cs" t="Include" />
+                </e>
+                <e p="TriggerUnitInfo.cs" t="Include" />
               </e>
             </e>
           </e>
@@ -206,7 +202,6 @@
           <e p="Model" t="Include">
             <e p="ItemSystem" t="Include">
               <e p="IItemTriggerFactory.cs" t="Include" />
-              <e p="ItemFactory.cs" t="Include" />
               <e p="ItemMgr.cs" t="Include" />
               <e p="Items" t="Include">
                 <e p="AbstractCommodity.cs" t="Include" />
@@ -246,6 +241,9 @@
             <e p="AnimationWeight.cs" t="Include" />
             <e p="GameAnimator.cs" t="Include" />
           </e>
+          <e p="Script" t="Include">
+            <e p="PersonCreater.cs" t="Include" />
+          </e>
           <e p="StateMachine" t="Include">
             <e p="IStateMachine.cs" t="Include" />
             <e p="StateMachine.cs" t="Include" />
@@ -276,6 +274,9 @@
             </e>
           </e>
         </e>
+        <e p="Hero and Opponents" t="Include">
+          <e p="license.txt" t="Include" />
+        </e>
         <e p="ReadyGamerOne" t="Include">
           <e p="Common" t="Include">
             <e p="CEventCenter.cs" t="Include" />
@@ -286,6 +287,12 @@
             <e p="Trigger2DMessage.cs" t="Include" />
           </e>
           <e p="Const" t="Include">
+            <e p="ConstStringAsset.cs" t="Include" />
+            <e p="ConstStringChooser.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="ConstStringAssetEditor.cs" t="Include" />
+              <e p="ConstStringChooserDrawer.cs" t="Include" />
+            </e>
             <e p="TxtSign.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
@@ -311,6 +318,7 @@
               <e p="StringChooseDrawer.cs" t="Include" />
             </e>
             <e p="MessageTrigger.cs" t="Include" />
+            <e p="ResourcesPathChooser.cs" t="Include" />
             <e p="StringChooser.cs" t="Include" />
           </e>
           <e p="Global" t="Include">
@@ -483,7 +491,6 @@
           </e>
           <e p="Ctrl.cs" t="Include" />
           <e p="GameMgr.cs" t="Include" />
-          <e p="PlayerAttackDebug.cs" t="Include" />
           <e p="PlayerMove.cs" t="Include" />
           <e p="SceneTrigger.cs" t="Include" />
           <e p="SceneUtil.cs" t="Include" />

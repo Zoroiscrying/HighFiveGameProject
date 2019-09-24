@@ -335,7 +335,7 @@ namespace MiniXml
 
             if (PeekNext_() < 0 || !IsNameChararcter_((char)PeekNext_(), true))
             {
-                throw ErrorMsg_("XML name start character is expected.");
+                throw ErrorMsg_("XML CharacterName start character is expected.");
             }
 
             for (int i = PeekNext_(); i >= 0; i = PeekNext_())
@@ -360,7 +360,7 @@ namespace MiniXml
 
             if (idx == 0)
             {
-                throw ErrorMsg_("Valid XML name is expected.");
+                throw ErrorMsg_("Valid XML CharacterName is expected.");
             }
 
             return new string(nameBufferArray_, 0, idx);

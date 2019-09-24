@@ -215,16 +215,16 @@ namespace Cinemachine
         /// any in-game logic that sets virtual camera priorities and Enabled states.
         /// This is the main API for the timeline.
         /// </summary>
-        /// <param name="overrideId">Id to represent a specific client.  An internal
+        /// <param CharacterName="overrideId">Id to represent a specific client.  An internal
         /// stack is maintained, with the most recent non-empty override taking precenence.
         /// This id must be > 0.  If you pass -1, a new id will be created, and returned.
         /// Use that id for subsequent calls.  Don't forget to
         /// call ReleaseCameraOverride after all overriding is finished, to
         /// free the OverideStack resources.</param>
-        /// <param name="camA"> The camera to set, corresponding to weight=0</param>
-        /// <param name="camB"> The camera to set, corresponding to weight=1</param>
-        /// <param name="weightB">The blend weight.  0=camA, 1=camB</param>
-        /// <param name="deltaTime">override for deltaTime.  Should be Time.FixedDelta for
+        /// <param CharacterName="camA"> The camera to set, corresponding to weight=0</param>
+        /// <param CharacterName="camB"> The camera to set, corresponding to weight=1</param>
+        /// <param CharacterName="weightB">The blend weight.  0=camA, 1=camB</param>
+        /// <param CharacterName="deltaTime">override for deltaTime.  Should be Time.FixedDelta for
         /// time-based calculations to be included, -1 otherwise</param>
         /// <returns>The oiverride ID.  Don't forget to call ReleaseCameraOverride
         /// after all overriding is finished, to free the OverideStack resources.</returns>
@@ -299,7 +299,7 @@ namespace Cinemachine
         /// Release the resources used for a camera override client.
         /// See SetCameraOverride.
         /// </summary>
-        /// <param name="overrideId">The ID to released.  This is the value that
+        /// <param CharacterName="overrideId">The ID to released.  This is the value that
         /// was returned by SetCameraOverride</param>
         internal void ReleaseCameraOverride(int overrideId)
         {
@@ -601,7 +601,7 @@ namespace Cinemachine
         /// True if the ICinemachineCamera the current active camera,
         /// or part of a current blend, either directly or indirectly because its parents are live.
         /// </summary>
-        /// <param name="vcam">The camera to test whether it is live</param>
+        /// <param CharacterName="vcam">The camera to test whether it is live</param>
         /// <returns>True if the camera is live (directly or indirectly)
         /// or part of a blend in progress.</returns>
         public bool IsLive(ICinemachineCamera vcam)

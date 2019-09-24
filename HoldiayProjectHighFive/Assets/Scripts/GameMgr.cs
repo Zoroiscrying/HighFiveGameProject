@@ -122,20 +122,12 @@ namespace Game.Scripts
     		TxtManager.RegisterDataFactory<ShitItem>(TxtSign.shitItem);
     		TxtManager.RegisterDataFactory<BoxItem>(TxtSign.boxItem);
     		
-    		TxtManager.RegisterDataFactory<SkillInstance>(TxtSign.skill);
     
     		TxtManager.RegisterDataFactory<L1Rank>(TxtSign.L1Rank);
     		TxtManager.RegisterDataFactory<L2Rank>(TxtSign.L2Rank);
     		TxtManager.RegisterDataFactory<S1Rank>(TxtSign.S1Rank);
     		TxtManager.RegisterDataFactory<S2Rank>(TxtSign.S2Rank);
     		
-    		TxtManager.RegisterDataFactory<AnimationTrigger>(TxtSign.animation);
-    		TxtManager.RegisterDataFactory<InstantRayDamageTrigger>(TxtSign.instantDamage);
-    		TxtManager.RegisterDataFactory<AudioTrigger>(TxtSign.audio);
-    		TxtManager.RegisterDataFactory<DashTrigger>(TxtSign.dash);
-    		TxtManager.RegisterDataFactory<DirectLineBulletTrigger>(TxtSign.bullet);
-    		TxtManager.RegisterDataFactory<SwordTrigger>(TxtSign.trigger2D);
-    		TxtManager.RegisterDataFactory<ParabloaBulletTrigger>(TxtSign.paraBullet);
     
     	}
     
@@ -147,16 +139,9 @@ namespace Game.Scripts
     	    TxtManager.LoadDataFromFile<AbstractLargeRank>(FilePath.RankFilePath,
     		    (largeRank) => { RankMgr.LargeRankList.Add(largeRank); });
             
-    		TxtManager.LoadDataFromFile<SkillInstance>(FilePath.SkillFilePath,
-    			(skillInstance) => { SkillTriggerMgr.skillInstanceDic.Add(skillInstance.name, skillInstance); });
-            
     		TxtManager.LoadDataFromFile<AbstractItem>(FilePath.ItemFilePath,
     			(item) =>{ ItemMgr.itemDic.Add(item.ID, item); });
-    //
-    //		foreach (var v in RankMgr.LargeRankList)
-    //		{
-    //			Debug.Log(v.name);
-    //		}
+
     		
         }
     
@@ -166,7 +151,6 @@ namespace Game.Scripts
     	protected override void AddGlobalScript()
     	{
     		base.AddGlobalScript();
-    	    this.gameObject.AddComponent<MainLoop>();
             this.gameObject.AddComponent<AudioMgr>();
     	}
     

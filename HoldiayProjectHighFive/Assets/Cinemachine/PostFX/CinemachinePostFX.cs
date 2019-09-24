@@ -1,7 +1,7 @@
 ﻿
 
 // NOTE: If you are getting errors of the sort that say something like:
-//     "The type or namespace name `PostProcessing' does not exist in the namespace"
+//     "The type or namespace CharacterName `PostProcessing' does not exist in the namespace"
 // it is because the PostProcessing v1 module has been removed from your project.
 //
 // To make the errors go away, you can either:

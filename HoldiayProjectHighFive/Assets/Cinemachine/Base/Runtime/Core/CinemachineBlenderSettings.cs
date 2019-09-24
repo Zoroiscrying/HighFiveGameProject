@@ -40,9 +40,9 @@ namespace Cinemachine
         /// default blend for this Blender or NULL depending on the state
         /// of <b>returnDefaultOnNoMatch</b>.
         /// </summary>
-        /// <param name="fromCameraName">The game object name of the from camera</param>
-        /// <param name="toCameraName">The game object name of the to camera</param>
-        /// <param name="defaultCurve">Curve to return if no curve found.  Can be NULL.</param>
+        /// <param CharacterName="fromCameraName">The game object CharacterName of the from camera</param>
+        /// <param CharacterName="toCameraName">The game object CharacterName of the to camera</param>
+        /// <param CharacterName="defaultCurve">Curve to return if no curve found.  Can be NULL.</param>
         /// <returns></returns>
         public AnimationCurve GetBlendCurveForVirtualCameras(
             string fromCameraName, string toCameraName, AnimationCurve defaultCurve)
@@ -53,7 +53,7 @@ namespace Cinemachine
             {
                 for (int i = 0; i < m_CustomBlends.Length; ++i)
                 {
-                    // Attempt to find direct name first
+                    // Attempt to find direct CharacterName first
                     CustomBlend blendParams = m_CustomBlends[i];
                     if ((blendParams.m_From == fromCameraName)
                         && (blendParams.m_To == toCameraName))

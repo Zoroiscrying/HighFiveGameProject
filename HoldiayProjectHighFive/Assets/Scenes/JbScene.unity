@@ -138,10 +138,16 @@ MonoBehaviour:
     selectedIndex: 0
   creatTestPeople: 0
   EnemyPos: {x: 0, y: 0, z: 0}
-  PlayerPos: {x: 5.6, y: 0, z: 0}
+  PlayerPos: {x: 0, y: 0, z: 0}
   signalSize: 4
   enableMiniMap: 1
   enable_V_loadAsync: 1
+  sceneName:
+    values:
+    - WelcomeScene
+    - TestScene
+    - JbScene
+    selectedIndex: 1
   Enable_C_ChangeScene: 1
 --- !u!1 &226478473
 GameObject:
@@ -249,6 +255,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &702338168 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1764960261439974, guid: 74878fb2b1022ed4fbef907375fc5f97,
+    type: 2}
+  m_PrefabInternal: {fileID: 2034919788}
+--- !u!114 &702338176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 702338168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509f43a33eb7e37479f74825796c0099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterInfo: {fileID: 11400000, guid: 517af2a1126c75847b722f7e1b76acb1, type: 2}
+  createOnStart: 1
 --- !u!1001 &784176607
 Prefab:
   m_ObjectHideFlags: 0

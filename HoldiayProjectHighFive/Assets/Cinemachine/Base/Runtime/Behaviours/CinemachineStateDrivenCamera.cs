@@ -129,7 +129,7 @@ namespace Cinemachine
         public override ICinemachineCamera LiveChildOrSelf { get { return LiveChild; } }
 
         /// <summary>Check whether the vcam a live child of this camera.</summary>
-        /// <param name="vcam">The Virtual Camera to check</param>
+        /// <param CharacterName="vcam">The Virtual Camera to check</param>
         /// <returns>True if the vcam is currently actively influencing the state of this vcam</returns>
         public override bool IsLiveChild(ICinemachineCamera vcam) 
         { 
@@ -158,7 +158,7 @@ namespace Cinemachine
 
         /// <summary>Remove a Pipeline stage hook callback.
         /// Make sure it is removed from all the children.</summary>
-        /// <param name="d">The delegate to remove.</param>
+        /// <param CharacterName="d">The delegate to remove.</param>
         public override void RemovePostPipelineStageHook(OnPostPipelineStageDelegate d)
         {
             base.RemovePostPipelineStageHook(d);
@@ -170,8 +170,8 @@ namespace Cinemachine
         /// <summary>Called by CinemachineCore at designated update time
         /// so the vcam can position itself and track its targets.  This implementation
         /// updates all the children, chooses the best one, and implements any required blending.</summary>
-        /// <param name="worldUp">Default world Up, set by the CinemachineBrain</param>
-        /// <param name="deltaTime">Delta time for time-based effects (ignore if less than or equal to 0)</param>
+        /// <param CharacterName="worldUp">Default world Up, set by the CinemachineBrain</param>
+        /// <param CharacterName="deltaTime">Delta time for time-based effects (ignore if less than or equal to 0)</param>
         public override void UpdateCameraState(Vector3 worldUp, float deltaTime)
         {
             //UnityEngine.Profiling.Profiler.BeginSample("CinemachineStateDrivenCamera.UpdateCameraState");

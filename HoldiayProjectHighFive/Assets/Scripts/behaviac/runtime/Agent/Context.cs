@@ -389,7 +389,7 @@ namespace behaviac
 
             if (Agent.IsNameRegistered(agentInstanceName))
             {
-                Debug.Check(GetInstance(agentInstanceName) == null, "the name has been bound to an instance already!");
+                Debug.Check(GetInstance(agentInstanceName) == null, "the CharacterName has been bound to an instance already!");
 
                 string className = Agent.GetRegisteredClassName(agentInstanceName);
 

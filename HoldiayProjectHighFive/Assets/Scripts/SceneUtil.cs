@@ -78,8 +78,8 @@ namespace Game.Scripts
             if(UiPanelName.StringValue==PanelName.battlePanel)
                 CEventCenter.BroadMessage(Message.M_RankAwake,0,0);
     
-            if (creatTestPeople)
-                new TestPerson("Test", DirPath.GameObjectDir + GameObjectName.TestPerson, EnemyPos);
+//            if (creatTestPeople)
+//                new TestPerson("Test", DirPath.GameObjectDir + GameObjectName.TestPerson, EnemyPos);
             
         }
         
@@ -117,17 +117,17 @@ namespace Game.Scripts
             Debug.DrawLine(pos + Vector3.up * this.signalSize, pos + Vector3.down * this.signalSize, color);
         }
     
-        void CreateTestPeople()
-        {
-            var go = new GameObject("TestPeople");
-            for (int i = 5; i > 0; i--)
-            {
-                var x = new TestPerson("TestPerson", DirPath.GameObjectDir + GameObjectName.TestPerson,
-                    new Vector3(-25 + Random.Range(0, 20), 1.28f, -1),
-                    new List<string>(new[] {"O_Skill", "Shot", "L_Skill"}), go.transform);
-                list.Add(x);
-            }
-        }
+//        void CreateTestPeople()
+//        {
+//            var go = new GameObject("TestPeople");
+//            for (int i = 5; i > 0; i--)
+//            {
+//                var x = new TestPerson("TestPerson", DirPath.GameObjectDir + GameObjectName.TestPerson,
+//                    new Vector3(-25 + Random.Range(0, 20), 1.28f, -1),
+//                    new List<string>(new[] {"O_Skill", "Shot", "L_Skill"}), go.transform);
+//                list.Add(x);
+//            }
+//        }
     
         #endregion
     }

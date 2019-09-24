@@ -64,7 +64,7 @@ namespace Cinemachine
         /// Creates a new LensSettings, copying the values from the 
         /// supplied Camera
         /// </summary>
-        /// <param name="fromCamera">The Camera from which the FoV, near 
+        /// <param CharacterName="fromCamera">The Camera from which the FoV, near 
         /// and far clip planes will be copied.</param>
 	    public static LensSettings FromCamera(Camera fromCamera)
         {
@@ -84,13 +84,13 @@ namespace Cinemachine
         /// <summary>
         /// Explicit constructor for this LensSettings
         /// </summary>
-        /// <param name="fov">The Vertical field of view</param>
-        /// <param name="orthographicSize">If orthographic, this is the half-height of the screen</param>
-        /// <param name="nearClip">The near clip plane</param>
-        /// <param name="farClip">The far clip plane</param>
-        /// <param name="dutch">Camera roll, in degrees.  This is applied at the end 
-        /// <param name="ortho">Whether the lens is orthographic</param>
-        /// <param name="aspect">The aspect ratio of the lens  Width/height</param>
+        /// <param CharacterName="fov">The Vertical field of view</param>
+        /// <param CharacterName="orthographicSize">If orthographic, this is the half-height of the screen</param>
+        /// <param CharacterName="nearClip">The near clip plane</param>
+        /// <param CharacterName="farClip">The far clip plane</param>
+        /// <param CharacterName="dutch">Camera roll, in degrees.  This is applied at the end 
+        /// <param CharacterName="ortho">Whether the lens is orthographic</param>
+        /// <param CharacterName="aspect">The aspect ratio of the lens  Width/height</param>
         /// after shot composition.</param>
         public LensSettings(
             float fov, float orthographicSize,
@@ -109,9 +109,9 @@ namespace Cinemachine
         /// <summary>
         /// Linearly blends the fields of two LensSettings and returns the result
         /// </summary>
-        /// <param name="lensA">The LensSettings to blend from</param>
-        /// <param name="lensB">The LensSettings to blend to</param>
-        /// <param name="t">The interpolation value. Internally clamped to the range [0,1]</param>
+        /// <param CharacterName="lensA">The LensSettings to blend from</param>
+        /// <param CharacterName="lensB">The LensSettings to blend to</param>
+        /// <param CharacterName="t">The interpolation value. Internally clamped to the range [0,1]</param>
         /// <returns>Interpolated settings</returns>
         public static LensSettings Lerp(LensSettings lensA, LensSettings lensB, float t)
         {

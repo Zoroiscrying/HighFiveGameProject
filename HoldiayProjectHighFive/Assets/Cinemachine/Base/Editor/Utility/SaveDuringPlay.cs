@@ -10,7 +10,7 @@ namespace SaveDuringPlay
     public static class ObjectTreeUtil
     {
         /// <summary>
-        /// Get the full name of an object, travelling up the transform parents to the root.
+        /// Get the full CharacterName of an object, travelling up the transform parents to the root.
         /// </summary>
         public static string GetFullName(GameObject current)
         {
@@ -383,7 +383,7 @@ namespace SaveDuringPlay
     /// drop this script into your project, and add the [SaveDuringPlay] attribute to your class.
     ///
     /// Note: if you want some specific field in your class NOT to be saved during play,
-    /// add a property attribute whose class name contains the string "NoSaveDuringPlay"
+    /// add a property attribute whose class CharacterName contains the string "NoSaveDuringPlay"
     /// and the field will not be saved.
     /// </summary>
     [InitializeOnLoad]

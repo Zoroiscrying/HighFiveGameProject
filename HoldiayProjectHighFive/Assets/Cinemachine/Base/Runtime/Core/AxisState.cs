@@ -20,7 +20,7 @@ namespace Cinemachine
 
         /// <summary>How fast the axis value can travel.  Increasing this number
         /// makes the behaviour more responsive to joystick input</summary>
-        [Tooltip("The maximum speed of this axis in units/second")]
+        [Tooltip("The maximum animationSpeed of this axis in units/second")]
         public float m_MaxSpeed;
 
         /// <summary>The amount of time in seconds it takes to accelerate to
@@ -33,10 +33,10 @@ namespace Cinemachine
         [Tooltip("The amount of time in seconds it takes to decelerate the axis to zero if the supplied axis is in a neutral position")]
         public float m_DecelTime;
 
-        /// <summary>The name of this axis as specified in Unity Input manager.
+        /// <summary>The CharacterName of this axis as specified in Unity Input manager.
         /// Setting to an empty string will disable the automatic updating of this axis</summary>
         [FormerlySerializedAs("m_AxisName")]
-        [Tooltip("The name of this axis as specified in Unity Input manager. Setting to an empty string will disable the automatic updating of this axis")]
+        [Tooltip("The CharacterName of this axis as specified in Unity Input manager. Setting to an empty string will disable the automatic updating of this axis")]
         public string m_InputAxisName;
 
         /// <summary>The value of the input axis.  A value of 0 means no input
@@ -87,9 +87,9 @@ namespace Cinemachine
         /// <summary>
         /// Sets the constraints by which this axis will operate on
         /// </summary>
-        /// <param name="minValue">The lowest value this axis can achieve</param>
-        /// <param name="maxValue">The highest value this axis can achieve</param>
-        /// <param name="wrapAround">If <b>true</b>, values commanded greater
+        /// <param CharacterName="minValue">The lowest value this axis can achieve</param>
+        /// <param CharacterName="maxValue">The highest value this axis can achieve</param>
+        /// <param CharacterName="wrapAround">If <b>true</b>, values commanded greater
         /// than mMaxValue or less than mMinValue will wrap around.
         /// If <b>false</b>, the value will be clamped within the range.</param>
         public void SetThresholds(float minValue, float maxValue, bool wrapAround)
@@ -105,7 +105,7 @@ namespace Cinemachine
         /// Updates the state of this axis based on the axis defined
         /// by AxisState.m_AxisName
         /// </summary>
-        /// <param name="deltaTime">Delta time in seconds</param>
+        /// <param CharacterName="deltaTime">Delta time in seconds</param>
         /// <returns>Returns <b>true</b> if this axis' input was non-zero this Update,
         /// <b>flase</b> otherwise</returns>
         public bool Update(float deltaTime)
@@ -140,7 +140,7 @@ namespace Cinemachine
                 }
                 else 
                 {
-                    // Accelerate to the target speed
+                    // Accelerate to the target animationSpeed
                     float a = Mathf.Abs(targetSpeed - mCurrentSpeed) / Mathf.Max(Epsilon, m_AccelTime);
                     mCurrentSpeed += Mathf.Sign(targetSpeed) * a * deltaTime;
                     if (Mathf.Sign(mCurrentSpeed) == Mathf.Sign(targetSpeed) 

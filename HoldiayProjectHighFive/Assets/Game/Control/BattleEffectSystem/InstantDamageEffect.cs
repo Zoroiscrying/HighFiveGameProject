@@ -25,7 +25,7 @@ namespace Game.Control.BattleEffectSystem
             //            Debug.Log(ap.obj.GetInstanceID()+": "+ap.IsConst);
             //如果不可选定（硬直）,告辞
             //数值
-            //            Debug.Log( ap.name + "收到" + this.damage + "伤害");
+            //            Debug.Log( ap.CharacterName + "收到" + this.damage + "伤害");
 
             //   BloodChange
 

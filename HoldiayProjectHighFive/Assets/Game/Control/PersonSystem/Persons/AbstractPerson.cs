@@ -17,7 +17,7 @@ namespace Game.Control.PersonSystem
     /// 所有接受战斗效果的单位都要继承这个抽象类
     /// </summary>
     [Serializable]
-    public abstract class AbstractPerson 
+    public abstract class AbstractPerson
     {
         #region 根据GameObject获取AbstractPerson
 
@@ -43,37 +43,104 @@ namespace Game.Control.PersonSystem
 
         #region 属性
 
+        
+        public BaseCharacterInfo characterInfoInfo;
+        
         [HideInInspector]
         public GameObject obj;
-        
-        public string name { get; set; }              //名字
-        public int Hp { get; set; }                   //血量
-        public int MaxHp { get; set; }                //最大血量
-        public int Attack { get; set; }               //攻击
 
-        public bool IgnoreHitback { get; set; }       //忽略击退
-        public bool IsConst { protected set; get; }     //是否可选中/无敌帧
-        public float DefaultConstTime { protected set; get; } //硬直时间
-        public bool InputOk { get; set; }             //接受技能输入
+        public string CharacterName => characterInfoInfo.characterName;          //名字
+
+        /// <summary>
+        /// 血量
+        /// </summary>
+        public int Hp
+        {
+            get { return characterInfoInfo.hp; }
+            set { characterInfoInfo.hp = value; }
+        }          
+        
+        /// <summary>
+        /// 最大生命值
+        /// </summary>
+        public int MaxHp
+        {
+            get
+            { 
+                return characterInfoInfo.maxHp;
+            } 
+            set
+            {
+                characterInfoInfo.maxHp = value;
+            } 
+        }
+
+        /// <summary>
+        /// 攻击力
+        /// </summary>
+        public int BaseAttack
+        {
+            get { return (int)characterInfoInfo.baseAttack; }
+            set { characterInfoInfo.baseAttack = value; }
+        }
+
+        /// <summary>
+        /// 是否忽略击退
+        /// </summary>
+        public bool IgnoreHitback
+        {
+            get { return characterInfoInfo.IgnoreHitback; }
+            set { characterInfoInfo.IgnoreHitback = value; }
+        }
+
+        /// <summary>
+        /// 是否进入无敌帧
+        /// </summary>
+        public bool IsConst
+        {
+            protected set { characterInfoInfo.IsConst = value; }
+            get { return characterInfoInfo.IsConst; }
+        }
+
+        /// <summary>
+        /// 硬直事件
+        /// </summary>
+        public float DefaultConstTime
+        {
+            get { return characterInfoInfo.DefaultConstTime; }
+            protected set { characterInfoInfo.DefaultConstTime = value; }
+        }
+
+        /// <summary>
+        /// 接收技能输入
+        /// </summary>
+        /// <returns></returns>
+        public bool InputOk
+        {
+            get { return characterInfoInfo.InputOk; }
+            set { characterInfoInfo.InputOk = value; }
+        }
+
+        public List<SkillInfoAsset> Skills => characterInfoInfo.skills;
+        
         public event Action OnThisUpdate;
 
         /// <summary>
         /// 攻击速度
         /// </summary>
-        private float attackSpeed = 1;
         public float AttackSpeed
         {
             get
             {
-                return this.attackSpeed;
+                return characterInfoInfo.attackSpeed;
             }
             set
             {
                 if(value<=0)
                 {
-                    throw new Exception("攻速不能为零:"+this.name);
+                    throw new Exception("攻速不能为零:"+this.CharacterName);
                 }
-                this.attackSpeed = value;
+                characterInfoInfo.attackSpeed = value;
             }
         }
 
@@ -122,81 +189,77 @@ namespace Game.Control.PersonSystem
         #endregion
 
         #region 技能
-
-        private int maxRealSkillCount;
-        public virtual int BaseSkillCount
-        {
-            get
-            {
-                return 0;
-            }
-        }
-        public int MaxRealSkillCount
-        {
-            get
-            {
-                return maxRealSkillCount;
-            }
-        }
-        public void IncreaseMaxSkillCount(int count)
-        {
-            maxRealSkillCount += count;
-        }
-
-        /// <summary>
-        /// 存放所有可用的技能名
-        /// </summary>
-        protected List<string> allSkillNames;
-        /// <summary>
-        /// 存储技能实例
-        /// </summary>
-        protected List<SkillInstance> skills = new List<SkillInstance>();
-        //protected SerializableDictionary<string, SkillInstance> skillDic = new SerializableDictionary<string, SkillInstance>();
-        /// <summary>
-        /// 存储动态添加的技能及其触发条件
-        /// </summary>
-        //protected List<UpdateTestPair> dis = new List<UpdateTestPair>();
+//
+//        private int maxRealSkillCount;
+//        public virtual int BaseSkillCount
+//        {
+//            get
+//            {
+//                return 0;
+//            }
+//        }
+//        public int MaxRealSkillCount
+//        {
+//            get
+//            {
+//                return maxRealSkillCount;
+//            }
+//        }
+//        public void IncreaseMaxSkillCount(int count)
+//        {
+//            maxRealSkillCount += count;
+//        }
+//
+//        /// <summary>
+//        /// 存放所有可用的技能名
+//        /// </summary>
+//        protected List<string> allSkillNames;
+//        /// <summary>
+//        /// 存储技能实例
+//        /// </summary>
+//        protected List<SkillInstance> skills = new List<SkillInstance>();
 
         /// <summary>
         /// 释放技能
         /// </summary>
-        /// <param name="skillName"></param>
-        public void RunSkill(int index, bool ignoreInput = false)
+        /// <param CharacterName="skillName"></param>
+        public void RunSkill(int index)
         {
-            if(!(skills.Count>=this.BaseSkillCount+this.MaxRealSkillCount))
-            {
-                throw new Exception(this.name + "没有这个技能索引：" +index);
-            }
-            this.skills[index].Execute(this, ignoreInput);
+//            if(!(skills.Count>=this.BaseSkillCount+this.MaxRealSkillCount))
+//            {
+//                throw new Exception(this.CharacterName + "没有这个技能索引：" +index);
+//            }
+//            this.skills[index].Execute(this, ignoreInput);
+            Skills[index].RunSkill(this);
         }
-
-        /// <summary>
-        /// 添加技能
-        /// </summary>
-        /// <param name="skillName"></param>
-        /// <param name="trigger"></param>
-        public void AddSkill(string skillName, Func<bool> trigger, bool ignoreInput = false)
-        {
-            foreach(var s in skills)
-            {
-                if (s.name == skillName)
-                {
-                    Debug.LogWarning("重复添加技能");
-                    return;
-                }
-            }
-            if(skills.Count>=this.MaxRealSkillCount+this.BaseSkillCount)
-            {
-                Debug.LogWarning("无法添加更多技能");
-                return;
-            }
-            this.allSkillNames.Add(skillName);
-            var skill = SkillTriggerMgr.skillInstanceDic[skillName];
-            this.skills.Add(skill);
-            var pair = new MainLoop.UpdateTestPair(trigger, () => RunSkill(skills.Count-1, ignoreInput));
-            MainLoop.AddUpdateTest(pair);
-            //dis.Add(pair);
-        }
+//
+//        /// <summary>
+//        /// 添加技能
+//        /// </summary>
+//        /// <param CharacterName="skillName"></param>
+//        /// <param CharacterName="trigger"></param>
+//        public void AddSkill(string skillName, Func<bool> trigger, bool ignoreInput = false)
+//        {
+//            foreach(var s in skills)
+//            {
+//                if (s.name == skillName)
+//                {
+//                    Debug.LogWarning("重复添加技能");
+//                    return;
+//                }
+//            }
+//            if(skills.Count>=this.MaxRealSkillCount+this.BaseSkillCount)
+//            {
+//                Debug.LogWarning("无法添加更多技能");
+//                return;
+//            }
+//            this.allSkillNames.Add(skillName);
+//            var skill = SkillTriggerMgr.skillInstanceDic[skillName];
+//            this.skills.Add(skill);
+//            var pair = new MainLoop.UpdateTestPair(trigger, () => RunSkill(skills.Count-1, ignoreInput));
+//            MainLoop.AddUpdateTest(pair);
+//            //dis.Add(pair);
+//        }
         #endregion
 
         #region BattleEffect
@@ -233,7 +296,7 @@ namespace Game.Control.PersonSystem
         /// <summary>
         /// 接受战斗效果
         /// </summary>
-        /// <param name="ef"></param>
+        /// <param CharacterName="ef"></param>
         public virtual void TakeBattleEffect(IBattleEffect ef)
         {
             this.bfList.Add(ef);
@@ -255,32 +318,20 @@ namespace Game.Control.PersonSystem
         {
         }
 
-        public AbstractPerson(string name, string prefabPath, Vector3 pos, List<string> skillTypes = null, Transform parent = null)
+        public AbstractPerson(BaseCharacterInfo characterInfo, Transform parent = null)
         {
-            //初始化默认属性
-            this.name = name;
-            this.InputOk = true;
-            this.IsConst = false;
-            this.IgnoreHitback = false;
-            this.DefaultConstTime = 0;
+            this.characterInfoInfo = characterInfo;
             
-//            Debug.Log("TestPerson_PrefabPath:"+ prefabPath);
-            this.obj = MemoryMgr.InstantiateGameObject(prefabPath, pos, Quaternion.identity, parent);
+            
+            this.obj = MemoryMgr.InstantiateGameObject(characterInfo.prefabPath, characterInfo.position, Quaternion.identity, parent);
+            
 
-
-            allSkillNames = skillTypes;
-            //初始化技能
-            if (skillTypes != null)
-                foreach (var str in skillTypes)
-                    //skillDic.Add(str, SkillTriggerMgr.skillInstanceDic[str]);
-                    skills.Add(SkillTriggerMgr.skillInstanceDic[str]);
-
-            if(skillTypes!=null)
-                this.maxRealSkillCount = skillTypes.Count-this.BaseSkillCount;
-            else
-            {
-                this.maxRealSkillCount = 0;
-            }
+//            if(characterInfo.skills!=null)
+//                this.maxRealSkillCount = characterInfo.skills.Count-this.BaseSkillCount;
+//            else
+//            {
+//                this.maxRealSkillCount = 0;
+//            }
 
             //添加基本攻击效果
             this.OnAttackListRefresh += AddBaseAttackEffects;
@@ -297,7 +348,7 @@ namespace Game.Control.PersonSystem
         /// <summary>
         /// 添加基础攻击效果
         /// </summary>
-        /// <param name="ap"></param>
+        /// <param CharacterName="ap"></param>
         protected abstract void AddBaseAttackEffects(AbstractPerson self);
 
         #endregion
@@ -329,7 +380,7 @@ namespace Game.Control.PersonSystem
         /// <summary>
         /// 不接受输入
         /// </summary>
-        /// <param name="time"></param>
+        /// <param CharacterName="time"></param>
         public void IgnoreInput(float time)
         {
             this.InputOk = false;

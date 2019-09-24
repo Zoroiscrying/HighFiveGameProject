@@ -173,7 +173,7 @@ namespace Game.StateMachine
 
             if (!stateLookup.ContainsKey(newState))
             {
-                throw new Exception("No state with the name " + newState.ToString() + " can be found. Please make sure you are called the correct type the statemachine was initialized with");
+                throw new Exception("No state with the CharacterName " + newState.ToString() + " can be found. Please make sure you are called the correct type the statemachine was initialized with");
             }
 
             var nextState = stateLookup[newState];
@@ -362,7 +362,7 @@ namespace Game.StateMachine
         /// <summary>
         /// Inspects a MonoBehaviour for state methods as definied by the supplied Enum, and returns a stateMachine instance used to trasition states.
         /// </summary>
-        /// <param name="component">The component with defined state methods</param>
+        /// <param CharacterName="component">The component with defined state methods</param>
         /// <returns>A valid stateMachine instance to manage MonoBehaviour state transitions</returns>
         public static StateMachine<T> Initialize(MonoBehaviour component)
         {
@@ -375,8 +375,8 @@ namespace Game.StateMachine
         /// <summary>
         /// Inspects a MonoBehaviour for state methods as definied by the supplied Enum, and returns a stateMachine instance used to trasition states. 
         /// </summary>
-        /// <param name="component">The component with defined state methods</param>
-        /// <param name="startState">The default starting state</param>
+        /// <param CharacterName="component">The component with defined state methods</param>
+        /// <param CharacterName="startState">The default starting state</param>
         /// <returns>A valid stateMachine instance to manage MonoBehaviour state transitions</returns>
         public static StateMachine<T> Initialize(MonoBehaviour component, T startState)
         {

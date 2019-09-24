@@ -6,7 +6,7 @@ namespace Cinemachine.Editor
 {
     public static class SerializedPropertyHelper
     {
-        /// This is a way to get a field name string in such a manner that the compiler will
+        /// This is a way to get a field CharacterName string in such a manner that the compiler will
         /// generate errors for invalid fields.  Much better than directly using strings.
         /// Usage: instead of
         /// <example>

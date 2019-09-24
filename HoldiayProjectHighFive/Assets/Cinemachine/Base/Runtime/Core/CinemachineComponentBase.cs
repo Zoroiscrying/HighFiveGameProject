@@ -58,20 +58,20 @@ namespace Cinemachine
 
         /// <summary>Override this to do such things as offset the RefereceLookAt.
         /// Base class implementation does nothing.</summary>
-        /// <param name="curState">Input state that must be mutated</param>
+        /// <param CharacterName="curState">Input state that must be mutated</param>
         public virtual void PrePipelineMutateCameraState(ref CameraState state) {}
 
         /// <summary>What part of the pipeline this fits into</summary>
         public abstract CinemachineCore.Stage Stage { get; }
 
         /// <summary>Mutates the camera state.  This state will later be applied to the camera.</summary>
-        /// <param name="curState">Input state that must be mutated</param>
-        /// <param name="deltaTime">Delta time for time-based effects (ignore if less than 0)</param>
+        /// <param CharacterName="curState">Input state that must be mutated</param>
+        /// <param CharacterName="deltaTime">Delta time for time-based effects (ignore if less than 0)</param>
         public abstract void MutateCameraState(ref CameraState curState, float deltaTime);
 
-        /// <summary>API for the editor, to process a position drag from the user.
+        /// <summary>API for the editor, to process a position Drag from the user.
         /// Base class implementation does nothing.</summary>
-        /// <param name="delta">The amount dragged this frame</param>
+        /// <param CharacterName="delta">The amount dragged this frame</param>
         public virtual void OnPositionDragged(Vector3 delta) {}
     }
 }

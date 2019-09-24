@@ -90,10 +90,10 @@ namespace Cinemachine.Utility
 
         /// <summary>Get a damped version of a quantity.  This is the portion of the
         /// quantity that will take effect over the given time.</summary>
-        /// <param name="initial">The amount that will be damped</param>
-        /// <param name="dampTime">The rate of damping.  This is the time it would 
+        /// <param CharacterName="initial">The amount that will be damped</param>
+        /// <param CharacterName="dampTime">The rate of damping.  This is the time it would 
         /// take to reduce the original amount to a negligible percentage</param>
-        /// <param name="deltaTime">The time over which to damp</param>
+        /// <param CharacterName="deltaTime">The time over which to damp</param>
         /// <returns>The damped amount.  This will be the original amount scaled by 
         /// a value between 0 and 1.</returns>
         public static float Damp(float initial, float dampTime, float deltaTime)
@@ -108,10 +108,10 @@ namespace Cinemachine.Utility
 
         /// <summary>Get a damped version of a quantity.  This is the portion of the
         /// quantity that will take effect over the given time.</summary>
-        /// <param name="initial">The amount that will be damped</param>
-        /// <param name="dampTime">The rate of damping.  This is the time it would 
+        /// <param CharacterName="initial">The amount that will be damped</param>
+        /// <param CharacterName="dampTime">The rate of damping.  This is the time it would 
         /// take to reduce the original amount to a negligible percentage</param>
-        /// <param name="deltaTime">The time over which to damp</param>
+        /// <param CharacterName="deltaTime">The time over which to damp</param>
         /// <returns>The damped amount.  This will be the original amount scaled by 
         /// a value between 0 and 1.</returns>
         public static Vector3 Damp(Vector3 initial, Vector3 dampTime, float deltaTime)
@@ -123,10 +123,10 @@ namespace Cinemachine.Utility
 
         /// <summary>Get a damped version of a quantity.  This is the portion of the
         /// quantity that will take effect over the given time.</summary>
-        /// <param name="initial">The amount that will be damped</param>
-        /// <param name="dampTime">The rate of damping.  This is the time it would 
+        /// <param CharacterName="initial">The amount that will be damped</param>
+        /// <param CharacterName="dampTime">The rate of damping.  This is the time it would 
         /// take to reduce the original amount to a negligible percentage</param>
-        /// <param name="deltaTime">The time over which to damp</param>
+        /// <param CharacterName="deltaTime">The time over which to damp</param>
         /// <returns>The damped amount.  This will be the original amount scaled by 
         /// a value between 0 and 1.</returns>
         public static Vector3 Damp(Vector3 initial, float dampTime, float deltaTime)

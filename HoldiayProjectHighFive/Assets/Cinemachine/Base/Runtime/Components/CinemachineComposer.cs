@@ -85,15 +85,15 @@ namespace Cinemachine
         public float m_DeadZoneHeight = 0.1f;
 
         /// <summary>When target is within this region, camera will gradually move to re-align
-        /// towards the desired position, depending onm the damping speed</summary>
+        /// towards the desired position, depending onm the damping animationSpeed</summary>
         [Range(0f, 2f)]
-        [Tooltip("When target is within this region, camera will gradually rotate horizontally to re-align towards the desired position, depending on the damping speed.")]
+        [Tooltip("When target is within this region, camera will gradually rotate horizontally to re-align towards the desired position, depending on the damping animationSpeed.")]
         public float m_SoftZoneWidth = 0.8f;
 
         /// <summary>When target is within this region, camera will gradually move to re-align
-        /// towards the desired position, depending onm the damping speed</summary>
+        /// towards the desired position, depending onm the damping animationSpeed</summary>
         [Range(0f, 2f)]
-        [Tooltip("When target is within this region, camera will gradually rotate vertically to re-align towards the desired position, depending on the damping speed.")]
+        [Tooltip("When target is within this region, camera will gradually rotate vertically to re-align towards the desired position, depending on the damping animationSpeed.")]
         public float m_SoftZoneHeight = 0.8f;
 
         /// <summary>A non-zero bias will move the targt position away from the center of the soft zone</summary>
@@ -118,7 +118,7 @@ namespace Cinemachine
 
         /// <summary>Apply the target offsets to the target location.
         /// Also set the TrackedPoint property, taking lookahead into account.</summary>
-        /// <param name="lookAt">The unoffset LookAt point</param>
+        /// <param CharacterName="lookAt">The unoffset LookAt point</param>
         /// <returns>The LookAt point with the offset applied</returns>
         protected virtual Vector3 GetLookAtPointAndSetTrackedPoint(Vector3 lookAt)
         {
@@ -152,8 +152,8 @@ namespace Cinemachine
         }
 
         /// <summary>Applies the composer rules and orients the camera accordingly</summary>
-        /// <param name="curState">The current camera state</param>
-        /// <param name="deltaTime">Used for calculating damping.  If less than
+        /// <param CharacterName="curState">The current camera state</param>
+        /// <param CharacterName="deltaTime">Used for calculating damping.  If less than
         /// zero, then target will snap to the center of the dead zone.</param>
         public override void MutateCameraState(ref CameraState curState, float deltaTime)
         {

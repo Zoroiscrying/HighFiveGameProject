@@ -1527,11 +1527,11 @@ namespace behaviac
                 return;
             }
 
-            string name = node.Attributes["name"].Value;
+            string CharacterName = node.Attributes["CharacterName"].Value;
             string type = node.Attributes["type"].Value.Replace("::", ".");
             string value = node.Attributes["value"].Value;
 
-            this.AddLocal(agentType, type, name, value);
+            this.AddLocal(agentType, type, CharacterName, value);
         }
 #else
         protected override void load_local(int version, string agentType, SecurityElement node)
@@ -1542,7 +1542,7 @@ namespace behaviac
                 return;
             }
 
-            string name = node.Attribute("name");
+            string name = node.Attribute("CharacterName");
             string type = node.Attribute("type").Replace("::", ".");
             string value = node.Attribute("value");
 
@@ -1580,7 +1580,7 @@ namespace behaviac
                     return false;
                 }
 
-                this.m_name = behaviorNode.Attributes["name"].Value;
+                this.m_name = behaviorNode.Attributes["CharacterName"].Value;
                 string agentType = behaviorNode.Attributes["agenttype"].Value;
                 string fsm = (behaviorNode.Attributes["fsm"] != null) ? behaviorNode.Attributes["fsm"].Value : null;
                 string versionStr = behaviorNode.Attributes["version"].Value;
@@ -1595,7 +1595,7 @@ namespace behaviac
                     return false;
                 }
 
-                this.m_name = behaviorNode.Attribute("name");
+                this.m_name = behaviorNode.Attribute("CharacterName");
                 string agentType = behaviorNode.Attribute("agenttype").Replace("::", ".");
                 string fsm = behaviorNode.Attribute("fsm");
                 string versionStr = behaviorNode.Attribute("version");

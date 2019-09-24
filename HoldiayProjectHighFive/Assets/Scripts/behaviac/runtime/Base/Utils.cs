@@ -1414,14 +1414,14 @@ namespace behaviac
                 return ret;
             }
 
-            //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+            //{color=0;id=;type={bLive=false;CharacterName=0;weight=0;};}
             //the first char is '{'
             //the last char is '}'
             int posCloseBrackets = SkipPairedBrackets(src, 0);
             Debug.Check(posCloseBrackets != -1);
 
-            //{color=0;id=;type={bLive=false;name=0;weight=0;};}
-            //{color=0;id=;type={bLive=false;name=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
+            //{color=0;id=;type={bLive=false;CharacterName=0;weight=0;};}
+            //{color=0;id=;type={bLive=false;CharacterName=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
             int posBegin = 1;
             int posEnd = src.IndexOf(';', posBegin);
 
@@ -1468,7 +1468,7 @@ namespace behaviac
                 //skip ';'
                 posBegin = posEnd + 1;
 
-                //{color=0;id=;type={bLive=false;name=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
+                //{color=0;id=;type={bLive=false;CharacterName=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
                 posEnd = src.IndexOf(';', posBegin);
 
                 if (posEnd > posCloseBrackets)
@@ -1501,14 +1501,14 @@ namespace behaviac
                 return objValue;
             }
 
-            //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+            //{color=0;id=;type={bLive=false;CharacterName=0;weight=0;};}
             //the first char is '{'
             //the last char is '}'
             int posCloseBrackets = SkipPairedBrackets(src, 0);
             Debug.Check(posCloseBrackets != -1);
 
-            //{color=0;id=;type={bLive=false;name=0;weight=0;};}
-            //{color=0;id=;type={bLive=false;name=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
+            //{color=0;id=;type={bLive=false;CharacterName=0;weight=0;};}
+            //{color=0;id=;type={bLive=false;CharacterName=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
             int posBegin = 1;
             int posEnd = src.IndexOf(';', posBegin);
 
@@ -1565,7 +1565,7 @@ namespace behaviac
                 //skip ';'
                 posBegin = posEnd + 1;
 
-                //{color=0;id=;type={bLive=false;name=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
+                //{color=0;id=;type={bLive=false;CharacterName=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
                 posEnd = src.IndexOf(';', posBegin);
 
                 if (posEnd > posCloseBrackets)

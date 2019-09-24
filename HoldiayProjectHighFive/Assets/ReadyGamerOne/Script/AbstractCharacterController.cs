@@ -373,8 +373,8 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 模拟用户输入后的效果
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="input"></param>
+        /// <param CharacterName="type"></param>
+        /// <param CharacterName="input"></param>
         public void Simulator(StateType type,Vector2 input)
         {
             AutoFitDirByLocalScale(input);
@@ -436,7 +436,7 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 开始跑步，持续触发
         /// </summary>
-        /// <param name="input"></param>
+        /// <param CharacterName="input"></param>
         private void ToWalk(Vector2 input,Vector2 walkScaler)
         {
             switch (dirType)
@@ -459,7 +459,7 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 开始跑步，持续调用
         /// </summary>
-        /// <param name="input"></param>
+        /// <param CharacterName="input"></param>
         private void ToRun(Vector2 input,Vector2 runScaler)
         {
             switch (dirType)
@@ -482,7 +482,7 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 开始冲刺，只调用一次！！
         /// </summary>
-        /// <param name="input"></param>
+        /// <param CharacterName="input"></param>
         private void ToDash(Vector2 input)
         {
             LockState = true;
@@ -538,7 +538,7 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 开始下蹲，持续调用
         /// </summary>
-        /// <param name="input"></param>
+        /// <param CharacterName="input"></param>
         private void ToSquat(Vector2 input)
         {
             

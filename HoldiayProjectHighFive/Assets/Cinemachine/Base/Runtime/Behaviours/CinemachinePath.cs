@@ -85,7 +85,7 @@ namespace Cinemachine
         }
 
         /// <summary>Get a worldspace position of a point along the path</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
         /// <returns>World-space position of the point along at path at pos</returns>
         public override Vector3 EvaluatePosition(float pos)
         {
@@ -112,7 +112,7 @@ namespace Cinemachine
         }
 
         /// <summary>Get the tangent of the curve at a point along the path.</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
         /// <returns>World-space direction of the path tangent.
         /// Length of the vector represents the tangent strength</returns>
         public override Vector3 EvaluateTangent(float pos)
@@ -139,7 +139,7 @@ namespace Cinemachine
         }
 
         /// <summary>Get the orientation the curve at a point along the path.</summary>
-        /// <param name="pos">Postion along the path.  Need not be normalized.</param>
+        /// <param CharacterName="pos">Postion along the path.  Need not be normalized.</param>
         /// <returns>World-space orientation of the path, as defined by tangent, up, and roll.</returns>
         public override Quaternion EvaluateOrientation(float pos)
         {

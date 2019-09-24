@@ -9,7 +9,7 @@ namespace Cinemachine.Editor
     {
         const int vSpace = 2;
         bool mExpanded = true;
-        LensSettings def = new LensSettings(); // to access name strings
+        LensSettings def = new LensSettings(); // to access CharacterName strings
 
         public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
         {

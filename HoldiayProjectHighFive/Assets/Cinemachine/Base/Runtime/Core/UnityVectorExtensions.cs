@@ -11,9 +11,9 @@ namespace Cinemachine.Utility
         /// <summary>
         /// Get the closest point on a line segment.
         /// </summary>
-        /// <param name="p">A point in space</param>
-        /// <param name="s0">Start of line segment</param>
-        /// <param name="s1">End of line segment</param>
+        /// <param CharacterName="p">A point in space</param>
+        /// <param CharacterName="s0">Start of line segment</param>
+        /// <param CharacterName="s1">End of line segment</param>
         /// <returns>The interpolation parameter representing the point on the segment, with 0==s0, and 1==s1</returns>
         public static float ClosestPointOnSegment(this Vector3 p, Vector3 s0, Vector3 s1)
         {
@@ -27,9 +27,9 @@ namespace Cinemachine.Utility
         /// <summary>
         /// Get the closest point on a line segment.
         /// </summary>
-        /// <param name="p">A point in space</param>
-        /// <param name="s0">Start of line segment</param>
-        /// <param name="s1">End of line segment</param>
+        /// <param CharacterName="p">A point in space</param>
+        /// <param CharacterName="s0">Start of line segment</param>
+        /// <param CharacterName="s1">End of line segment</param>
         /// <returns>The interpolation parameter representing the point on the segment, with 0==s0, and 1==s1</returns>
         public static float ClosestPointOnSegment(this Vector2 p, Vector2 s0, Vector2 s1)
         {
@@ -44,8 +44,8 @@ namespace Cinemachine.Utility
         /// Returns a non-normalized projection of the supplied vector onto a plane
         /// as described by its normal
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="planeNormal">The normal that defines the plane.  Cannot be zero-length.</param>
+        /// <param CharacterName="vector"></param>
+        /// <param CharacterName="planeNormal">The normal that defines the plane.  Cannot be zero-length.</param>
         /// <returns>The component of the vector that lies in the plane</returns>
         public static Vector3 ProjectOntoPlane(this Vector3 vector, Vector3 planeNormal)
         {
@@ -53,7 +53,7 @@ namespace Cinemachine.Utility
         }
 
         /// <summary>Is the vector within Epsilon of zero length?</summary>
-        /// <param name="v"></param>
+        /// <param CharacterName="v"></param>
         /// <returns>True if the square magnitude of the vector is within Epsilon of zero</returns>
         public static bool AlmostZero(this Vector3 v)
         {
@@ -61,9 +61,9 @@ namespace Cinemachine.Utility
         }
 
         /// <summary>Get a signed angle between two vectors</summary>
-        /// <param name="from">Start direction</param>
-        /// <param name="to">End direction</param>
-        /// <param name="refNormal">This is needed in order to determine the sign.
+        /// <param CharacterName="from">Start direction</param>
+        /// <param CharacterName="to">End direction</param>
+        /// <param CharacterName="refNormal">This is needed in order to determine the sign.
         /// For example, if from an to lie on the XZ plane, then this would be the
         /// Y unit vector, or indeed any vector which, when dotted with Y unit vector,
         /// would give a positive result.</param>
@@ -84,10 +84,10 @@ namespace Cinemachine.Utility
         /// <summary>This is a slerp that mimics a camera operator's movement in that
         /// it chooses a path that avoids the lower hemisphere, as defined by
         /// the up param</summary>
-        /// <param name="vA">First direction</param>
-        /// <param name="vB">Second direction</param>
-        /// <param name="t">Interpolation amoun t</param>
-        /// <param name="up">Defines the up direction</param>
+        /// <param CharacterName="vA">First direction</param>
+        /// <param CharacterName="vB">Second direction</param>
+        /// <param CharacterName="t">Interpolation amoun t</param>
+        /// <param CharacterName="up">Defines the up direction</param>
         public static Vector3 SlerpWithReferenceUp(
             Vector3 vA, Vector3 vB, float t, Vector3 up)
         {
@@ -112,10 +112,10 @@ namespace Cinemachine.Utility
         /// <summary>This is a slerp that mimics a camera operator's movement in that
         /// it chooses a path that avoids the lower hemisphere, as defined by
         /// the up param</summary>
-        /// <param name="qA">First direction</param>
-        /// <param name="qB">Second direction</param>
-        /// <param name="t">Interpolation amoun t</param>
-        /// <param name="up">Defines the up direction</param>
+        /// <param CharacterName="qA">First direction</param>
+        /// <param CharacterName="qB">Second direction</param>
+        /// <param CharacterName="t">Interpolation amoun t</param>
+        /// <param CharacterName="up">Defines the up direction</param>
         public static Quaternion SlerpWithReferenceUp(
             Quaternion qA, Quaternion qB, float t, Vector3 up)
         {
@@ -137,7 +137,7 @@ namespace Cinemachine.Utility
         }
 
         /// <summary>Normalize a quaternion</summary>
-        /// <param name="q"></param>
+        /// <param CharacterName="q"></param>
         /// <returns>The normalized quaternion.  Unit length is 1.</returns>
         public static Quaternion Normalized(this Quaternion q)
         {
@@ -151,9 +151,9 @@ namespace Cinemachine.Utility
         /// This represents the tripod head movement needed to look at the target.
         /// This formulation makes it easy to interpolate without introducing spurious roll.
         /// </summary>
-        /// <param name="orient"></param>
-        /// <param name="lookAtDir">The worldspace target direction in which we want to look</param>
-        /// <param name="worldUp">Which way is up</param>
+        /// <param CharacterName="orient"></param>
+        /// <param CharacterName="lookAtDir">The worldspace target direction in which we want to look</param>
+        /// <param CharacterName="worldUp">Which way is up</param>
         /// <returns>Vector2.y is rotation about worldUp, and Vector2.x is second rotation,
         /// about local right.</returns>
         public static Vector2 GetCameraRotationToTarget(
@@ -198,10 +198,10 @@ namespace Cinemachine.Utility
         /// Apply rotations, first about world up, then about (travelling) local right.
         /// rot.y is rotation about worldUp, and rot.x is second rotation, about local right.
         /// </summary>
-        /// <param name="orient"></param>
-        /// <param name="rot">Vector2.y is rotation about worldUp, and Vector2.x is second rotation,
+        /// <param CharacterName="orient"></param>
+        /// <param CharacterName="rot">Vector2.y is rotation about worldUp, and Vector2.x is second rotation,
         /// about local right.</param>
-        /// <param name="worldUp">Which way is up</param>
+        /// <param CharacterName="worldUp">Which way is up</param>
         public static Quaternion ApplyCameraRotation(
             this Quaternion orient, Vector2 rot, Vector3 worldUp)
         {
@@ -214,8 +214,8 @@ namespace Cinemachine.Utility
     public static class UnityRectExtensions
     {
         /// <summary>Inflate a rect</summary>
-        /// <param name="r"></param>
-        /// <param name="delta">x and y are added/subtracted fto/from the edges of
+        /// <param CharacterName="r"></param>
+        /// <param CharacterName="delta">x and y are added/subtracted fto/from the edges of
         /// the rect, inflating it in all directions</param>
         /// <returns>The inflated rect</returns>
         public static Rect Inflated(this Rect r, Vector2 delta)

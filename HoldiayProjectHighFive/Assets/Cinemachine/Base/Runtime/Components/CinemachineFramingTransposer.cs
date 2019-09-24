@@ -22,7 +22,7 @@ namespace Cinemachine
     /// The Follow target will define what the camera is looking at.
     /// 
     /// If the Follow target is a CinemachineTargetGroup, then additional controls will 
-    /// be available to dynamically adjust the camera’s view in order to frame the entire group.
+    /// be available to dynamically adjust the cameraæŠ¯ view in order to frame the entire group.
     /// 
     /// Although this component was designed for orthographic cameras, it works equally  
     /// well with persective cameras and can be used in 3D environments.
@@ -115,15 +115,15 @@ namespace Cinemachine
         public bool m_UnlimitedSoftZone = false;
 
         /// <summary>When target is within this region, camera will gradually move to re-align
-        /// towards the desired position, depending onm the damping speed</summary>
+        /// towards the desired position, depending onm the damping animationSpeed</summary>
         [Range(0f, 2f)]
-        [Tooltip("When target is within this region, camera will gradually move horizontally to re-align towards the desired position, depending on the damping speed.")]
+        [Tooltip("When target is within this region, camera will gradually move horizontally to re-align towards the desired position, depending on the damping animationSpeed.")]
         public float m_SoftZoneWidth = 0.8f;
 
         /// <summary>When target is within this region, camera will gradually move to re-align
-        /// towards the desired position, depending onm the damping speed</summary>
+        /// towards the desired position, depending onm the damping animationSpeed</summary>
         [Range(0f, 2f)]
-        [Tooltip("When target is within this region, camera will gradually move vertically to re-align towards the desired position, depending on the damping speed.")]
+        [Tooltip("When target is within this region, camera will gradually move vertically to re-align towards the desired position, depending on the damping animationSpeed.")]
         public float m_SoftZoneHeight = 0.8f;
 
         /// <summary>A non-zero bias will move the targt position away from the center of the soft zone</summary>
@@ -296,8 +296,8 @@ namespace Cinemachine
         public Vector3 TrackedPoint { get; private set; }
 
         /// <summary>Positions the virtual camera according to the transposer rules.</summary>
-        /// <param name="curState">The current camera state</param>
-        /// <param name="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
+        /// <param CharacterName="curState">The current camera state</param>
+        /// <param CharacterName="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
         public override void MutateCameraState(ref CameraState curState, float deltaTime)
         {
             if (deltaTime < 0)

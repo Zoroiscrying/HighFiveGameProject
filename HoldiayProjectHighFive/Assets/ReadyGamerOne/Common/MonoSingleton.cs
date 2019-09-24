@@ -4,7 +4,7 @@ namespace ReadyGamerOne.Common
     /// <summary>
     /// MonoBehavior单例泛型类
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam CharacterName="T"></typeparam>
     public class MonoSingleton<T> : MonoBehaviour
         where T : MonoSingleton<T>, new()
     {

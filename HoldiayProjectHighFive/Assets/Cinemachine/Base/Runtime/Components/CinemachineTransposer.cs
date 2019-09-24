@@ -127,8 +127,8 @@ namespace Cinemachine
         public override CinemachineCore.Stage Stage { get { return CinemachineCore.Stage.Body; } }
 
         /// <summary>Positions the virtual camera according to the transposer rules.</summary>
-        /// <param name="curState">The current camera state</param>
-        /// <param name="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
+        /// <param CharacterName="curState">The current camera state</param>
+        /// <param CharacterName="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
         public override void MutateCameraState(ref CameraState curState, float deltaTime)
         {
             //UnityEngine.Profiling.Profiler.BeginSample("CinemachineTransposer.MutateCameraState");
@@ -145,9 +145,9 @@ namespace Cinemachine
             //UnityEngine.Profiling.Profiler.EndSample();
         }
 
-        /// <summary>API for the editor, to process a position drag from the user.
+        /// <summary>API for the editor, to process a position Drag from the user.
         /// This implementation adds the delta to the follow offset.</summary>
-        /// <param name="delta">The amount dragged this frame</param>
+        /// <param CharacterName="delta">The amount dragged this frame</param>
         public override void OnPositionDragged(Vector3 delta)
         {
             Quaternion targetOrientation = GetReferenceOrientation(VcamState.ReferenceUp);
@@ -174,11 +174,11 @@ namespace Cinemachine
         }
 
         /// <summary>Positions the virtual camera according to the transposer rules.</summary>
-        /// <param name="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
-        /// <param name="up">Current camera up</param>
-        /// <param name="desiredCameraOffset">Where we want to put the camera relative to the follow target</param>
-        /// <param name="outTargetPosition">Resulting camera position</param>
-        /// <param name="outTargetOrient">Damped target orientation</param>
+        /// <param CharacterName="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
+        /// <param CharacterName="up">Current camera up</param>
+        /// <param CharacterName="desiredCameraOffset">Where we want to put the camera relative to the follow target</param>
+        /// <param CharacterName="outTargetPosition">Resulting camera position</param>
+        /// <param CharacterName="outTargetOrient">Damped target orientation</param>
         protected void TrackTarget(
             float deltaTime, Vector3 up, Vector3 desiredCameraOffset,
             out Vector3 outTargetPosition, out Quaternion outTargetOrient)

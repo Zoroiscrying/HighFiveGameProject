@@ -230,13 +230,13 @@ public class Actor : MonoBehaviour {
 
 	void onTriggerEnterEvent( Collider2D col )
 	{
-//		Debug.Log( "onTriggerEnterEvent: " + col.gameObject.name );
+//		Debug.Log( "onTriggerEnterEvent: " + col.gameObject.CharacterName );
 	}
 
 
 	void onTriggerExitEvent( Collider2D col )
 	{
-//		Debug.Log( "onTriggerExitEvent: " + col.gameObject.name );
+//		Debug.Log( "onTriggerExitEvent: " + col.gameObject.CharacterName );
 	}
 
 
@@ -323,7 +323,7 @@ public class Actor : MonoBehaviour {
 	/// <summary>
 	/// 跳跃一次，功能较为有限
 	/// </summary>
-	/// <param name="jumpForce"></param>
+	/// <param CharacterName="jumpForce"></param>
 	public void Jump(Vector2 jumpForce)
 	{
 		if (_controller.isGrounded)
@@ -342,8 +342,8 @@ public class Actor : MonoBehaviour {
 	/// <summary>
 	/// 跳跃几次，带有暂停效果，并可指定跳跃多少次，默认为1次
 	/// </summary>
-	/// <param name="jumpForce"></param>
-	/// <param name="howManyTimes"></param>
+	/// <param CharacterName="jumpForce"></param>
+	/// <param CharacterName="howManyTimes"></param>
 	public void JumpSeveralTimes(Vector2 jumpForce, int howManyTimes = 1)
 	{
 		if (_jumpStopTimer <= JumpStopTime && _controller.isGrounded)
@@ -449,7 +449,7 @@ public class Actor : MonoBehaviour {
 	private void CalculateVelocity()
 	{
 		float targetVelocityX = _directionalInput.x * _runSpeed * _horizontalSpeedMultiplier;
-		// apply horizontal speed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
+		// apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
 		//var smoothedMovementFactor = _controller.isGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
 		_velocity.x = Mathf.SmoothDamp( _velocity.x, targetVelocityX, ref _movementDamping,
 			(_controller.collisionState.below)?_accelerationTimeGrounded:_accelerationTimeAirborne);

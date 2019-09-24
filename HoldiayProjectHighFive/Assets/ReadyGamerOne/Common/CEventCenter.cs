@@ -26,8 +26,8 @@ namespace ReadyGamerOne.Common
         /// <summary>
         /// 添加监听事件
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="listener"></param>
+        /// <param CharacterName="type"></param>
+        /// <param CharacterName="listener"></param>
         public static void AddListener(string type, Action listener)
         {
             AddListener(type, listener, false);
@@ -67,8 +67,8 @@ namespace ReadyGamerOne.Common
         /// <summary>
         /// 移出监听事件
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="listener"></param>
+        /// <param CharacterName="type"></param>
+        /// <param CharacterName="listener"></param>
         public static void RemoveListener(string type, Action listener)
         {
             if (listeners.ContainsKey(type))

@@ -44,8 +44,8 @@ namespace Cinemachine
         }
         
         /// <summary>Applies the axis values and orients the camera accordingly</summary>
-        /// <param name="curState">The current camera state</param>
-        /// <param name="deltaTime">Used for calculating damping.  Not used.</param>
+        /// <param CharacterName="curState">The current camera state</param>
+        /// <param CharacterName="deltaTime">Used for calculating damping.  Not used.</param>
         public override void MutateCameraState(ref CameraState curState, float deltaTime)
         {
             if (!IsValid)

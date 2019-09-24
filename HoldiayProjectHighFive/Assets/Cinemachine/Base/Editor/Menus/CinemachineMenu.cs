@@ -226,7 +226,7 @@ namespace Cinemachine.Editor
         }
 
         /// <summary>
-        /// Generate a unique name with the given prefix by adding a suffix to it
+        /// Generate a unique CharacterName with the given prefix by adding a suffix to it
         /// </summary>
         public static string GenerateUniqueObjectName(Type type, string prefix)
         {

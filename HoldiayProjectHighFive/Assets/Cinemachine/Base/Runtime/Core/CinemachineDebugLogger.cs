@@ -9,7 +9,7 @@ namespace Cinemachine.Utility
         static HashSet<Object> mClients;
 
         /// <summary>Release a screen rectangle previously obtained through GetScreenPos()</summary>
-        /// <param name="client">The client caller.  Used as a handle.</param>
+        /// <param CharacterName="client">The client caller.  Used as a handle.</param>
         public static void ReleaseScreenPos(Object client)
         {
             if (mClients != null && mClients.Contains(client))
@@ -17,9 +17,9 @@ namespace Cinemachine.Utility
         }
 
         /// <summary>Reserve an on-screen rectangle for debugging output.</summary>
-        /// <param name="client">The client caller.  This is used as a handle.</param>
-        /// <param name="text">Sample text, for determining rectangle size</param>
-        /// <param name="style">What style will be used to draw, used here for
+        /// <param CharacterName="client">The client caller.  This is used as a handle.</param>
+        /// <param CharacterName="text">Sample text, for determining rectangle size</param>
+        /// <param CharacterName="style">What style will be used to draw, used here for
         /// determining rect size</param>
         /// <returns>An area on the game screen large enough to print the text
         /// in the style indicated</returns>

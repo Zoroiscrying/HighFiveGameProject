@@ -63,7 +63,7 @@ namespace Cinemachine
         /// This will be called after each pipeline stage, to allow others to hook into the pipeline.
         /// See CinemachineCore.Stage.
         /// </summary>
-        /// <param name="d">The delegate to call.</param>
+        /// <param CharacterName="d">The delegate to call.</param>
         public virtual void AddPostPipelineStageHook(OnPostPipelineStageDelegate d)
         {
             OnPostPipelineStage -= d;
@@ -71,7 +71,7 @@ namespace Cinemachine
         }
 
         /// <summary>Remove a Pipeline stage hook callback.</summary>
-        /// <param name="d">The delegate to remove.</param>
+        /// <param CharacterName="d">The delegate to remove.</param>
         public virtual void RemovePostPipelineStageHook(OnPostPipelineStageDelegate d)
         {
             OnPostPipelineStage -= d;
@@ -117,8 +117,8 @@ namespace Cinemachine
                 parent.InvokePostPipelineStageCallback(vcam, stage, ref newState, deltaTime);
         }
 
-        /// <summary>Get the name of the Virtual Camera.  Base implementation
-        /// returns the owner GameObject's name.</summary>
+        /// <summary>Get the CharacterName of the Virtual Camera.  Base implementation
+        /// returns the owner GameObject's CharacterName.</summary>
         public string Name { get { return name; } }
 
         /// <summary>Gets a brief debug description of this virtual camera, for use when displayiong debug info</summary>
@@ -162,7 +162,7 @@ namespace Cinemachine
 
         /// <summary>Check whether the vcam a live child of this camera.  
         /// This base class implementation always returns false.</summary>
-        /// <param name="vcam">The Virtual Camera to check</param>
+        /// <param CharacterName="vcam">The Virtual Camera to check</param>
         /// <returns>True if the vcam is currently actively influencing the state of this vcam</returns>
         public virtual bool IsLiveChild(ICinemachineCamera vcam) { return false; }
 
@@ -202,15 +202,15 @@ namespace Cinemachine
         /// <summary>Called by CinemachineCore at designated update time
         /// so the vcam can position itself and track its targets.  
         /// Do not call this method.  Let the framework do it at the appropriate time</summary>
-        /// <param name="worldUp">Default world Up, set by the CinemachineBrain</param>
-        /// <param name="deltaTime">Delta time for time-based effects (ignore if less than 0)</param>
+        /// <param CharacterName="worldUp">Default world Up, set by the CinemachineBrain</param>
+        /// <param CharacterName="deltaTime">Delta time for time-based effects (ignore if less than 0)</param>
         public abstract void UpdateCameraState(Vector3 worldUp, float deltaTime);
 
         /// <summary>Notification that this virtual camera is going live.
         /// Base class implementationmust be called by any overridden method.</summary>
-        /// <param name="fromCam">The camera being deactivated.  May be null.</param>
-        /// <param name="worldUp">Default world Up, set by the CinemachineBrain</param>
-        /// <param name="deltaTime">Delta time for time-based effects (ignore if less than or equal to 0)</param>
+        /// <param CharacterName="fromCam">The camera being deactivated.  May be null.</param>
+        /// <param CharacterName="worldUp">Default world Up, set by the CinemachineBrain</param>
+        /// <param CharacterName="deltaTime">Delta time for time-based effects (ignore if less than or equal to 0)</param>
         public virtual void OnTransitionFromCamera(
             ICinemachineCamera fromCam, Vector3 worldUp, float deltaTime) 
         {
@@ -301,7 +301,7 @@ namespace Cinemachine
 
         /// <summary>Returns this vcam's LookAt target, or if that is null, will retrun
         /// the parent vcam's LookAt target.</summary>
-        /// <param name="localLookAt">This vcam's LookAt value.</param>
+        /// <param CharacterName="localLookAt">This vcam's LookAt value.</param>
         /// <returns>The same value, or the parent's if null and a parent exists.</returns>
         protected Transform ResolveLookAt(Transform localLookAt)
         {
@@ -313,7 +313,7 @@ namespace Cinemachine
 
         /// <summary>Returns this vcam's Follow target, or if that is null, will retrun
         /// the parent vcam's Follow target.</summary>
-        /// <param name="localFollow">This vcam's Follow value.</param>
+        /// <param CharacterName="localFollow">This vcam's Follow value.</param>
         /// <returns>The same value, or the parent's if null and a parent exists.</returns>
         protected Transform ResolveFollow(Transform localFollow)
         {

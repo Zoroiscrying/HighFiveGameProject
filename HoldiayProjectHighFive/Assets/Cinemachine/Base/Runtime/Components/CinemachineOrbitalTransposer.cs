@@ -111,8 +111,8 @@ namespace Cinemachine
             [Tooltip("If no input has been detected, the camera will wait this long in seconds before moving its heading to the zero position.")]
             public float m_RecenterWaitTime;
 
-            /// <summary>Maximum angular speed of recentering.  Will accelerate into and decelerate out of this</summary>
-            [Tooltip("Maximum angular speed of recentering.  Will accelerate into and decelerate out of this.")]
+            /// <summary>Maximum angular animationSpeed of recentering.  Will accelerate into and decelerate out of this</summary>
+            [Tooltip("Maximum angular animationSpeed of recentering.  Will accelerate into and decelerate out of this.")]
             public float m_RecenteringTime;
 
             /// <summary>Constructor with specific field values</summary>
@@ -210,9 +210,9 @@ namespace Cinemachine
         /// <summary>
         /// Update the X axis and calculate the heading.  This can be called by a delegate
         /// with a custom axis.
-        /// <param name="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
-        /// <param name="up">World Up, set by the CinemachineBrain</param>
-        /// <param name="axis"></param>
+        /// <param CharacterName="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
+        /// <param CharacterName="up">World Up, set by the CinemachineBrain</param>
+        /// <param CharacterName="axis"></param>
         /// <returns>Axis value</returns>
         /// </summary>
         public float UpdateHeading(float deltaTime, Vector3 up, ref AxisState axis)
@@ -293,8 +293,8 @@ namespace Cinemachine
         private Vector3 mOffsetPrevFrame = Vector3.zero;
 
         /// <summary>Positions the virtual camera according to the transposer rules.</summary>
-        /// <param name="curState">The current camera state</param>
-        /// <param name="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
+        /// <param CharacterName="curState">The current camera state</param>
+        /// <param CharacterName="deltaTime">Used for damping.  If less than 0, no damping is done.</param>
         public override void MutateCameraState(ref CameraState curState, float deltaTime)
         {
             //UnityEngine.Profiling.Profiler.BeginSample("CinemachineOrbitalTransposer.MutateCameraState");
@@ -342,9 +342,9 @@ namespace Cinemachine
             //UnityEngine.Profiling.Profiler.EndSample();
         }
 
-        /// <summary>API for the editor, to process a position drag from the user.
+        /// <summary>API for the editor, to process a position Drag from the user.
         /// This implementation adds the delta to the follow offset, after zeroing out local x.</summary>
-        /// <param name="delta">The amount dragged this frame</param>
+        /// <param CharacterName="delta">The amount dragged this frame</param>
         public override void OnPositionDragged(Vector3 delta)
         {
             Quaternion targetOrientation = GetReferenceOrientation(VcamState.ReferenceUp);

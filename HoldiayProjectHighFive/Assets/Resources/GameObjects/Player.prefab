@@ -215,7 +215,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.72, y: 0.92}
+    oldSize: {x: 1.28, y: 0.96}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -240,7 +240,7 @@ Animator:
   m_GameObject: {fileID: 1597255121037888}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -288,32 +288,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79dbdae13dad344fa8b41a373955965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatrolStopTime: 1
-  JumpStopTime: 1
+  ActorJumpType: 0
   JumpForce: {x: 1, y: 0}
   AutoJump: 0
-  _isPatrolling: 0
+  JumpStopTime: 1
   ActorPatrolType: 0
-  _runSpeed: 6.2
-  _timeToJumpApex: 0.45
+  _isPatrolling: 0
+  PatrolStopTime: 1
   _accelerationTimeAirborne: 0.1
   _accelerationTimeGrounded: 0.05
+  _timeToJumpApex: 0.45
   _maxJumpHeight: 3.6
+  _runSpeed: 6.2
   _horizontalSpeedMultiplier: 1
   _verticalSpeedMultiplier: 1
   _affectedByGravity: 1
   _faceDir: 1
-  ActorJumpType: 0
   _velocity: {x: 0, y: 0, z: 0}
+  _minJumpHeight: 1
+  CanHighJump: 0
+  CanAcceleration: 0
+  CanDash: 0
+  CanDoubleJump: 0
   _maxUpYSpeed: 999
   _maxDownYSpeed: 15
+  HighJumpHeight: 4.5
   AccelerationSpeed: 2
   AccelerationTime: 3
-  HighJumpHeight: 4.5
-  _wallSlideVelocity: 6
   _dashTime: 0.15
   _dashDistance: 3
-  _minJumpHeight: 1
+  _wallSlideVelocity: 6
   _wallJumpTime: 0.03
   _wallJumpClimb: {x: 10, y: 15}
   _wallJumpNormal: {x: 0, y: 0}
@@ -508,7 +512,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c0dfaad24f644d4ab7c8595d6be23b9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec7f290adc6c3614388579668a5544b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

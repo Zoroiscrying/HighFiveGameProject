@@ -98,7 +98,7 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 播放指定名字的背景音乐
         /// </summary>
-        /// <param name="name"></param>
+        /// <param CharacterName="name"></param>
         public void PlayBgm(string name)
         {
             if (!enableBgmAudio)
@@ -120,7 +120,7 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 播放指定名字音效
         /// </summary>
-        /// <param name="name"></param>
+        /// <param CharacterName="name"></param>
         public void PlayEffect(string name)
         {
             if (!enableEffectAudio)
@@ -144,7 +144,7 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 关闭指定名字音效
         /// </summary>
-        /// <param name="name"></param>
+        /// <param CharacterName="name"></param>
         public void CloseEffect(string name)
         {
             foreach (var VARIABLE in effectSources)
@@ -157,8 +157,8 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 在指定位置播放音效
         /// </summary>
-        /// <param name="audioName"></param>
-        /// <param name="position"></param>
+        /// <param CharacterName="audioName"></param>
+        /// <param CharacterName="position"></param>
         public void PlayEffect(string audioName, Vector3 position)
         {
             AudioSource.PlayClipAtPoint(audioclips[audioName], position);

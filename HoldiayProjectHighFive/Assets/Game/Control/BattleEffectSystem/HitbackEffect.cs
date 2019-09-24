@@ -19,7 +19,7 @@ namespace Game.Control.BattleEffectSystem
             #region 加力
             //            var rig = ap.obj.GetComponent<Rigidbody2D>();
             //            if(rig==null)
-            //                Debug.LogError(ap.name+"没有Rigidbody2D");
+            //                Debug.LogError(ap.CharacterName+"没有Rigidbody2D");
             //            rig.AddForce(new Vector2(this.dir*this.InstantSpeed,0));
             #endregion
 

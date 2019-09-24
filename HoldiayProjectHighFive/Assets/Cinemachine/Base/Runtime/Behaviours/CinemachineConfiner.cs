@@ -44,7 +44,7 @@ namespace Cinemachine
         public float m_Damping = 0;
 
         /// <summary>See whether the virtual camera has been moved by the confiner</summary>
-        /// <param name="vcam">The virtual camera in question.  This might be different from the
+        /// <param CharacterName="vcam">The virtual camera in question.  This might be different from the
         /// virtual camera that owns the confiner, in the event that the camera has children</param>
         /// <returns>True if the virtual camera has been repositioned</returns>
         public bool CameraWasDisplaced(CinemachineVirtualCameraBase vcam)

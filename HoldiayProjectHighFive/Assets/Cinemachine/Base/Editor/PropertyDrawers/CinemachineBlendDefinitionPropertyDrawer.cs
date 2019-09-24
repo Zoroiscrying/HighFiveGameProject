@@ -6,7 +6,7 @@ namespace Cinemachine.Editor
     [CustomPropertyDrawer(typeof(CinemachineBlendDefinitionPropertyAttribute))]
     public sealed  class CinemachineBlendDefinitionPropertyDrawer : PropertyDrawer
     {
-        CinemachineBlendDefinition myClass = new CinemachineBlendDefinition(); // to access name strings
+        CinemachineBlendDefinition myClass = new CinemachineBlendDefinition(); // to access CharacterName strings
         public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
         {
             float vSpace = 0;

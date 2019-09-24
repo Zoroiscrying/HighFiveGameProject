@@ -23,11 +23,13 @@ using ReadyGamerOne.View.PanelSystem;
 
 namespace Game.Control.PersonSystem
 {
+   
+    
     /// <summary>
     /// 玩家类
     /// </summary>
     [Serializable]
-    public class Player : AbstractPerson, IXmlSerializable
+    public class Player : AbstractPerson
     {
 
         #region 初始化玩家
@@ -41,11 +43,11 @@ namespace Game.Control.PersonSystem
                 //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
                
             }
-            else
-            {
-                Debug.Log("player comes from new");
-                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, DefaultData.PlayerPos, DefaultData.PlayerDefaultSkills);
-            }
+//            else
+//            {
+//                Debug.Log("player comes from new");
+//                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, DefaultData.PlayerPos, DefaultData.PlayerDefaultSkills);
+//            }
             
         }
 
@@ -58,25 +60,28 @@ namespace Game.Control.PersonSystem
                 //                Debug.Log(player);
                 //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
             }
-            else
-            {
-                Debug.Log("player comes from new");
-                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, pos,
-                    DefaultData.PlayerDefaultSkills);
-            }
-
+//            else
+//            {
+//                Debug.Log("player comes from new");
+//                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, pos,
+//                    DefaultData.PlayerDefaultSkills);
+//            }
         }
     #endregion
 
+        public PlayerInfo playerInfo=>characterInfoInfo as PlayerInfo;
 
-    public override void OnCauseDamage(int damage)
+        public override void OnCauseDamage(int damage)
     {
         base.OnCauseDamage(damage);
         Debug.Log("damage");
         CEventCenter.BroadMessage<int,AbstractCommodity>(Message.M_TryChangeMoney,damage,null);
     }
 
-    #region 背包
+//        public override int BaseSkillCount => base.BaseSkillCount + 3;
+//        
+        
+        #region 背包
 
         /// <summary>
         /// 保存存储物品信息的内部类
@@ -92,15 +97,14 @@ namespace Game.Control.PersonSystem
             }
         }
 
-        public List<ItemData> itemList = new List<ItemData>();
-
         /// <summary>
         /// 添加物品
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="count"></param>
+        /// <param CharacterName="itemId"></param>
+        /// <param CharacterName="count"></param>
         public void AddItem(int itemId,int count)
         {
+            var itemList = (characterInfoInfo as PlayerInfo).itemList;
             foreach(var i in itemList)
             {
                 if (i.itemId == itemId)
@@ -114,10 +118,11 @@ namespace Game.Control.PersonSystem
         /// <summary>
         /// 移出物品
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="count"></param>
+        /// <param CharacterName="itemId"></param>
+        /// <param CharacterName="count"></param>
         public void RemoveItem(int itemId,int count)
         {
+            var itemList = (characterInfoInfo as PlayerInfo).itemList;
             foreach(var i in itemList)
             {
                 if(i.itemId==itemId&&i.count>=count)
@@ -132,10 +137,11 @@ namespace Game.Control.PersonSystem
         /// <summary>
         /// 获取指定物品数量
         /// </summary>
-        /// <param name="id"></param>
+        /// <param CharacterName="id"></param>
         /// <returns></returns>
         public int HaveItem(int id)
         {
+            var itemList = (characterInfoInfo as PlayerInfo).itemList;
             foreach(var item in itemList)
                 if (item.itemId == id)
                     return item.count;
@@ -145,69 +151,85 @@ namespace Game.Control.PersonSystem
         #endregion
 
 
-        #region 玩家专有外显属性
+        #region 封装PlayerInfo成员的访问
 
-        [HideInInspector]
-        public float attackMultipulier = 1;  //攻击力翻倍
-        [HideInInspector]
-        public int attackAdder = 0;        //攻击力叠加
-
-        public float hitBackSpeed = 0.08f;    //击退
-
-        private int money = 0;
-
+        /// <summary>
+        /// 玩家所剩余额
+        /// </summary>
         public int Money
         {
-            get { return this.money; }
+            get { return (characterInfoInfo as PlayerInfo).money; }
+            set { (characterInfoInfo as PlayerInfo).money = value; }
+        }
+
+        /// <summary>
+        /// 玩家被击退速度
+        /// </summary>
+        public float HitBackSpeed
+        {
+            get { return (characterInfoInfo as PlayerInfo).hitBackSpeed; }
+            set { (characterInfoInfo as PlayerInfo).hitBackSpeed = value; }
+        }
+
+        /// <summary>
+        /// 最大药引上限
+        /// </summary>
+        public int Maxdrag
+        {
+            get { return (characterInfoInfo as PlayerInfo).Maxdrag; }
+            set { (characterInfoInfo as PlayerInfo).Maxdrag = value; }
+        }  
+        /// <summary>
+        /// 当前药引
+        /// </summary>
+        public int Drag
+        {
+            get { return (characterInfoInfo as PlayerInfo).drag; }
+            set { (characterInfoInfo as PlayerInfo).drag = value; }
         }
         
-        
-        public readonly RankMgr rankMgr=RankMgr.Instance;
-        
-        
-        public int Maxdrag;   //最大药引上限
-        public int drag;      //当前药引
+        /// <summary>
+        /// 技能位移
+        /// </summary>
+        public float AirXMove
+        {
+            get { return (characterInfoInfo as PlayerInfo).airXMove; }
+            set { (characterInfoInfo as PlayerInfo).airXMove = value; }
+        }
+    
+        /// <summary>
+        /// 可承载最大灵器数量
+        /// </summary>
+        public int MaxSpiritNum
+        {
+            get { return playerInfo.MaxSpiritNum; }
+            set { playerInfo.MaxSpiritNum = value; }
+        }
 
-
-
+        /// <summary>
+        /// 玩家身上物品列表
+        /// </summary>
+        public List<ItemData> ItemDatas => playerInfo.itemList;
+        
         #endregion
         
+        public readonly RankMgr rankMgr = RankMgr.Instance;
 
         #region 连击
 
-        public override int BaseSkillCount
-        {
-            get
-            {
-                return base.BaseSkillCount + 3;
-            }
-        }
-
-
-
-
-        public float airXMove;
+        
         private int comboNum = 0;
         private float timer = 0;
 
-        public List<float> beginComboTest = new List<float>();//0~1之间
-        public List<float> durTimes = new List<float>();
-        public List<float> canMoveTime = new List<float>();
-        public List<string> skillNames = new List<string>();
-        public List<bool> ignoreInput = new List<bool>();
         #endregion
         
 
         #region 灵器
 
-        public int MaxSpiritNum = 1;
-
-        private SerializableDictionary<string, AbstractSpiritItem> spiritDic =
-            new SerializableDictionary<string, AbstractSpiritItem>();
-
 
         public void AddSpirit(string spiritName)
         {
+            var spiritDic = (characterInfoInfo as PlayerInfo).spiritDic;
             if (spiritDic.Count >= this.MaxSpiritNum)
             {
                 Debug.Log("无法承载更多灵器");
@@ -220,6 +242,7 @@ namespace Game.Control.PersonSystem
 
         public void RemoveSpirit(string spiritName)
         {
+            var spiritDic = (characterInfoInfo as PlayerInfo).spiritDic;
             spiritDic.Remove(spiritName);
             AbstractSpiritItem.GetInstance(spiritName).OnDisable();
         }
@@ -266,8 +289,8 @@ namespace Game.Control.PersonSystem
         {
             var player = self as Player;
             Assert.IsTrue(player != null);
-            player.attackEffects.Add(new InstantDamageEffect(GameMath.Damage(player.Attack, player.attackMultipulier, player.attackAdder), player.Dir));
-            player.attackEffects.Add(new HitbackEffect(new Vector2(player.Dir * player.hitBackSpeed, 0)));
+            player.attackEffects.Add(new InstantDamageEffect(GameMath.Damage((int)characterInfoInfo.baseAttack, characterInfoInfo.attack_scaler, characterInfoInfo.attack_adder), player.Dir));
+            player.attackEffects.Add(new HitbackEffect(new Vector2(player.Dir * player.HitBackSpeed, 0)));
         }
 
         #endregion
@@ -297,18 +320,16 @@ namespace Game.Control.PersonSystem
 
         }
 
-        public Player(string name, string prefabPath, Vector3 pos, List<string> skillTypes, Transform parent = null) : base(DefaultData.PlayerPath, prefabPath, pos, skillTypes, parent)
+        public Player(BaseCharacterInfo characterInfo, Transform parent = null) : base(characterInfo, parent)
         {
             GlobalVar.G_Player = this;
-//            Debug.Log("主角诞生啦");
-//            Debug.Log("主角隐藏技能" + this.BaseSkillCount + " 主角真实技能：" + this.MaxRealSkillCount);
-            this.DefaultConstTime = 1.0f;
+            
             mainc = this.obj.GetComponent<MainCharacter>();
             Assert.IsTrue(mainc != null);
             cc = this.obj.GetComponent<CharacterController2D>();
             Assert.IsTrue(cc != null);
 
-            this.Attack = 20;
+            this.BaseAttack = 20;
             this.MaxHp = 100;
 
         }
@@ -321,100 +342,81 @@ namespace Game.Control.PersonSystem
 
         protected override void Update()
         {
-            //            Debug.Log("玩家在" + Pos);
 
 
-            //一技能
-            if (Input.GetKeyDown(KeyCode.U))
+            foreach (var VARIABLE in playerInfo.commonSkillInfos)
             {
- //               Debug.Log("按U"+this.MaxRealSkillCount);
-                if(this.MaxRealSkillCount>=1)
-                {
-                    Debug.Log("释放一技能："+skills[this.BaseSkillCount].name);
-                    skills[this.BaseSkillCount].Execute(this, true);
-                }
-            }
-
-            //二技能
-            if (Input.GetKeyDown(KeyCode.I))
-            {
- //               Debug.Log("按I" + this.MaxRealSkillCount);
-                if (this.MaxRealSkillCount>=2)
-                {
-
-                    Debug.Log("释放二技能："+skills[this.BaseSkillCount+1].name);
-                    skills[this.BaseSkillCount+1].Execute(this);
-                }
-            }
-
-            //三技能
-            if(Input.GetKeyDown(KeyCode.O))
-            {
-                Debug.Log("按O" + this.MaxRealSkillCount);
-                if (this.MaxRealSkillCount >= 3)
-                {
-
-//                    Debug.Log("释放三技能："+skills[this.BaseSkillCount+2].name);
-                    skills[this.BaseSkillCount + 2].Execute(this);
-                }
+                if(Input.GetKeyDown(VARIABLE.key))
+                    VARIABLE.skillAsset.RunSkill(this);
             }
 
             //Z强化
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(playerInfo.superKey))
             {
                 TrySuper();
-
             }
 
             //背包
-            if(Input.GetKeyDown(KeyCode.Tab))
+            if(Input.GetKeyDown(playerInfo.bagKey))
             {
                 PanelMgr.PushPanel(PanelName.packagePanel);
             }
-            if(Input.GetKeyUp(KeyCode.Tab))
+            if(Input.GetKeyUp(playerInfo.bagKey))
             {
                 PanelMgr.PopPanel();
             }
 
             #region 三连击
 
-            SkillInstance lastSkill = null;
-            var index = this.comboNum;
+            ComboSkillInfo lastSkill = null;
+            var index = this.comboNum-1;
 
             if (this.comboNum > 0)
             {
-                lastSkill = skills[index];
+                lastSkill = playerInfo.comboSkillInfos[this.comboNum-1];
 
                 Assert.IsTrue(this.comboNum > 0 && this.comboNum < 4);
 
-                if (this.timer - lastSkill.startTime > canMoveTime[this.comboNum - 1])
-                    mainc._inControl = true;
-
-                if (this.timer - lastSkill.startTime >
-                   lastSkill.LastTime * this.beginComboTest[this.comboNum - 1] + durTimes[this.comboNum - 1])
+                if (this.timer - lastSkill.StartTime > lastSkill.canMoveTime)
                 {
-                    //Debug.Log("归零");
+//                    Debug.Log("过了移动锁定时间，恢复人物控制");
+                    mainc._inControl = true;
+                }
+
+                if (this.timer - lastSkill.StartTime >
+                   lastSkill.LastTime * lastSkill.beginComboTest + lastSkill.faultToleranceTime)
+                {
                     this.comboNum = 0;
                     MainLoop.RemoveUpdateFunc(_DeUpdate);
                     //恢复人物控制
+//                    Debug.Log("连击中断，恢复人物控制");
                     mainc._inControl = true;
+                }
+                else
+                {
+                    
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(playerInfo.comboKey))
             {
+//                Debug.Log("按键");
                 if (!cc.isGrounded)
                 {
                     mainc._playerVelocityY = 0;
-                    this.TakeBattleEffect(new HitbackEffect(new Vector2(this.Dir * Mathf.Abs(this.airXMove), 0)));
+                    this.TakeBattleEffect(new HitbackEffect(new Vector2(this.Dir * Mathf.Abs(this.AirXMove), 0)));
                 }
+
+//                Debug.Log("按下攻击键，无论如何，锁定人物");
                 mainc._inControl = false;
-
-                //            Debug.Log("按下J");
-
-                var thisSkill = skills[index];
-
+                
+                
                 index++;
+                if(index>=playerInfo.comboSkillInfos.Count)
+                    return;
+                
+                
+                ComboSkillInfo thisSkill = playerInfo.comboSkillInfos[index];          
 
 
                 if (this.comboNum == 0) //初次攻击
@@ -423,21 +425,39 @@ namespace Game.Control.PersonSystem
                     //开始增加时间
                     //                    Debug.Log("初次攻击");
                     MainLoop.AddUpdateFunc(_DeUpdate);
-                    Debug.Log("执行了技能" + index + " " + thisSkill.name);
-                    thisSkill.Execute(this, ignoreInput[0], this.timer);
+//                    Debug.Log("执行了技能" + index + " " + thisSkill.SkillName);
+                    thisSkill.RunSkill(this, this.playerInfo.comboSkillInfos[0].ignoreInput, this.timer);
+                    
                     this.comboNum++;
                 }
 
-                else if (
-                    this.timer - lastSkill.startTime > lastSkill.LastTime * this.beginComboTest[this.comboNum - 1] &&
-                    this.timer - lastSkill.startTime <
-                    lastSkill.LastTime * this.beginComboTest[this.comboNum - 1] + durTimes[this.comboNum - 1] &&
-                    this.comboNum < skillNames.Count)
+                else if (this.timer - lastSkill.StartTime < 
+                         lastSkill.LastTime * lastSkill.beginComboTest + lastSkill.faultToleranceTime)
                 {
-                    Debug.Log("执行了技能" + index + " " + thisSkill.name);
-                    thisSkill.Execute(this, ignoreInput[this.comboNum - 1], this.timer);
-                    this.comboNum++;
+
+                    if (this.timer - lastSkill.StartTime > lastSkill.LastTime *lastSkill.beginComboTest)
+                    {
+                         if (this.comboNum < this.playerInfo.comboSkillInfos.Count)
+                         {
+//                             Debug.Log("执行了技能" + index + " " + thisSkill.SkillName);
+                             thisSkill.RunSkill(this, lastSkill.ignoreInput, this.timer);
+                             this.comboNum++;
+                         }
+//                         else
+//                         {
+//                             Debug.Log($"连击数大于攻击次数：this.comboNum:{comboNum}, 技能数量：{this.playerInfo.comboSkillInfos.Count}");
+//                         }                       
+                    }
+//                    else
+//                        Debug.Log($"还没有开始连击检测！ 距离上次攻击间隔：{this.timer-lastSkill.StartTime}, lastSkill.StartTime: {lastSkill.StartTime}，开始连击检测的间隔：{playerInfo.comboSkillInfos[this.comboNum-1].beginComboTest*lastSkill.LastTime}");
+
                 }
+//                else
+//                {
+//                    var skill = this.playerInfo.comboSkillInfos[comboNum - 1];
+//                    Debug.Log($"技能开始时间：{skill.StartTime}, 技能持续时间：{skill.LastTime} 连击中止时间："+(skill.faultToleranceTime+skill.LastTime*skill.beginComboTest));
+//                    Debug.Log($"已经超过连击检测容错时间： 上次释放技能到现在间隔：{this.timer-lastSkill.StartTime}, 容错时间：{ lastSkill.LastTime * this.playerInfo.comboSkillInfos[this.comboNum - 1].beginComboTest + this.playerInfo.comboSkillInfos[this.comboNum - 1].faultToleranceTime}");
+//                }
             }
             #endregion
 
@@ -470,13 +490,13 @@ namespace Game.Control.PersonSystem
 
         private void OnTryBuy(int money,AbstractCommodity item)
         {
-            if (this.money + money < 0)
+            if (this.Money + money < 0)
             {
-                Debug.LogWarning("你只有: "+this.money);
+                Debug.LogWarning("你只有: "+this.Money);
                 return;
             }
 
-            this.money += money;
+            this.Money += money;
 //            Debug.Log("当前金钱："+this.money);
             CEventCenter.BroadMessage(Message.M_MoneyChange, money);
             if (item != null)
@@ -506,133 +526,133 @@ namespace Game.Control.PersonSystem
         }
         #endregion
 
-        #region IXmlSerilize
-
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            var floatSer = new XmlSerializer(typeof(float));
-            var intSer = new XmlSerializer(typeof(int));
-            var strSer = new XmlSerializer(typeof(string));
-            var vector3Ser = new XmlSerializer(typeof(Vector3));
-            var strListSer = new XmlSerializer(typeof(List<string>));
-
-            reader.Read();
-            reader.ReadStartElement("name");
-            this.name = (string)strSer.Deserialize(reader);
-            reader.ReadEndElement();
-
-            reader.ReadStartElement("Pos");
-            var pos = (Vector3)vector3Ser.Deserialize(reader);
-            this.obj = Resources.Load<GameObject>(DefaultData.PlayerPath);
-            this.obj = UnityEngine.Object.Instantiate(this.obj, pos, Quaternion.identity);
-            reader.ReadEndElement();
-
-            if (this.obj == null)
-                Debug.LogError("主角为空了，干");
-
-            reader.ReadStartElement("Attack");
-            this.Attack = (int)intSer.Deserialize(reader);
-            reader.ReadEndElement();
-
-            reader.ReadStartElement("Skills");
-            this.allSkillNames = (List<string>)strListSer.Deserialize(reader);
-            foreach (var skill in allSkillNames)
-                this.skills.Add(SkillTriggerMgr.skillInstanceDic[skill]);
-            reader.ReadEndElement();
-
-            attackEffects = new List<IBattleEffect>();
-            this.InputOk = true;
-            this.IsConst = false;
-            this.IgnoreHitback = false;
-
-            this.comboNum = 0;
-            this.timer = 0;
-
-            this.beginComboTest = new List<float>();//0~1之间
-            this.durTimes = new List<float>();
-            this.canMoveTime = new List<float>();
-            this.skillNames = new List<string>();
-            this.ignoreInput = new List<bool>();
-
-            GlobalVar.G_Player = this;
-            mainc = this.obj.GetComponent<MainCharacter>();
-            Assert.IsTrue(mainc != null);
-            cc = this.obj.GetComponent<CharacterController2D>();
-            Assert.IsTrue(cc != null);
-            this.DefaultConstTime = 0.7f;
-            this.attackMultipulier = 1;  //攻击力翻倍
-            this.attackAdder = 0;        //攻击力叠加
-
-            reader.ReadStartElement("HitbackSpeed");
-            this.hitBackSpeed = (float)floatSer.Deserialize(reader);
-            reader.ReadEndElement();
-
-
-            //添加基本攻击效果
-            this.OnAttackListRefresh += AddBaseAttackEffects;
-
-            //添加事件监听
-            OnAddListener();
-
-            //开始每帧Update
-            MainLoop.AddUpdateFunc(Update);
-
-            //记录每个实例
-            instanceList.Add(this);
-            reader.ReadEndElement();
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            //            Debug.Log("这真的调用了么");
-            var floatSer = new XmlSerializer(typeof(float));
-            var intSer = new XmlSerializer(typeof(int));
-            var strSer = new XmlSerializer(typeof(string));
-            var vector3Ser = new XmlSerializer(typeof(Vector3));
-            var strListSer = new XmlSerializer(typeof(List<string>));
-            //            var boolSer = new XmlSerializer(typeof(bool));
-            //            var boolListSer=new XmlSerializer(typeof(List<bool>));
-            //            var floatListSer=new XmlSerializer(typeof(List<float>));
-            //            var skillDicSer=new XmlSerializer(typeof(SerializableDictionary<string,SkillInstance>));
-
-            writer.WriteStartElement("name");
-            strSer.Serialize(writer, this.name);
-            writer.WriteEndElement();
-
-            writer.WriteStartElement("Pos");
-            vector3Ser.Serialize(writer, this.Pos);
-            writer.WriteEndElement();
-
-
-            writer.WriteStartElement("Attack");
-            intSer.Serialize(writer, this.Attack);
-            writer.WriteEndElement();
-
-            writer.WriteStartElement("Skills");
-            strListSer.Serialize(writer, this.allSkillNames);
-            writer.WriteEndElement();
-
-            writer.WriteStartElement("HitbackSpeed");
-            floatSer.Serialize(writer, this.hitBackSpeed);
-            writer.WriteEndElement();
-
-
-            //            writer.WriteStartElement("Skills");
-            //            skillDicSer.Serialize(writer,this.skillDic);
-
-
-        }
-
-        XmlSchema IXmlSerializable.GetSchema()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
+//        #region IXmlSerilize
+//
+//        public XmlSchema GetSchema()
+//        {
+//            return null;
+//        }
+//
+//        public void ReadXml(XmlReader reader)
+//        {
+//            var floatSer = new XmlSerializer(typeof(float));
+//            var intSer = new XmlSerializer(typeof(int));
+//            var strSer = new XmlSerializer(typeof(string));
+//            var vector3Ser = new XmlSerializer(typeof(Vector3));
+//            var strListSer = new XmlSerializer(typeof(List<string>));
+//
+//            reader.Read();
+//            reader.ReadStartElement("CharacterName");
+//            this.CharacterName = (string)strSer.Deserialize(reader);
+//            reader.ReadEndElement();
+//
+//            reader.ReadStartElement("Pos");
+//            var pos = (Vector3)vector3Ser.Deserialize(reader);
+//            this.obj = Resources.Load<GameObject>(DefaultData.PlayerPath);
+//            this.obj = UnityEngine.Object.Instantiate(this.obj, pos, Quaternion.identity);
+//            reader.ReadEndElement();
+//
+//            if (this.obj == null)
+//                Debug.LogError("主角为空了，干");
+//
+//            reader.ReadStartElement("BaseAttack");
+//            this.BaseAttack = (int)intSer.Deserialize(reader);
+//            reader.ReadEndElement();
+//
+//            reader.ReadStartElement("Skills");
+//            this.allSkillNames = (List<string>)strListSer.Deserialize(reader);
+//            foreach (var skill in allSkillNames)
+//                this.skills.Add(SkillTriggerMgr.skillInstanceDic[skill]);
+//            reader.ReadEndElement();
+//
+//            attackEffects = new List<IBattleEffect>();
+//            this.InputOk = true;
+//            this.IsConst = false;
+//            this.IgnoreHitback = false;
+//
+//            this.comboNum = 0;
+//            this.timer = 0;
+//
+//            this.beginComboTest = new List<float>();//0~1之间
+//            this.durTimes = new List<float>();
+//            this.canMoveTime = new List<float>();
+//            this.skillNames = new List<string>();
+//            this.ignoreInput = new List<bool>();
+//
+//            GlobalVar.G_Player = this;
+//            mainc = this.obj.GetComponent<MainCharacter>();
+//            Assert.IsTrue(mainc != null);
+//            cc = this.obj.GetComponent<CharacterController2D>();
+//            Assert.IsTrue(cc != null);
+//            this.DefaultConstTime = 0.7f;
+//            this.attackMultipulier = 1;  //攻击力翻倍
+//            this.attackAdder = 0;        //攻击力叠加
+//
+//            reader.ReadStartElement("HitbackSpeed");
+//            this.HitBackSpeed = (float)floatSer.Deserialize(reader);
+//            reader.ReadEndElement();
+//
+//
+//            //添加基本攻击效果
+//            this.OnAttackListRefresh += AddBaseAttackEffects;
+//
+//            //添加事件监听
+//            OnAddListener();
+//
+//            //开始每帧Update
+//            MainLoop.AddUpdateFunc(Update);
+//
+//            //记录每个实例
+//            instanceList.Add(this);
+//            reader.ReadEndElement();
+//        }
+//
+//        public void WriteXml(XmlWriter writer)
+//        {
+//            //            Debug.Log("这真的调用了么");
+//            var floatSer = new XmlSerializer(typeof(float));
+//            var intSer = new XmlSerializer(typeof(int));
+//            var strSer = new XmlSerializer(typeof(string));
+//            var vector3Ser = new XmlSerializer(typeof(Vector3));
+//            var strListSer = new XmlSerializer(typeof(List<string>));
+//            //            var boolSer = new XmlSerializer(typeof(bool));
+//            //            var boolListSer=new XmlSerializer(typeof(List<bool>));
+//            //            var floatListSer=new XmlSerializer(typeof(List<float>));
+//            //            var skillDicSer=new XmlSerializer(typeof(SerializableDictionary<string,SkillInstance>));
+//
+//            writer.WriteStartElement("CharacterName");
+//            strSer.Serialize(writer, this.CharacterName);
+//            writer.WriteEndElement();
+//
+//            writer.WriteStartElement("Pos");
+//            vector3Ser.Serialize(writer, this.Pos);
+//            writer.WriteEndElement();
+//
+//
+//            writer.WriteStartElement("BaseAttack");
+//            intSer.Serialize(writer, this.BaseAttack);
+//            writer.WriteEndElement();
+//
+//            writer.WriteStartElement("Skills");
+//            strListSer.Serialize(writer, this.allSkillNames);
+//            writer.WriteEndElement();
+//
+//            writer.WriteStartElement("HitbackSpeed");
+//            floatSer.Serialize(writer, this.HitBackSpeed);
+//            writer.WriteEndElement();
+//
+//
+//            //            writer.WriteStartElement("Skills");
+//            //            skillDicSer.Serialize(writer,this.skillDic);
+//
+//
+//        }
+//
+//        XmlSchema IXmlSerializable.GetSchema()
+//        {
+//            throw new NotImplementedException();
+//        }
+//
+//        #endregion
     }
 }
