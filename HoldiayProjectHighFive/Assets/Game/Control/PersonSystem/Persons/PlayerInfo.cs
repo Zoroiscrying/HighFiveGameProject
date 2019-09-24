@@ -40,7 +40,7 @@ namespace Game.Control.PersonSystem
     public class PlayerInfo:BaseCharacterInfo
     {
 #if UNITY_EDITOR
-        [MenuItem("ReadyGamerOne/RPG/PlayerAsset")]
+        [MenuItem("ReadyGamerOne/Create/RPG/PlayerAsset")]
         public static void CreateInstance()
         {
             string[] strs = Selection.assetGUIDs;

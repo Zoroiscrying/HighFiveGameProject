@@ -13,16 +13,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 1
-    label: "\u9009\u62E9\u5B57\u7B26\u4E32"
+  startTime: 0.8419899
+  isUsed: 0
   triggers:
   - id: 0
     startTime: 0
     lastTime: 1
     type: 0
-    animationName: Player@Attack3
+    enable: 1
+    animationName:
+      rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+      selectedIndex: 2
+      stringValue: Player@Attack3
     animationSpeed: 1
-    audioName: 
-    bulletName: 
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 0
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 0
@@ -37,44 +46,23 @@ MonoBehaviour:
     shineDurTime: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
-    personOffect: {x: 0, y: 0}
-    size: {x: 0, y: 0}
-    beginDegree: 0
-    endDegree: 0
-  - id: 1
-    startTime: 0.2
-    lastTime: 0.5
-    type: 1
-    animationName: Player@Attack3
-    animationSpeed: 1
-    audioName: 1
-    bulletName: 
-    damage: 0
-    dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
-    maxLife: 0
-    rayDir: {x: 0, y: 0}
-    rayLength: 0
-    hitSpeed: 0
-    rayTestLayer:
-      serializedVersion: 2
-      m_Bits: 0
-    shineLastTime: 0
-    shineDurTime: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
-    personOffect: {x: 0, y: 0}
-    size: {x: 0, y: 0}
-    beginDegree: 0
-    endDegree: 0
+    triggerPath: 
   - id: 2
     startTime: 0.1
     lastTime: 0.6
     type: 6
-    animationName: Player@Attack3
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 1
-    audioName: 1
-    bulletName: 
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 0
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 0
@@ -89,7 +77,35 @@ MonoBehaviour:
     shineDurTime: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
-    personOffect: {x: 0, y: 0.12}
-    size: {x: 0.08, y: 0.02}
-    beginDegree: 120
-    endDegree: -20
+    triggerPath: GameObject
+  - id: 1
+    startTime: 0.2
+    lastTime: 0.5
+    type: 1
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 1
+    audioName:
+      selectedIndex: 1
+      Path: Audio/2
+    bulletName:
+      selectedIndex: 0
+      Path: 
+    damage: 0
+    dir: {x: 0, y: 0, z: 0}
+    bulletSpeed: 0
+    maxLife: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    triggerPath: 

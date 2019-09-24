@@ -9,7 +9,7 @@ namespace Game.Control.SkillSystem.Editor
     [CustomEditor(typeof(SkillInfoAsset))]
     public class SkillInfoEditor:UnityEditor.Editor
     {
-        [MenuItem("ReadyGamerOne/RPG/SkillAsset")]
+        [MenuItem("ReadyGamerOne/Create/RPG/SkillAsset")]
         public static void CreateInstance()
         {
             string[] strs = Selection.assetGUIDs;
@@ -40,7 +40,6 @@ namespace Game.Control.SkillSystem.Editor
             this._skillInfoAsset=target as SkillInfoAsset;
             this.triggerListProp = serializedObject.FindProperty("triggers");
             this.skillNameProp = serializedObject.FindProperty("skillName");
-            this.skillNameProp.FindPropertyRelative("label").stringValue = "技能名";
             this.triggerList=new ReorderableList(serializedObject,triggerListProp,true,true,true,true);
 
             this.triggerList.elementHeight = 2 * EditorGUIUtility.singleLineHeight;

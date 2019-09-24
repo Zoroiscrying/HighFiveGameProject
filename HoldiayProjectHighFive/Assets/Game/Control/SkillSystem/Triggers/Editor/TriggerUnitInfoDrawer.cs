@@ -31,9 +31,16 @@ namespace Game.Control.SkillSystem.Editor
             // ID
             EditorGUI.LabelField(leftPart.GetBottom(.5f),"ID:   "+property.FindPropertyRelative("id").intValue.ToString());
             
+            
+            
             #endregion
 
             position = position.GetRight(0.85f);
+
+            EditorGUI.PropertyField(position.GetLeft(0.2f), property.FindPropertyRelative("enable"));
+
+            position = position.GetRight(0.8f);
+            
             var text = "";
             bool error = false;
             switch (EnumUtil.GetEnumValue<TriggerType>(sp.enumValueIndex))

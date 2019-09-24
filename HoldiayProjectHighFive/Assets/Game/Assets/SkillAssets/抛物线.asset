@@ -13,16 +13,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 3
-    label: "\u9009\u62E9\u5B57\u7B26\u4E32"
+  startTime: 0
+  isUsed: 0
   triggers:
   - id: 0
     startTime: 0
     lastTime: 1
     type: 5
-    animationName: 
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 0
-    audioName: 
-    bulletName: bullet_1
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 0
+      Path: Audio/1
     damage: 20
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 4
@@ -45,10 +54,18 @@ MonoBehaviour:
     startTime: 0
     lastTime: 1
     type: 5
-    animationName: 
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 0
-    audioName: 
-    bulletName: bullet_1
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 20
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 4
@@ -71,10 +88,18 @@ MonoBehaviour:
     startTime: 0
     lastTime: 1
     type: 5
-    animationName: 
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 0
-    audioName: 
-    bulletName: bullet_1
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 20
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 4
@@ -97,10 +122,18 @@ MonoBehaviour:
     startTime: 0
     lastTime: 1
     type: 5
-    animationName: 
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 0
-    audioName: 
-    bulletName: bullet_1
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 20
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 4

@@ -3,6 +3,7 @@ using Game.Const;
 using Game.Control.PersonSystem;
 using Game.Math;
 using Game.Model.SpriteObjSystem;
+using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using UnityEditor;
@@ -30,26 +31,28 @@ namespace Game.Control.SkillSystem
         public int id;
         public float startTime;
         public float lastTime;
-        public TriggerType type;        
+        public TriggerType type;
+        public bool enable = true;
 
+        private AbstractPerson self;
         #endregion
 
         #region Animation
 
-        public string animationName;
+        public AnimationNameChooser animationName;
         public float animationSpeed;
 
         #endregion
 
         #region Audio
         
-        public string audioName;
+        public ResourcesPathChooser audioName;
 
         #endregion
 
         #region Bullet
 
-        public string bulletName;
+        public ResourcesPathChooser bulletName;
         public int damage;
         public Vector3 dir;
         public float bulletSpeed;
@@ -77,15 +80,33 @@ namespace Game.Control.SkillSystem
 
         #region Trigger2D
 
-        public Vector2 personOffect;
-        public Vector2 size;
-        public float beginDegree;
-        public float endDegree;
+        public enum DamageType
+        {
+            PlayerToEnemy,
+            EnemyToPlayer
+        }
 
+        //public DamageType damageType;
+        public string triggerPath;
+
+        private void OnTriggerEnter(Collider2D col)
+        {
+            var hitPerson = AbstractPerson.GetInstance(col.gameObject);
+            if (hitPerson == null)
+            {
+                Debug.Log("打击人物为空");
+                return;
+            }
+            hitPerson.TakeBattleEffect(self.AttackEffect);
+        }
+        
         #endregion
 
         public void RunTriggerUnit(AbstractPerson self)
         {
+            if (!enable)
+                return;
+            this.self = self;
             MainLoop.Instance.ExecuteLater(() =>
             {
                 switch (type)
@@ -108,7 +129,7 @@ namespace Game.Control.SkillSystem
                         animator.speed = this.animationSpeed*self.AttackSpeed;
 
 
-                        animator.Play(Animator.StringToHash(this.animationName), AnimationWeight.High);
+                        animator.Play(Animator.StringToHash(this.animationName.StringValue), AnimationWeight.High);
                         
                         
                         break;
@@ -119,7 +140,7 @@ namespace Game.Control.SkillSystem
                     #region Audio
                     
                     case TriggerType.Audio:
-                        AudioMgr.Instance.PlayEffect(this.audioName, self.obj.transform.position);
+                        AudioMgr.Instance.PlayEffect(this.audioName.Name, self.obj.transform.position);
                         break;
 
                         
@@ -131,7 +152,7 @@ namespace Game.Control.SkillSystem
                     case TriggerType.Bullet:
                         this.dir = new Vector2(self.Dir * Mathf.Abs(this.dir.x), this.dir.y);
                         new DirectLineBullet(GameMath.Damage(self.BaseAttack), this.dir, self.Pos + new Vector3(0, 0.3f * self.Scanler, 0)
-                            , self, DirPath.BulletDir + this.bulletName, speed:this.bulletSpeed,maxLife:this.maxLife);
+                            , self, this.bulletName.Path, speed:this.bulletSpeed,maxLife:this.maxLife);
                         break;                        
 
                     #endregion
@@ -141,7 +162,7 @@ namespace Game.Control.SkillSystem
 
                     case TriggerType.Parabloa:
                         new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget, self.Pos + offset,
-                            self.Pos, self, Const.DirPath.BulletDir+this.bulletName, this.maxLife);
+                            self.Pos, self, this.bulletName.Path, this.maxLife);
                         break;                        
 
                     #endregion
@@ -161,20 +182,20 @@ namespace Game.Control.SkillSystem
                         //调整身高偏移
                         p += new Vector2(0, 0.1f * self.obj.transform.localScale.y);
                         Debug.DrawLine(p, p + target, Color.red);
-                        var rescult = Physics2D.LinecastAll(p, p + target, this.rayTestLayer);
+                        var results = Physics2D.LinecastAll(p, p + target, this.rayTestLayer);
 
-                        if (rescult.Length == 0)
+                        if (results.Length == 0)
                         {
                             return;
                         }
 
-                        foreach (var r in rescult)
+                        foreach (var result in results)
                         {
                             //对打击到的目标进行操作，添加各种效果
-                            var hitPerson = AbstractPerson.GetInstance(r.transform.gameObject);
+                            var hitPerson = AbstractPerson.GetInstance(result.transform.gameObject);
                             if (hitPerson == null)
                             {
-                                Debug.Log(r.transform.gameObject);
+                                Debug.Log(result.transform.gameObject);
                                 continue;
                             }
                             self.OnCauseDamage(GameMath.Damage(self.BaseAttack));
@@ -186,6 +207,66 @@ namespace Game.Control.SkillSystem
                     
 
                     case TriggerType.Trigger2D:
+                        
+                        Debug.Log("???");
+                        lastTime /= self.AttackSpeed;
+                        var sword = self.obj.transform.Find(triggerPath);
+                        var trigger = (sword.GetComponent<TriggerInputer>() ??
+                                       sword.gameObject.AddComponent<TriggerInputer>());
+                        if(trigger==null)
+                            throw new Exception("@!@@##");
+
+                        trigger.onTriggerEnterEvent += this.OnTriggerEnter;
+                        MainLoop.Instance.ExecuteLater(() =>
+                            trigger.onTriggerEnterEvent -= this.OnTriggerEnter, lastTime);
+                        
+//                        var speed = (endDegree - beginDegree) / lastTime;
+//                        Debug.Log("旋转速度");
+//
+//                        //创建一个空物体
+//                        var empty = new GameObject();
+//                        empty.transform.SetParent(self.obj.transform);
+//                        empty.transform.localScale = this.size;
+//                        empty.transform.localPosition = this.personOffect;
+//                        empty.gameObject.layer = LayerMask.NameToLayer("Trigger");
+                        
+//                        //设置触发器的缩放，偏移，事件
+//                        var trigger = empty.AddComponent<BoxCollider2D>();
+//                        trigger.isTrigger = true;
+//                        trigger.offset = new Vector2(0.5f, -1);
+//                        var triggerEvent = empty.AddComponent<TriggerInputer>();
+//                        triggerEvent.onTriggerEnterEvent += (col) =>
+//                        {
+//                            var hitPerson = AbstractPerson.GetInstance(col.gameObject);
+//                            if (hitPerson == null)
+//                            {
+//                                Debug.Log("打击人物为空");
+//                                return;
+//                            }
+//                            hitPerson.TakeBattleEffect(self.AttackEffect);
+//                        };
+//                        
+//                        //设置初始角度
+//                        var r = empty.transform.rotation;
+//                        empty.transform.rotation = Quaternion.Euler(r.x, r.y, this.beginDegree);
+//
+//                        //旋转这个物体
+//                        MainLoop.Instance.UpdateForSeconds(( ap)=>
+//                        {
+//                            if (empty == null)
+//                            {
+//                                Debug.Log("伤害检测物体为空");
+//                                return;
+//                            }
+//                            empty.transform.Rotate(new Vector3(0, 0, speed*Time.deltaTime));
+//                        }, lastTime, self, (ap)=>
+//                        {
+//                            if (empty)
+//                                UnityEngine.Object.Destroy(empty);
+//                        });
+//                        
+//                        
+                        
                         break;
                     
                 }                
@@ -213,6 +294,7 @@ namespace Game.Control.SkillSystem
             
             EditorGUI.LabelField(position.GetRectAtIndex(index++),"类型",type.ToString());
             EditorGUI.LabelField(position.GetRectAtIndex(index++), "ID", id.ToString());
+            EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("enable"));
             EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("startTime"));
             EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("lastTime"));            
 
@@ -225,12 +307,7 @@ namespace Game.Control.SkillSystem
                     
                 case TriggerType.Trigger2D:
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("personOffect"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("size"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("beginDegree"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("endDegree"));
+                        property.FindPropertyRelative("triggerPath"));
                     break;
 
                 #endregion

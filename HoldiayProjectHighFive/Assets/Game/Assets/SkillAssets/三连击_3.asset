@@ -13,18 +13,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 2
-    label: "\u9009\u62E9\u5B57\u7B26\u4E32"
-  startTime: 1.0964899
+  startTime: 2.1873705
   isUsed: 0
   triggers:
   - id: 0
     startTime: 0
     lastTime: 0.5
     type: 0
-    animationName: Player@Attack5
+    enable: 1
+    animationName:
+      rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+      selectedIndex: 4
+      stringValue: Player@Attack5
     animationSpeed: 1.7
-    audioName: 
-    bulletName: 
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 0
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 0
@@ -39,18 +46,23 @@ MonoBehaviour:
     shineDurTime: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
-    personOffect: {x: 0, y: 0}
-    size: {x: 0, y: 0}
-    beginDegree: 0
-    endDegree: 0
+    triggerPath: 
   - id: 1
     startTime: 0.2
     lastTime: 0.5
     type: 1
-    animationName: Player@Attack2
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 1.7
-    audioName: 3
-    bulletName: 
+    audioName:
+      selectedIndex: 2
+      Path: Audio/3
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 0
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 0
@@ -65,18 +77,23 @@ MonoBehaviour:
     shineDurTime: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
-    personOffect: {x: 0, y: 0}
-    size: {x: 0, y: 0}
-    beginDegree: 0
-    endDegree: 0
+    triggerPath: 
   - id: 2
     startTime: 0.1
     lastTime: 0.6
     type: 6
-    animationName: Player@Attack2
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 1.7
-    audioName: 3
-    bulletName: 
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 0
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 0
@@ -91,7 +108,4 @@ MonoBehaviour:
     shineDurTime: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
-    personOffect: {x: 0, y: 0.12}
-    size: {x: 0.2, y: 0.02}
-    beginDegree: 120
-    endDegree: -20
+    triggerPath: GameObject

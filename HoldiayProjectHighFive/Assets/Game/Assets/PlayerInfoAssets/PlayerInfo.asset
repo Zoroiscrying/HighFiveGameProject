@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447aa5167fb148eab72913b0704bf92b, type: 3}
+  m_Name: PlayerInfo
+  m_EditorClassIdentifier: 
+  characterName: Player
+  position: {x: 0, y: 0, z: 0}
+  prefabPath:
+    selectedIndex: 9
+    Path: GameObjects/Player
+  baseAttack: 20
+  attack_adder: 0
+  attack_scaler: 16
+  hp: 200
+  maxHp: 100
+  attackSpeed: 1
+  IgnoreHitback: 0
+  IsConst: 0
+  DefaultConstTime: 0
+  InputOk: 1
+  skills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  comboKey: 106
+  superKey: 122
+  bagKey: 9
+  hitBackSpeed: 1
+  Maxdrag: 0
+  drag: 0
+  money: 200
+  airXMove: 0
+  MaxSpiritNum: 1
+  commonSkillInfos:
+  - key: 117
+    skillAsset: {fileID: 11400000, guid: 0235b194e43930f4ba3196b382c2f4db, type: 2}
+  - key: 105
+    skillAsset: {fileID: 11400000, guid: 1b64ec5520055a54d93071314404c875, type: 2}
+  comboSkillInfos:
+  - skillAsset: {fileID: 11400000, guid: d91e59acc49b26143bf0eca590f0faf5, type: 2}
+    beginComboTest: 0.876
+    canMoveTime: 0
+    ignoreInput: 0
+    faultToleranceTime: 1.17
+  - skillAsset: {fileID: 11400000, guid: 895feb695b40c704284f07889085e005, type: 2}
+    beginComboTest: 0.085
+    canMoveTime: 0
+    ignoreInput: 0
+    faultToleranceTime: 1.16
+  - skillAsset: {fileID: 11400000, guid: 0efe2ca08b85fdd4eb293679b571febf, type: 2}
+    beginComboTest: 0.05
+    canMoveTime: 0
+    ignoreInput: 0
+    faultToleranceTime: 0

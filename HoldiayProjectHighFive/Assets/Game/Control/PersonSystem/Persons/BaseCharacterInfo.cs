@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using Game.Control.SkillSystem;
 using ReadyGamerOne.Const;
+using ReadyGamerOne.EditorExtension;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -13,7 +14,7 @@ namespace Game.Control.PersonSystem
     {
 
 #if UNITY_EDITOR
-        [MenuItem("ReadyGamerOne/RPG/CharacterAsset")]
+        [MenuItem("ReadyGamerOne/Create/RPG/CharacterAsset")]
         public static void CreateInstance()
         {
             string[] strs = Selection.assetGUIDs;
@@ -37,7 +38,7 @@ namespace Game.Control.PersonSystem
         
         public string characterName;
         public Vector3 position;
-        public string prefabPath;
+        public ResourcesPathChooser prefabPath;
 
         public float baseAttack;
         public float attack_adder = 0f;

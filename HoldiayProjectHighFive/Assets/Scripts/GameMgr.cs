@@ -1,12 +1,14 @@
-﻿using Game.Const;
+﻿using System.Collections.Generic;
+using System.IO;
+using Game.Const;
 using Game.Control.PersonSystem;
-using Game.Control.SkillSystem;
 using Game.Model.ItemSystem;
 using Game.Model.RankSystem;
 using Game.Model.SpiritItemSystem;
 using Game.View.PanelSystem;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Data;
+using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Global;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Script;
@@ -16,7 +18,7 @@ using UnityEngine;
 namespace Game.Scripts
 {
 	public class GameMgr :AbstractGameMgr
-    {
+	{
     	#region 单例
     
     	private static GameMgr instance;
@@ -34,9 +36,14 @@ namespace Game.Scripts
             }
     
     		instance = this;
-    		base.Awake();		
-    		
-    	}
+    		base.Awake();
+
+
+
+        }
+
+
+
     	#endregion
     	
     	[HideInInspector]

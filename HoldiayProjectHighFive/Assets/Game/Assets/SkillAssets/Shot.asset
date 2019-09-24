@@ -13,18 +13,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 5
-    label: "\u9009\u62E9\u5B57\u7B26\u4E32"
+  startTime: 0
+  isUsed: 0
   triggers:
   - id: 0
     startTime: 0
     lastTime: 1
     type: 2
-    animationName: 
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 0
-    audioName: 
-    bulletName: bullet_1
+    audioName:
+      selectedIndex: 0
+      Path: 
+    bulletName:
+      selectedIndex: 8
+      Path: Bullet/bullet_1
     damage: 10
-    dir: {x: 1, y: 0, z: 0}
+    dir: {x: -1, y: 0, z: 0}
     bulletSpeed: 40
     maxLife: 2
     rayDir: {x: 0, y: 0}
@@ -45,10 +54,18 @@ MonoBehaviour:
     startTime: 0.1
     lastTime: 0.5
     type: 1
-    animationName: 
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
     animationSpeed: 0
-    audioName: beiji
-    bulletName: bullet_1
+    audioName:
+      selectedIndex: 5
+      Path: Audio/beiji
+    bulletName:
+      selectedIndex: 0
+      Path: 
     damage: 10
     dir: {x: 1, y: 0, z: 0}
     bulletSpeed: 40

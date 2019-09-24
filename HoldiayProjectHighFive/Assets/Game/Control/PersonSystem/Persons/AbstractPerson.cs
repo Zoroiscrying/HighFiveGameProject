@@ -188,6 +188,13 @@ namespace Game.Control.PersonSystem
 
         #endregion
 
+        public void LookAt(Transform target)
+        {
+            var dir = target.transform.position.x - obj.transform.position.x > 0 ? 1 : -1;
+            var scale = obj.transform.localScale;
+            obj.transform.localScale = new Vector3(dir* Mathf.Abs(scale.x), scale.y, scale.z);
+        }
+        
         #region 技能
 //
 //        private int maxRealSkillCount;
@@ -323,7 +330,7 @@ namespace Game.Control.PersonSystem
             this.characterInfoInfo = characterInfo;
             
             
-            this.obj = MemoryMgr.InstantiateGameObject(characterInfo.prefabPath, characterInfo.position, Quaternion.identity, parent);
+            this.obj = MemoryMgr.InstantiateGameObject(characterInfo.prefabPath.Path, characterInfo.position, Quaternion.identity, parent);
             
 
 //            if(characterInfo.skills!=null)
