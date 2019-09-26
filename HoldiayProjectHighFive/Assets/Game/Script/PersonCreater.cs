@@ -16,7 +16,10 @@ namespace Game.Scripts
                 foreach (var VARIABLE in CharacterInfos)
                 {
                     if (VARIABLE is PlayerInfo)
-                        new Player(VARIABLE);
+                    {
+                        var player= new Player(VARIABLE);
+                        player.obj.transform.position = GameMgr.Instance.PlayerPos;
+                    }
                     else
                     {
                         sss= new TestPerson(VARIABLE);

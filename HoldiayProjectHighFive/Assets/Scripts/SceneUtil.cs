@@ -59,6 +59,7 @@ namespace Game.Scripts
         {
             //print("Normal_Awake");
             GameMgr.Instance.PlayerPos = this.PlayerPos;
+            
     //        if (GameObject.FindGameObjectsWithTag("GameController").Length <= 0)
     //            MemoryMgr.InstantiateGameObject(DirPath.GameObjectDir + GameObjectName.GameMgr);
     //        

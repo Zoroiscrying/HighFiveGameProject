@@ -132,7 +132,7 @@ MonoBehaviour:
   PanelUiAsset: {fileID: 11400000, guid: 6aa1734f7832c7b4e880c096ed5a3573, type: 2}
   creatTestPeople: 0
   EnemyPos: {x: 0, y: 0, z: 0}
-  PlayerPos: {x: 0, y: 0, z: 0}
+  PlayerPos: {x: 12.19, y: 0, z: 0}
   signalSize: 4
   enableMiniMap: 1
   enable_V_loadAsync: 1

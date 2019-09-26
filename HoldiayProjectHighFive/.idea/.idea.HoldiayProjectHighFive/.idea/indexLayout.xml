@@ -18,6 +18,7 @@
       <Path>.vscode</Path>
       <Path>Games</Path>
       <Path>Library</Path>
+      <Path>Temp</Path>
       <Path>UIElementsSchema</Path>
       <Path>obj</Path>
     </explicitExcludes>
