@@ -1,23 +1,20 @@
 ﻿using Game.Const;
 using Game.Control.BattleEffectSystem;
-using Game.Control.SkillSystem;
 using Game.Math;
 using Game.Model.SpiritItemSystem;
 using System;
 using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Assertions;
 using zoroiscrying;
-using Game.Model.ItemSystem;
 using System.IO;
+using Game.Model.ItemSystem;
 using Game.Model.RankSystem;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Data;
 using ReadyGamerOne.Global;
 using ReadyGamerOne.Script;
+using ReadyGamerOne.View.AssetUi;
 using ReadyGamerOne.View.PanelSystem;
 
 
@@ -75,11 +72,10 @@ namespace Game.Control.PersonSystem
     {
         base.OnCauseDamage(damage);
         Debug.Log("damage");
-        CEventCenter.BroadMessage<int,AbstractCommodity>(Message.M_TryChangeMoney,damage,null);
+//        CEventCenter.BroadMessage<int,BaseCommodity>(Message.M_TryChangeMoney,damage,null);
     }
 
-//        public override int BaseSkillCount => base.BaseSkillCount + 3;
-//        
+   
         
         #region 背包
 
@@ -165,7 +161,7 @@ namespace Game.Control.PersonSystem
         /// <summary>
         /// 玩家被击退速度
         /// </summary>
-        public float HitBackSpeed
+        public Vector2 HitBackSpeed
         {
             get { return (characterInfoInfo as PlayerInfo).hitBackSpeed; }
             set { (characterInfoInfo as PlayerInfo).hitBackSpeed = value; }
@@ -290,7 +286,7 @@ namespace Game.Control.PersonSystem
             var player = self as Player;
             Assert.IsTrue(player != null);
             player.attackEffects.Add(new InstantDamageEffect(GameMath.Damage((int)characterInfoInfo.baseAttack, characterInfoInfo.attack_scaler, characterInfoInfo.attack_adder), player.Dir));
-            player.attackEffects.Add(new HitbackEffect(new Vector2(player.Dir * player.HitBackSpeed, 0)));
+            player.attackEffects.Add(new HitbackEffect(new Vector2(player.Dir*Mathf.Abs(HitBackSpeed.x),HitBackSpeed.y)));
         }
 
         #endregion
@@ -359,11 +355,11 @@ namespace Game.Control.PersonSystem
             //背包
             if(Input.GetKeyDown(playerInfo.bagKey))
             {
-                PanelMgr.PushPanel(PanelName.packagePanel);
+                PanelAssetMgr.PushPanel(playerInfo.packagePanelAsset);
             }
             if(Input.GetKeyUp(playerInfo.bagKey))
             {
-                PanelMgr.PopPanel();
+                PanelAssetMgr.PopPanel();
             }
 
             #region 三连击
@@ -472,7 +468,7 @@ namespace Game.Control.PersonSystem
             base.OnAddListener();
             CEventCenter.AddListener(Message.M_InitSuper, InitSuper);
             CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
-            CEventCenter.AddListener<int,AbstractCommodity>(Message.M_TryChangeMoney, OnTryBuy);
+            CEventCenter.AddListener<int>(Message.M_OnTryBut, OnTryBuy);
             CEventCenter.AddListener<int,int>(Message.M_AddItem,AddItem);
             CEventCenter.AddListener<int,int>(Message.M_RemoveItem,RemoveItem);
         }
@@ -482,28 +478,30 @@ namespace Game.Control.PersonSystem
             base.OnRemoveListener();
             CEventCenter.RemoveListener(Message.M_InitSuper, InitSuper);
             CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
-            CEventCenter.RemoveListener<int,AbstractCommodity>(Message.M_TryChangeMoney, OnTryBuy);
+            CEventCenter.RemoveListener<int>(Message.M_OnTryBut, OnTryBuy);
             CEventCenter.RemoveListener<int,int>(Message.M_AddItem,AddItem);
             CEventCenter.RemoveListener<int,int>(Message.M_RemoveItem,RemoveItem);
 
         }
 
-        private void OnTryBuy(int money,AbstractCommodity item)
+        private void OnTryBuy(int id)
         {
-            if (this.Money + money < 0)
+            var item = ItemInfoAsset.Instance.GetItem(id);
+            if (item == null)
+                throw new Exception("物品ID异常：id:" + id);
+            
+            Assert.IsTrue(item.Type==ItemType.Commercial);
+            
+            if (this.Money - item.Price < 0)
             {
                 Debug.LogWarning("你只有: "+this.Money);
                 return;
             }
 
-            this.Money += money;
+            this.Money -= item.Price;
 //            Debug.Log("当前金钱："+this.money);
-            CEventCenter.BroadMessage(Message.M_MoneyChange, money);
-            if (item != null)
-            {
-                Debug.Log("添加了物品，id: " + item.ID);
-                CEventCenter.BroadMessage(Message.M_AddItem,item.ID,1);
-            }
+            CEventCenter.BroadMessage(Message.M_MoneyChange, -item.Price);
+            CEventCenter.BroadMessage(Message.M_AddItem,item.ID,1);
         }
 
         void InitSuper()

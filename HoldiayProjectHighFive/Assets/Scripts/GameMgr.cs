@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Game.Const;
+﻿using Game.Const;
 using Game.Control.PersonSystem;
 using Game.Model.ItemSystem;
 using Game.Model.RankSystem;
@@ -45,7 +43,8 @@ namespace Game.Scripts
 
 
     	#endregion
-    	
+
+        
     	[HideInInspector]
     	public Vector3 PlayerPos;
     
@@ -91,23 +90,10 @@ namespace Game.Scripts
     	{
     		print("GameMgr RegisterAll");
     		RegisterData();
-            RegisterUiPanels();
             RegisterSpiritItem();
             LoadDataFromFile();
     	}
-    
-    	/// <summary>
-    	/// 注册UI面板
-    	/// </summary>
-    	void RegisterUiPanels()
-    	{
-    		print("GameMgr RegisterUiPanels");
-    		AbstractPanel.RegisterPanel<BattlePanel>(PanelName.battlePanel);
-            AbstractPanel.RegisterPanel<PackagePanel>(PanelName.packagePanel);
-            AbstractPanel.RegisterPanel<ShopPanel>(PanelName.shopPanel);
-            AbstractPanel.RegisterPanel<LoadingPanel>(PanelName.loadingPanel);
-    	}
-    	
+
     
     	/// <summary>
     	/// 注册灵器
@@ -126,8 +112,6 @@ namespace Game.Scripts
     	/// </summary>
     	void RegisterData()
     	{
-    		TxtManager.RegisterDataFactory<ShitItem>(TxtSign.shitItem);
-    		TxtManager.RegisterDataFactory<BoxItem>(TxtSign.boxItem);
     		
     
     		TxtManager.RegisterDataFactory<L1Rank>(TxtSign.L1Rank);
@@ -146,10 +130,6 @@ namespace Game.Scripts
     	    TxtManager.LoadDataFromFile<AbstractLargeRank>(FilePath.RankFilePath,
     		    (largeRank) => { RankMgr.LargeRankList.Add(largeRank); });
             
-    		TxtManager.LoadDataFromFile<AbstractItem>(FilePath.ItemFilePath,
-    			(item) =>{ ItemMgr.itemDic.Add(item.ID, item); });
-
-    		
         }
     
     	/// <summary>

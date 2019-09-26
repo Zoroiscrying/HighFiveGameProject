@@ -1,5 +1,7 @@
 ﻿using Game.Const;
+using Game.View.AssetUIs;
 using ReadyGamerOne.Script;
+using ReadyGamerOne.View.AssetUi;
 using ReadyGamerOne.View.PanelSystem;
 using UnityEngine;
 
@@ -8,6 +10,7 @@ namespace Game.Scripts
 	public class ShopNpc : CloseEnough
     {
     	private bool isShowing;
+        public ShopPanelAsset shopPanelAsset;
     
     	protected override void Start()
     	{
@@ -24,12 +27,13 @@ namespace Game.Scripts
     				Debug.Log("KeyDown");
     				if (isShowing)
     				{
-    					PanelMgr.PopPanel();
+    					PanelAssetMgr.PopPanel();
     					isShowing = false;
     				}
     				else
-    				{
-    					PanelMgr.PushPanel(PanelName.shopPanel);
+                    {
+	                    PanelAssetMgr.PushPanel(shopPanelAsset);
+    					//PanelMgr.PushPanel(PanelName.shopPanel);
     					isShowing = true;
     				}
     			}
@@ -40,7 +44,7 @@ namespace Game.Scripts
     	{
     		base.OnTriggerExit2D(col);
     		if(isShowing)
-    			PanelMgr.PopPanel();
+    			PanelAssetMgr.PopPanel();
     	}
     }
 

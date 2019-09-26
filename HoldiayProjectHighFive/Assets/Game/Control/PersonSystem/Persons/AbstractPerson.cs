@@ -154,6 +154,12 @@ namespace Game.Control.PersonSystem
                 var v = this.obj.transform.localScale.x > 0 ? 1 : -1;
                 return v;
             }
+            set
+            {
+                var dir = value > 0 ? 1 : -1;
+                var s = obj.transform.localScale;
+                obj.transform.localScale = new Vector3(dir * Mathf.Abs(s.x), s.y, s.z);
+            }
         }
 
         /// <summary>
@@ -238,6 +244,12 @@ namespace Game.Control.PersonSystem
 //            }
 //            this.skills[index].Execute(this, ignoreInput);
             Skills[index].RunSkill(this);
+        }
+
+        public void RunSkill(SkillInfoAsset skillInfoAsset)
+        {
+            Debug.Log("!");
+            skillInfoAsset.RunSkill(this);
         }
 //
 //        /// <summary>

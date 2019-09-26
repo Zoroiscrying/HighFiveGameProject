@@ -224,7 +224,7 @@ public class MainCharacter : Actor
 
 	private void BasicStateCheck()
 	{
-		//Idle & run
+		//IdleState & run
 		if (_controller.isGrounded  && (_stateMachine.State == PlayerStates.Run ||
 		   //_stateMachine.State == PlayerStates.Jump || 
 		                                _stateMachine.State == PlayerStates.DoubleJump||
@@ -408,7 +408,7 @@ public class MainCharacter : Actor
 		private void Idle_Enter()
 		{
 			_positionYLastFrame = this.transform.position.y;
-			_animator.Play(Animator.StringToHash("Player@Idle"));
+			_animator.Play(Animator.StringToHash("Player@IdleState"));
 		}
 	
 		private void Idle_Update()
@@ -422,7 +422,7 @@ public class MainCharacter : Actor
 	
 		private void Idle_Exit()
 		{
-			//Debug.Log("Idle State Exit.");
+			//Debug.Log("IdleState State Exit.");
 		}
 
 		#endregion

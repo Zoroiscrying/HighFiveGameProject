@@ -47,7 +47,10 @@ namespace Game.Control.SkillSystem
             
             this.startTime = startTime;
             foreach (var trigger in triggers)
+            {
+                Debug.Log("Trigger:" + trigger.type);
                 trigger.RunTriggerUnit(self);
+            }
             
             MainLoop.Instance.ExecuteLater(() =>
             {

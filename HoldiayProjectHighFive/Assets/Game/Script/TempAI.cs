@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Control.PersonSystem;
+﻿using Game.Control.PersonSystem;
 using UnityEngine;
 
 public class TempAI : MonoBehaviour

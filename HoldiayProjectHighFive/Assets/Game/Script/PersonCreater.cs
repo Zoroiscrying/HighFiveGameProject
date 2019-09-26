@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Game.Control.PersonSystem;
-using UnityEngine;
 
 namespace Game.Scripts
 {
@@ -10,6 +8,7 @@ namespace Game.Scripts
         public List<BaseCharacterInfo> CharacterInfos=new List<BaseCharacterInfo>();
         public bool createOnStart = true;
 
+        private AbstractPerson sss;
         private void Awake()
         {
             if (createOnStart)
@@ -20,12 +19,17 @@ namespace Game.Scripts
                         new Player(VARIABLE);
                     else
                     {
-                        new TestPerson(VARIABLE);
+                        sss= new TestPerson(VARIABLE);
                     }                    
                 }
             }
 
         }
-        
+
+
+        private void Update()
+        {
+           // sss.obj.GetComponent<Actor>().Patrol();
+        }
     }
 }

@@ -18,8 +18,8 @@ MonoBehaviour:
     Path: GameObjects/Player
   baseAttack: 20
   attack_adder: 0
-  attack_scaler: 16
-  hp: 200
+  attack_scaler: 1
+  hp: 70
   maxHp: 100
   attackSpeed: 1
   IgnoreHitback: 0
@@ -36,12 +36,13 @@ MonoBehaviour:
   comboKey: 106
   superKey: 122
   bagKey: 9
-  hitBackSpeed: 1
+  hitBackSpeed: {x: 0.3, y: 0}
   Maxdrag: 0
   drag: 0
-  money: 200
+  money: 3980
   airXMove: 0
   MaxSpiritNum: 1
+  packagePanelAsset: {fileID: 11400000, guid: f8d9e9db1f70c5b4ebabb465f58209a4, type: 2}
   commonSkillInfos:
   - key: 117
     skillAsset: {fileID: 11400000, guid: 0235b194e43930f4ba3196b382c2f4db, type: 2}

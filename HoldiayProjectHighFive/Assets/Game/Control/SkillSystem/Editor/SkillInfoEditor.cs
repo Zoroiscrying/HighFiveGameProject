@@ -76,6 +76,7 @@ namespace Game.Control.SkillSystem.Editor
         {
             serializedObject.Update();
 
+            this.detailPos = GUILayout.BeginScrollView(this.detailPos ,GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(skillNameProp);
             if (EditorGUI.EndChangeCheck())
@@ -95,7 +96,6 @@ namespace Game.Control.SkillSystem.Editor
             {
 
                 var prop = triggerListProp.GetArrayElementAtIndex(selectIndex);
-                this.detailPos = GUILayout.BeginScrollView(this.detailPos ,GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
                 var rect = GUILayoutUtility.GetRect(100, EditorGUI.GetPropertyHeight(prop),
                     GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
                 _skillInfoAsset.triggers[selectIndex].OnDrawMoreInfo(prop, rect);

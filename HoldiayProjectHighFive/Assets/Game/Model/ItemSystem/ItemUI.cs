@@ -17,11 +17,11 @@ namespace Game.Model.ItemSystem
         }
 
         public GameObject obj = null;
-        public AbstractItem Item
+        public ItemUnitInfo ItemUnitInfo
         {
             get
             {
-                return ItemMgr.GetItem(this.itemId);
+                return ItemInfoAsset.Instance.GetItem(this.itemId);
             }
         }
         
@@ -29,7 +29,7 @@ namespace Game.Model.ItemSystem
         {
             get
             {
-                return ItemMgr.GetItem(this.itemId).SpritePath;
+                return ItemInfoAsset.Instance.GetItem(this.itemId).SpritePath;
             }
         }
     }

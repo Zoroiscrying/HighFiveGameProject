@@ -34,7 +34,7 @@ namespace Game.Model.ItemSystem
             private set
             {
                 Debug.Log(value);
-                Assert.IsTrue(value >= 0 && value <= ItemMgr.GetItem(this.itemUi.itemId).Capacity);
+                Assert.IsTrue(value >= 0 && value <= ItemInfoAsset.Instance.GetItem(this.itemUi.itemId).Capacity);
 
                 //数值上
                 this.itemUi.count = value;
@@ -67,7 +67,7 @@ namespace Game.Model.ItemSystem
                 throw new Exception("????????????");
             }
 
-            this.itemUi.obj = MemoryMgr.InstantiateGameObject(UiName.Image_ItemUI, transform);
+            this.itemUi.obj = MemoryMgr.InstantiateGameObject(DirPath.LittleUiDir+ UiName.Image_ItemUI, transform);
             this.itemImage = this.itemUi.obj.GetComponent<Image>();
             Assert.IsTrue(this.itemImage);
             this.itemImage.sprite = MemoryMgr.GetSourceFromResources<Sprite>(this.itemUi.SpritePath);

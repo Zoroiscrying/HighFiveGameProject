@@ -24,20 +24,14 @@ namespace Game.View.PanelSystem
 			{
 				
 				currentItemIndex = value;
-				this.itemInfo.text = ItemMgr.GetItem(itemIdList[value]).Description;
+				this.itemInfo.text = ItemInfoAsset.Instance.GetItem(itemIdList[value]).Description;
 			}
 			get { return currentItemIndex; }
 		}
-
 		private int CurrentMoney
 		{
 			get { return Convert.ToInt32(this.playerMoney.text); }
 			set { playerMoney.text = value.ToString(); }
-		}
-
-		private AbstractCommodity CurrentItem
-		{
-			get { return ItemMgr.GetItem<AbstractCommodity>(this.itemIdList[currentItemIndex]); }
 		}
 
 		private List<int> itemIdList=new List<int>(DefaultData.shop);
@@ -146,20 +140,27 @@ namespace Game.View.PanelSystem
 			GameObject itemObj;
 			foreach (var id in itemIdList)
 			{
-			    itemObj=MemoryMgr.InstantiateGameObject(DirPath.LittleUiDir+ this.itemDataPath, this.itemList);
+				var itemInfo = ItemInfoAsset.Instance.GetItem(id);
+			    itemObj=MemoryMgr.InstantiateGameObject(DirPath.LittleUiDir+UiName.Image_ItemData, this.itemList);
 				Assert.IsTrue(itemObj);
-				var itemInfo = ItemMgr.GetItem<AbstractCommodity>(id);
-				itemObj.transform.Find("Image_ItemAvator").GetComponent<Image>().sprite =
+				
+				
+				var avator=itemObj.transform.Find("Image_ItemAvator");
+				if(avator==null)
+					throw new Exception("avator is null"); 
+				var image=avator.GetComponent<Image>();
+				if(image==null)
+					throw new Exception("Image is null");
+				image.sprite =
 					MemoryMgr.GetSourceFromResources<Sprite>(itemInfo.SpritePath);
-				itemObj.transform.Find("Tmp_Price").GetComponent<TextMeshProUGUI>().text = itemInfo.price.ToString();
+				itemObj.transform.Find("Tmp_Price").GetComponent<TextMeshProUGUI>().text = itemInfo.Price.ToString();
 				
 				this.items.Add(itemObj);
 			}
 		}
 		private void OnBuy()
 		{
-			var item = CurrentItem;
-			CEventCenter.BroadMessage(Message.M_TryChangeMoney,-item.price,item);
+			CEventCenter.BroadMessage(Message.M_OnTryBut,itemIdList[currentItemIndex]);
 		}
 		
 		

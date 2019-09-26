@@ -75,7 +75,7 @@ namespace ReadyGamerOne.Script
 
         #region StateProperties
 
-        #region Idle
+        #region IdleState
 
         public string idleAniName;
         [SerializeField] private int idleAniIndex;
@@ -297,7 +297,7 @@ namespace ReadyGamerOne.Script
 
                 #endregion
 
-                #region Idle
+                #region IdleState
 
                 else if (!LockState)
                 {
@@ -549,7 +549,7 @@ namespace ReadyGamerOne.Script
         /// </summary>
         private void ToIdle()
         {
-            //Idle
+            //IdleState
             if (EnableAni)
                 ani.Play(Animator.StringToHash(idleAniName));
         }

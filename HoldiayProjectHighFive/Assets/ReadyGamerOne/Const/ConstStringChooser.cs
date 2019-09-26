@@ -1,5 +1,4 @@
 using System;
-using ReadyGamerOne.Const;
 using UnityEngine;
 
 namespace ReadyGamerOne.Const

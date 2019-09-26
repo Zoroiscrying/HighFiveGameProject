@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ReadyGamerOne.Utility
 {
     /// <summary>
-    /// 输入工具类
+    /// 输入工具类——注意，使用此类，需要将MainLoop放在所有脚本执行顺序之前
     /// 封装双击，长按方法
     /// </summary>
     public static class InputUtil
@@ -37,14 +37,14 @@ namespace ReadyGamerOne.Utility
 
         static InputUtil()
         {
-            MainLoop.AddUpdateFunc(Update);
+            MainLoop.AddUpdateFunc(FixedUpdate);
             keyDic.Add(KeyCode.U, new KeyInfo());
         }
 
         private static Dictionary<KeyCode, KeyInfo> keyDic = new Dictionary<KeyCode, KeyInfo>();
         private static Dictionary<int, KeyInfo> mouseDic = new Dictionary<int, KeyInfo>();
 
-        private static void Update()
+        private static void FixedUpdate()
         {
             foreach (var item in keyDic)
             {
@@ -250,8 +250,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 是否双击按下某个键
         /// </summary>
-        /// <param CharacterName="key"></param>
-        /// <param CharacterName="timeBetweenLastTwoClick"></param>
+        /// <param name="key"></param>
+        /// <param name="timeBetweenLastTwoClick"></param>
         /// <returns></returns>
         public static bool GetDoubleKeyDown(KeyCode key, float timeBetweenLastTwoClick)
         {
@@ -269,8 +269,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 是否双击按下某个鼠标键
         /// </summary>
-        /// <param CharacterName="mouseButton"></param>
-        /// <param CharacterName="timeBetweenLastTwoClick"></param>
+        /// <param name="mouseButton"></param>
+        /// <param name="timeBetweenLastTwoClick"></param>
         /// <returns></returns>
         public static bool GetMouseDoubleDown(int mouseButton, float timeBetweenLastTwoClick)
         {
@@ -288,8 +288,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 是否双击松开某个键
         /// </summary>
-        /// <param CharacterName="key"></param>
-        /// <param CharacterName="timeBetweenLastTwoClick"></param>
+        /// <param name="key"></param>
+        /// <param name="timeBetweenLastTwoClick"></param>
         /// <returns></returns>
         public static bool GetDoubleKeyUp(KeyCode key, float timeBetweenLastTwoClick)
         {
@@ -306,8 +306,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 获取鼠标双击抬起
         /// </summary>
-        /// <param CharacterName="mouseButton"></param>
-        /// <param CharacterName="timeBetweenLastTwoClick"></param>
+        /// <param name="mouseButton"></param>
+        /// <param name="timeBetweenLastTwoClick"></param>
         /// <returns></returns>
         public static bool GetMouseDoubleUp(int mouseButton, float timeBetweenLastTwoClick)
         {
@@ -325,9 +325,9 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 是否双击按住某个按键，并且距离最后一次按下时间间隔不足timeAfterLastDown
         /// </summary>
-        /// <param CharacterName="key"></param>
-        /// <param CharacterName="timeBetweenLastTwoClick"></param>
-        /// <param CharacterName="timeAfterLastDown"></param>
+        /// <param name="key"></param>
+        /// <param name="timeBetweenLastTwoClick"></param>
+        /// <param name="timeAfterLastDown"></param>
         /// <returns></returns>
         public static bool GetDoubleKey(KeyCode key, float timeBetweenLastTwoClick, float timeAfterLastDown)
         {
@@ -348,9 +348,9 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 是否双击按住某个鼠标键，并且距离最后一次按下时间间隔不足timeAfterLastDown
         /// </summary>
-        /// <param CharacterName="key"></param>
-        /// <param CharacterName="timeBetweenLastTwoClick"></param>
-        /// <param CharacterName="timeAfterLastDown"></param>
+        /// <param name="key"></param>
+        /// <param name="timeBetweenLastTwoClick"></param>
+        /// <param name="timeAfterLastDown"></param>
         /// <returns></returns>
         public static bool GetDoubleMouse(int mouseButton, float timeBetweenLastTwoClick, float timeAfterLastDown)
         {
@@ -371,8 +371,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 是否双击按住某个键
         /// </summary>
-        /// <param CharacterName="key"></param>
-        /// <param CharacterName="timeBetweenLastTwoClick"></param>
+        /// <param name="key"></param>
+        /// <param name="timeBetweenLastTwoClick"></param>
         /// <returns></returns>
         public static bool GetDoubleKey(KeyCode key, float timeBetweenLastTwoClick)
         {
@@ -392,8 +392,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 是否双击按住某个鼠标键
         /// </summary>
-        /// <param CharacterName="mouseButton"></param>
-        /// <param CharacterName="timeBetweenLastTwoClick"></param>
+        /// <param name="mouseButton"></param>
+        /// <param name="timeBetweenLastTwoClick"></param>
         /// <returns></returns>
         public static bool GetDoubleMouse(int mouseButton, float timeBetweenLastTwoClick)
         {
@@ -412,17 +412,14 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 获取按键长按，只触发一次
         /// </summary>
-        /// <param CharacterName="key"></param>
-        /// <param CharacterName="time"></param>
+        /// <param name="key"></param>
+        /// <param name="time"></param>
         /// <returns></returns>
         public static bool GetLongKeyDown(KeyCode key, float time)
         {
             if (!keyDic.ContainsKey(key))
             {
-                keyDic.Add(key, new KeyInfo()
-                {
-                    State = KeyState.Down_
-                });
+                keyDic.Add(key, new KeyInfo());
                 return false;
             }
 
@@ -434,8 +431,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 获取鼠标长按，只触发一次
         /// </summary>
-        /// <param CharacterName="mouseButton"></param>
-        /// <param CharacterName="time"></param>
+        /// <param name="mouseButton"></param>
+        /// <param name="time"></param>
         /// <returns></returns>
         public static bool GetLongMouseDown(int mouseButton, float time)
         {
@@ -451,11 +448,58 @@ namespace ReadyGamerOne.Utility
                    (info.State == KeyState.Down_ || info.State == KeyState.Down_Down_);
         }
 
+
+        /// <summary>
+        /// 获取按键长按以后的抬起，只触发一次
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="time">长按时长</param>
+        /// <returns></returns>
+        public static bool GetLongKeyUp(KeyCode key, ref float time)
+        {
+            if (!keyDic.ContainsKey(key))
+            {
+                keyDic.Add(key, new KeyInfo());
+                return false;
+            }
+            var info = keyDic[key];
+
+            if (info.State != KeyState.Up_1 && info.State != KeyState.Up_2) return false;
+            
+            time = info.timeAfterLastDown;
+            return true;
+
+        }
+
+        /// <summary>
+        /// 获取鼠标长按以后的抬起，只触发一次
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="time">长按时长</param>
+        /// <returns></returns>
+        public static bool GetLongMouseUp(int mouseButton, ref float time)
+        {
+            if (!mouseDic.ContainsKey(mouseButton))
+            {
+                mouseDic.Add(mouseButton, new KeyInfo());
+                return false;
+            }
+
+            var info = mouseDic[mouseButton];
+
+            if (info.State != KeyState.Up_1 && info.State != KeyState.Up_2)
+                return false;
+
+            time = info.timeAfterLastDown;
+            return true;
+        }
+        
+
         /// <summary>
         /// 获取按键长按，时间超过time后，持续触发
         /// </summary>
-        /// <param CharacterName="key"></param>
-        /// <param CharacterName="time"></param>
+        /// <param name="key"></param>
+        /// <param name="time"></param>
         /// <returns></returns>
         public static bool GetLongKey(KeyCode key, float time)
         {
@@ -471,10 +515,34 @@ namespace ReadyGamerOne.Utility
         }
 
         /// <summary>
+        /// 获取按键长按，持续触发
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="time">从按下到现在的时间</param>
+        /// <returns></returns>
+        public static bool GetLongKey(KeyCode key, ref float time)
+        {
+            if (!keyDic.ContainsKey(key))
+            {
+                keyDic.Add(key, new KeyInfo());
+                return false;
+            }
+
+            var info = keyDic[key];
+            if (info.State == KeyState.Down_ || info.State == KeyState.Down_Down_)
+            {
+                time = info.timeAfterLastDown;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// 获取鼠标长按，持续触发
         /// </summary>
-        /// <param CharacterName="mouseButton"></param>
-        /// <param CharacterName="time"></param>
+        /// <param name="mouseButton"></param>
+        /// <param name="time"></param>
         /// <returns></returns>
         public static bool GetLongMouse(int mouseButton, float time)
         {
@@ -490,10 +558,34 @@ namespace ReadyGamerOne.Utility
         }
 
         /// <summary>
+        /// 获取鼠标长按，持续触发
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="time">从按下到现在的时间</param>
+        /// <returns></returns>
+        public static bool GetLongMouse(int mouseButton, ref float time)
+        {
+            if (!mouseDic.ContainsKey(mouseButton))
+            {
+                mouseDic.Add(mouseButton, new KeyInfo());
+                return false;
+            }
+
+            var info = mouseDic[mouseButton];
+            if (info.State == KeyState.Down_ || info.State == KeyState.Down_Down_)
+            {
+                time = info.timeAfterLastDown;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// 获取按键频繁按下
         /// </summary>
-        /// <param CharacterName="key"></param>
-        /// <param CharacterName="maxIntervalTime">两次按下不得超过的最大允许间隔</param>
+        /// <param name="key"></param>
+        /// <param name="maxIntervalTime">两次按下不得超过的最大允许间隔</param>
         /// <returns></returns>
         public static bool GetFrequentKey(KeyCode key, float maxIntervalTime)
         {
@@ -511,8 +603,8 @@ namespace ReadyGamerOne.Utility
         /// <summary>
         /// 获取鼠标键频繁按下
         /// </summary>
-        /// <param CharacterName="mouseButton"></param>
-        /// <param CharacterName="maxIntervalTime">两次按下不得超过的最大允许间隔</param>
+        /// <param name="mouseButton"></param>
+        /// <param name="maxIntervalTime">两次按下不得超过的最大允许间隔</param>
         /// <returns></returns>
         public static bool GetFrequentMouse(int mouseButton, float maxIntervalTime)
         {
@@ -526,7 +618,28 @@ namespace ReadyGamerOne.Utility
             return Math.Abs(info.preTimeAfterLastDown) > 0.01f && info.timeAfterLastDown <= maxIntervalTime &&
                    info.preTimeAfterLastDown <= maxIntervalTime;
         }
-        
+
+
+
+        private static void ModifyKeyInfo(KeyCode key, KeyInfo info)
+        {
+            if (Input.GetKeyUp(key))
+            {
+                switch (info.State)
+                {
+                    case KeyState.Null:
+                        throw new Exception("不该出现这个情况，异常按键：" + key);
+                    case KeyState.Down_:
+                    case KeyState.Down_1:
+                        info.State = KeyState.Up_1;
+                        break;
+                    case KeyState.Down_2:
+                    case KeyState.Down_Down_:
+                        info.State = KeyState.Up_2;
+                        break;
+                }
+            }
+        }
         
     }
 }

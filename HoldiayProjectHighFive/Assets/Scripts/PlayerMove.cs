@@ -255,7 +255,7 @@ public class PlayerMove : MonoBehaviour
 			if (_controller.isGrounded && !Input.GetKey(KeyCode.J) && !Input.GetKey(KeyCode.K) &&
 			    !Input.GetKey(KeyCode.L)&&!_animator.GetBool("dashing"))
 			{
-				_animator.Play( Animator.StringToHash( "Idle" ) );
+				_animator.Play( Animator.StringToHash( "IdleState" ) );
 				_animator.SetBool("downwarddashing",false);
 			}
 		}

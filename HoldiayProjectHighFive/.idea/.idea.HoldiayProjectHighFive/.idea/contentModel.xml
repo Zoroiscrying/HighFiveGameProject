@@ -779,9 +779,12 @@
           <e p="AI" t="Include">
             <e p="Actions" t="Include">
               <e p="Attack.cs" t="Include" />
-              <e p="Partol.cs" t="Include" />
+              <e p="IdleState.cs" t="Include" />
+              <e p="Patrol.cs" t="Include" />
+              <e p="Seek.cs" t="Include" />
             </e>
             <e p="Conditions" t="Include">
+              <e p="Attacked.cs" t="Include" />
               <e p="CanSeePlayer.cs" t="Include" />
             </e>
           </e>
@@ -843,14 +846,15 @@
           <e p="Model" t="Include">
             <e p="ItemSystem" t="Include">
               <e p="IItemTriggerFactory.cs" t="Include" />
-              <e p="ItemMgr.cs" t="Include" />
+              <e p="ItemInfoAsset.cs" t="Include" />
               <e p="Items" t="Include">
-                <e p="AbstractCommodity.cs" t="Include" />
-                <e p="AbstractItem.cs" t="Include" />
-                <e p="BoxItem.cs" t="Include" />
-                <e p="ShitItem.cs" t="Include" />
+                <e p="Editor" t="Include">
+                  <e p="ItemInfoAssetEditor.cs" t="Include" />
+                  <e p="ItemUnitInfoDrawer.cs" t="Include" />
+                </e>
               </e>
               <e p="ItemUI.cs" t="Include" />
+              <e p="ItemUnitInfo.cs" t="Include" />
               <e p="Slot.cs" t="Include" />
             </e>
             <e p="RankSystem" t="Include">
@@ -885,6 +889,7 @@
           <e p="Script" t="Include">
             <e p="PersonCreater.cs" t="Include" />
             <e p="TempAI.cs" t="Include" />
+            <e p="TouchDamage.cs" t="Include" />
           </e>
           <e p="StateMachine" t="Include">
             <e p="IStateMachine.cs" t="Include" />
@@ -894,6 +899,13 @@
             <e p="StateTransition.cs" t="Include" />
           </e>
           <e p="View" t="Include">
+            <e p="AssetUIs" t="Include">
+              <e p="Panels" t="Include">
+                <e p="BattlePanelAsset.cs" t="Include" />
+                <e p="PackagePanelAsset.cs" t="Include" />
+                <e p="ShopPanelAsset.cs" t="Include" />
+              </e>
+            </e>
             <e p="BloodBarUI.cs" t="Include" />
             <e p="ItemInfoUI.cs" t="Include" />
             <e p="NumberTipUI.cs" t="Include" />
@@ -961,10 +973,12 @@
               <e p="MessagetTriggerDrawer.cs" t="Include" />
               <e p="ResourcesPathChooserDrawer.cs" t="Include" />
               <e p="StringChooseDrawer.cs" t="Include" />
+              <e p="TransformPathChooserDrawer.cs" t="Include" />
             </e>
             <e p="MessageTrigger.cs" t="Include" />
             <e p="ResourcesPathChooser.cs" t="Include" />
             <e p="StringChooser.cs" t="Include" />
+            <e p="TransformPathChooser.cs" t="Include" />
           </e>
           <e p="Global" t="Include">
             <e p="GlobalVar.cs" t="Include" />

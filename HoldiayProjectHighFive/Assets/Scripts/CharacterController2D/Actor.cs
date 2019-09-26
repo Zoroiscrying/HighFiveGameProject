@@ -28,7 +28,7 @@ public class Actor : MonoBehaviour {
 	
 	[Header("PreciseMovementCtrl")]
 	public float _accelerationTimeAirborne = .2f;
-	public float _accelerationTimeGrounded = .0f;
+	public float _accelerationTimeGrounded = .1f;
 	[Space(5)]
 	public float _timeToJumpApex = .4f;
 	public float _maxJumpHeight = 1f;
@@ -184,7 +184,7 @@ public class Actor : MonoBehaviour {
 			}
 		}
 		
-		if (_isPatrolling && this._controller.isGrounded)
+		if (_isPatrolling &&  _controller.isGrounded)
 		{
 			switch (ActorPatrolType)
 			{
@@ -249,6 +249,7 @@ public class Actor : MonoBehaviour {
 	private float _patrolStopTimer;
 	public void Patrol()
 	{
+//		Debug.Log("PAtrolling.");
 		//到达边角后，开启计时器（增加计时器），计时器到点，继续前进
 		if (IsAtCorner)
 		{
@@ -276,14 +277,18 @@ public class Actor : MonoBehaviour {
 	private float _distanceCounter = 0;
 	public void PatrolOneDirInDistance( float distance,bool isGoingRight = true)
 	{
+		Debug.Log("ISGOINGRIGHT:" + isGoingRight);
 		
 		_distanceCounter += Mathf.Abs(_runSpeed) * Time.deltaTime;
 		
 		if (IsAtCorner)
 		{
 			_movementMultiplier = -_movementMultiplier;
+			
 		}
-		_velocity.x = _runSpeed * _movementMultiplier;
+
+		var dir = isGoingRight ? 1 : -1;
+		_velocity.x = dir* Mathf.Abs(_runSpeed * _movementMultiplier);
 		
 		if (_distanceCounter >= distance)
 		{

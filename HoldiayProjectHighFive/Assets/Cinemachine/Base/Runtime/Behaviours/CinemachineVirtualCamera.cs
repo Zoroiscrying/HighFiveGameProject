@@ -389,7 +389,7 @@ namespace Cinemachine
             if (m_ComponentOwner == null)
                 m_ComponentOwner = CreatePipeline(null);
 
-            // Make sure the pipeline stays hidden, even through prefab
+            // Make sure the pipeline stays hidden, even through prefabPath
             if (CinemachineCore.sShowHiddenObjects)
                 m_ComponentOwner.gameObject.hideFlags
                     &= ~(HideFlags.HideInHierarchy | HideFlags.HideInInspector);

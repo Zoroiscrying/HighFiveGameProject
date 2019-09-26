@@ -50,16 +50,7 @@ namespace ReadyGamerOne.View.AssetUi
         public static event Action<PanelUiAsset> onPanelDestory;        
 
         #endregion
-
-        public PanelUiAsset target;
-        public KeyCode key = KeyCode.Space;
-
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
-            if (Input.GetKeyDown(key))
-                PanelAssetMgr.PushPanel(target);
-        }
+        
 
         protected override void OnShow()
         {

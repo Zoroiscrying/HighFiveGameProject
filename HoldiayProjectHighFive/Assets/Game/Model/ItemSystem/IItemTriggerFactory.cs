@@ -2,6 +2,6 @@
 {
     public interface IItemTriggerFactory
     {
-        AbstractItem CreateItem(string args);
+        ItemUnitInfo CreateItem(string args);
     }
 }

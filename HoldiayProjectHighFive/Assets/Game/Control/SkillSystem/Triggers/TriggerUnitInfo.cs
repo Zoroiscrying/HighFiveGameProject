@@ -1,5 +1,5 @@
 using System;
-using Game.Const;
+using Game.Control.BattleEffectSystem;
 using Game.Control.PersonSystem;
 using Game.Math;
 using Game.Model.SpriteObjSystem;
@@ -86,9 +86,10 @@ namespace Game.Control.SkillSystem
             EnemyToPlayer
         }
 
-        //public DamageType damageType;
+        public DamageType damageType;
         public string triggerPath;
-
+        public Vector2 hitBack;
+        private float preLastTime;
         private void OnTriggerEnter(Collider2D col)
         {
             var hitPerson = AbstractPerson.GetInstance(col.gameObject);
@@ -97,7 +98,29 @@ namespace Game.Control.SkillSystem
                 Debug.Log("打击人物为空");
                 return;
             }
-            hitPerson.TakeBattleEffect(self.AttackEffect);
+            else
+            {
+                Debug.Log("打击到”" + hitPerson.CharacterName);
+            }
+
+            switch (damageType)
+            {
+                case DamageType.PlayerToEnemy:
+                    if (hitPerson is Player)
+                        break;
+                    hitPerson.TakeBattleEffect(self.AttackEffect);
+                    hitPerson.TakeBattleEffect(new HitbackEffect(hitBack));
+                    break;
+                case DamageType.EnemyToPlayer:
+                    if (hitPerson is Player)
+                    {
+                        
+                        hitPerson.TakeBattleEffect(self.AttackEffect);
+                        hitPerson.TakeBattleEffect(new HitbackEffect(hitBack));
+                    }
+
+                    break;
+            }
         }
         
         #endregion
@@ -109,6 +132,7 @@ namespace Game.Control.SkillSystem
             this.self = self;
             MainLoop.Instance.ExecuteLater(() =>
             {
+                Debug.Log("运行Trigger单元：" + this.type);
                 switch (type)
                 {
                     #region Animation
@@ -142,8 +166,6 @@ namespace Game.Control.SkillSystem
                     case TriggerType.Audio:
                         AudioMgr.Instance.PlayEffect(this.audioName.Name, self.obj.transform.position);
                         break;
-
-                        
 
                     #endregion
 
@@ -204,21 +226,29 @@ namespace Game.Control.SkillSystem
                         break;                        
 
                     #endregion
-                    
+
+                    #region Trigger2D
 
                     case TriggerType.Trigger2D:
-                        
-                        Debug.Log("???");
+                        if (Mathf.Abs(preLastTime) < 0.01f)
+                        {
+                            preLastTime = lastTime;
+                        }
                         lastTime /= self.AttackSpeed;
+                        if (self.obj == null)
+                            break;
                         var sword = self.obj.transform.Find(triggerPath);
                         var trigger = (sword.GetComponent<TriggerInputer>() ??
                                        sword.gameObject.AddComponent<TriggerInputer>());
-                        if(trigger==null)
-                            throw new Exception("@!@@##");
 
                         trigger.onTriggerEnterEvent += this.OnTriggerEnter;
+                        Debug.Log("添加监听");
                         MainLoop.Instance.ExecuteLater(() =>
-                            trigger.onTriggerEnterEvent -= this.OnTriggerEnter, lastTime);
+                        {
+                            Debug.Log("移除监听");
+                            trigger.onTriggerEnterEvent -= this.OnTriggerEnter;
+                        }, lastTime);
+                        
                         
 //                        var speed = (endDegree - beginDegree) / lastTime;
 //                        Debug.Log("旋转速度");
@@ -267,15 +297,22 @@ namespace Game.Control.SkillSystem
 //                        
 //                        
                         
-                        break;
-                    
+                        break;                        
+
+                    #endregion
                 }                
             },this.startTime);
         }
 
         public void Reset()
         {
-            
+            switch (type)
+            {
+                case TriggerType.Trigger2D:
+                    lastTime = preLastTime;
+                    
+                    break;
+            }
         }
        
 
@@ -307,7 +344,11 @@ namespace Game.Control.SkillSystem
                     
                 case TriggerType.Trigger2D:
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                        property.FindPropertyRelative("damageType"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                         property.FindPropertyRelative("triggerPath"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                        property.FindPropertyRelative("hitBack"));
                     break;
 
                 #endregion

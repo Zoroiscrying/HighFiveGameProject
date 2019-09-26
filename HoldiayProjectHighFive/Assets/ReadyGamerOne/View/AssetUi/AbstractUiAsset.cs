@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Global;
+using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Script;
 using UnityEditor;
 using UnityEngine;
@@ -51,7 +53,7 @@ namespace ReadyGamerOne.View.AssetUi
             #endregion
             
         [HideInInspector] public Transform m_TransFrom;
-        public GameObject prefab;
+        public ResourcesPathChooser prefabPath;
         private bool m_bIsVisible=false;
 
         public bool IsVisable => m_bIsVisible;
@@ -63,18 +65,17 @@ namespace ReadyGamerOne.View.AssetUi
         public virtual void InitializeObj(Transform parent)
         {
 
-            if (!prefab)
-            {
-                Debug.LogError("预制体为空");
-                return;
-            }
+            if (string.IsNullOrEmpty(prefabPath.Path))
+                throw new Exception("资源路径为空");
+            
+
 
             var canvas = Global.GlobalVar.G_Canvas.transform;
 
             if (null == canvas)
                 Debug.Log("画布获取失败");
 
-            var obj = Instantiate(prefab, parent);
+            var obj = MemoryMgr.InstantiateGameObject(prefabPath.Path, parent);
 
             if (obj == null)
             {
@@ -131,7 +132,7 @@ namespace ReadyGamerOne.View.AssetUi
         /// <summary>
         /// 更新回调函数
         /// </summary>
-        public virtual void OnUpdate()
+        protected virtual void OnUpdate()
         {
             
         }
@@ -161,7 +162,7 @@ namespace ReadyGamerOne.View.AssetUi
         /// <summary>
         /// 添加事件监听
         /// </summary>
-        public virtual void OnAddListener()
+        protected virtual void OnAddListener()
         {
             
         }
@@ -169,7 +170,7 @@ namespace ReadyGamerOne.View.AssetUi
         /// <summary>
         /// 移除事件监听
         /// </summary>
-        public virtual void OnRemoveListener()
+        protected virtual void OnRemoveListener()
         {
             
         }

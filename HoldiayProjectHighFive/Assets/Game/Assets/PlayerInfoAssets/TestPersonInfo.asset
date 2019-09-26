@@ -19,11 +19,12 @@ MonoBehaviour:
   baseAttack: 10
   attack_adder: 0
   attack_scaler: 1
-  hp: 1999980640
+  hp: 1999996800
   maxHp: 100000000
   attackSpeed: 1
   IgnoreHitback: 0
   IsConst: 0
   DefaultConstTime: 0
-  InputOk: 0
-  skills: []
+  InputOk: 1
+  skills:
+  - {fileID: 11400000, guid: 537c94325ccd09a46967e26108f089a0, type: 2}

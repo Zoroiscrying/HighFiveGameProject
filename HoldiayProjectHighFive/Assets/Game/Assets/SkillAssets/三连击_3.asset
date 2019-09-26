@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 2
-  startTime: 2.1873705
+  startTime: 1.8577466
   isUsed: 0
   triggers:
   - id: 0
@@ -46,7 +46,9 @@ MonoBehaviour:
     shineDurTime: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    damageType: 0
     triggerPath: 
+    hitBack: {x: 0, y: 0}
   - id: 1
     startTime: 0.2
     lastTime: 0.5
@@ -77,10 +79,12 @@ MonoBehaviour:
     shineDurTime: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    damageType: 0
     triggerPath: 
+    hitBack: {x: 0, y: 0}
   - id: 2
     startTime: 0.1
-    lastTime: 0.6
+    lastTime: 1.167
     type: 6
     enable: 1
     animationName:
@@ -108,4 +112,6 @@ MonoBehaviour:
     shineDurTime: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    damageType: 0
     triggerPath: GameObject
+    hitBack: {x: 0, y: 0}

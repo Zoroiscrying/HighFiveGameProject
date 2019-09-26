@@ -7,8 +7,8 @@ using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Global;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Model.SceneSystem;
+using ReadyGamerOne.View.AssetUi;
 using ReadyGamerOne.View.PanelSystem;
-using Random = UnityEngine.Random;
 
 namespace Game.Scripts
 {
@@ -24,9 +24,8 @@ namespace Game.Scripts
         #endregion
     
         #region Public_Fields
-        
-        [Header("设定当前场景UIPanel")]
-        public StringChooser UiPanelName=new StringChooser(typeof(PanelName));
+
+        [Header("设定当前场景UIPanel")] public PanelUiAsset PanelUiAsset;
         
         [Header("是否生成敌方假人")]
         public bool creatTestPeople = false;
@@ -73,10 +72,11 @@ namespace Game.Scripts
             
             if (enableMiniMap)
                 MemoryMgr.InstantiateGameObject(DirPath.LittleUiDir + UiName.Image_MiniMap, GlobalVar.G_Canvas.transform);
-    
-            PanelMgr.PushPanel(UiPanelName.StringValue);
-            if(UiPanelName.StringValue==PanelName.battlePanel)
-                CEventCenter.BroadMessage(Message.M_RankAwake,0,0);
+
+
+            if (PanelUiAsset != null)
+                PanelAssetMgr.PushPanel(PanelUiAsset);
+            CEventCenter.BroadMessage(Message.M_RankAwake,0,0);
     
 //            if (creatTestPeople)
 //                new TestPerson("Test", DirPath.GameObjectDir + GameObjectName.TestPerson, EnemyPos);
