@@ -14,6 +14,7 @@ namespace Game.AI
         {
             time = Random.Range(idleTime.start, idleTime.end);
             timer = 0;
+            _animator=GetComponent<Animator>();
             _animator.Play(Animator.StringToHash(idleAniName));
         }
 
@@ -23,6 +24,7 @@ namespace Game.AI
             if (timer > time)
                 return TaskStatus.Success;
             return TaskStatus.Running;
+            
         }
     }
 }

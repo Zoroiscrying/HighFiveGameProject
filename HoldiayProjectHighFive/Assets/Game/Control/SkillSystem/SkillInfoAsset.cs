@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Game.Control.PersonSystem;
 using ReadyGamerOne.Const;
 using ReadyGamerOne.Script;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game.Control.SkillSystem
 {  
@@ -25,8 +27,9 @@ namespace Game.Control.SkillSystem
             }
         }
         public List<TriggerUnitInfo> triggers=new List<TriggerUnitInfo>();
+        public Vector3 Vector3Cache;
 
-        public void RunSkill(AbstractPerson self, bool ignoreInput = false, float startTime = 0)
+        public void RunSkill(Player self, bool ignoreInput, float startTime = 0)
         {
             if (!self.InputOk)
                 return;
@@ -48,7 +51,37 @@ namespace Game.Control.SkillSystem
             this.startTime = startTime;
             foreach (var trigger in triggers)
             {
-                Debug.Log("Trigger:" + trigger.type);
+//                Debug.Log("Trigger:" + trigger.type);
+                trigger.RunTriggerUnit(self);
+            }
+            
+            MainLoop.Instance.ExecuteLater(() =>
+            {
+                if (isUsed)
+                    isUsed = false;
+                foreach (var VARIABLE in triggers)
+                {
+                    VARIABLE.Reset();
+                }
+            }, lastTime);
+        }
+
+        public void RunSkill(AbstractPerson self, float startTime = 0)
+        {
+            var lastTime = LastTime;
+            if (isUsed)
+            {
+                foreach (var trigger in triggers)
+                    trigger.Reset();
+            }
+            else
+                this.isUsed = true;
+            
+            
+            this.startTime = startTime;
+            foreach (var trigger in triggers)
+            {
+//                Debug.Log("Trigger:" + trigger.type);
                 trigger.RunTriggerUnit(self);
             }
             

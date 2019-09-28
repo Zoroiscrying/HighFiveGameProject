@@ -40,7 +40,7 @@ namespace Game.AI
 		        return TaskStatus.Success;
 	        self.Dir = actor._velocity.x > 0 ? 1 : -1;
 	        actor.Patrol();
-	        Debug.Log("巡逻中，正在往" + self.Dir + " 方向走");
+//	        Debug.Log("巡逻中，正在往" + self.Dir + " 方向走");
 	        return TaskStatus.Running;
         }
 	}

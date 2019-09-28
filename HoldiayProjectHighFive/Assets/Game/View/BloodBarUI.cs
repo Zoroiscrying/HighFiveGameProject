@@ -15,6 +15,7 @@ namespace Game.View
     {
         public Slider slider;
         private AbstractPerson ap;
+        private Text bloodText;
         public BloodBarUI(AbstractPerson ap)
         {
             this.ap = ap;
@@ -22,6 +23,8 @@ namespace Game.View
             m_TransFrom.position = Camera.main.WorldToScreenPoint(ap.Pos + new Vector3(0, ap.Scanler * 0.3f, 0));
             this.slider = m_TransFrom.GetComponent<Slider>();
             this.slider.value = (float)this.ap.Hp / this.ap.MaxHp;
+            this.bloodText = m_TransFrom.Find("Text").GetComponent<Text>();
+            this.bloodText.text = ap.Hp + "/" + ap.MaxHp;
             Show();
         }
 
@@ -50,6 +53,7 @@ namespace Game.View
         void OnBloodChanged(int change)
         {
             this.slider.value = (float)this.ap.Hp / this.ap.MaxHp;
+            this.bloodText.text = ap.Hp + "/" + ap.MaxHp;
         }
     }
 }

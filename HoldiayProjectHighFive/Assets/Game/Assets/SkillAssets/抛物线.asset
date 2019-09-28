@@ -16,7 +16,8 @@ MonoBehaviour:
   startTime: 0
   isUsed: 0
   triggers:
-  - id: 0
+  - skillAsset: {fileID: 11400000}
+    id: 0
     startTime: 0
     lastTime: 1
     type: 5
@@ -30,8 +31,8 @@ MonoBehaviour:
       selectedIndex: 0
       Path: 
     bulletName:
-      selectedIndex: 0
-      Path: Audio/1
+      selectedIndex: 8
+      Path: Bullet/bullet_1
     damage: 20
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 4
@@ -44,13 +45,14 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 10
     offset: {x: 10, y: -2, z: 0}
-    personOffect: {x: 0, y: 0}
-    size: {x: 0, y: 0}
-    beginDegree: 0
-    endDegree: 0
-  - id: 1
+    damageType: 0
+    triggerPath: 
+    hitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 1
     startTime: 0
     lastTime: 1
     type: 5
@@ -64,8 +66,8 @@ MonoBehaviour:
       selectedIndex: 0
       Path: 
     bulletName:
-      selectedIndex: 0
-      Path: 
+      selectedIndex: 8
+      Path: Bullet/bullet_1
     damage: 20
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 4
@@ -78,13 +80,14 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 10
     offset: {x: 5, y: -2, z: 0}
-    personOffect: {x: 0, y: 0}
-    size: {x: 0, y: 0}
-    beginDegree: 0
-    endDegree: 0
-  - id: 2
+    damageType: 0
+    triggerPath: 
+    hitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 2
     startTime: 0
     lastTime: 1
     type: 5
@@ -98,8 +101,8 @@ MonoBehaviour:
       selectedIndex: 0
       Path: 
     bulletName:
-      selectedIndex: 0
-      Path: 
+      selectedIndex: 8
+      Path: Bullet/bullet_1
     damage: 20
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 4
@@ -112,13 +115,14 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 10
     offset: {x: -10, y: -2, z: 0}
-    personOffect: {x: 0, y: 0}
-    size: {x: 0, y: 0}
-    beginDegree: 0
-    endDegree: 0
-  - id: 3
+    damageType: 0
+    triggerPath: 
+    hitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 3
     startTime: 0
     lastTime: 1
     type: 5
@@ -132,8 +136,8 @@ MonoBehaviour:
       selectedIndex: 0
       Path: 
     bulletName:
-      selectedIndex: 0
-      Path: 
+      selectedIndex: 8
+      Path: Bullet/bullet_1
     damage: 20
     dir: {x: 0, y: 0, z: 0}
     bulletSpeed: 4
@@ -146,9 +150,10 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 10
     offset: {x: -5, y: -2, z: 0}
-    personOffect: {x: 0, y: 0}
-    size: {x: 0, y: 0}
-    beginDegree: 0
-    endDegree: 0
+    damageType: 0
+    triggerPath: 
+    hitBack: {x: 0, y: 0}
+  UserData: {fileID: 0}

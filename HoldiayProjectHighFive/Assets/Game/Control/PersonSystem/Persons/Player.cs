@@ -20,32 +20,22 @@ using ReadyGamerOne.View.PanelSystem;
 
 namespace Game.Control.PersonSystem
 {
-   
-    
     /// <summary>
     /// 玩家类
     /// </summary>
     [Serializable]
     public class Player : AbstractPerson
     {
-
         #region 初始化玩家
+
         public static void InitPlayer()
         {
             if (File.Exists(DefaultData.PlayerDataFilePath))
             {
                 Debug.Log("player comes from files");
                 GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
-                //                Debug.Log(player);
-                //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
-               
             }
-//            else
-//            {
-//                Debug.Log("player comes from new");
-//                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, DefaultData.PlayerPos, DefaultData.PlayerDefaultSkills);
-//            }
-            
+
         }
 
         public static void InitPlayer(Vector3 pos)
@@ -54,29 +44,11 @@ namespace Game.Control.PersonSystem
             {
                 Debug.Log("player comes from files");
                 GlobalVar.G_Player = XmlManager.LoadData<Player>(DefaultData.PlayerDataFilePath);
-                //                Debug.Log(player);
-                //AbstractPerson.GetInstance<Player>(Global.CGameObjects.Player);
             }
-//            else
-//            {
-//                Debug.Log("player comes from new");
-//                GlobalVar.G_Player = new Player(DefaultData.PlayerName, DefaultData.PlayerPath, pos,
-//                    DefaultData.PlayerDefaultSkills);
-//            }
         }
-    #endregion
 
-        public PlayerInfo playerInfo=>characterInfoInfo as PlayerInfo;
+        #endregion
 
-        public override void OnCauseDamage(int damage)
-    {
-        base.OnCauseDamage(damage);
-        Debug.Log("damage");
-//        CEventCenter.BroadMessage<int,BaseCommodity>(Message.M_TryChangeMoney,damage,null);
-    }
-
-   
-        
         #region 背包
 
         /// <summary>
@@ -86,7 +58,8 @@ namespace Game.Control.PersonSystem
         {
             public int count;
             public int itemId;
-            public ItemData(int itemid,int count)
+
+            public ItemData(int itemid, int count)
             {
                 this.count = count;
                 itemId = itemid;
@@ -98,10 +71,10 @@ namespace Game.Control.PersonSystem
         /// </summary>
         /// <param CharacterName="itemId"></param>
         /// <param CharacterName="count"></param>
-        public void AddItem(int itemId,int count)
+        public void AddItem(int itemId, int count)
         {
             var itemList = (characterInfoInfo as PlayerInfo).itemList;
-            foreach(var i in itemList)
+            foreach (var i in itemList)
             {
                 if (i.itemId == itemId)
                 {
@@ -109,24 +82,27 @@ namespace Game.Control.PersonSystem
                     return;
                 }
             }
+
             itemList.Add(new ItemData(itemId, count));
         }
+
         /// <summary>
         /// 移出物品
         /// </summary>
         /// <param CharacterName="itemId"></param>
         /// <param CharacterName="count"></param>
-        public void RemoveItem(int itemId,int count)
+        public void RemoveItem(int itemId, int count)
         {
             var itemList = (characterInfoInfo as PlayerInfo).itemList;
-            foreach(var i in itemList)
+            foreach (var i in itemList)
             {
-                if(i.itemId==itemId&&i.count>=count)
+                if (i.itemId == itemId && i.count >= count)
                 {
                     i.count -= count;
                     return;
                 }
             }
+
             Debug.LogWarning("没有那么多这种东西：" + itemId);
         }
 
@@ -138,24 +114,46 @@ namespace Game.Control.PersonSystem
         public int HaveItem(int id)
         {
             var itemList = (characterInfoInfo as PlayerInfo).itemList;
-            foreach(var item in itemList)
+            foreach (var item in itemList)
                 if (item.itemId == id)
                     return item.count;
             return 0;
         }
-        
+
         #endregion
 
 
-        #region 封装PlayerInfo成员的访问
+        /// <summary>
+        /// 接收技能输入
+        /// </summary>
+        /// <returns></returns>
+        public bool InputOk {
+            get { return isInputOk; }
+            set { isInputOk = false; }
+        }
+        
+        /// <summary>
+        /// 不接受输入
+        /// </summary>
+        /// <param CharacterName="time"></param>
+        public void IgnoreInput(float time)
+        {
+            this.InputOk = false;
+            MainLoop.Instance.ExecuteLater(_IgnoreInput, time);
+        }
+
+
+        #region 玩家专有属性
+
+        #region 依赖资源的属性
 
         /// <summary>
         /// 玩家所剩余额
         /// </summary>
         public int Money
         {
-            get { return (characterInfoInfo as PlayerInfo).money; }
-            set { (characterInfoInfo as PlayerInfo).money = value; }
+            get { return playerInfo.money; }
+            set { playerInfo.money = value; }
         }
 
         /// <summary>
@@ -163,8 +161,8 @@ namespace Game.Control.PersonSystem
         /// </summary>
         public Vector2 HitBackSpeed
         {
-            get { return (characterInfoInfo as PlayerInfo).hitBackSpeed; }
-            set { (characterInfoInfo as PlayerInfo).hitBackSpeed = value; }
+            get { return playerInfo.hitBackSpeed; }
+            set { playerInfo.hitBackSpeed = value; }
         }
 
         /// <summary>
@@ -172,27 +170,20 @@ namespace Game.Control.PersonSystem
         /// </summary>
         public int Maxdrag
         {
-            get { return (characterInfoInfo as PlayerInfo).Maxdrag; }
-            set { (characterInfoInfo as PlayerInfo).Maxdrag = value; }
-        }  
-        /// <summary>
-        /// 当前药引
-        /// </summary>
-        public int Drag
-        {
-            get { return (characterInfoInfo as PlayerInfo).drag; }
-            set { (characterInfoInfo as PlayerInfo).drag = value; }
+            get { return playerInfo.Maxdrag; }
+            set { playerInfo.Maxdrag = value; }
         }
-        
+
+
         /// <summary>
         /// 技能位移
         /// </summary>
         public float AirXMove
         {
-            get { return (characterInfoInfo as PlayerInfo).airXMove; }
-            set { (characterInfoInfo as PlayerInfo).airXMove = value; }
+            get { return playerInfo.airXMove; }
+            set { playerInfo.airXMove = value; }
         }
-    
+
         /// <summary>
         /// 可承载最大灵器数量
         /// </summary>
@@ -200,28 +191,39 @@ namespace Game.Control.PersonSystem
         {
             get { return playerInfo.MaxSpiritNum; }
             set { playerInfo.MaxSpiritNum = value; }
-        }
+        }        
+
+        #endregion
+        
+        #region 本地属性
+
+        internal PlayerInfo playerInfo => characterInfoInfo as PlayerInfo;
+        
+        /// <summary>
+        /// 当前药引
+        /// </summary>
+        public int Drag
+        {
+            get { return drag; }
+            set { drag = value; }
+        }        
 
         /// <summary>
         /// 玩家身上物品列表
         /// </summary>
         public List<ItemData> ItemDatas => playerInfo.itemList;
-        
-        #endregion
-        
-        public readonly RankMgr rankMgr = RankMgr.Instance;
 
-        #region 连击
-
+        /// <summary>
+        /// 等级管理者
+        /// </summary>
+        public readonly RankMgr rankMgr = RankMgr.Instance;        
         
-        private int comboNum = 0;
-        private float timer = 0;
 
         #endregion
-        
+
+        #endregion
 
         #region 灵器
-
 
         public void AddSpirit(string spiritName)
         {
@@ -231,6 +233,7 @@ namespace Game.Control.PersonSystem
                 Debug.Log("无法承载更多灵器");
                 return;
             }
+
             var spirit = AbstractSpiritItem.GetInstance(spiritName);
             spiritDic.Add(spiritName, spirit);
             spirit.OnEnable();
@@ -245,19 +248,19 @@ namespace Game.Control.PersonSystem
 
         #endregion
 
-
         #region 消耗灵力的强化系统
-
 
         /// 外界响应灵力释放有两种方式：
         ///     一种是判断Player.IsSuper属性
         ///     一种是响应Message.InitSuper和Message.ExitSuper消息
 
         public static bool isSuper { get; private set; }
+
         public static float superTime = 3;
+
         private void TrySuper()
         {
-           // if (Convert.ToSingle(this.Exp) / Convert.ToSingle(this.MaxExp) >= 1 / 3.0f && !isSuper)
+            // if (Convert.ToSingle(this.Exp) / Convert.ToSingle(this.MaxExp) >= 1 / 3.0f && !isSuper)
             {
                 //进入强化状态
                 //可能要UI，动画，特效，移动，各个领域配合
@@ -268,8 +271,24 @@ namespace Game.Control.PersonSystem
         }
 
         #endregion
+        
+        #region Private_Fields
+        
+        private bool isInputOk = true;
+        private int drag = 0;
+        private MainCharacter mainc;
+        private CharacterController2D cc;
+        
+        #region 连击
 
+        private int comboNum = 0;
+        private float timer = 0;
 
+        #endregion
+        #endregion
+
+        #region Override_Functions
+        
         #region BattleEffect
 
         public override void TakeBattleEffect(List<IBattleEffect> beList)
@@ -285,64 +304,37 @@ namespace Game.Control.PersonSystem
         {
             var player = self as Player;
             Assert.IsTrue(player != null);
-            player.attackEffects.Add(new InstantDamageEffect(GameMath.Damage((int)characterInfoInfo.baseAttack, characterInfoInfo.attack_scaler, characterInfoInfo.attack_adder), player.Dir));
-            player.attackEffects.Add(new HitbackEffect(new Vector2(player.Dir*Mathf.Abs(HitBackSpeed.x),HitBackSpeed.y)));
+            player.attackEffects.Add(new InstantDamageEffect(
+                GameMath.Damage((int) characterInfoInfo.baseAttack, characterInfoInfo.attack_scaler,
+                    characterInfoInfo.attack_adder), player.Dir));
+            player.attackEffects.Add(new HitbackEffect(new Vector2(player.Dir * Mathf.Abs(HitBackSpeed.x),
+                HitBackSpeed.y)));
         }
 
         #endregion
 
         #region 战斗
+        
+        public override void OnCauseDamage(int damage)
+        {
+            base.OnCauseDamage(damage);
+            Debug.Log("damage");
+        }
         public override void DestoryThis()
         {
             base.DestoryThis();
             Debug.Log("主角死了");
         }
 
-        #endregion
-
-        #region Private
-
-        private MainCharacter mainc;
-        private CharacterController2D cc;
-
-        #endregion
-
-
-        #region 构造和初始化        
-
-
-        public Player()
-        {
-
-        }
-
-        public Player(BaseCharacterInfo characterInfo, Transform parent = null) : base(characterInfo, parent)
-        {
-            GlobalVar.G_Player = this;
-            
-            mainc = this.obj.GetComponent<MainCharacter>();
-            Assert.IsTrue(mainc != null);
-            cc = this.obj.GetComponent<CharacterController2D>();
-            Assert.IsTrue(cc != null);
-
-            this.BaseAttack = 20;
-            this.MaxHp = 100;
-
-        }
-
-
-
-        #endregion
+        #endregion        
 
         #region 更新和事件
 
         protected override void Update()
         {
-
-
             foreach (var VARIABLE in playerInfo.commonSkillInfos)
             {
-                if(Input.GetKeyDown(VARIABLE.key))
+                if (Input.GetKeyDown(VARIABLE.key))
                     VARIABLE.skillAsset.RunSkill(this);
             }
 
@@ -353,11 +345,12 @@ namespace Game.Control.PersonSystem
             }
 
             //背包
-            if(Input.GetKeyDown(playerInfo.bagKey))
+            if (Input.GetKeyDown(playerInfo.bagKey))
             {
                 PanelAssetMgr.PushPanel(playerInfo.packagePanelAsset);
             }
-            if(Input.GetKeyUp(playerInfo.bagKey))
+
+            if (Input.GetKeyUp(playerInfo.bagKey))
             {
                 PanelAssetMgr.PopPanel();
             }
@@ -365,11 +358,11 @@ namespace Game.Control.PersonSystem
             #region 三连击
 
             ComboSkillInfo lastSkill = null;
-            var index = this.comboNum-1;
+            var index = this.comboNum - 1;
 
             if (this.comboNum > 0)
             {
-                lastSkill = playerInfo.comboSkillInfos[this.comboNum-1];
+                lastSkill = playerInfo.comboSkillInfos[this.comboNum - 1];
 
                 Assert.IsTrue(this.comboNum > 0 && this.comboNum < 4);
 
@@ -380,7 +373,7 @@ namespace Game.Control.PersonSystem
                 }
 
                 if (this.timer - lastSkill.StartTime >
-                   lastSkill.LastTime * lastSkill.beginComboTest + lastSkill.faultToleranceTime)
+                    lastSkill.LastTime * lastSkill.beginComboTest + lastSkill.faultToleranceTime)
                 {
                     this.comboNum = 0;
                     MainLoop.RemoveUpdateFunc(_DeUpdate);
@@ -390,7 +383,6 @@ namespace Game.Control.PersonSystem
                 }
                 else
                 {
-                    
                 }
             }
 
@@ -405,14 +397,14 @@ namespace Game.Control.PersonSystem
 
 //                Debug.Log("按下攻击键，无论如何，锁定人物");
                 mainc._inControl = false;
-                
-                
+
+
                 index++;
-                if(index>=playerInfo.comboSkillInfos.Count)
+                if (index >= playerInfo.comboSkillInfos.Count)
                     return;
-                
-                
-                ComboSkillInfo thisSkill = playerInfo.comboSkillInfos[index];          
+
+
+                ComboSkillInfo thisSkill = playerInfo.comboSkillInfos[index];
 
 
                 if (this.comboNum == 0) //初次攻击
@@ -423,31 +415,32 @@ namespace Game.Control.PersonSystem
                     MainLoop.AddUpdateFunc(_DeUpdate);
 //                    Debug.Log("执行了技能" + index + " " + thisSkill.SkillName);
                     thisSkill.RunSkill(this, this.playerInfo.comboSkillInfos[0].ignoreInput, this.timer);
-                    
+
                     this.comboNum++;
                 }
 
-                else if (this.timer - lastSkill.StartTime < 
+                else if (this.timer - lastSkill.StartTime <
                          lastSkill.LastTime * lastSkill.beginComboTest + lastSkill.faultToleranceTime)
                 {
-
-                    if (this.timer - lastSkill.StartTime > lastSkill.LastTime *lastSkill.beginComboTest)
+                    if (this.timer - lastSkill.StartTime > lastSkill.LastTime * lastSkill.beginComboTest)
                     {
-                         if (this.comboNum < this.playerInfo.comboSkillInfos.Count)
-                         {
+                        if (this.comboNum < this.playerInfo.comboSkillInfos.Count)
+                        {
 //                             Debug.Log("执行了技能" + index + " " + thisSkill.SkillName);
-                             thisSkill.RunSkill(this, lastSkill.ignoreInput, this.timer);
-                             this.comboNum++;
-                         }
+                            thisSkill.RunSkill(this, lastSkill.ignoreInput, this.timer);
+                            this.comboNum++;
+                        }
+
 //                         else
 //                         {
 //                             Debug.Log($"连击数大于攻击次数：this.comboNum:{comboNum}, 技能数量：{this.playerInfo.comboSkillInfos.Count}");
 //                         }                       
                     }
+
 //                    else
 //                        Debug.Log($"还没有开始连击检测！ 距离上次攻击间隔：{this.timer-lastSkill.StartTime}, lastSkill.StartTime: {lastSkill.StartTime}，开始连击检测的间隔：{playerInfo.comboSkillInfos[this.comboNum-1].beginComboTest*lastSkill.LastTime}");
-
                 }
+
 //                else
 //                {
 //                    var skill = this.playerInfo.comboSkillInfos[comboNum - 1];
@@ -455,22 +448,19 @@ namespace Game.Control.PersonSystem
 //                    Debug.Log($"已经超过连击检测容错时间： 上次释放技能到现在间隔：{this.timer-lastSkill.StartTime}, 容错时间：{ lastSkill.LastTime * this.playerInfo.comboSkillInfos[this.comboNum - 1].beginComboTest + this.playerInfo.comboSkillInfos[this.comboNum - 1].faultToleranceTime}");
 //                }
             }
+
             #endregion
-
         }
-
-
-        //////////////////////////    消息处理     /////////////////////////////
+        
         /// 这里只处理数值变化
-
         public override void OnAddListener()
         {
             base.OnAddListener();
             CEventCenter.AddListener(Message.M_InitSuper, InitSuper);
             CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
             CEventCenter.AddListener<int>(Message.M_OnTryBut, OnTryBuy);
-            CEventCenter.AddListener<int,int>(Message.M_AddItem,AddItem);
-            CEventCenter.AddListener<int,int>(Message.M_RemoveItem,RemoveItem);
+            CEventCenter.AddListener<int, int>(Message.M_AddItem, AddItem);
+            CEventCenter.AddListener<int, int>(Message.M_RemoveItem, RemoveItem);
         }
 
         public override void OnRemoveListener()
@@ -479,29 +469,54 @@ namespace Game.Control.PersonSystem
             CEventCenter.RemoveListener(Message.M_InitSuper, InitSuper);
             CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
             CEventCenter.RemoveListener<int>(Message.M_OnTryBut, OnTryBuy);
-            CEventCenter.RemoveListener<int,int>(Message.M_AddItem,AddItem);
-            CEventCenter.RemoveListener<int,int>(Message.M_RemoveItem,RemoveItem);
+            CEventCenter.RemoveListener<int, int>(Message.M_AddItem, AddItem);
+            CEventCenter.RemoveListener<int, int>(Message.M_RemoveItem, RemoveItem);
+        }
+        
+        #endregion
+        
+        #endregion
 
+        #region 构造和初始化        
+
+        public Player()
+        {
         }
 
+        public Player(BaseCharacterInfo characterInfo,Vector3 pos, Transform parent = null) : base(characterInfo,pos, parent)
+        {
+            GlobalVar.G_Player = this;
+
+            mainc = this.obj.GetComponent<MainCharacter>();
+            Assert.IsTrue(mainc != null);
+            cc = this.obj.GetComponent<CharacterController2D>();
+            Assert.IsTrue(cc != null);
+
+            this.BaseAttack = 20;
+            this.MaxHp = 100;
+        }
+
+        #endregion
+        
+        #region Message_Handles
         private void OnTryBuy(int id)
         {
             var item = ItemInfoAsset.Instance.GetItem(id);
             if (item == null)
                 throw new Exception("物品ID异常：id:" + id);
-            
-            Assert.IsTrue(item.Type==ItemType.Commercial);
-            
+
+            Assert.IsTrue(item.Type == ItemType.Commercial);
+
             if (this.Money - item.Price < 0)
             {
-                Debug.LogWarning("你只有: "+this.Money);
+                Debug.LogWarning("你只有: " + this.Money);
                 return;
             }
 
             this.Money -= item.Price;
 //            Debug.Log("当前金钱："+this.money);
             CEventCenter.BroadMessage(Message.M_MoneyChange, -item.Price);
-            CEventCenter.BroadMessage(Message.M_AddItem,item.ID,1);
+            CEventCenter.BroadMessage(Message.M_AddItem, item.ID, 1);
         }
 
         void InitSuper()
@@ -513,14 +528,19 @@ namespace Game.Control.PersonSystem
         {
             isSuper = false;
         }
+        
 
         #endregion
 
-
         #region 内部调用
-        void _DeUpdate()
+
+        private void _DeUpdate()
         {
             this.timer += Time.deltaTime;
+        }
+        private void _IgnoreInput()
+        {
+            this.InputOk = true;
         }
         #endregion
 

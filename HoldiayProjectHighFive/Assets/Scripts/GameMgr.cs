@@ -43,10 +43,7 @@ namespace Game.Scripts
 
 
     	#endregion
-
         
-    	[HideInInspector]
-    	public Vector3 PlayerPos;
     
     	protected override void WorkForOnlyOnce()
     	{
@@ -163,10 +160,6 @@ namespace Game.Scripts
         {
     	    base.RefreshGlobalVar();
     	    GlobalVar.G_Canvas = this.gameObject;
-    	    if (PlayerPos != Vector3.zero)
-    		    Player.InitPlayer(PlayerPos);
-    	    else
-    		    Player.InitPlayer();
         }
     
         #endregion

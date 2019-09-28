@@ -82,13 +82,13 @@ public class Actor : MonoBehaviour {
 	
 				if (_controller.collisionState.right )
 				{
-					Debug.Log("Right: " + _controller.collisionState.right + "NormalizedX: " + _normalizedDirX);
-					Debug.Log("Right Collision");
+//					Debug.Log("Right: " + _controller.collisionState.right + "NormalizedX: " + _normalizedDirX);
+//					Debug.Log("Right Collision");
 					return true;
 				}
 				if (_controller.collisionState.left )
 				{
-					Debug.Log("Left Collision");
+//					Debug.Log("Left Collision");
 					return true;
 				}
 				
@@ -105,7 +105,7 @@ public class Actor : MonoBehaviour {
 	
 				if (!hit)
 				{
-					Debug.Log("Down Below no collision");
+//					Debug.Log("Down Below no collision");
 					return true;
 				}
 			}
@@ -258,7 +258,7 @@ public class Actor : MonoBehaviour {
 			//开启计时器
 			_patrolStopTimer = 0.0f;
 			_movementMultiplier = -_movementMultiplier;
-			Debug.Log("Hit Corner");
+//			Debug.Log("Hit Corner");
 		}
 
 		if (_patrolStopTimer < PatrolStopTime)
@@ -277,7 +277,7 @@ public class Actor : MonoBehaviour {
 	private float _distanceCounter = 0;
 	public void PatrolOneDirInDistance( float distance,bool isGoingRight = true)
 	{
-		Debug.Log("ISGOINGRIGHT:" + isGoingRight);
+//		Debug.Log("ISGOINGRIGHT:" + isGoingRight);
 		
 		_distanceCounter += Mathf.Abs(_runSpeed) * Time.deltaTime;
 		

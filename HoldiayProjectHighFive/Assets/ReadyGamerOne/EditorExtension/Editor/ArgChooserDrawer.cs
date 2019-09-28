@@ -35,6 +35,11 @@ namespace ReadyGamerOne.EditorExtension
                         var boolArgProp = property.FindPropertyRelative("BoolArg");
                         boolArgProp.boolValue = EditorGUI.Toggle(position.GetRight(argValueWidth), boolArgProp.boolValue);
                         break;
+                    case 4://Vector3
+                        var vec3Prop = property.FindPropertyRelative("Vector3Arg");
+                        vec3Prop.vector3Value =
+                            EditorGUI.Vector3Field(position.GetRight(argValueWidth), "", vec3Prop.vector3Value);
+                        break;
                 }                
             }
             else
@@ -52,6 +57,9 @@ namespace ReadyGamerOne.EditorExtension
                         break;
                     case 3:
                         EditorGUI.PropertyField(position, property.FindPropertyRelative("BoolArg"));
+                        break;
+                    case 4:
+                        EditorGUI.PropertyField(position, property.FindPropertyRelative("Vector3Arg"));
                         break;
                 }   
             }

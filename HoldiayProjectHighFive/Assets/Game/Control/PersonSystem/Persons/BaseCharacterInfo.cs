@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Game.Control.SkillSystem;
 using ReadyGamerOne.EditorExtension;
+using ReadyGamerOne.Script;
+using ReadyGamerOne.Utility;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+
 using UnityEngine;
 
 namespace Game.Control.PersonSystem
@@ -36,31 +40,30 @@ namespace Game.Control.PersonSystem
 #endif        
 
         #endregion
-
-
-
-        private void OnEnable()
-        {
-            hp = maxHp;
-        }
-
-
+//
+//        protected virtual void OnDrawGizmos()
+//        {
+//            GizmosUtil.DrawSign(position,color,signalSize);
+//        }
+//        private void OnEnable()
+//        {
+//            AbstractGameMgr.onDrawGizomos += OnDrawGizmos;
+//        }
+//        private void OnDisable()
+//        {
+//            AbstractGameMgr.onDrawGizomos -= OnDrawGizmos;
+//        }
+//        public Color color=Color.cyan;
+//        public float signalSize = 1.0f;
+//        public Vector3 position;
         public string characterName;
-        public Vector3 position;
         public ResourcesPathChooser prefabPath;
-
-        public float baseAttack;
+        public int baseAttack;
         public float attack_adder = 0f;
         public float attack_scaler = 1f;
-        public int hp;
         public int maxHp;
         public float attackSpeed=1.0f;
-
         public bool IgnoreHitback;    //忽略击退
-        public bool IsConst;    //是否可选中/无敌帧
         public float DefaultConstTime;//硬直时间
-        public bool InputOk=true; //接受技能输入
-
-        public List<SkillInfoAsset> skills;
     }
 }

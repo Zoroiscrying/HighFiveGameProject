@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using UnityEngine;
 
 namespace ReadyGamerOne.EditorExtension
 {
@@ -32,18 +33,42 @@ namespace ReadyGamerOne.EditorExtension
                 case 3://bool
                     text = property.FindPropertyRelative("BoolArg").boolValue.ToString();
                     break;
+                case 4://Vector3
+                    text = property.FindPropertyRelative("Vector3Arg").vector3Value.ToString();
+                    break;
             }
 
             return text;
         }
 
+        public string GetValueString()
+        {
+            switch (argType)
+            {
+                case ArgType.Bool:
+                    return BoolArg.ToString();
+                case ArgType.Int:
+                    return IntArg.ToString();
+                case ArgType.Float:
+                    return FloatArg.ToString();
+                case ArgType.String:
+                    return StringArg;
+                case ArgType.Vector3:
+                    return Vector3Arg.ToString();
+            }
+
+            return "???";
+        }
+
         #endregion
+        
         public ArgType argType;
 
         public bool BoolArg;
         public int IntArg;
         public float FloatArg;
         public string StringArg;
+        public Vector3 Vector3Arg;
 
         public void SetValue(ArgChooser arg)
         {
@@ -51,6 +76,7 @@ namespace ReadyGamerOne.EditorExtension
             this.IntArg = arg.IntArg;
             this.FloatArg = arg.FloatArg;
             this.StringArg = arg.StringArg;
+            this.Vector3Arg = arg.Vector3Arg;
         }
         
     }

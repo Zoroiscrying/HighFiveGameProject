@@ -43,7 +43,7 @@ namespace Game.Model.SpriteObjSystem
         private void OnTriggerEntry(Collider2D col)
         {
             var col2d = obj.GetComponent<Collider2D>();
-            if (col2d.IsTouchingLayers(1 << LayerMask.NameToLayer("BasicPlatform")))
+            if (col2d.IsTouchingLayers(1<<LayerMask.NameToLayer("BasicPlatform")))
             {
                 Debug.Log("碰到地面");
                 DestoryThis();
@@ -56,15 +56,16 @@ namespace Game.Model.SpriteObjSystem
 
             if (ap is Player && this.origin is Player)
             {
-                Debug.Log("两个都是Player");
+                Debug.Log($"两个都是Player:[{ap.CharacterName}][{origin.CharacterName}]");
                 return;
             }
             if (!(ap is Player) && !(this.origin is Player))
             {
-                Debug.Log("两个都不是Player");
+                Debug.Log($"两个都不是Player:[{ap.CharacterName}][{origin.CharacterName}]");
                 return;
             }
 
+            Debug.Log(this.origin.CharacterName+" 攻击 "+ap.characterInfoInfo);
 
             this.origin.OnCauseDamage(damage);
             ap.TakeBattleEffect(this.origin.AttackEffect);

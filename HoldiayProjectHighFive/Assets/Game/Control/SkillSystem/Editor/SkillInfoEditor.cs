@@ -119,6 +119,8 @@ namespace Game.Control.SkillSystem.Editor
 
             triggerProp.FindPropertyRelative("type").enumValueIndex = enumIndex;
 
+            triggerProp.FindPropertyRelative("skillAsset").objectReferenceValue = _skillInfoAsset;
+
             triggerProp.FindPropertyRelative("id").intValue = _skillInfoAsset.GetID();
 
             serializedObject.ApplyModifiedProperties();

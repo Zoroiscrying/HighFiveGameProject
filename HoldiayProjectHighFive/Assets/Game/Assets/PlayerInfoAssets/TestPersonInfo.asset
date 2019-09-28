@@ -12,19 +12,13 @@ MonoBehaviour:
   m_Name: TestPersonInfo
   m_EditorClassIdentifier: 
   characterName: 
-  position: {x: 1.9, y: 0, z: 0}
   prefabPath:
-    selectedIndex: 10
+    selectedIndex: 11
     Path: GameObjects/TestPerson
   baseAttack: 10
   attack_adder: 0
   attack_scaler: 1
-  hp: 1999996800
-  maxHp: 100000000
+  maxHp: 1000
   attackSpeed: 1
   IgnoreHitback: 0
-  IsConst: 0
   DefaultConstTime: 0
-  InputOk: 1
-  skills:
-  - {fileID: 11400000, guid: 537c94325ccd09a46967e26108f089a0, type: 2}

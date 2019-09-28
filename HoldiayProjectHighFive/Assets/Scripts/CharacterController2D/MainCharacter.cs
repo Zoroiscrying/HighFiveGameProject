@@ -268,7 +268,7 @@ public class MainCharacter : Actor
 		if (Player.isSuper)
 		{
 			//High jump
-			Debug.Log("High Jump");
+//			Debug.Log("High Jump");
 			_stateMachine.ChangeState(PlayerStates.InAir);
 			_velocity.y = _highJumpVelocity;
 			_canJump--;
@@ -277,7 +277,7 @@ public class MainCharacter : Actor
 		}
 		else if (_stateMachine.State == PlayerStates.InAir && _canJump > 0)
 		{
-			Debug.Log("DOUBLE JUMP");
+//			Debug.Log("DOUBLE JUMP");
 			_stateMachine.ChangeState(PlayerStates.DoubleJump);
 			_velocity.y = _maxJumpVelocity;
 			_canJump --;

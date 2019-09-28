@@ -2,6 +2,7 @@ using BehaviorDesigner.Runtime.Tasks;
 using Game.Const;
 using Game.Control.PersonSystem;
 using ReadyGamerOne.Common;
+using UnityEngine;
 
 namespace Game.AI
 {
@@ -11,27 +12,34 @@ namespace Game.AI
 
         private void OnAttacked(int damage)
         {
+//            Debug.Log("救命，有人打我");
             attacked = true;
         }
         private AbstractPerson self;
-        public override void OnStart()
+        public override void OnAwake()
         {
             base.OnStart();
             attacked = false;
             self = AbstractPerson.GetInstance(gameObject);
+//            Debug.Log("监听挨打");
             CEventCenter.AddListener<int>(Message.M_BloodChange(gameObject), OnAttacked);
         }
 
-        public override void OnEnd()
+        public override void OnBehaviorComplete()
         {
-            base.OnEnd();
+            base.OnBehaviorComplete();
+            Debug.Log("不再监听挨打");
             CEventCenter.RemoveListener<int>(Message.M_BloodChange(gameObject), OnAttacked);
         }
+        
 
         public override TaskStatus OnUpdate()
         {
             if (attacked)
+            {
+                attacked = false;
                 return TaskStatus.Success;
+            }
 
             return TaskStatus.Failure;
         }

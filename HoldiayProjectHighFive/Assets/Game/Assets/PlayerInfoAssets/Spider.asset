@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8390517364400e96a05283b27a69b3, type: 3}
+  m_Name: Spider
+  m_EditorClassIdentifier: 
+  characterName: Spider
+  prefabPath:
+    selectedIndex: 10
+    Path: GameObjects/Spider
+  baseAttack: 10
+  attack_adder: 0
+  attack_scaler: 1
+  maxHp: 1000
+  attackSpeed: 1
+  IgnoreHitback: 0
+  DefaultConstTime: 0

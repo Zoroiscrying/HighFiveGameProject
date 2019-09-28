@@ -1,6 +1,7 @@
 ﻿using Game.Control.BattleEffectSystem;
 using System.Collections.Generic;
 using Game.Const;
+using Game.View;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -19,10 +20,9 @@ namespace Game.Control.PersonSystem
 
         #endregion
 
-        public TestPerson(BaseCharacterInfo characterInfo, Transform parent = null) : base(characterInfo, parent)
+        public TestPerson(BaseCharacterInfo characterInfo,Vector3 pos, Transform parent = null) : base(characterInfo,pos, parent)
         {
-            this.MaxHp = 100000000;
-            this.Hp = 2000000000;
+            new BloodBarUI(this);
         }
 
         #region BattleEffect

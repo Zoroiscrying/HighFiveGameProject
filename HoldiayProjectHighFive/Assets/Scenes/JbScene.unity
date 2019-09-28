@@ -131,9 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PanelUiAsset: {fileID: 11400000, guid: 6aa1734f7832c7b4e880c096ed5a3573, type: 2}
   creatTestPeople: 0
-  EnemyPos: {x: 0, y: 0, z: 0}
-  PlayerPos: {x: 12.19, y: 0, z: 0}
-  signalSize: 4
   enableMiniMap: 1
   enable_V_loadAsync: 1
   sceneName:
@@ -285,7 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a10d9a1c3baa74bb6e98827e6c41c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPos: {x: 0, y: 0, z: 0}
 --- !u!114 &702338171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,10 +387,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509f43a33eb7e37479f74825796c0099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterInfos:
-  - {fileID: 11400000, guid: 517af2a1126c75847b722f7e1b76acb1, type: 2}
-  - {fileID: 11400000, guid: 52f2f65c0dc6d554196b513fbc98dd1b, type: 2}
   createOnStart: 1
+  signalSize: 0.74
+  CharacterInfos:
+  - characterInfo: {fileID: 11400000, guid: 517af2a1126c75847b722f7e1b76acb1, type: 2}
+    position: {x: 3.13, y: 0, z: 0}
+    color: {r: 0.07694017, g: 0.8584906, b: 0.07801273, a: 1}
+  - characterInfo: {fileID: 11400000, guid: 8c6adba141834fc418874fcde3e2f7ee, type: 2}
+    position: {x: 12.09, y: 0, z: 0}
+    color: {r: 1, g: 0.30269474, b: 0, a: 1}
+  - characterInfo: {fileID: 11400000, guid: 52f2f65c0dc6d554196b513fbc98dd1b, type: 2}
+    position: {x: -0.51, y: 0, z: 0}
+    color: {r: 1, g: 0, b: 0.9425912, a: 1}
+  - characterInfo: {fileID: 11400000, guid: 52f2f65c0dc6d554196b513fbc98dd1b, type: 2}
+    position: {x: -5.86, y: 8.98, z: 0}
+    color: {r: 1, g: 0, b: 0.9425912, a: 1}
+  - characterInfo: {fileID: 11400000, guid: 8c6adba141834fc418874fcde3e2f7ee, type: 2}
+    position: {x: -3.58, y: 2.08, z: 0}
+    color: {r: 1, g: 0.3019608, b: 0, a: 1}
+  - characterInfo: {fileID: 11400000, guid: 8c6adba141834fc418874fcde3e2f7ee, type: 2}
+    position: {x: 22.18, y: 4.73, z: 0}
+    color: {r: 1, g: 0.3019608, b: 0, a: 1}
 --- !u!224 &702338177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13609,11 +13622,6 @@ Prefab:
     - {fileID: 114319922902583608, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_IsPrefabAsset: 0
---- !u!4 &784176608 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4533377914751944, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
-    type: 2}
-  m_PrefabInternal: {fileID: 784176607}
 --- !u!1 &1194382410
 GameObject:
   m_ObjectHideFlags: 0
@@ -13694,84 +13702,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4304250935683736, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
     type: 2}
   m_PrefabInternal: {fileID: 784176607}
---- !u!1 &1902803210
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1902803211}
-  - component: {fileID: 1902803212}
-  - component: {fileID: 1902803213}
-  m_Layer: 12
-  m_Name: SceneTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1902803211
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1902803210}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.02, y: 3.15, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 784176608}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1902803212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1902803210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a53c5be52f630b74bba76a5133b1ef1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boundryShowType: 2
-  newSceneName:
-    values:
-    - WelcomeScene
-    - TestScene
-    - JbScene
-    selectedIndex: 1
-  newUIName:
-    values:
-    - Panel_Battle
-    - Panel_Package
-    - Panel_Shop
-    - Panel_Loading
-    selectedIndex: 0
-  newPosition: {x: 0.91, y: 0, z: 0}
---- !u!61 &1902803213
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1902803210}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.86, y: 10.21}
-  m_EdgeRadius: 0

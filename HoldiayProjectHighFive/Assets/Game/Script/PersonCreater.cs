@@ -1,12 +1,23 @@
+using System;
 using System.Collections.Generic;
 using Game.Control.PersonSystem;
+using ReadyGamerOne.Utility;
+using UnityEngine;
 
 namespace Game.Scripts
 {
+    [Serializable]
+    public class CharacterCreateInfo
+    {
+        public BaseCharacterInfo characterInfo;
+        public Vector3 position;
+        public Color color;
+    }
     public class PersonCreater : UnityEngine.MonoBehaviour
     {
-        public List<BaseCharacterInfo> CharacterInfos=new List<BaseCharacterInfo>();
         public bool createOnStart = true;
+        public float signalSize = 1.0f;
+        public List<CharacterCreateInfo> CharacterInfos=new List<CharacterCreateInfo>();
 
         private AbstractPerson sss;
         private void Awake()
@@ -15,24 +26,27 @@ namespace Game.Scripts
             {
                 foreach (var VARIABLE in CharacterInfos)
                 {
-                    if (VARIABLE is PlayerInfo)
+                    if (VARIABLE.characterInfo is PlayerInfo)
                     {
-                        var player= new Player(VARIABLE);
-                        player.obj.transform.position = GameMgr.Instance.PlayerPos;
+                        new Player(VARIABLE.characterInfo,VARIABLE.position);
                     }
                     else
                     {
-                        sss= new TestPerson(VARIABLE);
+                        sss= new TestPerson(VARIABLE.characterInfo,VARIABLE.position);
                     }                    
                 }
             }
-
         }
 
-
-        private void Update()
+        private void OnDrawGizmos()
         {
-           // sss.obj.GetComponent<Actor>().Patrol();
+            foreach (var VARIABLE in CharacterInfos)
+            {
+                if(VARIABLE.characterInfo==null)
+                    continue;
+//                Gizmos.DrawWireSphere(VARIABLE.position, signalSize);
+                GizmosUtil.DrawSign(VARIABLE.position, VARIABLE.color, signalSize);
+            }
         }
     }
 }

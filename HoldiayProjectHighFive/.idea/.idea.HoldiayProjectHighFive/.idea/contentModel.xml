@@ -778,13 +778,15 @@
         <e p="Game" t="Include">
           <e p="AI" t="Include">
             <e p="Actions" t="Include">
-              <e p="Attack.cs" t="Include" />
               <e p="IdleState.cs" t="Include" />
               <e p="Patrol.cs" t="Include" />
+              <e p="RunSkill.cs" t="Include" />
               <e p="Seek.cs" t="Include" />
+              <e p="TurnAround.cs" t="Include" />
             </e>
             <e p="Conditions" t="Include">
               <e p="Attacked.cs" t="Include" />
+              <e p="CanHearPlayer.cs" t="Include" />
               <e p="CanSeePlayer.cs" t="Include" />
             </e>
           </e>
@@ -887,7 +889,9 @@
             <e p="GameAnimator.cs" t="Include" />
           </e>
           <e p="Script" t="Include">
+            <e p="CharacterCreateInfoDrawer.cs" t="Include" />
             <e p="PersonCreater.cs" t="Include" />
+            <e p="PersonCreaterEditor.cs" t="Include" />
             <e p="TempAI.cs" t="Include" />
             <e p="TouchDamage.cs" t="Include" />
           </e>
@@ -1008,6 +1012,7 @@
           <e p="Utility" t="Include">
             <e p="EnumUtil.cs" t="Include" />
             <e p="FileUtil.cs" t="Include" />
+            <e p="GizmosUtil.cs" t="Include" />
             <e p="InputUtil.cs" t="Include" />
             <e p="RectExtension.cs" t="Include" />
             <e p="WindowsUtil.cs" t="Include" />

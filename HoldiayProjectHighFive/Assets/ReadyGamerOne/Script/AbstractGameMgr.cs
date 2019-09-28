@@ -1,3 +1,4 @@
+using System;
 using ReadyGamerOne.Model.SceneSystem;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ namespace ReadyGamerOne.Script
     /// </summary>
     public abstract class AbstractGameMgr:MonoBehaviour
     {
+        public static event Action onDrawGizomos;
+        
+            
         protected virtual void Awake()
         {
             print("AbstractGameMgr_Awake——这句话应该只显示一次");
@@ -50,6 +54,11 @@ namespace ReadyGamerOne.Script
         protected virtual void RefreshGlobalVar()
         {
             
+        }
+
+        private void OnDrawGizmos()
+        {
+            onDrawGizomos?.Invoke();
         }
     }
 }

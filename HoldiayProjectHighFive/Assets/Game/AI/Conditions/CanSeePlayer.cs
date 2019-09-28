@@ -9,7 +9,6 @@ namespace Game.AI
     public class CanSeePlayer:Conditional
     {
         public SharedFloat detectDistance;
-        public SharedFloat falutReloranceHeight;
         public LayerMask LayerMask;
 
         private AbstractPerson self;
@@ -21,12 +20,15 @@ namespace Game.AI
 
         public override TaskStatus OnUpdate()
         {
+            
             var hit= Physics2D.Linecast(gameObject.transform.position,
                 gameObject.transform.position + new Vector3(self.Dir * detectDistance.Value, 0,0), LayerMask);
+            
+            
             if (hit && AbstractPerson.GetInstance(hit.transform.gameObject) is Player)
             {
                 
-                Debug.Log("在检测范围内，开始追击");
+//                Debug.Log("在检测范围内，开始追击");
                 return TaskStatus.Success;
             }
 
@@ -35,7 +37,7 @@ namespace Game.AI
 
         public override void OnDrawGizmos()
         {
-            Gizmos.DrawLine(transform.position,gameObject.transform.position + new Vector3(self.Dir * detectDistance.Value, 0,0));
+            Gizmos.DrawLine(transform.position,transform.position + new Vector3(self.Dir * detectDistance.Value, 0,0));
         }
     }
 }

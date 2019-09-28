@@ -28,6 +28,7 @@ namespace Game.Control.SkillSystem
     {
         #region Every
 
+        [SerializeField] private SkillInfoAsset skillAsset;
         public int id;
         public float startTime;
         public float lastTime;
@@ -72,7 +73,14 @@ namespace Game.Control.SkillSystem
         #endregion
 
         #region Parabloa
-        
+
+        public enum TargetType
+        {
+            Vector3Offset,
+            GetFromCache
+        }
+
+        public TargetType targetType;
         public float timeToTarget;
         public Vector3 offset;
 
@@ -95,7 +103,7 @@ namespace Game.Control.SkillSystem
             var hitPerson = AbstractPerson.GetInstance(col.gameObject);
             if (hitPerson == null)
             {
-                Debug.Log("打击人物为空");
+//                Debug.Log("打击人物为空");
                 return;
             }
             else
@@ -132,7 +140,7 @@ namespace Game.Control.SkillSystem
             this.self = self;
             MainLoop.Instance.ExecuteLater(() =>
             {
-                Debug.Log("运行Trigger单元：" + this.type);
+//                Debug.Log("运行Trigger单元：" + this.type);
                 switch (type)
                 {
                     #region Animation
@@ -183,8 +191,19 @@ namespace Game.Control.SkillSystem
 
 
                     case TriggerType.Parabloa:
-                        new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget, self.Pos + offset,
-                            self.Pos, self, this.bulletName.Path, this.maxLife);
+                        switch (targetType)
+                        {
+                            case TargetType.Vector3Offset:                        
+                                new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget, self.Pos + offset,
+                                    self.Pos, self, this.bulletName.Path, this.maxLife);
+                                break;
+                            case TargetType.GetFromCache:
+//                                Debug.Log($"SkillAsset【{skillAsset.skillName.StringValue}】.Vector3Cache:"+skillAsset.Vector3Cache);
+                                new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget,skillAsset.Vector3Cache ,
+                                    self.Pos, self, this.bulletName.Path, this.maxLife);
+                                break;
+                        }
+
                         break;                        
 
                     #endregion
@@ -357,6 +376,8 @@ namespace Game.Control.SkillSystem
 
                     
                 case TriggerType.Parabloa:
+
+
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                         property.FindPropertyRelative("bulletName"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("damage"));
@@ -364,9 +385,15 @@ namespace Game.Control.SkillSystem
                         property.FindPropertyRelative("bulletSpeed"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("maxLife"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("timeToTarget"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("offset"));
-                    
+                        property.FindPropertyRelative("timeToTarget"));                    
+                    var typeProp = property.FindPropertyRelative("targetType");
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),typeProp);
+                    switch (typeProp.enumValueIndex)
+                    {
+                        case 0:
+                            EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("offset"));
+                            break;
+                    }
                     break;
 
                 #endregion

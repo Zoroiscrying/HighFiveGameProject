@@ -1,13 +1,13 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
 using Game.Control.PersonSystem;
 using Game.Control.SkillSystem;
+using ReadyGamerOne.Global;
 using UnityEngine;
 
 namespace Game.AI
 {
-	public class Attack : Action
+	public class RunSkill : Action
 	{
-
 		public SkillInfoAsset SkillInfoAsset;
 		private AbstractPerson self;
 
@@ -17,7 +17,8 @@ namespace Game.AI
 		public override void OnStart()
 		{
 			self = AbstractPerson.GetInstance(gameObject);
-			Debug.Log("进行技能："+SkillInfoAsset.skillName.StringValue);
+			SkillInfoAsset.Vector3Cache = GlobalVar.G_Player.Pos;
+			Debug.Log($"写入用户数据：【{SkillInfoAsset.skillName.StringValue}】" + SkillInfoAsset.Vector3Cache);
 			self.RunSkill(SkillInfoAsset);
 			timer = 0;
 			gameObject.GetComponent<Actor>()._velocity = Vector3.zero;

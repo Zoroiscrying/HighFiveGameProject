@@ -35,7 +35,7 @@ namespace Game.Control.PersonSystem
         public float StartTime => skillAsset.startTime;
         public float LastTime => skillAsset.LastTime;
 
-        public void RunSkill(AbstractPerson self, bool ignoreInput = false, float startTimer = 0f) =>
+        public void RunSkill(Player self, bool ignoreInput = false, float startTimer = 0f) =>
             skillAsset.RunSkill(self, ignoreInput, startTimer);
     }
     
@@ -74,7 +74,6 @@ namespace Game.Control.PersonSystem
         public List<Player.ItemData> itemList = new List<Player.ItemData>();
         public Vector2 hitBackSpeed =Vector2.one;    //击退
         public int Maxdrag;   //最大药引上限
-        public int drag;      //当前药引
         public int money = 0;
         public float airXMove;
         public int MaxSpiritNum = 1;
