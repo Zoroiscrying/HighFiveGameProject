@@ -53,8 +53,12 @@ namespace Game.Scripts
     		print("GameMgr work for only once");
     
     
-    		MemoryMgr.LoadAssetFromResourceDir<AudioClip>(typeof(AudioName), DirPath.AudioDir,
-    			(name, clip) => AudioMgr.Instance.audioclips.Add(name, clip));
+    		MemoryMgr.LoadAssetFromResourceDir<AudioClip>(typeof(AudioName), "Audio/",
+	            (name, clip) =>
+	            {
+		            Debug.Log(name+"   "+clip.name);
+		            AudioMgr.Instance.audioclips.Add(name, clip);
+	            });
     		
     		PanelMgr.onClear += () =>
             {
