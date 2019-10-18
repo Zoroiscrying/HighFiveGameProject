@@ -1,8 +1,16 @@
-﻿using Game;
+﻿using System.Runtime.CompilerServices;
+using Game;
 using UnityEngine;
 using UnityEngine.Serialization;
 using zoroiscrying;
 
+
+//todo::分离Actor中的重力、输入、跳跃、巡逻功能
+
+/// <summary>
+/// 场景中的所有受重力影响的实体，有基本的碰撞和相应事件（Controller管理）
+/// 
+/// </summary>
 [RequireComponent(typeof(CharacterController2D),typeof(Animator))]
 public class Actor : MonoBehaviour {
 	//Actor，场景中的所有角色，受重力影响，有基本的碰撞和相应事件
@@ -60,7 +68,6 @@ public class Actor : MonoBehaviour {
 
 	public int _faceDir = 1;
 
-	
 	#endregion
 
 	#region Private Variables
@@ -71,7 +78,7 @@ public class Actor : MonoBehaviour {
 		get
 		{
 			//速度足够大，才进行边缘检测
-			if (Mathf.Abs(_velocity.x) - 0.1f >= 0)
+			if (Mathf.Abs(_velocity.x) - 0.01f >= 0)
 			{
 				//横向射线检测
 				var rayDistance = 2 * _controller.skinWidth;
@@ -200,11 +207,12 @@ public class Actor : MonoBehaviour {
 			}
 		}
 		
+		//todo::这段代码不再调试后，可以去掉这个函数
 		CalculateGravityNVelocity();
 		
 		CalculateVelocity();
 		
-		CalculateMovementBasedOnVelocity();//这个是每帧根据Velocity对角色进行移动，但是被继承之后还是把移动放到所有计算最后比较好，所以注释掉
+		MoveActor();//这个是每帧根据Velocity对角色进行移动，但是被继承之后还是把移动放到所有计算最后比较好，所以注释掉
 		
 		CheckCollisions();
 		
@@ -244,6 +252,12 @@ public class Actor : MonoBehaviour {
 
 	#region Public Functions
 
+	#region MovementMethods
+
+	
+
+	#endregion
+	
 	#region Patroling Methods
 	//向一个方向一直巡逻，直到遇到碰撞体或者到达边缘，默认开始向右边巡逻
 	private float _patrolStopTimer;
@@ -263,12 +277,15 @@ public class Actor : MonoBehaviour {
 
 		if (_patrolStopTimer < PatrolStopTime)
 		{
-			_velocity.x = 0;
+			_directionalInput.x = 0;
+			//_velocity.x = 0;
 			_patrolStopTimer += Time.deltaTime;
 		}
 		else
 		{
-			_velocity.x = Mathf.Abs(_runSpeed) * _movementMultiplier;			
+			//todo::fix directional Input movement!!
+			_directionalInput.x = _movementMultiplier;
+			//_velocity.x = Mathf.Abs(_runSpeed) * _movementMultiplier;			
 		}
 		
 	}
@@ -409,9 +426,10 @@ public class Actor : MonoBehaviour {
 	
 	#endregion
 
-	
-	
-	public virtual void CalculateGravityNVelocity()
+	/// <summary>
+	/// 计算有关跳跃的各种变量，比如重力、跳起的速度
+	/// </summary>
+	protected virtual void CalculateGravityNVelocity()
 		{
 			if (_affectedByGravity)
 			{
@@ -429,14 +447,22 @@ public class Actor : MonoBehaviour {
 
 	#region Private Functions
 
-
-	private void ReverseXSpeed()
-	{
-		this._velocity.x = -this._velocity.x;
-	}
+//	private void ReverseXSpeed()
+//	{
+//		this._velocity.x = -this._velocity.x;
+//	}
 	
+	/// <summary>
+	/// 在有垂直方向的碰撞时，设置y速度为0
+	/// </summary>
 	private void CheckCollisions()
 	{
+		//todo::如果横向碰撞有问题，就检查这个部分的影响
+		if (_controller.collisionState.right || _controller.collisionState.left)
+		{
+			_velocity.x = 0;
+		}
+		
 		if ((_controller.collisionState.below || _controller.collisionState.above) &&
 		    !_controller.collisionState.fallingThroughPlatform)
 		{
@@ -444,13 +470,21 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
-	private void CalculateMovementBasedOnVelocity()
+	/// <summary>
+	/// 根据当前计算出的速度，进行移动。
+	/// 移动函数会考虑到碰撞问题。
+	/// </summary>
+	private void MoveActor()
 	{
 		_controller.Move(_velocity * Time.deltaTime,_directionalInput);
 		// grab our current _velocity to use as a base for all calculations
 		_velocity = _controller.velocity;
 	}
 	
+	/// <summary>
+	/// 根据directionalInput改变Actor的velocity，同时施以重力影响，计算运动速度。
+	/// Directional Input是Actor进行自主运动的接口。
+	/// </summary>
 	private void CalculateVelocity()
 	{
 		float targetVelocityX = _directionalInput.x * _runSpeed * _horizontalSpeedMultiplier;
@@ -460,10 +494,16 @@ public class Actor : MonoBehaviour {
 			(_controller.collisionState.below)?_accelerationTimeGrounded:_accelerationTimeAirborne);
 		// apply gravity before moving
 		_velocity.y += _gravity * Time.deltaTime;
+		//todo::delete this.
 		// if holding down bump up our movement amount and turn off one way platform detection for a frame.
 		// this lets us jump down through one way platforms
 	}
+	
+	
 
+	/// <summary>
+	/// 这个函数控制了实体左右移动时的朝向
+	/// </summary>
 	private void AnimFaceDirControl()
 	{
 		if( _normalizedDirX == 1 )//向右
@@ -482,6 +522,7 @@ public class Actor : MonoBehaviour {
 	}
 	#endregion
 
+	
 	#region Enumerators
 
 

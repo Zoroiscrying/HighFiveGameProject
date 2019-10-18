@@ -126,7 +126,7 @@ namespace Game.Control.PersonSystem
         /// </summary>
         public int BaseAttack
         {
-            get { return (int) characterInfoInfo.baseAttack; }
+            get { return characterInfoInfo.baseAttack; }
             set { characterInfoInfo.baseAttack = value; }
         }
 

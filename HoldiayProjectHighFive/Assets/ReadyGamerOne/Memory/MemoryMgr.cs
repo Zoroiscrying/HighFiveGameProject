@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Windows;
 using Object = UnityEngine.Object;
 
 namespace ReadyGamerOne.MemorySystem
@@ -45,6 +46,12 @@ namespace ReadyGamerOne.MemorySystem
 		/// <exception cref="Exception"></exception>
 		public static T GetSourceFromResources<T>(string path)where T : Object
 		{
+			if (!Directory.Exists(Application.dataPath + "/Resources"))
+			{
+				throw new Exception("***龙门粗口***，Resourcese写错了吧，傻逼");
+			}
+			
+			
 			if (SourceObjects.ContainsKey(path))//加载过这个资源
 			{
 				if(SourceObjects[path]==null)
@@ -178,7 +185,9 @@ namespace ReadyGamerOne.MemorySystem
 			{
 				string assetName = fieldInfo.GetValue(null) as string;
 				
-				var res = GetSourceFromResources<TAssetType>(dirPath +assetName);
+//				var res = GetSourceFromResources<TAssetType>(dirPath +assetName);
+				Debug.Log(assetName);
+				var res = Resources.Load<TAssetType>(dirPath + assetName);
 				
 				if(onLoadAsset==null)
 					throw new Exception("onLoadAsset为 null, 那你加载资源干啥？？ ");

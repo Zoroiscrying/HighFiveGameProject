@@ -2,6 +2,9 @@
 using UnityEngine;
 
 
+/// <summary>
+/// 根据Collider，计算出raycast的起点，用于碰撞检测。
+/// </summary>
 [RequireComponent( typeof( BoxCollider2D ) )]
 public class RayCastController2D : MonoBehaviour {
 
@@ -42,8 +45,6 @@ public class RayCastController2D : MonoBehaviour {
     
     // we use this flag to mark the case where we are travelling up a slope and we modified our delta.y to allow the climb to occur.
     // the reason is so that if we reach the end of the slope we can make an adjustment to stay grounded
-    [HideInInspector]
-    public bool _isGoingUpSlope = false;
     [HideInInspector]
     public bool _isGoingUpWall = false;
     

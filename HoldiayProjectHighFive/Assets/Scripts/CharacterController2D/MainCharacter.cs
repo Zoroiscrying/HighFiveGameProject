@@ -12,7 +12,6 @@ public class MainCharacter : Actor
 	public const int _jumpPoint = 2;
 
 	#endregion
-
 	
 	#region Public Variables
 	
@@ -71,7 +70,6 @@ public class MainCharacter : Actor
 	#region Private Variables
 
 	private StateMachine<PlayerStates> _stateMachine;
-	
 	//timer
 	private float _aclratnTimer = 0.0f;
 	
@@ -121,9 +119,7 @@ public class MainCharacter : Actor
 	{
 		base.Awake();
 		_stateMachine = StateMachine<PlayerStates>.Initialize(this,PlayerStates.Idle);
-		
 	}
-
 	
 	// Update is called once per frame
 	public override void Update ()
@@ -161,8 +157,6 @@ public class MainCharacter : Actor
 
 		CalculateGravityNVelocity();
 		
-		
-
 	}
 
 	#endregion
@@ -175,7 +169,7 @@ public class MainCharacter : Actor
 
 	#region Public Functions
 
-	public override void CalculateGravityNVelocity()
+	protected override void CalculateGravityNVelocity()
 	{
 		base.CalculateGravityNVelocity();
 		float minGravity = -(2 * _minJumpHeight) / Mathf.Pow(_timeToJumpApex, 2);

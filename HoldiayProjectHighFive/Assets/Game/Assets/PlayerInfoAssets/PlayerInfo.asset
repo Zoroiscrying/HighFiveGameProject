@@ -11,36 +11,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447aa5167fb148eab72913b0704bf92b, type: 3}
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 1, b: 0.09082031, a: 1}
-  signalSize: 1
   characterName: Player
-  position: {x: -0.23, y: 0, z: 0}
   prefabPath:
-    selectedIndex: 9
+    selectedIndex: 10
     Path: GameObjects/Player
   baseAttack: 20
   attack_adder: 0
   attack_scaler: 1
-  hp: 16
   maxHp: 100
   attackSpeed: 3
   IgnoreHitback: 0
-  IsConst: 0
   DefaultConstTime: 1
-  InputOk: 1
-  skills:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   comboKey: 106
   superKey: 122
   bagKey: 9
   hitBackSpeed: {x: 0.3, y: 0}
   Maxdrag: 0
-  drag: 0
   money: 3980
   airXMove: 0
   MaxSpiritNum: 1

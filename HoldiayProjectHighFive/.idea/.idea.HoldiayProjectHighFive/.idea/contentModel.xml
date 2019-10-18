@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\config\scratches" t="IncludeRecursive" />
-    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
-    <e p="F:\Projects\unity\HiFive\HoldiayProjectHighFive" t="IncludeRecursive">
+    <e p="C:\Program Files (x86)\Android\android-sdk\platforms\android-25\Data\res" t="IncludeRecursive" />
+    <e p="C:\Users\Admin\.Rider2018.3\config\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\Admin\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Admin\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_HoldiayProjectHighFive.384860981.00" t="ExcludeRecursive" />
+    <e p="E:\UnityNGithub\GameProjectGIT\HighFiveGameProject\HoldiayProjectHighFive" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -1199,9 +1200,12 @@
         </e>
       </e>
       <e p="HoldiayProjectHighFive.sln" t="IncludeFlat" />
+      <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
     </e>
   </component>
 </project>
