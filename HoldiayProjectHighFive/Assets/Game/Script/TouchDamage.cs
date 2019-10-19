@@ -1,5 +1,3 @@
-using System;
-using Game.Control.BattleEffectSystem;
 using Game.Control.PersonSystem;
 using ReadyGamerOne.Global;
 using UnityEngine;
@@ -21,8 +19,7 @@ namespace Game.Scripts
             {
 //                Debug.Log("Player碰我");
                 var dir = GlobalVar.G_Player.Pos.x > transform.position.x ? 1 : -1;
-                player.TakeBattleEffect(new HitbackEffect(dir*hitback));
-                player.TakeBattleEffect(new InstantDamageEffect(damage, transform.position.x > player.Pos.x ? 1 : -1));
+                player.PlayAcceptEffects(AbstractPerson.GetInstance(gameObject));
             }
         }
     }

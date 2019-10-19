@@ -21,7 +21,7 @@ namespace Game.Model.ItemSystem
         {
             get
             {
-                return ItemInfoAsset.Instance.GetItem(this.itemId);
+                return ItemMgr.Instance.GetItem(this.itemId);
             }
         }
         
@@ -29,7 +29,7 @@ namespace Game.Model.ItemSystem
         {
             get
             {
-                return ItemInfoAsset.Instance.GetItem(this.itemId).SpritePath;
+                return ItemMgr.Instance.GetItem(this.itemId).SpritePath;
             }
         }
     }

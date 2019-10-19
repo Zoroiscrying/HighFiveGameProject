@@ -11,13 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447aa5167fb148eab72913b0704bf92b, type: 3}
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
+  attackEffects: {fileID: 11400000, guid: a0d47561554675c47917c3fe4b7c8429, type: 2}
+  hitEffects: {fileID: 11400000, guid: 5254c5dce8a4ac04f87f79e9cfa0ce24, type: 2}
+  acceptEffects: {fileID: 11400000, guid: c2c2135c920f5e841ab84146452db8a2, type: 2}
   characterName: Player
   prefabPath:
     selectedIndex: 10
     Path: GameObjects/Player
   baseAttack: 20
-  attack_adder: 0
-  attack_scaler: 1
+  hitBackSpeed: {x: 0.3, y: 0}
   maxHp: 100
   attackSpeed: 3
   IgnoreHitback: 0
@@ -25,8 +27,7 @@ MonoBehaviour:
   comboKey: 106
   superKey: 122
   bagKey: 9
-  hitBackSpeed: {x: 0.3, y: 0}
-  Maxdrag: 0
+  Maxdrag: 100
   money: 3980
   airXMove: 0
   MaxSpiritNum: 1

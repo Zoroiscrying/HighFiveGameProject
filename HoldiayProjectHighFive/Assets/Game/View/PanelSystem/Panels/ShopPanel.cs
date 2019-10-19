@@ -24,7 +24,7 @@ namespace Game.View.PanelSystem
 			{
 				
 				currentItemIndex = value;
-				this.itemInfo.text = ItemInfoAsset.Instance.GetItem(itemIdList[value]).Description;
+				this.itemInfo.text = ItemMgr.Instance.GetItem(itemIdList[value]).Description;
 			}
 			get { return currentItemIndex; }
 		}
@@ -140,7 +140,7 @@ namespace Game.View.PanelSystem
 			GameObject itemObj;
 			foreach (var id in itemIdList)
 			{
-				var itemInfo = ItemInfoAsset.Instance.GetItem(id);
+				var itemInfo = ItemMgr.Instance.GetItem(id);
 			    itemObj=MemoryMgr.InstantiateGameObject(DirPath.LittleUiDir+UiName.Image_ItemData, this.itemList);
 				Assert.IsTrue(itemObj);
 				

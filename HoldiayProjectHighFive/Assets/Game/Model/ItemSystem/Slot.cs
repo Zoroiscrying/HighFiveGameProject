@@ -34,7 +34,7 @@ namespace Game.Model.ItemSystem
             private set
             {
                 Debug.Log(value);
-                Assert.IsTrue(value >= 0 && value <= ItemInfoAsset.Instance.GetItem(this.itemUi.itemId).Capacity);
+                Assert.IsTrue(value >= 0 && value <= ItemMgr.Instance.GetItem(this.itemUi.itemId).Capacity);
 
                 //数值上
                 this.itemUi.count = value;

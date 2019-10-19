@@ -1,5 +1,4 @@
-﻿using Game.Control.BattleEffectSystem;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Game.Const;
 using Game.View;
 using UnityEngine;
@@ -24,23 +23,5 @@ namespace Game.Control.PersonSystem
         {
             new BloodBarUI(this);
         }
-
-        #region BattleEffect
-        public override void TakeBattleEffect(List<IBattleEffect> beList)
-        {
-            base.TakeBattleEffect(beList);
-            new AudioEffect(AudioName._Fuck).Execute(this);
-            new ShineEffect(this.shineLastTime, this.shineDurTime, Color.red).Execute(this);
-            new ShakeScreenEffect(0.02f, Time.deltaTime).Execute(this);
-        }
-
-        protected override void AddBaseAttackEffects(AbstractPerson self)
-        {
-            TestPerson tp = self as TestPerson;
-            Assert.IsTrue(tp != null);
-            tp.attackEffects.Add(new InstantDamageEffect(this.BaseAttack, this.Dir));
-            tp.attackEffects.Add(new HitbackEffect(new Vector2(this.hitback, 0)));
-        }
-        #endregion
     }
 }

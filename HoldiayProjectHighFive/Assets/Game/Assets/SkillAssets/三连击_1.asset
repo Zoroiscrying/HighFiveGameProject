@@ -16,7 +16,44 @@ MonoBehaviour:
   startTime: 0
   isUsed: 0
   triggers:
-  - id: 0
+  - skillAsset: {fileID: 11400000}
+    id: 3
+    startTime: 0
+    lastTime: 0.6
+    type: 7
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 1.2
+    audioName:
+      selectedIndex: 0
+      Path: Audio/1
+    bulletName:
+      selectedIndex: 0
+      Path: 
+    damage: 0
+    dir: {x: 0, y: 0, z: 0}
+    bulletSpeed: 0
+    maxLife: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 11400000, guid: a0d47561554675c47917c3fe4b7c8429, type: 2}
+    damageType: 0
+    triggerPath: GameObject
+    hitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 0}
+    id: 0
     startTime: 0
     lastTime: 0.667
     type: 0
@@ -44,16 +81,19 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
     hitBack: {x: 0, y: 0}
-  - id: 1
+  - skillAsset: {fileID: 0}
+    id: 1
     startTime: 0
     lastTime: 0.5
     type: 1
-    enable: 0
+    enable: 1
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -77,12 +117,15 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
     hitBack: {x: 0, y: 0}
-  - id: 2
+  - skillAsset: {fileID: 0}
+    id: 2
     startTime: 0
     lastTime: 0.6
     type: 6
@@ -110,8 +153,11 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: GameObject
     hitBack: {x: 0, y: 0}
+  Vector3Cache: {x: 0, y: 0, z: 0}

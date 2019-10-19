@@ -13,10 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 1
-  startTime: 0.8322085
+  startTime: 1.0820569
   isUsed: 0
   triggers:
-  - id: 0
+  - skillAsset: {fileID: 0}
+    id: 0
     startTime: 0
     lastTime: 1
     type: 0
@@ -44,12 +45,15 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
     hitBack: {x: 0, y: 0}
-  - id: 2
+  - skillAsset: {fileID: 0}
+    id: 2
     startTime: 0.1
     lastTime: 0.833
     type: 6
@@ -77,16 +81,19 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: GameObject
     hitBack: {x: 0, y: 0.3}
-  - id: 1
+  - skillAsset: {fileID: 0}
+    id: 1
     startTime: 0.2
     lastTime: 0.5
     type: 1
-    enable: 0
+    enable: 1
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -110,8 +117,11 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
+    targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
     hitBack: {x: 0, y: 0}
+  Vector3Cache: {x: 0, y: 0, z: 0}

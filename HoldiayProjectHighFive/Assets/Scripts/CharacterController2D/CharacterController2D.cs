@@ -352,7 +352,7 @@ namespace zoroiscrying
 
                 if (_raycastHit)
                 {
-                    Debug.Log("Hit Wall");
+//                    Debug.Log("Hit Wall");
                     //todo::如果横向检测出了问题，就来这里看看
                     if (_raycastHit.distance <= 0)
                     {

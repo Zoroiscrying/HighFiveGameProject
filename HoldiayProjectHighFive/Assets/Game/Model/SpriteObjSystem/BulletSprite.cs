@@ -45,7 +45,7 @@ namespace Game.Model.SpriteObjSystem
             var col2d = obj.GetComponent<Collider2D>();
             if (col2d.IsTouchingLayers(1<<LayerMask.NameToLayer("BasicPlatform")))
             {
-                Debug.Log("碰到地面");
+//                Debug.Log("碰到地面");
                 DestoryThis();
                 return;
             }
@@ -56,19 +56,19 @@ namespace Game.Model.SpriteObjSystem
 
             if (ap is Player && this.origin is Player)
             {
-                Debug.Log($"两个都是Player:[{ap.CharacterName}][{origin.CharacterName}]");
+//                Debug.Log($"两个都是Player:[{ap.CharacterName}][{origin.CharacterName}]");
                 return;
             }
             if (!(ap is Player) && !(this.origin is Player))
             {
-                Debug.Log($"两个都不是Player:[{ap.CharacterName}][{origin.CharacterName}]");
+//                Debug.Log($"两个都不是Player:[{ap.CharacterName}][{origin.CharacterName}]");
                 return;
             }
 
-            Debug.Log(this.origin.CharacterName+" 攻击 "+ap.characterInfoInfo);
+//            Debug.Log(this.origin.CharacterName+" 攻击 "+ap.characterInfoInfo);
 
             this.origin.OnCauseDamage(damage);
-            ap.TakeBattleEffect(this.origin.AttackEffect);
+            ap.PlayAcceptEffects(origin);
             DestoryThis();
         }
 
