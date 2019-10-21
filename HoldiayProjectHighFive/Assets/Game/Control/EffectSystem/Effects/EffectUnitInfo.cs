@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
+using BehaviorDesigner.Runtime;
 using Game.Const;
 using Game.Control.PersonSystem;
 using Game.Math;
@@ -14,6 +16,7 @@ using ReadyGamerOne.Utility;
 using UnityEditor;
 #endif
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Game.Control.EffectSystem
 {     
@@ -35,7 +38,33 @@ namespace Game.Control.EffectSystem
     [Serializable]
     public sealed class EffectUnitInfo
     {
-        
+        private static Dictionary<GameObject, ObjPoor<GameObject>> poorDic =
+            new Dictionary<GameObject, ObjPoor<GameObject>>();
+        private static ObjPoor<GameObject> GetPoor(GameObject prefab)
+        {
+            if (!poorDic.ContainsKey(prefab))
+            {
+                var p=new ObjPoor<GameObject>(
+                    onInit:()=>GameObject.Instantiate(prefab),
+                    onGet:obj=>obj.SetActive(true),
+                    onRelease:obj=>obj.SetActive(false));
+                poorDic.Add(prefab,p);
+            }
+
+            return poorDic[prefab];
+        }
+        private static GameObject GetParticalGo(GameObject prefab, GameObject target)
+        {
+            var partical = GetPoor(prefab).GetObj();
+            if(partical.transform.parent!=target.transform)
+                partical.transform.SetParent(target.transform);
+            partical.transform.localPosition=Vector3.zero;
+            return partical;
+        }
+
+
+
+
         [SerializeField] private EffectType type;
         [SerializeField] private EffectInfoAsset EffectInfoAsset;
 
@@ -53,6 +82,13 @@ namespace Game.Control.EffectSystem
         
         
         #endregion
+
+        #region Partical
+
+
+        [SerializeField] private GameObject particalPrefab;
+
+        #endregion
         
         public void Play(IEffector<AbstractPerson> ditascher, IEffector<AbstractPerson> receiver)
         {        
@@ -60,11 +96,34 @@ namespace Game.Control.EffectSystem
             var rp = receiver?.EffectPlayer;
             switch (type)
             {
+                #region Partical
+                case EffectType.Partical:
+                    var psObj = GetParticalGo(particalPrefab, rp.obj);
+                    var ps = psObj.GetComponent<ParticleSystem>();
+                    Debug.Log("播放");
+                    ps.Play();
+                    MainLoop.Instance.ExecuteUntilTrue(() => ps.isStopped,
+                        () =>
+                        {
+                            if (psObj)
+                            {
+                                GetPoor(particalPrefab).ReleaseObj(psObj);
+                            }
+                        });
+                    break;
+                        
+
+                #endregion
+                
                 #region Damage
 
                 case EffectType.Damage:
+                    
+                    Assert.IsTrue(dp!=null && rp!=null);
                     if (rp.IsConst)
                         break;
+                    
+                    
 
                     var damage = GameMath.Damage(dp, rp);
                     
@@ -87,9 +146,11 @@ namespace Game.Control.EffectSystem
                     switch (EffectInfoAsset.effectorType)
                     {
                         case EffectInfoAsset.EffectorType.Ditascher:
+                            Assert.IsTrue(dp != null);
                             AudioMgr.Instance.PlayEffect(this.audioName.StringValue,dp.Pos);
                             break;
                         case EffectInfoAsset.EffectorType.Receiver: 
+                            Assert.IsTrue(rp!=null);
                             AudioMgr.Instance.PlayEffect(this.audioName.StringValue,rp.Pos);
                             break;
                     }
@@ -100,8 +161,9 @@ namespace Game.Control.EffectSystem
                 #region Shining
 
                 case EffectType.Shining:
+                    Assert.IsTrue(rp!=null);
                     var sr = rp.obj.GetComponent<SpriteRenderer>();
-                    var times = dp is Player ? dp.DefaultConstTime / shiningDuring : 0.8f;
+                    var times = rp is Player ? rp.DefaultConstTime / shiningDuring : 0.8f;
                     MainLoop.Instance.ExecuteEverySeconds(
                         render =>
                         {
@@ -122,6 +184,8 @@ namespace Game.Control.EffectSystem
                 #region Hitback
                 case EffectType.HitBack:
 
+                    Assert.IsTrue(rp!=null&& dp!=null);
+                    
                     if (!rp.IgnoreHitback)
                     {
                         var trans = rp.obj.transform;
@@ -132,8 +196,7 @@ namespace Game.Control.EffectSystem
 
 
                 #endregion
-
-
+                
             }
             
         }
@@ -154,14 +217,11 @@ namespace Game.Control.EffectSystem
              EditorGUI.LabelField(position.GetRectAtIndex(index++),"类型",type.ToString());            
  
              #endregion
-             
-             
- 
+
              switch (type)
              {
                  case EffectType.Audio:
                      var audioNameProp = property.FindPropertyRelative("audioName");
-//                     if(audioNameProp==null)
                          InitSerializedStringArray(audioNameProp.FindPropertyRelative("values"),typeof(AudioName));
                      EditorGUI.PropertyField(position.GetRectAtIndex(index++),audioNameProp);
                      break;
@@ -170,6 +230,10 @@ namespace Game.Control.EffectSystem
                          property.FindPropertyRelative("shiningColor"));
                      EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                          property.FindPropertyRelative("shiningDuring"));
+                     break;
+                 case EffectType.Partical:
+                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                         property.FindPropertyRelative("particalPrefab"));
                      break;
              }
          }       
