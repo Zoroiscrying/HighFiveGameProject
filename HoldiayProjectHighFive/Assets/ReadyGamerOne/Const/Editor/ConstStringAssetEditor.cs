@@ -8,7 +8,7 @@ namespace ReadyGamerOne.Const.Editor
     public class ConstStringAssetEditor:UnityEditor.Editor
     {
         private Vector2 pos;
-        [MenuItem("ReadyGamerOne/ShowConstStrings")]
+        [MenuItem("ReadyGamerOne/Global/ShowConstStrings")]
         public static void CreateAsset()
         {
             Selection.activeInstanceID = ConstStringAsset.Instance.GetInstanceID();

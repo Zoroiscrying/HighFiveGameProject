@@ -18,7 +18,7 @@ namespace Game.View
         public void Set(int itemID,Vector3 pos)
         {
             
-             var item = ItemInfoAsset.Instance.GetItem(itemID);
+             var item = ItemMgr.Instance.GetItem(itemID);
              this.name.text = item.ToString();
             m_TransFrom.position = pos;
         }

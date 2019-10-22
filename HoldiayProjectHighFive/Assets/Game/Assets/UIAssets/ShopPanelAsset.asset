@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransFrom: {fileID: 0}
   prefabPath:
-    selectedIndex: 23
+    selectedIndex: 29
     Path: UI/Panels/Panel_Shop
   itemListPath:
     go: {fileID: 1360975153774966, guid: ab909c6c417219e479d6c800fdfdc743, type: 2}

@@ -1,6 +1,4 @@
 ﻿using Game.Const;
-using Game.Control.BattleEffectSystem;
-using Game.Math;
 using Game.Model.SpiritItemSystem;
 using System;
 using System.Collections.Generic;
@@ -15,7 +13,6 @@ using ReadyGamerOne.Data;
 using ReadyGamerOne.Global;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.View.AssetUi;
-using ReadyGamerOne.View.PanelSystem;
 
 
 namespace Game.Control.PersonSystem
@@ -155,15 +152,7 @@ namespace Game.Control.PersonSystem
             get { return playerInfo.money; }
             set { playerInfo.money = value; }
         }
-
-        /// <summary>
-        /// 玩家被击退速度
-        /// </summary>
-        public Vector2 HitBackSpeed
-        {
-            get { return playerInfo.hitBackSpeed; }
-            set { playerInfo.hitBackSpeed = value; }
-        }
+        
 
         /// <summary>
         /// 最大药引上限
@@ -290,26 +279,7 @@ namespace Game.Control.PersonSystem
         #region Override_Functions
         
         #region BattleEffect
-
-        public override void TakeBattleEffect(List<IBattleEffect> beList)
-        {
-            base.TakeBattleEffect(beList);
-            new AudioEffect("Fuck").Execute(this);
-            new ShineEffect(this.DefaultConstTime, 0.1f, Color.blue).Execute(this);
-            new ShakeScreenEffect(0.05f, Time.deltaTime).Execute(this);
-        }
-
-
-        protected override void AddBaseAttackEffects(AbstractPerson self)
-        {
-            var player = self as Player;
-            Assert.IsTrue(player != null);
-            player.attackEffects.Add(new InstantDamageEffect(
-                GameMath.Damage((int) characterInfoInfo.baseAttack, characterInfoInfo.attack_scaler,
-                    characterInfoInfo.attack_adder), player.Dir));
-            player.attackEffects.Add(new HitbackEffect(new Vector2(player.Dir * Mathf.Abs(HitBackSpeed.x),
-                HitBackSpeed.y)));
-        }
+        
 
         #endregion
 
@@ -318,7 +288,7 @@ namespace Game.Control.PersonSystem
         public override void OnCauseDamage(int damage)
         {
             base.OnCauseDamage(damage);
-            Debug.Log("damage");
+//            Debug.Log("damage");
         }
         public override void DestoryThis()
         {
@@ -392,7 +362,7 @@ namespace Game.Control.PersonSystem
                 if (!cc.isGrounded)
                 {
                     mainc._playerVelocityY = 0;
-                    this.TakeBattleEffect(new HitbackEffect(new Vector2(this.Dir * Mathf.Abs(this.AirXMove), 0)));
+//                    this.TakeBattleEffect(new HitbackEffect(new Vector2(this.Dir * Mathf.Abs(this.AirXMove), 0)));
                 }
 
 //                Debug.Log("按下攻击键，无论如何，锁定人物");
@@ -501,7 +471,7 @@ namespace Game.Control.PersonSystem
         #region Message_Handles
         private void OnTryBuy(int id)
         {
-            var item = ItemInfoAsset.Instance.GetItem(id);
+            var item = ItemMgr.Instance.GetItem(id);
             if (item == null)
                 throw new Exception("物品ID异常：id:" + id);
 

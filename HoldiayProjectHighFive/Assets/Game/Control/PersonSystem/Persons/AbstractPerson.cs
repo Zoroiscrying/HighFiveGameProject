@@ -1,8 +1,8 @@
 ﻿using Game.Const;
-using Game.Control.BattleEffectSystem;
 using Game.Control.SkillSystem;
 using System;
 using System.Collections.Generic;
+using Game.Control.EffectSystem;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Script;
@@ -17,7 +17,7 @@ namespace Game.Control.PersonSystem
     /// 所有接受战斗效果的单位都要继承这个抽象类
     /// </summary>
     [Serializable]
-    public abstract class AbstractPerson
+    public abstract class AbstractPerson:IEffector<AbstractPerson>
     {
         #region 根据GameObject获取AbstractPerson
 
@@ -43,7 +43,7 @@ namespace Game.Control.PersonSystem
 
         #region Fields
         
-        public BaseCharacterInfo characterInfoInfo;
+        protected BaseCharacterInfo characterInfoInfo;
         
         [HideInInspector]
         public GameObject obj;
@@ -56,24 +56,20 @@ namespace Game.Control.PersonSystem
         /// 是否无敌
         /// </summary>
         private bool isConst=false;
+        /// <summary>
+        /// 攻击叠加
+        /// </summary>
+        public float attack_adder = 0f;
+        /// <summary>
+        /// 攻击倍率
+        /// </summary>
+        public float attack_scaler = 1f;
         
-        
+        /// <summary>
+        /// 角色名字
+        /// </summary>
         public string CharacterName => characterInfoInfo.characterName;          //名字
         
-        /// <summary>
-        /// 攻击效果合集
-        /// </summary>
-        protected List<IBattleEffect> attackEffects = new List<IBattleEffect>();
-
-        /// <summary>
-        /// 这个事件允许动态添加主角攻击效果
-        /// </summary>
-        public event Action<AbstractPerson> OnAttackListRefresh;
-        
-        /// <summary>
-        /// 当前Buff列表
-        /// </summary>
-        public List<IBattleEffect> bfList = new List<IBattleEffect>();     
         
         #endregion        
         
@@ -163,11 +159,22 @@ namespace Game.Control.PersonSystem
 
                 characterInfoInfo.attackSpeed = value;
             }
-        }        
+        }    
+        
+        /// <summary>
+        /// 玩家被击退速度
+        /// </summary>
+        public Vector2 HitBackSpeed
+        {
+            get { return characterInfoInfo.hitBackSpeed; }
+            set { characterInfoInfo.hitBackSpeed = value; }
+        }
+        
+        
+        
 
         #endregion
-
-
+        
 
         #region 本地属性
         /// <summary>
@@ -234,22 +241,7 @@ namespace Game.Control.PersonSystem
         {
             get { return this.obj.GetComponent<Actor>(); }
         }
-
-        /// <summary>
-        /// 获取攻击效果
-        /// </summary>
-        public virtual List<IBattleEffect> AttackEffect
-        {
-            get
-            {
-                attackEffects.Clear();
-                if (OnAttackListRefresh != null)
-                    OnAttackListRefresh(this);
-                return attackEffects;
-            }
-        }       
         
-
         #endregion
  
 
@@ -277,28 +269,7 @@ namespace Game.Control.PersonSystem
         {
             skillInfoAsset.RunSkill(this);
         }
-
-
-        #region BattleEffect
-
-        /// <summary>
-        /// 接受战斗效果
-        /// </summary>
-        /// <param CharacterName="ef"></param>
-        public virtual void TakeBattleEffect(IBattleEffect ef)
-        {
-            this.bfList.Add(ef);
-            ef.Execute(this);
-        }
-        public virtual void TakeBattleEffect(List<IBattleEffect> beList)
-        {
-            foreach (var be in beList)
-                this.TakeBattleEffect(be);
-        }
-
-
-        #endregion
-
+        
 
         #region 构造及初始化
 
@@ -313,8 +284,6 @@ namespace Game.Control.PersonSystem
             this.obj = MemoryMgr.InstantiateGameObject(characterInfo.prefabPath.Path, pos, Quaternion.identity, parent);
             this.Hp = characterInfo.maxHp;
 
-            //添加基本攻击效果
-            this.OnAttackListRefresh += AddBaseAttackEffects;
             //添加事件监听
             OnAddListener();
 
@@ -325,15 +294,35 @@ namespace Game.Control.PersonSystem
             instanceList.Add(this);
         }
 
-        /// <summary>
-        /// 添加基础攻击效果
-        /// </summary>
-        /// <param CharacterName="ap"></param>
-        protected abstract void AddBaseAttackEffects(AbstractPerson self);
-
         #endregion
 
         #region 战斗
+
+        /// <summary>
+        /// 播放受击特效
+        /// </summary>
+        /// <param name="ditascher"></param>
+        public void PlayAcceptEffects(IEffector<AbstractPerson> ditascher)
+        {
+            if (ditascher != null && ditascher.HitEffects != null)
+            {
+                ditascher.HitEffects.Play(ditascher, this);
+            }
+
+            if (AcceptEffects != null)
+            {
+                AcceptEffects.Play(null,ditascher);
+            }
+        }
+
+        /// <summary>
+        /// 播放攻击特效
+        /// </summary>
+        /// <param name="effectInfoAsset"></param>
+        public void PlayAttackEffects(EffectInfoAsset effectInfoAsset)
+        {
+            effectInfoAsset?.Play(this,null);
+        }
 
         public virtual void  OnCauseDamage(int damage)
         {
@@ -437,5 +426,16 @@ namespace Game.Control.PersonSystem
         }
 
         #endregion
+
+
+        #region IEffector<T>
+        public EffectInfoAsset AttackEffects => characterInfoInfo.attackEffects;
+        public EffectInfoAsset HitEffects => characterInfoInfo.hitEffects;
+        public EffectInfoAsset AcceptEffects => characterInfoInfo.acceptEffects;
+        public AbstractPerson EffectPlayer => this;
+
+        #endregion
+
+
     }
 }

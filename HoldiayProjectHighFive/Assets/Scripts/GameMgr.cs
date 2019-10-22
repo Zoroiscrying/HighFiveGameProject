@@ -1,4 +1,5 @@
-﻿using Game.Const;
+﻿using System;
+using Game.Const;
 using Game.Control.PersonSystem;
 using Game.Model.ItemSystem;
 using Game.Model.RankSystem;
@@ -56,7 +57,7 @@ namespace Game.Scripts
     		MemoryMgr.LoadAssetFromResourceDir<AudioClip>(typeof(AudioName), "Audio/",
 	            (name, clip) =>
 	            {
-		            Debug.Log(name+"   "+clip.name);
+//		            Debug.Log(name+"   "+clip.name);
 		            AudioMgr.Instance.audioclips.Add(name, clip);
 	            });
     		
@@ -70,8 +71,6 @@ namespace Game.Scripts
             };
             
             RegisterAll();
-            
-            InitializeBehavic();
     	}
     
     
@@ -95,33 +94,25 @@ namespace Game.Scripts
             LoadDataFromFile();
     	}
 
-    
-    	/// <summary>
+        /// <summary>
     	/// 注册灵器
     	/// </summary>
     	void RegisterSpiritItem()
     	{
     		AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_First);
-    		
-    		AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_Second);
-    		
-    		
-    	}
+            AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_Second);
+        }
     
     	/// <summary>
     	/// 注册Data工厂
     	/// </summary>
     	void RegisterData()
     	{
-    		
-    
-    		TxtManager.RegisterDataFactory<L1Rank>(TxtSign.L1Rank);
+	        TxtManager.RegisterDataFactory<L1Rank>(TxtSign.L1Rank);
     		TxtManager.RegisterDataFactory<L2Rank>(TxtSign.L2Rank);
     		TxtManager.RegisterDataFactory<S1Rank>(TxtSign.S1Rank);
     		TxtManager.RegisterDataFactory<S2Rank>(TxtSign.S2Rank);
-    		
-    
-    	}
+        }
     
     	/// <summary>
     	/// 从文件中加载数据
@@ -141,18 +132,7 @@ namespace Game.Scripts
     		base.AddGlobalScript();
             this.gameObject.AddComponent<AudioMgr>();
     	}
-    
-        /// <summary>
-        /// 初始化行为树
-        /// </summary>
-        /// <returns></returns>
-        bool InitializeBehavic()
-        {
-            behaviac.Workspace.Instance.FilePath = Application.dataPath + "/Scripts/behaviac/exported/behaviac_generated/types";
-            behaviac.Workspace.Instance.FileFormat = behaviac.Workspace.EFileFormat.EFF_xml;
-            return true;
-        }
-        
+
         #endregion
     
         #region Initializer

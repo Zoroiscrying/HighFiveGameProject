@@ -677,16 +677,21 @@
             <e p="UiName.cs" t="Include" />
           </e>
           <e p="Control" t="Include">
-            <e p="BattleEffectSystem" t="Include">
-              <e p="AbstractBattleEffect.cs" t="Include" />
-              <e p="AudioEffect.cs" t="Include" />
-              <e p="DamageNumberEffect.cs" t="Include" />
-              <e p="HitbackEffect.cs" t="Include" />
-              <e p="IBattleEffect.cs" t="Include" />
-              <e p="InstantDamageEffect.cs" t="Include" />
-              <e p="RecoverBuffEffect.cs" t="Include" />
-              <e p="ShakeScreenEffect.cs" t="Include" />
-              <e p="ShineEffect.cs" t="Include" />
+            <e p="EffectSystem" t="Include">
+              <e p="Editor" t="Include">
+                <e p="EffectAssetMsgDrawer.cs" t="Include" />
+                <e p="EffectInfoAssetEditor.cs" t="Include" />
+                <e p="EffectMgrEditor.cs" t="Include" />
+              </e>
+              <e p="EffectInfoAsset.cs" t="Include" />
+              <e p="EffectMgr.cs" t="Include" />
+              <e p="Effects" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="EffectUnitInfoDrawer.cs" t="Include" />
+                </e>
+                <e p="EffectUnitInfo.cs" t="Include" />
+              </e>
+              <e p="IEffector.cs" t="Include" />
             </e>
             <e p="PersonSystem" t="Include">
               <e p="Persons" t="Include">
@@ -714,12 +719,13 @@
             <e p="GlobalVar.cs" t="Include" />
           </e>
           <e p="Math" t="Include">
+            <e p="GameLogic.cs" t="Include" />
             <e p="GameMath.cs" t="Include" />
           </e>
           <e p="Model" t="Include">
             <e p="ItemSystem" t="Include">
               <e p="IItemTriggerFactory.cs" t="Include" />
-              <e p="ItemInfoAsset.cs" t="Include" />
+              <e p="ItemMgr.cs" t="Include" />
               <e p="Items" t="Include">
                 <e p="Editor" t="Include">
                   <e p="ItemInfoAssetEditor.cs" t="Include" />
@@ -915,111 +921,6 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="BackGroundController.cs" t="Include" />
-          <e p="behaviac" t="Include">
-            <e p="Runtime" t="Include">
-              <e p="Agent" t="Include">
-                <e p="Agent.cs" t="Include" />
-                <e p="Context.cs" t="Include" />
-              </e>
-              <e p="Base" t="Include">
-                <e p="Attributs.cs" t="Include" />
-                <e p="CRC32.cs" t="Include" />
-                <e p="FileManager.cs" t="Include" />
-                <e p="LogManager.cs" t="Include" />
-                <e p="Member.cs" t="Include" />
-                <e p="Meta.cs" t="Include" />
-                <e p="MiniXml.cs" t="Include" />
-                <e p="Operation.cs" t="Include" />
-                <e p="Properties.cs" t="Include" />
-                <e p="RandomGenerator.cs" t="Include" />
-                <e p="socketconnect.cs" t="Include" />
-                <e p="socketconnect_base.cs" t="Include" />
-                <e p="Utils.cs" t="Include" />
-              </e>
-              <e p="BehaviorTree" t="Include">
-                <e p="Attachments" t="Include">
-                  <e p="AttachAction.cs" t="Include" />
-                  <e p="Effector.cs" t="Include" />
-                  <e p="Event.cs" t="Include" />
-                  <e p="Precondition.cs" t="Include" />
-                </e>
-                <e p="BehaviorTree.cs" t="Include" />
-                <e p="BehaviorTree_task.cs" t="Include" />
-                <e p="Nodes" t="Include">
-                  <e p="Actions" t="Include">
-                    <e p="Action.cs" t="Include" />
-                    <e p="Assignment.cs" t="Include" />
-                    <e p="Compute.cs" t="Include" />
-                    <e p="End.cs" t="Include" />
-                    <e p="Noop.cs" t="Include" />
-                    <e p="Wait.cs" t="Include" />
-                    <e p="Waitforsignal.cs" t="Include" />
-                    <e p="Waitframes.cs" t="Include" />
-                  </e>
-                  <e p="Composites" t="Include">
-                    <e p="Compositestochastic.cs" t="Include" />
-                    <e p="Ifelse.cs" t="Include" />
-                    <e p="Parallel.cs" t="Include" />
-                    <e p="Referencebehavior.cs" t="Include" />
-                    <e p="Selector.cs" t="Include" />
-                    <e p="Selectorloop.cs" t="Include" />
-                    <e p="Selectorprobability.cs" t="Include" />
-                    <e p="Selectorstochastic.cs" t="Include" />
-                    <e p="Sequence.cs" t="Include" />
-                    <e p="Sequencestochastic.cs" t="Include" />
-                    <e p="Withprecondition.cs" t="Include" />
-                  </e>
-                  <e p="Conditions" t="Include">
-                    <e p="And.cs" t="Include" />
-                    <e p="Condition.cs" t="Include" />
-                    <e p="Conditionbase.cs" t="Include" />
-                    <e p="False.cs" t="Include" />
-                    <e p="Or.cs" t="Include" />
-                    <e p="True.cs" t="Include" />
-                  </e>
-                  <e p="Decorators" t="Include">
-                    <e p="Decoratoralwaysfailure.cs" t="Include" />
-                    <e p="Decoratoralwaysrunning.cs" t="Include" />
-                    <e p="Decoratoralwayssuccess.cs" t="Include" />
-                    <e p="Decoratorcount.cs" t="Include" />
-                    <e p="Decoratorcountlimit.cs" t="Include" />
-                    <e p="Decoratorfailureuntil.cs" t="Include" />
-                    <e p="Decoratorframes.cs" t="Include" />
-                    <e p="DecoratorIterator.cs" t="Include" />
-                    <e p="Decoratorlog.cs" t="Include" />
-                    <e p="Decoratorloop.cs" t="Include" />
-                    <e p="Decoratorloopuntil.cs" t="Include" />
-                    <e p="Decoratornot.cs" t="Include" />
-                    <e p="Decoratorrepeat.cs" t="Include" />
-                    <e p="Decoratorsuccessuntil.cs" t="Include" />
-                    <e p="Decoratortime.cs" t="Include" />
-                    <e p="Decoratorweight.cs" t="Include" />
-                  </e>
-                </e>
-              </e>
-              <e p="FSM" t="Include">
-                <e p="AlwaysTransition.cs" t="Include" />
-                <e p="FSM.cs" t="Include" />
-                <e p="StartCondition.cs" t="Include" />
-                <e p="State.cs" t="Include" />
-                <e p="TransitionCondition.cs" t="Include" />
-                <e p="WaitframesState.cs" t="Include" />
-                <e p="WaitState.cs" t="Include" />
-                <e p="WaitTransition.cs" t="Include" />
-              </e>
-              <e p="HTN" t="Include">
-                <e p="AgentState.cs" t="Include" />
-                <e p="Method.cs" t="Include" />
-                <e p="Planner.cs" t="Include" />
-                <e p="PlannerTask.cs" t="Include" />
-                <e p="Task.cs" t="Include" />
-              </e>
-              <e p="license.txt" t="Include" />
-              <e p="Readme.txt" t="Include" />
-              <e p="version.txt" t="Include" />
-              <e p="Workspace.cs" t="Include" />
-            </e>
-          </e>
           <e p="CharacterController2D" t="Include">
             <e p="Actor.cs" t="Include" />
             <e p="CharacterController2D.cs" t="Include" />

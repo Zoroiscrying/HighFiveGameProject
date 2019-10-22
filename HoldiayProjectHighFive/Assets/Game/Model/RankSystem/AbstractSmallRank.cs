@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using ReadyGamerOne.Data;
+using UnityEngine;
 using UnityEngine.Assertions;
-using Debug = behaviac.Debug;
 
 namespace Game.Model.RankSystem
 {

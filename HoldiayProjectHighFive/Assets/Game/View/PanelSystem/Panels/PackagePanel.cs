@@ -114,7 +114,7 @@ namespace Game.View.PanelSystem
             {
                 if(!slots[i].IsEmpty&&slots[i].itemUi.itemId==itemId)
                 {
-                    if (slots[i].ItemCount == ItemInfoAsset.Instance.GetItem(slots[i].itemUi.itemId).Capacity)
+                    if (slots[i].ItemCount == ItemMgr.Instance.GetItem(slots[i].itemUi.itemId).Capacity)
                         continue;
                     else
                         return slots[i];
@@ -147,7 +147,7 @@ namespace Game.View.PanelSystem
         private bool TryStoreManyItem(int itemId, int count)
         {
             int num = count;
-            int capacity = ItemInfoAsset.Instance.GetItem(itemId).Capacity;
+            int capacity = ItemMgr.Instance.GetItem(itemId).Capacity;
             Assert.IsTrue(count > capacity);
             while (num>capacity)
             {
@@ -204,7 +204,7 @@ namespace Game.View.PanelSystem
         /// <param CharacterName="count"></param>
         public void AddItem(int itemId,int count)
         {
-            int capcity = ItemInfoAsset.Instance.GetItem(itemId).Capacity;
+            int capcity = ItemMgr.Instance.GetItem(itemId).Capacity;
             //查看是否存有同种物品
             var slot = FindSlotNotFill(itemId);
             if(slot)
@@ -278,7 +278,7 @@ namespace Game.View.PanelSystem
             var slot = FindSlot(itemId);
             if(null==slot)
             {
-                Debug.Log("没有那么多的" + ItemInfoAsset.Instance.GetItem(itemId).Name);
+                Debug.Log("没有那么多的" + ItemMgr.Instance.GetItem(itemId).Name);
             }
             else
             {
@@ -298,7 +298,7 @@ namespace Game.View.PanelSystem
 
         private void OnTouchItem(Slot slot)
         {
-            var item = ItemInfoAsset.Instance.GetItem(slot.itemUi.itemId);
+            var item = ItemMgr.Instance.GetItem(slot.itemUi.itemId);
             this.itemInfoUi.Set(slot.itemUi.itemId, slot.transform.position);
             this.itemInfoUi.Show();
             this.moreInfoTextObj.GetComponent<Text>().text = item.ToString();

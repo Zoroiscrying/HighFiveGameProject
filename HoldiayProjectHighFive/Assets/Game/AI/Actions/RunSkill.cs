@@ -18,7 +18,7 @@ namespace Game.AI
 		{
 			self = AbstractPerson.GetInstance(gameObject);
 			SkillInfoAsset.Vector3Cache = GlobalVar.G_Player.Pos;
-			Debug.Log($"写入用户数据：【{SkillInfoAsset.skillName.StringValue}】" + SkillInfoAsset.Vector3Cache);
+//			Debug.Log($"写入用户数据：【{SkillInfoAsset.skillName.StringValue}】" + SkillInfoAsset.Vector3Cache);
 			self.RunSkill(SkillInfoAsset);
 			timer = 0;
 			gameObject.GetComponent<Actor>()._velocity = Vector3.zero;

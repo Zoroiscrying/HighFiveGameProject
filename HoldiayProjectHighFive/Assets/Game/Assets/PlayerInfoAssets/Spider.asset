@@ -11,14 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c8390517364400e96a05283b27a69b3, type: 3}
   m_Name: Spider
   m_EditorClassIdentifier: 
+  attackEffects: {fileID: 0}
+  hitEffects: {fileID: 11400000, guid: f2654bf498bda964d9cde8b9f9526e08, type: 2}
+  acceptEffects: {fileID: 11400000, guid: a28d928779d609e448685f7790f23f44, type: 2}
   characterName: Spider
   prefabPath:
-    selectedIndex: 10
+    selectedIndex: 11
     Path: GameObjects/Spider
   baseAttack: 10
-  attack_adder: 0
-  attack_scaler: 1
-  maxHp: 1000
+  hitBackSpeed: {x: 0, y: 0}
+  maxHp: 500
   attackSpeed: 1
   IgnoreHitback: 0
   DefaultConstTime: 0

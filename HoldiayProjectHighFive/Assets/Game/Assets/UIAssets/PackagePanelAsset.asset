@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransFrom: {fileID: 0}
   prefabPath:
-    selectedIndex: 22
+    selectedIndex: 28
     Path: UI/Panels/Panel_Package
   backPackGridPath:
     go: {fileID: 1021273808274190, guid: b3c7b16180dbab94cb5150c5642df0b5, type: 2}

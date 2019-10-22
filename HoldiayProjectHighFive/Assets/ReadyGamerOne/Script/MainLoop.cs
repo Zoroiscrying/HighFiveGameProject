@@ -301,8 +301,7 @@ namespace ReadyGamerOne.Script
         {
             for (int i = 0; i < times; i++)
             {
-                for (var timer = 0f; timer < dur; timer += Time.deltaTime)
-                    yield return 0;
+                yield return new WaitForSeconds(dur);
                 method(args);
             }
 

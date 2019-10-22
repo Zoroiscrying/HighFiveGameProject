@@ -72,7 +72,6 @@ namespace Game.Control.PersonSystem
         public KeyCode bagKey = KeyCode.Tab;
         
         public List<Player.ItemData> itemList = new List<Player.ItemData>();
-        public Vector2 hitBackSpeed =Vector2.one;    //击退
         public int Maxdrag;   //最大药引上限
         public int money = 0;
         public float airXMove;

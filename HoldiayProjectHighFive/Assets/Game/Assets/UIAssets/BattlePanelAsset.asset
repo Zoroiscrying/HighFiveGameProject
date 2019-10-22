@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransFrom: {fileID: 0}
   prefabPath:
-    selectedIndex: 20
+    selectedIndex: 26
     Path: UI/Panels/Panel_Battle
   bloodBarPath:
     go: {fileID: 1707961230498280, guid: 222f86be922ea1447a4d6abdcbb8ad77, type: 2}

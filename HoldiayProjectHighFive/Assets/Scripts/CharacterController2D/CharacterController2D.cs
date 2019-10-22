@@ -9,7 +9,8 @@ namespace zoroiscrying
     /// <summary>
     /// 继承自RaycastController，负责碰撞的检测和实际的移动功能。
     /// 注意，这个Controller所负责的是Trigger的进入、持续和退出事件，所以要设置Collider为Trigger
-    /// 本脚本还负责
+    /// 本脚本不负责直接控制角色
+    /// 如果要控制角色，需要调用.Input方法
     /// </summary>
     public class CharacterController2D : RayCastController2D
     {
@@ -231,6 +232,7 @@ namespace zoroiscrying
             ignoreOneWayPlatformsThisFrame = false;
         }
 
+        
         public RaycastHit2D GetFirstCastHitBelow()
         {
             RaycastHit2D hit;
@@ -285,7 +287,7 @@ namespace zoroiscrying
                 }
             }
             
-            //todo::
+            //todo::改进？？
 
             for (var i = 2; i < 8; i++)
             {
@@ -311,7 +313,7 @@ namespace zoroiscrying
                 }
             }
             
-            //todo::
+            //todo::改进？？
 
             return 0;
         }
@@ -352,7 +354,7 @@ namespace zoroiscrying
 
                 if (_raycastHit)
                 {
-                    Debug.Log("Hit Wall");
+//                    Debug.Log("Hit Wall");
                     //todo::如果横向检测出了问题，就来这里看看
                     if (_raycastHit.distance <= 0)
                     {

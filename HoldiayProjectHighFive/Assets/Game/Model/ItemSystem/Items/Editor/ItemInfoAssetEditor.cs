@@ -5,23 +5,23 @@ using UnityEngine;
 
 namespace Game.Model.ItemSystem.Editor
 {
-    [CustomEditor(typeof(ItemInfoAsset))]
+    [CustomEditor(typeof(ItemMgr))]
     public class ItemInfoAssetEditor:UnityEditor.Editor
     {
-        [MenuItem("ReadyGamerOne/ShowItemInfos")]
+        [MenuItem("ReadyGamerOne/Global/ShowItemInfos")]
         public static void CreateAsset()
         {
-            Selection.activeInstanceID = ItemInfoAsset.Instance.GetInstanceID();
+            Selection.activeInstanceID = ItemMgr.Instance.GetInstanceID();
         }
 
         private Vector2 detailPos;
         private ReorderableList itemList;
         private SerializedProperty itemListProp;
-        private ItemInfoAsset asset;
+        private ItemMgr asset;
         private int selectedIndex=-1;
         private void OnEnable()
         {
-            this.asset = target as ItemInfoAsset;
+            this.asset = target as ItemMgr;
             this.itemListProp = serializedObject.FindProperty("items");
             this.itemList = new ReorderableList(serializedObject, itemListProp,
                 true, true, true, true);
@@ -67,8 +67,8 @@ namespace Game.Model.ItemSystem.Editor
                 var rect = GUILayoutUtility.GetRect(100, EditorGUI.GetPropertyHeight(prop),
                     GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
                 asset.items[selectedIndex].OnDrawMoveInfo(rect,prop);
-                GUILayout.EndScrollView();
             }
+            GUILayout.EndScrollView();
 
             serializedObject.ApplyModifiedProperties();
         }

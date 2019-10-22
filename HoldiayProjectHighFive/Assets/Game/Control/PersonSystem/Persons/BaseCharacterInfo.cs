@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Game.Control.EffectSystem;
 using Game.Control.SkillSystem;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Script;
@@ -40,7 +41,7 @@ namespace Game.Control.PersonSystem
 #endif        
 
         #endregion
-//
+
 //        protected virtual void OnDrawGizmos()
 //        {
 //            GizmosUtil.DrawSign(position,color,signalSize);
@@ -56,11 +57,16 @@ namespace Game.Control.PersonSystem
 //        public Color color=Color.cyan;
 //        public float signalSize = 1.0f;
 //        public Vector3 position;
+
+        public EffectInfoAsset attackEffects;
+        public EffectInfoAsset hitEffects;
+        public EffectInfoAsset acceptEffects;
+                
+
         public string characterName;
         public ResourcesPathChooser prefabPath;
         public int baseAttack;
-        public float attack_adder = 0f;
-        public float attack_scaler = 1f;
+        public Vector2 hitBackSpeed =Vector2.zero;    //击退
         public int maxHp;
         public float attackSpeed=1.0f;
         public bool IgnoreHitback;    //忽略击退

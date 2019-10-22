@@ -99,9 +99,9 @@ namespace Game.Control.SkillSystem.Editor
                 var rect = GUILayoutUtility.GetRect(100, EditorGUI.GetPropertyHeight(prop),
                     GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
                 _skillInfoAsset.triggers[selectIndex].OnDrawMoreInfo(prop, rect);
-                GUILayout.EndScrollView();
             }
             
+            GUILayout.EndScrollView();
             serializedObject.ApplyModifiedProperties();
         }
 

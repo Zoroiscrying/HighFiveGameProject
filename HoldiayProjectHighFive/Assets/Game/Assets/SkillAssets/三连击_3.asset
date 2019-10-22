@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 2
-  startTime: 1.9813224
+  startTime: 2.095666
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 0}
@@ -48,6 +48,7 @@ MonoBehaviour:
     targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
     hitBack: {x: 0, y: 0}
@@ -56,7 +57,7 @@ MonoBehaviour:
     startTime: 0.2
     lastTime: 0.5
     type: 1
-    enable: 0
+    enable: 1
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -83,6 +84,7 @@ MonoBehaviour:
     targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
     hitBack: {x: 0, y: 0}
@@ -118,6 +120,7 @@ MonoBehaviour:
     targetType: 0
     timeToTarget: 0
     offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: GameObject
     hitBack: {x: 0, y: 0}

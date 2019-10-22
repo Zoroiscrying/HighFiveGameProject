@@ -1,12 +1,15 @@
 using System;
-using Game.Control.BattleEffectSystem;
+using Game.Control.EffectSystem;
 using Game.Control.PersonSystem;
 using Game.Math;
 using Game.Model.SpriteObjSystem;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
+#if UNITY_EDITOR
+    
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Game.Control.SkillSystem
@@ -20,7 +23,8 @@ namespace Game.Control.SkillSystem
         Dash,
         RayDamage,
         Parabloa,
-        Trigger2D
+        Trigger2D,
+        Effect
     }
     
     [Serializable]
@@ -86,6 +90,12 @@ namespace Game.Control.SkillSystem
 
         #endregion
 
+        #region Effect
+
+        [SerializeField] private EffectInfoAsset attackEffects;
+
+        #endregion
+
         #region Trigger2D
 
         public enum DamageType
@@ -116,15 +126,12 @@ namespace Game.Control.SkillSystem
                 case DamageType.PlayerToEnemy:
                     if (hitPerson is Player)
                         break;
-                    hitPerson.TakeBattleEffect(self.AttackEffect);
-                    hitPerson.TakeBattleEffect(new HitbackEffect(hitBack));
+                    hitPerson.PlayAcceptEffects(self);
                     break;
                 case DamageType.EnemyToPlayer:
                     if (hitPerson is Player)
                     {
-                        
-                        hitPerson.TakeBattleEffect(self.AttackEffect);
-                        hitPerson.TakeBattleEffect(new HitbackEffect(hitBack));
+                        hitPerson.PlayAcceptEffects(self);
                     }
 
                     break;
@@ -143,6 +150,14 @@ namespace Game.Control.SkillSystem
 //                Debug.Log("运行Trigger单元：" + this.type);
                 switch (type)
                 {
+                    #region Effect
+
+                    case TriggerType.Effect:
+                        self.PlayAttackEffects(attackEffects);
+                        break;                        
+
+                    #endregion
+
                     #region Animation
 
                     case TriggerType.Animation:
@@ -172,7 +187,8 @@ namespace Game.Control.SkillSystem
                     #region Audio
                     
                     case TriggerType.Audio:
-                        AudioMgr.Instance.PlayEffect(this.audioName.Name, self.obj.transform.position);
+                        if (self.obj != null)
+                            AudioMgr.Instance.PlayEffect(this.audioName.Name, self.obj.transform.position);
                         break;
 
                     #endregion
@@ -240,7 +256,7 @@ namespace Game.Control.SkillSystem
                                 continue;
                             }
                             self.OnCauseDamage(GameMath.Damage(self.BaseAttack));
-                            hitPerson.TakeBattleEffect(self.AttackEffect);
+                            hitPerson.PlayAcceptEffects(self);
                         }
                         break;                        
 
@@ -261,61 +277,13 @@ namespace Game.Control.SkillSystem
                                        sword.gameObject.AddComponent<TriggerInputer>());
 
                         trigger.onTriggerEnterEvent += this.OnTriggerEnter;
-                        Debug.Log("添加监听");
+//                        Debug.Log("添加监听");
                         MainLoop.Instance.ExecuteLater(() =>
                         {
-                            Debug.Log("移除监听");
+//                            Debug.Log("移除监听");
                             trigger.onTriggerEnterEvent -= this.OnTriggerEnter;
                         }, lastTime);
-                        
-                        
-//                        var speed = (endDegree - beginDegree) / lastTime;
-//                        Debug.Log("旋转速度");
-//
-//                        //创建一个空物体
-//                        var empty = new GameObject();
-//                        empty.transform.SetParent(self.obj.transform);
-//                        empty.transform.localScale = this.size;
-//                        empty.transform.localPosition = this.personOffect;
-//                        empty.gameObject.layer = LayerMask.NameToLayer("Trigger");
-                        
-//                        //设置触发器的缩放，偏移，事件
-//                        var trigger = empty.AddComponent<BoxCollider2D>();
-//                        trigger.isTrigger = true;
-//                        trigger.offset = new Vector2(0.5f, -1);
-//                        var triggerEvent = empty.AddComponent<TriggerInputer>();
-//                        triggerEvent.onTriggerEnterEvent += (col) =>
-//                        {
-//                            var hitPerson = AbstractPerson.GetInstance(col.gameObject);
-//                            if (hitPerson == null)
-//                            {
-//                                Debug.Log("打击人物为空");
-//                                return;
-//                            }
-//                            hitPerson.TakeBattleEffect(self.AttackEffect);
-//                        };
-//                        
-//                        //设置初始角度
-//                        var r = empty.transform.rotation;
-//                        empty.transform.rotation = Quaternion.Euler(r.x, r.y, this.beginDegree);
-//
-//                        //旋转这个物体
-//                        MainLoop.Instance.UpdateForSeconds(( ap)=>
-//                        {
-//                            if (empty == null)
-//                            {
-//                                Debug.Log("伤害检测物体为空");
-//                                return;
-//                            }
-//                            empty.transform.Rotate(new Vector3(0, 0, speed*Time.deltaTime));
-//                        }, lastTime, self, (ap)=>
-//                        {
-//                            if (empty)
-//                                UnityEngine.Object.Destroy(empty);
-//                        });
-//                        
-//                        
-                        
+                   
                         break;                        
 
                     #endregion
@@ -333,7 +301,8 @@ namespace Game.Control.SkillSystem
                     break;
             }
         }
-       
+
+#if UNITY_EDITOR
 
         public void OnDrawMoreInfo(SerializedProperty property, Rect position)
         {
@@ -358,6 +327,15 @@ namespace Game.Control.SkillSystem
 
             switch (type)
             {
+                #region Effect
+
+                case TriggerType.Effect:
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                        property.FindPropertyRelative("attackEffects"));
+                    break;
+
+                #endregion
+                
                 #region Trigger2D
 
                     
@@ -463,7 +441,9 @@ namespace Game.Control.SkillSystem
                 #endregion
             }
 
-        }
+        }        
+#endif
+
 
     }
 }

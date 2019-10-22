@@ -37,7 +37,7 @@ namespace Game.AI
 			
 			if (Vector2.Distance(player.Pos, transform.position) < attackDistance.Value)
 			{
-				Debug.Log("距离在攻击范围内，转到Attack");
+//				Debug.Log("距离在攻击范围内，转到Attack");
 				return TaskStatus.Success;
 			}
 
