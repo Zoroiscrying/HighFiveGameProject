@@ -23,7 +23,7 @@ namespace Game.View.AssetUIs
 #if UNITY_EDITOR
 
         [MenuItem("ReadyGamerOne/Create/UI/BattlePanelAsset")]
-        public static void CreateAsset()
+        public new static void CreateAsset()
         {
             string[] strs = Selection.assetGUIDs;
 
@@ -61,8 +61,6 @@ namespace Game.View.AssetUIs
         public TransformPathChooser bloodTextPath;
         private Text expText;
         public TransformPathChooser expTextPath;
-        private Text rankText;
-        public TransformPathChooser rankTextPath;
         private Text smallRank;
         public TransformPathChooser smallRankPath;
         private Text largeRank;
@@ -98,10 +96,7 @@ namespace Game.View.AssetUIs
 
             this.moneyText = m_TransFrom.Find(moneyTextPath.Path).GetComponent<TextMeshProUGUI>();
             Assert.IsTrue(moneyText);
-
-
-            this.rankText = m_TransFrom.Find(rankTextPath.Path)
-                .GetComponent<Text>();
+            
 
             this.largeRank = m_TransFrom.Find(largeRankPath.Path).GetComponent<Text>();
             Assert.IsTrue(this.largeRank);

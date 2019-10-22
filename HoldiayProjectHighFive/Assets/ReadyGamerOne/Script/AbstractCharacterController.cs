@@ -308,14 +308,7 @@ namespace ReadyGamerOne.Script
             }
         }
 
-
-        protected virtual void FixedUpdate()
-        {
-            if (moveType == MoveType.Physical)
-            {
-                var input = GetInput();
-            }
-        }        
+        
 
         #endregion
 

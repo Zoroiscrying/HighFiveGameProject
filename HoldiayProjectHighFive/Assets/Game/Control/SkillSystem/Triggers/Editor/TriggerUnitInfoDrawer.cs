@@ -14,7 +14,6 @@ namespace Game.Control.SkillSystem.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var index = 0;
             #region LeftPart
             
             var sp = property.FindPropertyRelative("type");            
@@ -43,10 +42,10 @@ namespace Game.Control.SkillSystem.Editor
             
             var text = "";
             bool error = false;
-            switch (EnumUtil.GetEnumValue<TriggerType>(sp.enumValueIndex))
-            {
-                
-            }
+//            switch (EnumUtil.GetEnumValue<TriggerType>(sp.enumValueIndex))
+//            {
+//                
+//            }
             
             if(error)
                 EditorGUI.HelpBox(position,text,MessageType.Error);

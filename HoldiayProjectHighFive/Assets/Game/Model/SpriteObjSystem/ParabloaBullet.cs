@@ -9,7 +9,6 @@ namespace Game.Model.SpriteObjSystem
 
         #region 可配置参数
         public float ShotSpeed = 10; // 抛出的速度
-        private float time; // A-B的时间
         public Vector3 pointA; // 起点
         public Vector3 pointB; // 终点
         public float g = -10; // 重力加速度
@@ -22,7 +21,6 @@ namespace Game.Model.SpriteObjSystem
             : base(damage,ap,path, startPos,maxLife, parent)
         {
             this.ShotSpeed = shotSpeed;
-            this.time = time;  
             this.pointA = startPos;
             this.pointB = targetPos;
             time = Vector3.Distance(pointA, pointB) / ShotSpeed;

@@ -15,12 +15,10 @@ namespace Game.AI
 //            Debug.Log("救命，有人打我");
             attacked = true;
         }
-        private AbstractPerson self;
         public override void OnAwake()
         {
             base.OnStart();
             attacked = false;
-            self = AbstractPerson.GetInstance(gameObject);
 //            Debug.Log("监听挨打");
             CEventCenter.AddListener<int>(Message.M_BloodChange(gameObject), OnAttacked);
         }

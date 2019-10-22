@@ -51,7 +51,6 @@ namespace ReadyGamerOne.Data
         {
             XmlSerializer xs = new XmlSerializer(typeof(T));
             MemoryStream memoryStream = new MemoryStream((pXmlizedString));
-            XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
             return xs.Deserialize(memoryStream) as T;
         }
 

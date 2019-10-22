@@ -16,8 +16,7 @@ namespace Game.AI
 //
 //        public SharedTransform mark1;
 //        public SharedTransform mark2;
-        
-        private bool go1 = true;
+
         private Actor actor;
         private Vector3 dir1;
         private Vector3 dir2;

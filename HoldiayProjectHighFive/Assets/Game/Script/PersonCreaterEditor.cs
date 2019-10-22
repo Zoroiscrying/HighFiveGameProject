@@ -11,11 +11,9 @@ namespace Game.Scripts
         private SerializedProperty signalSizeProp;
         private SerializedProperty listProp;
         private ReorderableList list;
-        private PersonCreater pc;
 
         private void OnEnable()
         {
-            pc=target as PersonCreater;
             listProp = serializedObject.FindProperty("CharacterInfos");
             createOnStartProp = serializedObject.FindProperty("createOnStart");
             signalSizeProp = serializedObject.FindProperty("signalSize");

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Game.Const;
-using Game.Control.PersonSystem;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Global;
@@ -16,11 +14,7 @@ namespace Game.Scripts
     {
     
         #region Private_Fields
-    
-            private List<AbstractPerson> list = new List<AbstractPerson>();
-            private GameObject miniMap;
-    
-    
+
         #endregion
     
         #region Public_Fields

@@ -17,11 +17,11 @@ MonoBehaviour:
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 11400000}
-    id: 3
+    id: 4
     startTime: 0
     lastTime: 0.6
     type: 7
-    enable: 0
+    enable: 1
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
     startTime: 0
     lastTime: 0.5
     type: 1
-    enable: 1
+    enable: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0

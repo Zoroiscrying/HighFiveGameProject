@@ -27,7 +27,7 @@ namespace Game.View.AssetUIs
 #if UNITY_EDITOR
 
 	    [MenuItem("ReadyGamerOne/Create/UI/ShopPanelAsset")]
-	    public static void CreateAsset()
+	    public new static void CreateAsset()
 	    {
 		    string[] strs = Selection.assetGUIDs;
 
@@ -79,7 +79,6 @@ namespace Game.View.AssetUIs
 
         public TransformPathChooser playerMoneyPath;
         //private GameObject itemDataObj;
-        private string itemDataPath;
 
         #endregion
 
@@ -117,7 +116,6 @@ namespace Game.View.AssetUIs
 			this.buyBtn = m_TransFrom.Find(buyBtnPath.Path);
 			this.itemInfo = m_TransFrom.Find(itemInfoPath.Path)
 				.GetComponent<TextMeshProUGUI>();
-			this.itemDataPath = UiName.Image_ItemData;
 			this.playerMoney = m_TransFrom.Find(playerMoneyPath.Path).GetComponent<TextMeshProUGUI>();
 			//this.itemDataObj = MemoryMgr.GetSourceFromResources<GameObject>(UiName.Image_ItemData);
 			Assert.IsTrue(itemList&&buyBtn&&itemInfo&&this.playerMoney);

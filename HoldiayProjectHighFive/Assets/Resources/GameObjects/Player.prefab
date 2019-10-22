@@ -401,6 +401,22 @@ MonoBehaviour:
   _wallJumpNormal: {x: 0, y: 0}
   _canJump: 1
   _inControl: 1
+  idleAniName:
+    rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+    selectedIndex: 7
+    stringValue: Player@Idle
+  jumpAniName:
+    rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+    selectedIndex: 8
+    stringValue: Player@Jump
+  runAniName:
+    rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+    selectedIndex: 11
+    stringValue: Player@Run
+  dashAniName:
+    rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+    selectedIndex: 6
+    stringValue: Player@Hit
 --- !u!114 &114927749699945684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -417,7 +433,6 @@ MonoBehaviour:
   totalVerticalRays: 8
   _verticalDistanceBetweenRays: 0
   _horizontalDistanceBetweenRays: 0
-  _isGoingUpSlope: 0
   _isGoingUpWall: 0
   playerInput: {x: 0, y: 0}
   ignoreOneWayPlatformsThisFrame: 0
@@ -432,39 +447,6 @@ MonoBehaviour:
     m_Bits: 2048
   slopeLimit: 30
   jumpingThreshold: 0.07
-  slopeSpeedMultiplier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -90
-      value: 1.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 90
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &114959370398928666
 MonoBehaviour:
   m_ObjectHideFlags: 1

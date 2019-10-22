@@ -140,6 +140,19 @@ MonoBehaviour:
     - JbScene
     selectedIndex: 1
   Enable_C_ChangeScene: 1
+--- !u!114 &169760421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 169760418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc22a3c80da513e4ab7336eb5b966b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animation: {fileID: 0}
+  keyToPlay: 112
 --- !u!1 &226478473
 GameObject:
   m_ObjectHideFlags: 0
@@ -13620,6 +13633,7 @@ Prefab:
     m_RemovedComponents:
     - {fileID: 81048878633304644, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
     - {fileID: 114319922902583608, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
+    - {fileID: 114874780426739786, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1194382410

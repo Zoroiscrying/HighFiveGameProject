@@ -45,7 +45,7 @@ namespace Game.Control.PersonSystem
 
  #if UNITY_EDITOR
          [MenuItem("ReadyGamerOne/Create/RPG/PlayerAsset")]
-         public static void CreateInstance()
+         public static void CreateAsset()
          {
              string[] strs = Selection.assetGUIDs;
          

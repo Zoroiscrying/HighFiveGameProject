@@ -153,6 +153,7 @@ namespace Game.Control.SkillSystem
                     #region Effect
 
                     case TriggerType.Effect:
+                        Debug.Log("技能系统——TriggerType.Effect");
                         self.PlayAttackEffects(attackEffects);
                         break;                        
 
@@ -227,9 +228,6 @@ namespace Game.Control.SkillSystem
                     #region RayDamage
 
                     case TriggerType.RayDamage:
-                        
-                        //临时数据
-                        var mainc = self.obj.GetComponent<MainCharacter>();
                         //面对方向
                         var position = self.obj.transform.position;
                         var p = new Vector2(position.x, position.y);

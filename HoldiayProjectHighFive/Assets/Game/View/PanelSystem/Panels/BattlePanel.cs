@@ -21,7 +21,6 @@ namespace Game.View.PanelSystem
         private Slider ExpBar;
         private Text bloodText;
         private Text expText;
-        private Text rankText;
         private Text smallRank;
         private Text largeRank;
         private TextMeshProUGUI moneyText;
@@ -53,10 +52,7 @@ namespace Game.View.PanelSystem
 
             this.moneyText = m_TransFrom.Find("Image_MoneyBk/Tmp_Money").GetComponent<TextMeshProUGUI>();
             Assert.IsTrue(moneyText);
-
-
-            this.rankText = m_TransFrom.Find("Image_PlayerStateBar/Image_AvatorBG/Image_RankBG/Text_RankNum")
-                .GetComponent<Text>();
+            
 
             this.largeRank = m_TransFrom.Find("Image_PlayerStateBar/Text_LargeRank").GetComponent<Text>();
             Assert.IsTrue(this.largeRank);

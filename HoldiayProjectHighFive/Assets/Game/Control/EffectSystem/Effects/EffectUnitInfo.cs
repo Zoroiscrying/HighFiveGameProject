@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using BehaviorDesigner.Runtime;
 using Game.Const;
 using Game.Control.PersonSystem;
 using Game.Math;
-using Game.View;
 using ReadyGamerOne.Common;
-using ReadyGamerOne.Const;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
@@ -46,9 +43,16 @@ namespace Game.Control.EffectSystem
         {
             if (!poorDic.ContainsKey(prefab))
             {
+                if(prefab==null)
+                    throw new Exception("prefab is null ??????");
                 var p = new ObjPoor<GameObject>(
                     onInit: () => Object.Instantiate(prefab),
-                    onGet: obj => obj.SetActive(true),
+                    onGet: obj =>
+                    {
+                        if(obj==null)
+                             throw new Exception("wtf");
+                        obj.SetActive(true);
+                    },
                     onRelease: obj => obj.SetActive(false));
                 poorDic.Add(prefab, p);
             }
@@ -56,18 +60,16 @@ namespace Game.Control.EffectSystem
             return poorDic[prefab];
         }
 
-        private static GameObject GetPrefabGo(GameObject prefab, GameObject target, Vector3? localPosition = null)
+        private static GameObject GetPrefabGo(GameObject prefab, GameObject target, Vector3? localPosition = null,Vector3? localScale=null)
         {
             var pool = GetPoor(prefab);
             var partical = pool.GetObj();
-            while (partical == null)
-            {
-                partical = pool.GetObj();
-            }
 
             if (partical.transform.parent != target.transform)
                 partical.transform.SetParent(target.transform);
             partical.transform.localPosition = localPosition ?? Vector3.zero;
+//            Debug.Log(partical.transform.localPosition);
+            partical.transform.localScale = localScale ?? Vector3.one;
             return partical;
         }
 
@@ -96,8 +98,10 @@ namespace Game.Control.EffectSystem
         #region Animation
 
         [SerializeField] private bool causeDamage = false;
+        [SerializeField] private AnimationClip clip;
         [SerializeField] private GameObject animationPrefab;
         [SerializeField] private Vector3 localPosition;
+        [SerializeField] private Vector3 localScale=Vector3.one;
 
         #endregion
 
@@ -114,10 +118,10 @@ namespace Game.Control.EffectSystem
 
                     var pos = new Vector3(dp.Dir * localPosition.x, localPosition.y, localPosition.z);
 
-                    var aniObj = GetPrefabGo(animationPrefab, dp.obj, pos);
-                    Debug.Log("Animation");
+                    var aniObj = GetPrefabGo(animationPrefab, dp.obj, pos,localScale);
+//                    Debug.Log("Animator");
                     
-                    var ani = aniObj.GetComponent<Animation>();
+                    var ani = aniObj.GetComponent<Animator>();
 
                     if (causeDamage)
                     {
@@ -128,23 +132,23 @@ namespace Game.Control.EffectSystem
                         trigger.onTriggerEnterEvent += (col) =>
                         {
                             rp = AbstractPerson.GetInstance(col.gameObject);
-                            if (rp == null)
+                            if (rp != null)
                                 dp.CauseDamageTo(rp);
                         };
 
                     }
                     
                     
-                    ani.Play();
-                    MainLoop.Instance.ExecuteUntilTrue(() => !ani.isPlaying,
+                    ani.Play(clip.name);
+                    MainLoop.Instance.ExecuteLater(
                         () =>
                         {
                             if (aniObj)
                             {
-                                Debug.Log("回收Animation");
-                                GetPoor(particalPrefab).ReleaseObj(aniObj);
+//                                Debug.Log("回收Animation");
+                                GetPoor(animationPrefab).ReleaseObj(aniObj);
                             }
-                        });
+                        },clip.length);
 
                     break;
 
@@ -156,15 +160,15 @@ namespace Game.Control.EffectSystem
                 case EffectType.Partical:
                     var psObj = GetPrefabGo(particalPrefab, rp.obj);
                     var ps = psObj.GetComponent<ParticleSystem>();
-                    Debug.Log("Partical");
+//                    Debug.Log("Partical");
                     ps.Stop();
                     ps.Play();
-                    MainLoop.Instance.ExecuteUntilTrue(() => ps.isStopped,
+                    MainLoop.Instance.ExecuteUntilTrue(() =>ps==null || ps.isStopped,
                         () =>
                         {
                             if (psObj)
                             {
-                                Debug.Log("回收Partical");
+//                                Debug.Log("回收Partical");
                                 GetPoor(particalPrefab).ReleaseObj(psObj);
                             }
                         });
@@ -233,7 +237,9 @@ namespace Game.Control.EffectSystem
                     if (!rp.IgnoreHitback)
                     {
                         var trans = rp.obj.transform;
-                        trans.position += new Vector3(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y, 0);
+//                        trans.position += new Vector3(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y, 0);
+                        var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y);
+                        rp.Actor.ChangeVelBasedOnHitDir(hitBack,15);
                     }
 
                     break;
@@ -265,9 +271,13 @@ namespace Game.Control.EffectSystem
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                         property.FindPropertyRelative("causeDamage"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                        property.FindPropertyRelative("clip"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                         property.FindPropertyRelative("animationPrefab"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                         property.FindPropertyRelative("localPosition"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                        property.FindPropertyRelative("localScale"));
                     break;
                 
                 case EffectType.Audio:
