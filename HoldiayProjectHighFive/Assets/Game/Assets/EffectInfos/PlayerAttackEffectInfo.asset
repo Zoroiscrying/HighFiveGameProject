@@ -28,3 +28,4 @@ MonoBehaviour:
       selectedIndex: 0
     shiningDuring: 0
     shiningColor: {r: 0, g: 0, b: 0, a: 0}
+    particalPrefab: {fileID: 0}

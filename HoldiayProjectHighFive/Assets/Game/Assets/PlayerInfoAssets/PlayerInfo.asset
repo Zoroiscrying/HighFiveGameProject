@@ -20,7 +20,7 @@ MonoBehaviour:
     Path: GameObjects/Player
   baseAttack: 20
   hitBackSpeed: {x: 0.3, y: 0}
-  maxHp: 100
+  maxHp: 1000
   attackSpeed: 3
   IgnoreHitback: 0
   DefaultConstTime: 1
