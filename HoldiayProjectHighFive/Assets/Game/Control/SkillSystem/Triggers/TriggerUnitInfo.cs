@@ -187,7 +187,8 @@ namespace Game.Control.SkillSystem
                     #region Audio
                     
                     case TriggerType.Audio:
-                        AudioMgr.Instance.PlayEffect(this.audioName.Name, self.obj.transform.position);
+                        if (self.obj != null)
+                            AudioMgr.Instance.PlayEffect(this.audioName.Name, self.obj.transform.position);
                         break;
 
                     #endregion

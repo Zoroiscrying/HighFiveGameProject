@@ -848,6 +848,7 @@
             <e p="GlobalVar.cs" t="Include" />
           </e>
           <e p="Math" t="Include">
+            <e p="GameLogic.cs" t="Include" />
             <e p="GameMath.cs" t="Include" />
           </e>
           <e p="Model" t="Include">
