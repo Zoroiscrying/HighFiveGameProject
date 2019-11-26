@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 4962459522032826}
   - component: {fileID: 114350011585954202}
   - component: {fileID: 114256058801020940}
+  - component: {fileID: 114180238089912002}
   m_Layer: 10
   m_Name: CM vcam3
   m_TagString: Untagged
@@ -63,7 +64,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1750329595795394
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -114,7 +115,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4683683879801102
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750329595795394}
@@ -303,6 +304,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114180238089912002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1614192338850748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ChannelMask: -1
+  m_Gain: 1
+  m_Use2DDistance: 1
 --- !u!114 &114256058801020940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -335,6 +350,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 4
+  m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 4747724731763328}
   m_Lens:
@@ -343,10 +359,20 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    LensShift: {x: 0, y: 0}
+  m_Transitions:
+    m_BlendHint: 0
+    m_InheritPosition: 0
+    m_OnCameraLive:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4683683879801102}
 --- !u!114 &114579592113694610
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750329595795394}
@@ -401,6 +427,22 @@ MonoBehaviour:
   _wallJumpNormal: {x: 0, y: 0}
   _canJump: 1
   _inControl: 1
+  idleAniName:
+    rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+    selectedIndex: 7
+    stringValue: Player@Idle
+  jumpAniName:
+    rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+    selectedIndex: 8
+    stringValue: Player@Jump
+  runAniName:
+    rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+    selectedIndex: 11
+    stringValue: Player@Run
+  dashAniName:
+    rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
+    selectedIndex: 6
+    stringValue: Player@Hit
 --- !u!114 &114927749699945684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -417,7 +459,6 @@ MonoBehaviour:
   totalVerticalRays: 8
   _verticalDistanceBetweenRays: 0
   _horizontalDistanceBetweenRays: 0
-  _isGoingUpSlope: 0
   _isGoingUpWall: 0
   playerInput: {x: 0, y: 0}
   ignoreOneWayPlatformsThisFrame: 0
@@ -432,42 +473,9 @@ MonoBehaviour:
     m_Bits: 2048
   slopeLimit: 30
   jumpingThreshold: 0.07
-  slopeSpeedMultiplier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -90
-      value: 1.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 90
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &114959370398928666
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750329595795394}
@@ -478,6 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 10
+  m_LookaheadIgnoreY: 0
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -492,6 +501,7 @@ MonoBehaviour:
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
   m_BiasY: 0
+  m_CenterOnActivate: 1
   m_GroupFramingMode: 2
   m_AdjustmentMode: 2
   m_GroupFramingSize: 0.8

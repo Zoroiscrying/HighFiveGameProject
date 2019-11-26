@@ -202,6 +202,8 @@ namespace Game.Control.PersonSystem
         {
             get
             {
+                if (obj == null)
+                    return 0;
                 var v = this.obj.transform.localScale.x > 0 ? 1 : -1;
                 return v;
             }

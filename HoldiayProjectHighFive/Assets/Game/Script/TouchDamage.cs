@@ -18,7 +18,6 @@ namespace Game.Scripts
             if (player is Player)
             {
 //                Debug.Log("Player碰我");
-                var dir = GlobalVar.G_Player.Pos.x > transform.position.x ? 1 : -1;
                 player.PlayAcceptEffects(AbstractPerson.GetInstance(gameObject));
             }
         }

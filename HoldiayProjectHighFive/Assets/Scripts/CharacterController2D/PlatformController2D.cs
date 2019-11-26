@@ -33,8 +33,9 @@ public class PlatformController2D : RayCastController2D
 		
 	}
 
-	private void Update()
+	public override void Update()
 	{
+		base.Update();
 		PrimeRaycastOrigins();
 		
 		Vector3 velocity = CalculatePlatformMovement();

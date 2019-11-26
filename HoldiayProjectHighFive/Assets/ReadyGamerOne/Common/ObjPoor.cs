@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ReadyGamerOne.Common
 {
@@ -47,8 +48,14 @@ namespace ReadyGamerOne.Common
             else
             {
                 obj = objCache.Dequeue();
+                if (null == obj)
+                    return GetObj();
             }
             
+            Debug.Log("?????___1");
+            if(obj==null)
+                throw new Exception("??????");
+            Debug.Log("?????____2");
             this.onGet?.Invoke(obj);
             return obj;
         }

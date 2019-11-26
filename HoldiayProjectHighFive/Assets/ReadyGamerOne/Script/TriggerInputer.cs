@@ -10,6 +10,13 @@ namespace ReadyGamerOne.Script
         public event Action<Collider2D> onTriggerStayEvent; //如果TriggerStay会调用这个event
         public event Action<Collider2D> onTriggerExitEvent; //同理
 
+        public void Clear()
+        {
+            onTriggerEnterEvent = null;
+            onTriggerStayEvent = null;
+            onTriggerExitEvent = null;
+        }
+
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (onTriggerEnterEvent != null)

@@ -32,7 +32,6 @@ namespace ReadyGamerOne.Data
 
         public static byte[] SerializeObject<T>(T pObject) where T : class
         {
-            var obj = default(T);
             MemoryStream memoryStream = new MemoryStream();
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(memoryStream, pObject);

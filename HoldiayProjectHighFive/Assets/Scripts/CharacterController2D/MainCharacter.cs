@@ -3,6 +3,7 @@ using UnityEngine;
 using Game.StateMachine;
 using Game.Control.PersonSystem;
 using ReadyGamerOne.Common;
+using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Script;
 
 public class MainCharacter : Actor 
@@ -63,7 +64,14 @@ public class MainCharacter : Actor
 	public int _canJump = _jumpPoint;
 
 	public bool _inControl = true;
-	
+
+
+	[Header("动画名字")] 
+	public AnimationNameChooser idleAniName;
+//	public AnimationNameChooser walkAniName;
+	public AnimationNameChooser jumpAniName;
+	public AnimationNameChooser runAniName;
+	public AnimationNameChooser dashAniName;
 	
 	#endregion
 
@@ -402,7 +410,7 @@ public class MainCharacter : Actor
 		private void Idle_Enter()
 		{
 			_positionYLastFrame = this.transform.position.y;
-			_animator.Play(Animator.StringToHash("Player@IdleState"));
+			_animator.Play(Animator.StringToHash(idleAniName.StringValue));
 		}
 	
 		private void Idle_Update()
@@ -485,7 +493,7 @@ public class MainCharacter : Actor
 		{
 //			Debug.Log("In air");
 			//如果在空中，则自动认为主角已经失去一次跳跃机会
-			_animator.Play(Animator.StringToHash("Player@Jump"));
+			_animator.Play(Animator.StringToHash(jumpAniName.StringValue));
 			//_canJump = _jumpPoint - 1;
 		}
 			
@@ -522,7 +530,7 @@ public class MainCharacter : Actor
 	
 		private void Run_Enter()
 		{
-			_animator.Play(Animator.StringToHash("Player@Run"));
+			_animator.Play(Animator.StringToHash(runAniName.StringValue));
 		}
 	
 		private void Run_Update()
@@ -547,7 +555,7 @@ public class MainCharacter : Actor
 		private void Dashing_Enter()
 		{	
 			//Debug.Log("Dash Begin");
-			_animator.Play(Animator.StringToHash("Dash"));
+			_animator.Play(Animator.StringToHash(dashAniName.StringValue));
 			_dashTimer = _dashTime;
 			_inControl = false;
 			_dashVelocity = _dashDistance / _dashTime;
@@ -590,7 +598,7 @@ public class MainCharacter : Actor
 		private void DoubleJump_Enter()
 		{
 			//Debug.Log("DoubleJump Enter");
-			_animator.Play(Animator.StringToHash("Player@Jump"));
+			_animator.Play(Animator.StringToHash(jumpAniName.StringValue));
 		}
 	
 		private void DoubleJump_Update()
@@ -681,7 +689,7 @@ public class MainCharacter : Actor
 		private void WallJump_Enter()
 		{
 			Debug.Log("Wall Jump");
-			_animator.Play(Animator.StringToHash("Jump"));
+			_animator.Play(Animator.StringToHash(jumpAniName.StringValue));
 			_wallJumpTimer = _wallJumpTime;
 			_inControl = false;
 		}

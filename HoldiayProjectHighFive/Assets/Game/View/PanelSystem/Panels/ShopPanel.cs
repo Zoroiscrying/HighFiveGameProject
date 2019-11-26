@@ -45,9 +45,7 @@ namespace Game.View.PanelSystem
 		private TextMeshProUGUI itemInfo;
 
 		private TextMeshProUGUI playerMoney;
-		//private GameObject itemDataObj;
-		private string itemDataPath;
-		
+
 		#region Override
 		
 		protected override void Load()
@@ -57,7 +55,6 @@ namespace Game.View.PanelSystem
 			this.buyBtn = m_TransFrom.Find("Image_ShopBk/Image_ItemInfo/Tmp_BtnBuy");
 			this.itemInfo = m_TransFrom.Find("Image_ShopBk/Image_ItemInfo/Tmp_ItemInfo")
 				.GetComponent<TextMeshProUGUI>();
-			this.itemDataPath = UiName.Image_ItemData;
 			this.playerMoney = m_TransFrom.Find("Image_MoneyBk/Tmp_Num").GetComponent<TextMeshProUGUI>();
 			//this.itemDataObj = MemoryMgr.GetSourceFromResources<GameObject>(UiName.Image_ItemData);
 			Assert.IsTrue(itemList&&buyBtn&&itemInfo&&this.playerMoney);

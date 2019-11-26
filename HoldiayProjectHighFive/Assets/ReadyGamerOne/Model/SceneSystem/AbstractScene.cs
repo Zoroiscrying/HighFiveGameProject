@@ -35,8 +35,6 @@ namespace ReadyGamerOne.Model.SceneSystem
                     sceneDis.Add(name, newScene);
                     return newScene;
                 }
-
-                throw new Exception("没有注册这个场景，并且名字无效————" + name);
             }
                 
             Debug.Log("SceneName: " + name);

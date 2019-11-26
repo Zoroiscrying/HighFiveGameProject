@@ -15,7 +15,7 @@ namespace ReadyGamerOne.View.AssetUi
 #if UNITY_EDITOR
 
         [MenuItem("ReadyGamerOne/Create/UI/PanelUiAsset")]
-        public static void CreateAsset()
+        public new static void CreateAsset()
         {
             string[] strs = Selection.assetGUIDs;
 
