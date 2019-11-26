@@ -29,3 +29,20 @@ MonoBehaviour:
     shiningDuring: 0
     shiningColor: {r: 0, g: 0, b: 0, a: 0}
     particalPrefab: {fileID: 0}
+  - type: 2
+    EffectInfoAsset: {fileID: 11400000}
+    audioName:
+      values:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - beiji
+      - Bg
+      - Fuck
+      selectedIndex: 0
+    shiningDuring: 0
+    shiningColor: {r: 0, g: 0, b: 0, a: 0}
+    particalPrefab: {fileID: 1004029688493252, guid: e7559a2bda99ca34e96c4b999df0f64a,
+      type: 2}
