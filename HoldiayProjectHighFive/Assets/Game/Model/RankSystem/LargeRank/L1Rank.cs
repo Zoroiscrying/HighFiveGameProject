@@ -8,7 +8,6 @@ namespace Game.Model.RankSystem
 {
 	public class L1Rank : AbstractLargeRank
 	{
-		private float attackMut;
 
 		public override bool BreakLimit()
 		{
@@ -20,7 +19,6 @@ namespace Game.Model.RankSystem
 			var strs = args.Split(TxtManager.SplitChar);
 //			Debug.Log("L1Rank.strs.Length: "+strs.Length);
 			Assert.IsTrue(strs.Length>=BasePropertyCount+1);
-			this.attackMut = Convert.ToSingle(strs[BasePropertyCount].Trim());
 			base.LoadTxt(string.Join(TxtManager.SplitChar.ToString(),strs,0,BasePropertyCount));
 		}
 

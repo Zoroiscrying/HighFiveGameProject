@@ -9,7 +9,6 @@ namespace Game.Model.ItemSystem.Editor
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var index = 0;
             #region LeftPart
             
             var sp = property.FindPropertyRelative("type");            
@@ -34,10 +33,10 @@ namespace Game.Model.ItemSystem.Editor
             
             var text = "";
             bool error = false;
-            switch (EnumUtil.GetEnumValue<ItemType>(sp.enumValueIndex))
-            {
-                
-            }
+//            switch (EnumUtil.GetEnumValue<ItemType>(sp.enumValueIndex))
+//            {
+//                
+//            }
             
             if(error)
                 EditorGUI.HelpBox(position,text,MessageType.Error);

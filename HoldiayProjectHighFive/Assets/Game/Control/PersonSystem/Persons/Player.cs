@@ -288,7 +288,7 @@ namespace Game.Control.PersonSystem
         public override void OnCauseDamage(int damage)
         {
             base.OnCauseDamage(damage);
-            Debug.Log("damage");
+//            Debug.Log("damage");
         }
         public override void DestoryThis()
         {

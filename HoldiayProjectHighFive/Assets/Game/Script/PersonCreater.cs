@@ -19,7 +19,6 @@ namespace Game.Scripts
         public float signalSize = 1.0f;
         public List<CharacterCreateInfo> CharacterInfos=new List<CharacterCreateInfo>();
 
-        private AbstractPerson sss;
         private void Awake()
         {
             if (createOnStart)
@@ -32,7 +31,7 @@ namespace Game.Scripts
                     }
                     else
                     {
-                        sss= new TestPerson(VARIABLE.characterInfo,VARIABLE.position);
+                        new TestPerson(VARIABLE.characterInfo,VARIABLE.position);
                     }                    
                 }
             }

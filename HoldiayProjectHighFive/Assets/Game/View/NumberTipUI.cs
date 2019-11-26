@@ -18,8 +18,6 @@ namespace Game.View
         private Text Text;
         private Transform target;
         private float yOffect;
-        private float targetX;
-        private float dur;
         private int dir;
 
         public NumberTipUI(int number, float yOffect, int size, Color color, Transform targetPerson, int dir, float dur = 0.5f, float time = 1f)
@@ -29,7 +27,6 @@ namespace Game.View
             this.target = targetPerson;
 
             this.yOffect = yOffect;
-            this.dur = dur;
             this.dir = dir;
 
             if (go == null)
@@ -41,7 +38,7 @@ namespace Game.View
             Text.text = number.ToString();
 
             m_TransFrom.position = Camera.main.WorldToScreenPoint(target.position + new Vector3(0, this.yOffect * 1.5f, 0));
-            this.targetX = m_TransFrom.position.x + this.dir * 6f;
+
 
             var rig = this.go.AddComponent<Rigidbody2D>();
             rig.gravityScale = 100;

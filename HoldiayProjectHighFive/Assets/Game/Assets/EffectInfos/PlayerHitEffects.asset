@@ -20,6 +20,7 @@ MonoBehaviour:
       selectedIndex: 0
     shiningDuring: 0.2
     shiningColor: {r: 1, g: 0, b: 0, a: 1}
+    particalPrefab: {fileID: 0}
   - type: 6
     EffectInfoAsset: {fileID: 11400000}
     audioName:
@@ -27,6 +28,7 @@ MonoBehaviour:
       selectedIndex: 0
     shiningDuring: 0.2
     shiningColor: {r: 1, g: 0, b: 0, a: 1}
+    particalPrefab: {fileID: 0}
   - type: 4
     EffectInfoAsset: {fileID: 11400000}
     audioName:
@@ -34,3 +36,13 @@ MonoBehaviour:
       selectedIndex: 0
     shiningDuring: 0.2
     shiningColor: {r: 1, g: 0, b: 0, a: 1}
+    particalPrefab: {fileID: 0}
+  - type: 2
+    EffectInfoAsset: {fileID: 11400000}
+    audioName:
+      values: []
+      selectedIndex: 0
+    shiningDuring: 0.2
+    shiningColor: {r: 1, g: 0, b: 0, a: 1}
+    particalPrefab: {fileID: 1004029688493252, guid: e7559a2bda99ca34e96c4b999df0f64a,
+      type: 2}

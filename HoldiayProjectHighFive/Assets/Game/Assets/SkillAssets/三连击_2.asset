@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 1
-  startTime: 1.0820569
+  startTime: 1.3666645
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
     startTime: 0.2
     lastTime: 0.5
     type: 1
-    enable: 1
+    enable: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0

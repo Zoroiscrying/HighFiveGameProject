@@ -29,3 +29,6 @@ MonoBehaviour:
     shiningDuring: 0
     shiningColor: {r: 0, g: 0, b: 0, a: 0}
     particalPrefab: {fileID: 0}
+    causeDamage: 0
+    animationPrefab: {fileID: 0}
+    localPosition: {x: 0, y: 0, z: 0}

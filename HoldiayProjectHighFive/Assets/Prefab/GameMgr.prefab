@@ -62,10 +62,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764960261439974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3704373433b4e8a4a958d9a794677628, type: 3}
+  m_Script: {fileID: 11500000, guid: 65a10d9a1c3baa74bb6e98827e6c41c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114521056915218196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,9 +90,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509f43a33eb7e37479f74825796c0099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterInfos:
-  - {fileID: 11400000, guid: 517af2a1126c75847b722f7e1b76acb1, type: 2}
   createOnStart: 1
+  signalSize: 1
+  CharacterInfos:
+  - characterInfo: {fileID: 11400000, guid: 517af2a1126c75847b722f7e1b76acb1, type: 2}
+    position: {x: 0, y: 0, z: 0}
+    color: {r: 0, g: 1, b: 0.089500666, a: 1}
 --- !u!114 &114700895997043044
 MonoBehaviour:
   m_ObjectHideFlags: 1
