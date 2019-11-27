@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using ReadyGamerOne.Utility;
 using UnityEditor;
 using UnityEngine;
+using Object = System.Object;
 
 namespace ReadyGamerOne.Editor
 {
@@ -121,8 +123,37 @@ namespace ReadyGamerOne.Editor
             {
                 arrProp.InsertArrayElementAtIndex(i);
                 arrProp.GetArrayElementAtIndex(i).stringValue = strs[i];
-
             }
+        }
+
+
+        public static void ReflectObjectProperties(Rect rect, SerializedProperty property, object obj)
+        {
+            var type = obj.GetType();
+            var fields = type.GetFields();
+            object value = null;
+            var index = 0;
+            
+            foreach (var field in fields)
+            {
+                var fieldType = field.FieldType;
+                if (fieldType == typeof(int))
+                {
+                    value = EditorGUI.IntField(rect.GetRectAtIndex(index++), field.Name, (int) field.GetValue(obj));
+                }else if (fieldType == typeof(float))
+                {
+                    value = EditorGUI.FloatField(rect.GetRectAtIndex(index++), field.Name, (float) field.GetValue(obj));
+                }else if (fieldType == typeof(string))
+                {
+                    value = EditorGUI.TextField(rect.GetRectAtIndex(index++), field.Name, (string) field.GetValue(obj));
+                }else if (fieldType.IsInstanceOfType(typeof(Object)))
+                {
+//                    UnityEditor.Editor.
+//                    EditorGUI.ObjectField(rect.GetRectAtIndex(index++),field.Name,(Object)obj,fieldType);
+                }
+            }   
+            
+
         }
 
     }
