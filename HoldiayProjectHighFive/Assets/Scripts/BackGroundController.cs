@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using Game.Control.PersonSystem;
-using ReadyGamerOne.Global;
+﻿using HighFive.Const;
+using HighFive.Control.PersonSystem.Persons;
+using UnityEngine;
+using HighFive.Global;
 
 namespace Game.Scripts{
 	
@@ -20,7 +21,7 @@ namespace Game.Scripts{
 		void Update ()
 		{
 			var nowPos = this.player.Pos;
-			if (nowPos == Game.Const.Signal.defaultPos)
+			if (nowPos == Signal.defaultPos)
 				return;
 			var temp = (nowPos - this.beforePos);
 			temp = new Vector3(temp.x * this.X_Speed, temp.y * this.Y_Speed, 0);

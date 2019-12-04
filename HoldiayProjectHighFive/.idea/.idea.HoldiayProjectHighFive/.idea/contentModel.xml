@@ -646,7 +646,10 @@
             <e p="Readme.txt" t="Include" />
           </e>
         </e>
-        <e p="Game" t="Include">
+        <e p="Hero and Opponents" t="Include">
+          <e p="license.txt" t="Include" />
+        </e>
+        <e p="HighFive" t="Include">
           <e p="AI" t="Include">
             <e p="Actions" t="Include">
               <e p="IdleState.cs" t="Include" />
@@ -662,19 +665,22 @@
             </e>
           </e>
           <e p="Const" t="Include">
-            <e p="AudioName.cs" t="Include" />
-            <e p="BulletName.cs" t="Include" />
+            <e p="Auto" t="Include">
+              <e p="AudioName.cs" t="Include" />
+              <e p="AudioPath.cs" t="Include" />
+              <e p="PanelName.cs" t="Include" />
+              <e p="PanelPath.cs" t="Include" />
+              <e p="PrefabName.cs" t="Include" />
+              <e p="PrefabPath.cs" t="Include" />
+              <e p="UiName.cs" t="Include" />
+              <e p="UiPath.cs" t="Include" />
+            </e>
             <e p="DefaultData.cs" t="Include" />
-            <e p="DirPath.cs" t="Include" />
             <e p="FilePath.cs" t="Include" />
-            <e p="GameObjectName.cs" t="Include" />
             <e p="Message.cs" t="Include" />
-            <e p="PanelName.cs" t="Include" />
             <e p="SceneName.cs" t="Include" />
             <e p="Signal.cs" t="Include" />
-            <e p="SpiritName.cs" t="Include" />
             <e p="TxtSign.cs" t="Include" />
-            <e p="UiName.cs" t="Include" />
           </e>
           <e p="Control" t="Include">
             <e p="EffectSystem" t="Include">
@@ -766,7 +772,11 @@
             <e p="GameAnimator.cs" t="Include" />
           </e>
           <e p="Script" t="Include">
+            <e p="Auto" t="Include">
+              <e p="HighFiveMgr.cs" t="Include" />
+            </e>
             <e p="CharacterCreateInfoDrawer.cs" t="Include" />
+            <e p="HighFiveMgr.cs" t="Include" />
             <e p="PersonCreater.cs" t="Include" />
             <e p="PersonCreaterEditor.cs" t="Include" />
             <e p="TouchDamage.cs" t="Include" />
@@ -786,30 +796,20 @@
                 <e p="ShopPanelAsset.cs" t="Include" />
               </e>
             </e>
+            <e p="Auto" t="Include">
+              <e p="Battle.cs" t="Include" />
+              <e p="Loading.cs" t="Include" />
+              <e p="Package.cs" t="Include" />
+              <e p="Shop.cs" t="Include" />
+            </e>
+            <e p="Battle.cs" t="Include" />
             <e p="BloodBarUI.cs" t="Include" />
             <e p="ItemInfoUI.cs" t="Include" />
+            <e p="Loading.cs" t="Include" />
             <e p="NumberTipUI.cs" t="Include" />
-            <e p="PanelSystem" t="Include">
-              <e p="Panels" t="Include">
-                <e p="BattlePanel.cs" t="Include" />
-                <e p="LoadingPanel.cs" t="Include" />
-                <e p="PackagePanel.cs" t="Include" />
-                <e p="ShopPanel.cs" t="Include" />
-              </e>
-              <e p="ScreenEffect" t="Include">
-                <e p="AbstractScreenEffect.cs" t="Include" />
-                <e p="FadeInOut.cs" t="Include" />
-              </e>
-              <e p="TransionType.cs" t="Include" />
-              <e p="Transition" t="Include">
-                <e p="AbstractTransition.cs" t="Include" />
-                <e p="ScollTransition.cs" t="Include" />
-              </e>
-            </e>
+            <e p="Package.cs" t="Include" />
+            <e p="Shop.cs" t="Include" />
           </e>
-        </e>
-        <e p="Hero and Opponents" t="Include">
-          <e p="license.txt" t="Include" />
         </e>
         <e p="ReadyGamerOne" t="Include">
           <e p="Common" t="Include">
@@ -821,16 +821,14 @@
             <e p="Trigger2DMessage.cs" t="Include" />
           </e>
           <e p="Const" t="Include">
-            <e p="ConstStringAsset.cs" t="Include" />
-            <e p="ConstStringChooser.cs" t="Include" />
-            <e p="Editor" t="Include">
-              <e p="ConstStringAssetEditor.cs" t="Include" />
-              <e p="ConstStringChooserDrawer.cs" t="Include" />
-            </e>
             <e p="TxtSign.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
             <e p="BitManager.cs" t="Include" />
+            <e p="CsvDecodingTools.cs" t="Include" />
+            <e p="CsvMgr.cs" t="Include" />
+            <e p="CsvReaderByString.cs" t="Include" />
+            <e p="CsvStreamReader.cs" t="Include" />
             <e p="DataFactory.cs" t="Include" />
             <e p="IDataFactory.cs" t="Include" />
             <e p="IStringInit.cs" t="Include" />
@@ -842,6 +840,7 @@
           </e>
           <e p="Editor" t="Include">
             <e p="EditorUtility.cs" t="Include" />
+            <e p="ToolWindow.cs" t="Include" />
           </e>
           <e p="EditorExtension" t="Include">
             <e p="AnimationNameChooser.cs" t="Include" />
@@ -860,8 +859,12 @@
             <e p="StringChooser.cs" t="Include" />
             <e p="TransformPathChooser.cs" t="Include" />
           </e>
+          <e p="Functions" t="Include">
+            <e p="SuperBloodBar.cs" t="Include" />
+          </e>
           <e p="Global" t="Include">
             <e p="GlobalVar.cs" t="Include" />
+            <e p="IEditorTools.cs" t="Include" />
           </e>
           <e p="Memory" t="Include">
             <e p="MemoryMgr.cs" t="Include" />
@@ -885,36 +888,52 @@
             <e p="TypeWriterEffect.cs" t="Include" />
             <e p="UIInputer.cs" t="Include" />
           </e>
+          <e p="ScriptableObjects" t="Include">
+            <e p="ConstStringChooser.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="ConstStringChooserDrawer.cs" t="Include" />
+              <e p="PrefUtilEditor.cs" t="Include" />
+            </e>
+            <e p="PrefItem.cs" t="Include" />
+            <e p="PrefUtil.cs" t="Include" />
+          </e>
           <e p="Utility" t="Include">
+            <e p="AlphaExtension.cs" t="Include" />
+            <e p="BoxCollider2DExtension.cs" t="Include" />
+            <e p="CameraExtension.cs" t="Include" />
+            <e p="ConvertUtil.cs" t="Include" />
             <e p="EnumUtil.cs" t="Include" />
             <e p="FileUtil.cs" t="Include" />
             <e p="GizmosUtil.cs" t="Include" />
+            <e p="IDrawGizmo.cs" t="Include" />
             <e p="InputUtil.cs" t="Include" />
+            <e p="QuickStart.cs" t="Include" />
             <e p="RectExtension.cs" t="Include" />
+            <e p="StringExtension.cs" t="Include" />
             <e p="WindowsUtil.cs" t="Include" />
           </e>
           <e p="View" t="Include">
-            <e p="AbstractUI.cs" t="Include" />
             <e p="AssetUi" t="Include">
               <e p="AbstractUiAsset.cs" t="Include" />
               <e p="PanelAssetMgr.cs" t="Include" />
               <e p="PanelUiAsset.cs" t="Include" />
             </e>
             <e p="PanelSystem" t="Include">
+              <e p="AbstractPanel.cs" t="Include" />
+              <e p="AbstractUI.cs" t="Include" />
+              <e p="Effects" t="Include">
+                <e p="ScreenEffect" t="Include">
+                  <e p="AbstractScreenEffect.cs" t="Include" />
+                  <e p="FadeInOut.cs" t="Include" />
+                </e>
+                <e p="Transition" t="Include">
+                  <e p="AbstractTransition.cs" t="Include" />
+                  <e p="ScollTransition.cs" t="Include" />
+                  <e p="TransionType.cs" t="Include" />
+                </e>
+              </e>
               <e p="IStackPanel.cs" t="Include" />
               <e p="PanelMgr.cs" t="Include" />
-              <e p="Panels" t="Include">
-                <e p="AbstractPanel.cs" t="Include" />
-              </e>
-              <e p="ScreenEffect" t="Include">
-                <e p="AbstractScreenEffect.cs" t="Include" />
-                <e p="FadeInOut.cs" t="Include" />
-              </e>
-              <e p="TransionType.cs" t="Include" />
-              <e p="Transition" t="Include">
-                <e p="AbstractTransition.cs" t="Include" />
-                <e p="ScollTransition.cs" t="Include" />
-              </e>
             </e>
           </e>
         </e>
@@ -928,7 +947,6 @@
             <e p="RayCastController2D.cs" t="Include" />
           </e>
           <e p="Ctrl.cs" t="Include" />
-          <e p="GameMgr.cs" t="Include" />
           <e p="SceneTrigger.cs" t="Include" />
           <e p="SceneUtil.cs" t="Include" />
           <e p="ShopNpc.cs" t="Include" />

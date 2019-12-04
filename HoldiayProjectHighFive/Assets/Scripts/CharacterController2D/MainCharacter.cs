@@ -1,7 +1,7 @@
-﻿using Game.Const;
+﻿using HighFive.Const;
+using HighFive.Control.PersonSystem.Persons;
+using HighFive.StateMachine;
 using UnityEngine;
-using Game.StateMachine;
-using Game.Control.PersonSystem;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Script;

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using Game.Const;
+using HighFive.Const;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
-using ReadyGamerOne.Global;
+using HighFive.Global;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Model.SceneSystem;
+using ReadyGamerOne.View;
 using ReadyGamerOne.View.AssetUi;
-using ReadyGamerOne.View.PanelSystem;
 
 namespace Game.Scripts
 {
@@ -43,7 +43,7 @@ namespace Game.Scripts
         {
 
             if (enableMiniMap)
-                MemoryMgr.InstantiateGameObject(DirPath.LittleUiDir + UiName.Image_MiniMap,
+                MemoryMgr.InstantiateGameObject(UiPath.Image_MiniMapBackGround,
                     GlobalVar.G_Canvas.transform);
 
 
@@ -66,7 +66,7 @@ namespace Game.Scripts
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
-                    PanelMgr.PushPanelWithMessage(PanelName.loadingPanel, Message.M_LoadSceneAsync, sceneName.StringValue);
+                    PanelMgr.PushPanelWithMessage(PanelName.Loading, Message.M_LoadSceneAsync, sceneName.StringValue);
                 }
             }
         }

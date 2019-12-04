@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5b50c5aa144dc0a393b07b3701ed51, type: 3}
+  m_Name: PackagePanelAsset
+  m_EditorClassIdentifier: 
+  m_TransFrom: {fileID: 0}
+  prefabPath:
+    selectedIndex: 31
+    Path: UI/Panels/Panel_Package
+  backPackGridPath:
+    go: {fileID: 1021273808274190, guid: b3c7b16180dbab94cb5150c5642df0b5, type: 2}
+    selectedIndex: 1
+    path: Image_BackGround/Image_BackPackGrid
+  moreInfoSpritePath:
+    go: {fileID: 1021273808274190, guid: b3c7b16180dbab94cb5150c5642df0b5, type: 2}
+    selectedIndex: 31
+    path: Image_BackGround/Image_MoreInfo/Image_BigPicture
+  moreInfoTextPath:
+    go: {fileID: 1021273808274190, guid: b3c7b16180dbab94cb5150c5642df0b5, type: 2}
+    selectedIndex: 33
+    path: Image_BackGround/Image_MoreInfo/Image_TextBackGround/Text

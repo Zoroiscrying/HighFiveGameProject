@@ -1,8 +1,6 @@
-﻿using Game.Const;
-using Game.View.AssetUIs;
+﻿using HighFive.View.AssetUIs.Panels;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.View.AssetUi;
-using ReadyGamerOne.View.PanelSystem;
 using UnityEngine;
 
 namespace Game.Scripts

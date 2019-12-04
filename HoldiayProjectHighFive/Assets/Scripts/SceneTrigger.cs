@@ -1,5 +1,5 @@
-﻿using Game.Const;
-using Game.Control.PersonSystem;
+﻿using HighFive.Const;
+using HighFive.Control.PersonSystem.Persons;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Model.SceneSystem;
 using UnityEngine;
@@ -26,7 +26,7 @@ namespace Game.Scripts
         {
             if (null == AbstractPerson.GetInstance<Player>(col.gameObject))
                 return;
-            Game.Const.DefaultData.PlayerPos = this.newPosition;
+            DefaultData.PlayerPos = this.newPosition;
     
             SceneMgr.LoadScene(newSceneName.StringValue, newUIName.StringValue);
         }
