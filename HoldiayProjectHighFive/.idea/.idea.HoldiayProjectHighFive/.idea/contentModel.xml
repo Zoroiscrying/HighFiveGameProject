@@ -5,7 +5,9 @@
     <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\resharper-host\Local\Transient\ReSharperHost\v191\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
     <e p="F:\Projects\Unity\HiFive\HoldiayProjectHighFive" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Behavior Designer" t="Include">
@@ -811,129 +813,131 @@
             <e p="Shop.cs" t="Include" />
           </e>
         </e>
-        <e p="ReadyGamerOne" t="Include">
-          <e p="Common" t="Include">
-            <e p="CEventCenter.cs" t="Include" />
-            <e p="MonoSingleton.cs" t="Include" />
-            <e p="ObjPoor.cs" t="Include" />
-            <e p="SafeSingleton.cs" t="Include" />
-            <e p="Singleton.cs" t="Include" />
-            <e p="Trigger2DMessage.cs" t="Include" />
-          </e>
-          <e p="Const" t="Include">
-            <e p="TxtSign.cs" t="Include" />
-          </e>
-          <e p="Data" t="Include">
-            <e p="BitManager.cs" t="Include" />
-            <e p="CsvDecodingTools.cs" t="Include" />
-            <e p="CsvMgr.cs" t="Include" />
-            <e p="CsvReaderByString.cs" t="Include" />
-            <e p="CsvStreamReader.cs" t="Include" />
-            <e p="DataFactory.cs" t="Include" />
-            <e p="IDataFactory.cs" t="Include" />
-            <e p="IStringInit.cs" t="Include" />
-            <e p="ITxtSerializable.cs" t="Include" />
-            <e p="JsonManager.cs" t="Include" />
-            <e p="SerializableDictionary.cs" t="Include" />
-            <e p="TxtManager.cs" t="Include" />
-            <e p="XmlManager.cs" t="Include" />
-          </e>
-          <e p="Editor" t="Include">
-            <e p="EditorUtility.cs" t="Include" />
-            <e p="ToolWindow.cs" t="Include" />
-          </e>
-          <e p="EditorExtension" t="Include">
-            <e p="AnimationNameChooser.cs" t="Include" />
-            <e p="ArgChooser.cs" t="Include" />
-            <e p="ArgType.cs" t="Include" />
+        <e p="Plugins" t="Include">
+          <e p="ReadyGamerOne" t="Include">
+            <e p="Common" t="Include">
+              <e p="CEventCenter.cs" t="Include" />
+              <e p="MonoSingleton.cs" t="Include" />
+              <e p="ObjPoor.cs" t="Include" />
+              <e p="SafeSingleton.cs" t="Include" />
+              <e p="Singleton.cs" t="Include" />
+              <e p="Trigger2DMessage.cs" t="Include" />
+            </e>
+            <e p="Const" t="Include">
+              <e p="TxtSign.cs" t="Include" />
+            </e>
+            <e p="Data" t="Include">
+              <e p="BitManager.cs" t="Include" />
+              <e p="CsvDecodingTools.cs" t="Include" />
+              <e p="CsvMgr.cs" t="Include" />
+              <e p="CsvReaderByString.cs" t="Include" />
+              <e p="CsvStreamReader.cs" t="Include" />
+              <e p="DataFactory.cs" t="Include" />
+              <e p="IDataFactory.cs" t="Include" />
+              <e p="IStringInit.cs" t="Include" />
+              <e p="ITxtSerializable.cs" t="Include" />
+              <e p="JsonManager.cs" t="Include" />
+              <e p="SerializableDictionary.cs" t="Include" />
+              <e p="TxtManager.cs" t="Include" />
+              <e p="XmlManager.cs" t="Include" />
+            </e>
             <e p="Editor" t="Include">
-              <e p="AnimationNameChooserDrawer.cs" t="Include" />
-              <e p="ArgChooserDrawer.cs" t="Include" />
-              <e p="MessagetTriggerDrawer.cs" t="Include" />
-              <e p="ResourcesPathChooserDrawer.cs" t="Include" />
-              <e p="StringChooseDrawer.cs" t="Include" />
-              <e p="TransformPathChooserDrawer.cs" t="Include" />
+              <e p="EditorUtility.cs" t="Include" />
+              <e p="ToolWindow.cs" t="Include" />
             </e>
-            <e p="MessageTrigger.cs" t="Include" />
-            <e p="ResourcesPathChooser.cs" t="Include" />
-            <e p="StringChooser.cs" t="Include" />
-            <e p="TransformPathChooser.cs" t="Include" />
-          </e>
-          <e p="Functions" t="Include">
-            <e p="SuperBloodBar.cs" t="Include" />
-          </e>
-          <e p="Global" t="Include">
-            <e p="GlobalVar.cs" t="Include" />
-            <e p="IEditorTools.cs" t="Include" />
-          </e>
-          <e p="Memory" t="Include">
-            <e p="MemoryMgr.cs" t="Include" />
-          </e>
-          <e p="Model" t="Include">
-            <e p="SceneSystem" t="Include">
-              <e p="AbstractScene.cs" t="Include" />
-              <e p="SceneMgr.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Script" t="Include">
-            <e p="AbstractCharacterController.cs" t="Include" />
-            <e p="AbstractGameMgr.cs" t="Include" />
-            <e p="AudioMgr.cs" t="Include" />
-            <e p="CloseEnough.cs" t="Include" />
-            <e p="Editor" t="Include">
-              <e p="AbstractCharacterControllerEditor.cs" t="Include" />
-            </e>
-            <e p="MainLoop.cs" t="Include" />
-            <e p="TriggerInputer.cs" t="Include" />
-            <e p="TypeWriterEffect.cs" t="Include" />
-            <e p="UIInputer.cs" t="Include" />
-          </e>
-          <e p="ScriptableObjects" t="Include">
-            <e p="ConstStringChooser.cs" t="Include" />
-            <e p="Editor" t="Include">
-              <e p="ConstStringChooserDrawer.cs" t="Include" />
-              <e p="PrefUtilEditor.cs" t="Include" />
-            </e>
-            <e p="PrefItem.cs" t="Include" />
-            <e p="PrefUtil.cs" t="Include" />
-          </e>
-          <e p="Utility" t="Include">
-            <e p="AlphaExtension.cs" t="Include" />
-            <e p="BoxCollider2DExtension.cs" t="Include" />
-            <e p="CameraExtension.cs" t="Include" />
-            <e p="ConvertUtil.cs" t="Include" />
-            <e p="EnumUtil.cs" t="Include" />
-            <e p="FileUtil.cs" t="Include" />
-            <e p="GizmosUtil.cs" t="Include" />
-            <e p="IDrawGizmo.cs" t="Include" />
-            <e p="InputUtil.cs" t="Include" />
-            <e p="QuickStart.cs" t="Include" />
-            <e p="RectExtension.cs" t="Include" />
-            <e p="StringExtension.cs" t="Include" />
-            <e p="WindowsUtil.cs" t="Include" />
-          </e>
-          <e p="View" t="Include">
-            <e p="AssetUi" t="Include">
-              <e p="AbstractUiAsset.cs" t="Include" />
-              <e p="PanelAssetMgr.cs" t="Include" />
-              <e p="PanelUiAsset.cs" t="Include" />
-            </e>
-            <e p="PanelSystem" t="Include">
-              <e p="AbstractPanel.cs" t="Include" />
-              <e p="AbstractUI.cs" t="Include" />
-              <e p="Effects" t="Include">
-                <e p="ScreenEffect" t="Include">
-                  <e p="AbstractScreenEffect.cs" t="Include" />
-                  <e p="FadeInOut.cs" t="Include" />
-                </e>
-                <e p="Transition" t="Include">
-                  <e p="AbstractTransition.cs" t="Include" />
-                  <e p="ScollTransition.cs" t="Include" />
-                  <e p="TransionType.cs" t="Include" />
-                </e>
+            <e p="EditorExtension" t="Include">
+              <e p="AnimationNameChooser.cs" t="Include" />
+              <e p="ArgChooser.cs" t="Include" />
+              <e p="ArgType.cs" t="Include" />
+              <e p="Editor" t="Include">
+                <e p="AnimationNameChooserDrawer.cs" t="Include" />
+                <e p="ArgChooserDrawer.cs" t="Include" />
+                <e p="MessagetTriggerDrawer.cs" t="Include" />
+                <e p="ResourcesPathChooserDrawer.cs" t="Include" />
+                <e p="StringChooseDrawer.cs" t="Include" />
+                <e p="TransformPathChooserDrawer.cs" t="Include" />
               </e>
-              <e p="IStackPanel.cs" t="Include" />
-              <e p="PanelMgr.cs" t="Include" />
+              <e p="MessageTrigger.cs" t="Include" />
+              <e p="ResourcesPathChooser.cs" t="Include" />
+              <e p="StringChooser.cs" t="Include" />
+              <e p="TransformPathChooser.cs" t="Include" />
+            </e>
+            <e p="Functions" t="Include">
+              <e p="SuperBloodBar.cs" t="Include" />
+            </e>
+            <e p="Global" t="Include">
+              <e p="GlobalVar.cs" t="Include" />
+              <e p="IEditorTools.cs" t="Include" />
+            </e>
+            <e p="Memory" t="Include">
+              <e p="MemoryMgr.cs" t="Include" />
+            </e>
+            <e p="Model" t="Include">
+              <e p="SceneSystem" t="Include">
+                <e p="AbstractScene.cs" t="Include" />
+                <e p="SceneMgr.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Script" t="Include">
+              <e p="AbstractCharacterController.cs" t="Include" />
+              <e p="AbstractGameMgr.cs" t="Include" />
+              <e p="AudioMgr.cs" t="Include" />
+              <e p="CloseEnough.cs" t="Include" />
+              <e p="Editor" t="Include">
+                <e p="AbstractCharacterControllerEditor.cs" t="Include" />
+              </e>
+              <e p="MainLoop.cs" t="Include" />
+              <e p="TriggerInputer.cs" t="Include" />
+              <e p="TypeWriterEffect.cs" t="Include" />
+              <e p="UIInputer.cs" t="Include" />
+            </e>
+            <e p="ScriptableObjects" t="Include">
+              <e p="ConstStringChooser.cs" t="Include" />
+              <e p="Editor" t="Include">
+                <e p="ConstStringChooserDrawer.cs" t="Include" />
+                <e p="PrefUtilEditor.cs" t="Include" />
+              </e>
+              <e p="PrefItem.cs" t="Include" />
+              <e p="PrefUtil.cs" t="Include" />
+            </e>
+            <e p="Utility" t="Include">
+              <e p="AlphaExtension.cs" t="Include" />
+              <e p="BoxCollider2DExtension.cs" t="Include" />
+              <e p="CameraExtension.cs" t="Include" />
+              <e p="ConvertUtil.cs" t="Include" />
+              <e p="EnumUtil.cs" t="Include" />
+              <e p="FileUtil.cs" t="Include" />
+              <e p="GizmosUtil.cs" t="Include" />
+              <e p="IDrawGizmo.cs" t="Include" />
+              <e p="InputUtil.cs" t="Include" />
+              <e p="QuickStart.cs" t="Include" />
+              <e p="RectExtension.cs" t="Include" />
+              <e p="StringExtension.cs" t="Include" />
+              <e p="WindowsUtil.cs" t="Include" />
+            </e>
+            <e p="View" t="Include">
+              <e p="AssetUi" t="Include">
+                <e p="AbstractUiAsset.cs" t="Include" />
+                <e p="PanelAssetMgr.cs" t="Include" />
+                <e p="PanelUiAsset.cs" t="Include" />
+              </e>
+              <e p="PanelSystem" t="Include">
+                <e p="AbstractPanel.cs" t="Include" />
+                <e p="AbstractUI.cs" t="Include" />
+                <e p="Effects" t="Include">
+                  <e p="ScreenEffect" t="Include">
+                    <e p="AbstractScreenEffect.cs" t="Include" />
+                    <e p="FadeInOut.cs" t="Include" />
+                  </e>
+                  <e p="Transition" t="Include">
+                    <e p="AbstractTransition.cs" t="Include" />
+                    <e p="ScollTransition.cs" t="Include" />
+                    <e p="TransionType.cs" t="Include" />
+                  </e>
+                </e>
+                <e p="IStackPanel.cs" t="Include" />
+                <e p="PanelMgr.cs" t="Include" />
+              </e>
             </e>
           </e>
         </e>
