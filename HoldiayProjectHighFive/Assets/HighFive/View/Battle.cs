@@ -1,24 +1,22 @@
 using System;
+using System.Collections;
 using HighFive.Const;
-using HighFive.Control.PersonSystem.Persons;
-using HighFive.Model.RankSystem;
 using ReadyGamerOne.Common;
 using HighFive.Global;
+using ReadyGamerOne.Script;
 using TMPro;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace HighFive.View
 {
-    public partial class Battle
+    public partial class Battle        
     {
-        private Player player;
         private Slider bloodBar;
         private Slider ExpBar;
         private Text bloodText;
         private Text expText;
-        private Text smallRank;
-        private Text largeRank;
+        private Text rankText;
         private TextMeshProUGUI moneyText;
 
         private int CurrentMoney
@@ -30,10 +28,6 @@ namespace HighFive.View
         partial void OnLoad()
         {
             //do any thing you want
-
-            this.player = GlobalVar.G_Player;
-            Assert.IsTrue(this.player != null);
-
             var trans_bloodBar = view["Image_PlayerStateBar/BloodBar"].transform;
             this.bloodBar = trans_bloodBar.GetComponent<Slider>();
             this.bloodText = trans_bloodBar.Find("Number").GetComponent<Text>();
@@ -44,34 +38,41 @@ namespace HighFive.View
             this.expText = trans_expBar.Find("Number").GetComponent<Text>();
             Assert.IsTrue(this.ExpBar != null);
 
-            this.moneyText = view["Image_MoneyBk/Tmp_Money"].GetComponent<TextMeshProUGUI>();
+            this.moneyText = GetComponentFromRoot<TextMeshProUGUI>("Image_MoneyBk/Tmp_Money");
             Assert.IsTrue(moneyText);
-
-
-            this.largeRank = view["Image_PlayerStateBar/Text_LargeRank"].GetComponent<Text>();
-            Assert.IsTrue(this.largeRank);
-            this.smallRank = view["Image_PlayerStateBar/Text_SmallRank"].GetComponent<Text>();
-            Assert.IsTrue(this.smallRank);
+            this.rankText = GetComponentFromRoot<Text>("Image_PlayerStateBar/Text_Rank");
+            Assert.IsTrue(this.rankText);
         }
-
-
-        public override void Enable()
-        {
-            base.Enable();
-
-            CurrentMoney = GlobalVar.G_Player.Money;
-        }
+        
 
         protected override void OnAddListener()
         {
-            base.OnAddListener();
+            MainLoop.Instance.StartCoroutine(AddPlayerListener());
+        }
 
-            CEventCenter.AddListener<int>(Message.M_BloodChange(player.obj), OnPlayerBloodChanged);
-            CEventCenter.AddListener<int>(Message.M_ChangeSmallLevel, OnExpChange);
-            CEventCenter.AddListener<int>(Message.M_AchieveLargeLevel, OnLargeLevelUp);
-            CEventCenter.AddListener<int>(Message.M_AchieveSmallLevel, OnSmallLevelUp);
-            CEventCenter.AddListener<int, int>(Message.M_RankAwake, OnRankAwake);
+        private IEnumerator AddPlayerListener()
+        {
+            while (GlobalVar.G_Player == null)
+            {
+                yield return null;
+            }
+            base.OnAddListener();
             CEventCenter.AddListener<int>(Message.M_MoneyChange, OnMoneyChange);
+            CEventCenter.AddListener<int>(Message.M_PlayerExpChange,OnExpChange);
+            CEventCenter.AddListener<int>(Message.M_PlayerBloodChange, OnPlayerBloodChanged);
+            CEventCenter.AddListener(Message.M_LevelUp,OnLevelUp);
+
+            rankText.text = GlobalVar.G_Player.Rank;
+            OnPlayerBloodChanged(0);
+            OnExpChange(0);
+            OnMoneyChange(0);
+        }
+
+        private void OnLevelUp()
+        {
+            rankText.text = GlobalVar.G_Player.Rank;
+            OnPlayerBloodChanged(0);
+            OnMoneyChange(0);
         }
 
         protected override void OnRemoveListener()
@@ -79,62 +80,46 @@ namespace HighFive.View
             base.OnRemoveListener();
 
             //  BloodChange
-            CEventCenter.RemoveListener<int>(Message.M_BloodChange(player.obj), OnPlayerBloodChanged);
-            CEventCenter.RemoveListener<int>(Message.M_ChangeSmallLevel, OnExpChange);
-            CEventCenter.RemoveListener<int>(Message.M_AchieveLargeLevel, OnLargeLevelUp);
-            CEventCenter.RemoveListener<int>(Message.M_AchieveSmallLevel, OnSmallLevelUp);
-            CEventCenter.RemoveListener<int, int>(Message.M_RankAwake, OnRankAwake);
+            CEventCenter.RemoveListener<int>(Message.M_PlayerBloodChange, OnPlayerBloodChanged);
+            CEventCenter.RemoveListener<int>(Message.M_PlayerExpChange,OnExpChange);
             CEventCenter.RemoveListener<int>(Message.M_MoneyChange, OnMoneyChange);
+            CEventCenter.RemoveListener(Message.M_LevelUp, OnLevelUp);
         }
 
 
         #region 消息处理
 
-        //////////////////////////    消息处理     /////////////////////////////
 
+        /// <summary>
+        /// 控制金钱
+        /// </summary>
+        /// <param name="change"></param>
         void OnMoneyChange(int change)
         {
-//                    Debug.Log("UI金钱变化："+ change);
-            CurrentMoney += change;
+            CurrentMoney = GlobalVar.G_Player.ChangeMoney(change);
         }
 
+        /// <summary>
+        /// 血量变化
+        /// </summary>
+        /// <param name="change"></param>
         void OnPlayerBloodChanged(int change)
         {
-            this.bloodBar.value = player.Hp / (float) player.MaxHp;
-            this.bloodText.text = player.Hp + "/" + player.MaxHp;
+            this.bloodBar.value = GlobalVar.G_Player.Hp / (float) GlobalVar.G_Player.MaxHp;
+            this.bloodText.text = GlobalVar.G_Player.Hp + "/" + GlobalVar.G_Player.MaxHp;
         }
 
+        /// <summary>
+        /// 药引变化
+        /// </summary>
+        /// <param name="change"></param>
         void OnExpChange(int change)
         {
-            this.ExpBar.value = player.rankMgr.Adder / (float) player.rankMgr.Max;
-            this.expText.text = player.rankMgr.Adder + "/" + player.rankMgr.Max;
+            var value = GlobalVar.G_Player.ChangeDrag(change);
+            this.ExpBar.value = value / (float) GlobalVar.G_Player.MaxExp;
+            this.expText.text = value + "/" + GlobalVar.G_Player.MaxExp;
         }
 
-        void OnSmallLevelUp(int newLevel)
-        {
-            this.smallRank.text = GlobalVar.G_Player.rankMgr.LargeRank.smallRanks[newLevel].name;
-            this.ExpBar.value = 0;
-            //Debug.Log("小升级："+this.smallRank.text);
-        }
-
-        void OnLargeLevelUp(int newLevel)
-        {
-            var rank = RankMgr.LargeRankList[newLevel];
-            this.largeRank.text = rank.name;
-            this.smallRank.text = rank.smallRanks[0].name;
-            //Debug.Log("大升级: "+ this.largeRank.text);
-            this.ExpBar.value = 0;
-        }
-
-        void OnRankAwake(int large, int small)
-        {
-            var rank = RankMgr.LargeRankList[large];
-            //Debug.Log("LargeRank.CharacterName: "+rank.CharacterName);
-            this.largeRank.text = rank.name;
-            this.smallRank.text = rank.smallRanks[small].name;
-            //Debug.Log("初始等级："+this.largeRank.text+"  "+this.smallRank.text);
-            this.ExpBar.value = 0;
-        }
 
         #endregion
     }

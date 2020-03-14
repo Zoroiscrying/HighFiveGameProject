@@ -1,28 +1,23 @@
 ﻿using UnityEngine;
 using HighFive.Const;
-using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using HighFive.Global;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Model.SceneSystem;
 using ReadyGamerOne.View;
-using ReadyGamerOne.View.AssetUi;
 
 namespace Game.Scripts
 {
     public class SceneUtil : MonoBehaviour
     {
-    
-        #region Private_Fields
-
-        #endregion
+        
     
         #region Public_Fields
 
-        [Header("设定当前场景UIPanel")] public PanelUiAsset PanelUiAsset;
+       // [Header("设定当前场景UIPanel")] public PanelUiAsset PanelUiAsset;
         
-        [Header("是否生成敌方假人")]
-        public bool creatTestPeople = false;
+//        [Header("是否生成敌方假人")]
+//        public bool creatTestPeople = false;
 
         [Header("是否开启小地图")]
         public bool enableMiniMap = true;
@@ -43,13 +38,13 @@ namespace Game.Scripts
         {
 
             if (enableMiniMap)
-                MemoryMgr.InstantiateGameObject(UiPath.Image_MiniMapBackGround,
+                ResourceMgr.InstantiateGameObject(UiName.Image_MiniMapBackGround,
                     GlobalVar.G_Canvas.transform);
 
-
-            if (PanelUiAsset != null)
-                PanelAssetMgr.PushPanel(PanelUiAsset);
-            CEventCenter.BroadMessage(Message.M_RankAwake, 0, 0);
+//
+//            if (PanelUiAsset != null)
+//                PanelAssetMgr.PushPanel(PanelUiAsset);
+//            CEventCenter.BroadMessage(Message.M_RankAwake, 0, 0);
 
         }
 

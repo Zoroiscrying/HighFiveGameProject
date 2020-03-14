@@ -28,13 +28,26 @@ MonoBehaviour:
       stringValue: 
     animationSpeed: 0
     audioName:
+      values:
+      - Au1
+      - Au2
+      - Au3
+      - Au4
+      - Au5
+      - beiji
+      - Bg
+      - Fuck
       selectedIndex: 0
-      Path: 
     bulletName:
-      selectedIndex: 13
-      Path: ClassPrefab/Bullet/bullet_1
+      values:
+      - bullet_1
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      - Slot
+      selectedIndex: 0
     damage: 10
-    dir: {x: -1, y: 0, z: 0}
+    dir: {x: 1, y: 0, z: 0}
     bulletSpeed: 40
     maxLife: 2
     rayDir: {x: 0, y: 0}
@@ -64,11 +77,24 @@ MonoBehaviour:
       stringValue: 
     animationSpeed: 0
     audioName:
+      values:
+      - Au1
+      - Au2
+      - Au3
+      - Au4
+      - Au5
+      - beiji
+      - Bg
+      - Fuck
       selectedIndex: 6
-      Path: ClassAudio/beiji
     bulletName:
+      values:
+      - bullet_1
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      - Slot
       selectedIndex: 0
-      Path: 
     damage: 10
     dir: {x: 1, y: 0, z: 0}
     bulletSpeed: 40

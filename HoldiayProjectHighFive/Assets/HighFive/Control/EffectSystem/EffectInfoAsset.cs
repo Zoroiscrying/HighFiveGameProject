@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HighFive.Control.EffectSystem.Effects;
-using HighFive.Control.PersonSystem.Persons;
+using ReadyGamerOne.Rougelike.Person;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Windows;

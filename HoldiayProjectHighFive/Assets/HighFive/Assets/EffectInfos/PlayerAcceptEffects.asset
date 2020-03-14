@@ -15,17 +15,17 @@ MonoBehaviour:
   EffectUnitInfos:
   - type: 0
     EffectInfoAsset: {fileID: 11400000}
-    audioPath:
+    audioName:
       values:
-      - ClassAudio\Au1
-      - ClassAudio\Au2
-      - ClassAudio\Au3
-      - ClassAudio\Au4
-      - ClassAudio\Au5
-      - ClassAudio\beiji
-      - ClassAudio\Bg
-      - ClassAudio\Fuck
-      selectedIndex: 7
+      - Au1
+      - Au2
+      - Au3
+      - Au4
+      - Au5
+      - beiji
+      - Bg
+      - Fuck
+      selectedIndex: 3
     shiningDuring: 0
     shiningColor: {r: 0, g: 0, b: 0, a: 0}
     particalPrefab: {fileID: 0}

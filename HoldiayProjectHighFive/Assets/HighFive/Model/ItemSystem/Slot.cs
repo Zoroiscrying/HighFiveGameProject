@@ -1,11 +1,8 @@
 ﻿using System;
-using HighFive.Const;
-using HighFive.Control.PersonSystem.Persons;
-using ReadyGamerOne.Common;
-using HighFive.Global;
+using HighFive.Data;
+using ReadyGamerOne.Data;
 using ReadyGamerOne.MemorySystem;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -13,148 +10,57 @@ namespace HighFive.Model.ItemSystem
 {
     public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        public ItemData itemData;
+        public Image icon;
+        public Text countText;
+        public event Action<Slot> onPointerEnter;
+        public event Action<Slot> onPointerExit;
 
-        public bool IsEmpty
-        {
-            get
-            {
-                return this.itemUi == null;
-            }
-        }
-        public ItemUI itemUi = null;
-        public int index;
+        private Action<string> onDelete;
 
-        public int ItemCount
-        {
-            get
-            {
-                if (IsEmpty)
-                    return 0;
-                return this.itemUi.count;
-            }
-            private set
-            {
-                Debug.Log(value);
-                Assert.IsTrue(value >= 0 && value <= ItemMgr.Instance.GetItem(this.itemUi.itemId).Capacity);
-
-                //数值上
-                this.itemUi.count = value;
-
-
-                //UI上
-                if (value == 1)
-                {
-                    this.itemNum.text = "";
-                }
-                else
-                {
-                    this.itemNum.text = value.ToString();
-                }
-
-                foreach(var v in GlobalVar.G_Player.ItemDatas)
-                    Debug.Log("v.count:" + v.count + " v.id" + v.itemId);
-            }
-        }
-        private Text itemNum;
-        private Image itemImage;
+        public int Count => int.Parse(countText.text);
         
-        /// <summary>
-        /// 实例化UI物体，加图片，为变量itemImage,itemNum赋值
-        /// </summary>
-        private void FillSlot()
+        public void Refresh(string itemId, int count = 1,Action<string> ondelete=null)
         {
-            if(this==null)
-            {
-                throw new Exception("????????????");
-            }
+            this.onDelete = ondelete;
+            
+            itemData = CsvMgr.GetData<ItemData>(itemId);
+            
+            icon.sprite = ResourceMgr.GetAsset<Sprite>(
+                itemData.spriteName
+            );
 
-            this.itemUi.obj = MemoryMgr.InstantiateGameObject(UiPath.Image_ItemUI, transform);
-            this.itemImage = this.itemUi.obj.GetComponent<Image>();
-            Assert.IsTrue(this.itemImage);
-            this.itemImage.sprite = MemoryMgr.GetSourceFromResources<Sprite>(this.itemUi.SpritePath);
-            this.itemNum = this.itemUi.obj.GetComponentInChildren<Text>();
-            Assert.IsTrue(this.itemNum);
-        }
-        /// <summary>
-        /// 清空物品格
-        /// </summary>
-        public void ClearSlot()
-        {
-            Assert.IsTrue(!this.IsEmpty);
-            this.itemNum = null;
-            this.itemImage = null;
-            if(this.itemUi.obj)
-                Destroy(this.itemUi.obj);
-            this.itemUi = null;
+            countText.text = count.ToString();
         }
 
-        /// <summary>
-        /// 添加物品
-        /// </summary>
-        /// <param CharacterName="itemId"></param>
-        /// <param CharacterName="count"></param>
-        public void AddItem(int itemId,int count)
+        public void Add(int count)
         {
-            if (count == 0)
-                return;
-            Assert.IsTrue(count > 0);
-            //Assert.IsTrue(this.index >= Global.GlobalVar.Player.itemList.Count);
-            if(this.IsEmpty)
-            {
-                Assert.IsTrue(this.itemUi == null);
-                this.itemUi = new ItemUI(itemId);
-                
-                FillSlot();
-                this.ItemCount = count;
-            }
-            else
-            {
-                this.ItemCount += count;
-            }
+            countText.text = (Count + count).ToString();
         }
 
-        public void AddItem(Player.ItemData itemData,int count)
+        public int Remove(int amount)
         {
-
-            AddItem(itemData.itemId, count);
-        }
-
-        public void AddItem(int count)
-        {
-            Assert.IsTrue(this.itemUi!=null);
-            this.ItemCount += count;
-        }
-
-        /// <summary>
-        /// 移除物品
-        /// </summary>
-        /// <param CharacterName="count"></param>
-        public void RemoveItem(int count)
-        {
-            Assert.IsTrue(!IsEmpty && count > 0 && count <= this.ItemCount);
-            if(count<ItemCount)
+            var count = Count;
+            if (count <= amount)
             {
-                ItemCount -= count;
+                onDelete?.Invoke(itemData.ID);
+                Destroy(gameObject);
+                return count;
             }
-            else
-            {
-                ClearSlot();
-            }
+            
+            countText.text = (Count - amount).ToString();
+
+            return amount;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (IsEmpty)
-                return;
-            Debug.Log("???");
-            CEventCenter.BroadMessage(Message.M_TouchItem, this);
+            onPointerEnter?.Invoke(this);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (IsEmpty)
-                return;
-            CEventCenter.BroadMessage(Message.M_ReleaseItem, this);
+            onPointerExit?.Invoke(this);
         }
     }
 }

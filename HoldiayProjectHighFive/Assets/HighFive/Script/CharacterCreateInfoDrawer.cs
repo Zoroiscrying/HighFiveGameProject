@@ -15,7 +15,7 @@ namespace HighFive.Script
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var index = 0;
-            EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("characterInfo"));
+            EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("_personType"));
             EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("position"));
             EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("color"));
         }

@@ -1,10 +1,12 @@
 using System;
+using HighFive.Const;
 using HighFive.Control.EffectSystem;
-using HighFive.Control.PersonSystem.Persons;
 using HighFive.Math;
+using HighFive.Model.Person;
 using HighFive.Model.SpriteObjSystem;
 using HighFive.Others;
 using ReadyGamerOne.EditorExtension;
+using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using UnityEditor;
@@ -39,7 +41,7 @@ namespace HighFive.Control.SkillSystem.Triggers
         public TriggerType type;
         public bool enable = true;
 
-        private AbstractPerson self;
+        private IHighFivePerson self;
         #endregion
 
         #region Animation
@@ -51,13 +53,13 @@ namespace HighFive.Control.SkillSystem.Triggers
 
         #region Audio
         
-        public ResourcesPathChooser audioName;
+        public StringChooser audioName = new StringChooser(typeof(AudioName));
 
         #endregion
 
         #region Bullet
 
-        public ResourcesPathChooser bulletName;
+        public StringChooser bulletName=new StringChooser(typeof(PrefabName));
         public int damage;
         public Vector3 dir;
         public float bulletSpeed;
@@ -106,32 +108,32 @@ namespace HighFive.Control.SkillSystem.Triggers
 
         public DamageType damageType;
         public string triggerPath;
-        public Vector2 hitBack;
+        public Vector2 HitBack;
         private float preLastTime;
         private void OnTriggerEnter(Collider2D col)
         {
-            var hitPerson = AbstractPerson.GetInstance(col.gameObject);
+            var hitPerson = col.gameObject.GetPersonInfo() as IHighFivePerson;
             if (hitPerson == null)
             {
 //                Debug.Log("打击人物为空");
                 return;
             }
-            else
-            {
-                Debug.Log("打击到”" + hitPerson.CharacterName);
-            }
+//            else
+//            {
+//                Debug.Log("打击到”" + hitPerson.CharacterName);
+//            }
 
             switch (damageType)
             {
                 case DamageType.PlayerToEnemy:
-                    if (hitPerson is Player)
+                    if (hitPerson is IHighFiveCharacter)
                         break;
-                    hitPerson.PlayAcceptEffects(self);
+                    self.TryAttackSimple(hitPerson);
                     break;
                 case DamageType.EnemyToPlayer:
-                    if (hitPerson is Player)
+                    if (hitPerson is IHighFiveCharacter)
                     {
-                        hitPerson.PlayAcceptEffects(self);
+                        self.TryAttackSimple(hitPerson);
                     }
 
                     break;
@@ -140,7 +142,7 @@ namespace HighFive.Control.SkillSystem.Triggers
         
         #endregion
 
-        public void RunTriggerUnit(AbstractPerson self)
+        public void RunTriggerUnit(IHighFivePerson self)
         {
             if (!enable)
                 return;
@@ -153,7 +155,7 @@ namespace HighFive.Control.SkillSystem.Triggers
                     #region Effect
 
                     case TriggerType.Effect:
-                        Debug.Log("技能系统——TriggerType.Effect");
+//                        Debug.Log("技能系统——TriggerType.Effect");
                         self.PlayAttackEffects(attackEffects);
                         break;                        
 
@@ -167,7 +169,8 @@ namespace HighFive.Control.SkillSystem.Triggers
                             throw new Exception("SkillCore为空");
                         }
 
-                        var animator = GameAnimator.GetInstance(self.obj.GetComponent<Animator>());
+                        
+                        var animator = GameAnimator.GetInstance(self.gameObject.GetComponent<Animator>());
 
                         if (animator == null)
                         {
@@ -188,9 +191,9 @@ namespace HighFive.Control.SkillSystem.Triggers
                     #region Audio
                     
                     case TriggerType.Audio:
-                        if (self.obj != null)
+                        if (self.gameObject != null)
                         {
-                            AudioMgr.Instance.PlayEffect(this.audioName.Path, self.obj.transform.position);
+                            AudioMgr.Instance.PlayEffect(this.audioName.StringValue, self.gameObject.transform.position);
                             
                         }
                         break;
@@ -200,9 +203,9 @@ namespace HighFive.Control.SkillSystem.Triggers
                     #region Bullet
 
                     case TriggerType.Bullet:
-                        this.dir = new Vector2(self.Dir * Mathf.Abs(this.dir.x), this.dir.y);
-                        new DirectLineBullet(GameMath.Damage(self.BaseAttack), this.dir, self.Pos + new Vector3(0, 0.3f * self.Scanler, 0)
-                            , self, this.bulletName.Path, speed:this.bulletSpeed,maxLife:this.maxLife);
+                        var d = new Vector2(self.Dir * Mathf.Abs(this.dir.x), this.dir.y);
+                        new DirectLineBullet(GameMath.Damage(self.Attack), d, self.position + new Vector3(0, 1, 0)
+                            , self, this.bulletName.StringValue, speed:this.bulletSpeed,maxLife:this.maxLife);
                         break;                        
 
                     #endregion
@@ -214,13 +217,13 @@ namespace HighFive.Control.SkillSystem.Triggers
                         switch (targetType)
                         {
                             case TargetType.Vector3Offset:                        
-                                new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget, self.Pos + offset,
-                                    self.Pos, self, this.bulletName.Path, this.maxLife);
+                                new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget, self.position + offset,
+                                    self.position, self, this.bulletName.StringValue, this.maxLife);
                                 break;
                             case TargetType.GetFromCache:
 //                                Debug.Log($"SkillAsset【{skillAsset.skillName.StringValue}】.Vector3Cache:"+skillAsset.Vector3Cache);
                                 new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget,skillAsset.Vector3Cache ,
-                                    self.Pos, self, this.bulletName.Path, this.maxLife);
+                                    self.position, self, this.bulletName.StringValue, this.maxLife);
                                 break;
                         }
 
@@ -232,13 +235,13 @@ namespace HighFive.Control.SkillSystem.Triggers
 
                     case TriggerType.RayDamage:
                         //面对方向
-                        var position = self.obj.transform.position;
+                        var position = self.gameObject.transform.position;
                         var p = new Vector2(position.x, position.y);
                         
-                        var target = this.rayLength * self.Scanler * new Vector2(this.dir.x * self.Dir, this.dir.y);
+                        var target = this.rayLength * new Vector2(this.dir.x * self.Dir, this.dir.y);
 
                         //调整身高偏移
-                        p += new Vector2(0, 0.1f * self.obj.transform.localScale.y);
+                        p += new Vector2(0, 0.1f * self.gameObject.transform.localScale.y);
                         Debug.DrawLine(p, p + target, Color.red);
                         var results = Physics2D.LinecastAll(p, p + target, this.rayTestLayer);
 
@@ -250,14 +253,13 @@ namespace HighFive.Control.SkillSystem.Triggers
                         foreach (var result in results)
                         {
                             //对打击到的目标进行操作，添加各种效果
-                            var hitPerson = AbstractPerson.GetInstance(result.transform.gameObject);
+                            var hitPerson = result.transform.gameObject.GetPersonInfo() as IHighFivePerson;
                             if (hitPerson == null)
                             {
                                 Debug.Log(result.transform.gameObject);
                                 continue;
                             }
-                            self.OnCauseDamage(GameMath.Damage(self.BaseAttack));
-                            hitPerson.PlayAcceptEffects(self);
+                            self.TryAttackSimple(hitPerson);
                         }
                         break;                        
 
@@ -271,18 +273,18 @@ namespace HighFive.Control.SkillSystem.Triggers
                             preLastTime = lastTime;
                         }
                         lastTime /= self.AttackSpeed;
-                        if (self.obj == null)
+                        if (self.gameObject == null)
                             break;
-                        var sword = self.obj.transform.Find(triggerPath);
+                        var sword = self.gameObject.transform.Find(triggerPath);
                         var trigger = (sword.GetComponent<TriggerInputer>() ??
                                        sword.gameObject.AddComponent<TriggerInputer>());
 
-                        trigger.onTriggerEnterEvent += this.OnTriggerEnter;
+                        trigger.onTriggerEnterEvent2D += this.OnTriggerEnter;
 //                        Debug.Log("添加监听");
                         MainLoop.Instance.ExecuteLater(() =>
                         {
 //                            Debug.Log("移除监听");
-                            trigger.onTriggerEnterEvent -= this.OnTriggerEnter;
+                            trigger.onTriggerEnterEvent2D -= this.OnTriggerEnter;
                         }, lastTime);
                    
                         break;                        

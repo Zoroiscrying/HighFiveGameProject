@@ -1,4 +1,4 @@
-﻿using HighFive.Control.PersonSystem.Persons;
+﻿using HighFive.Model.Person;
 using ReadyGamerOne.Script;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ namespace HighFive.Model.SpriteObjSystem
         private Vector3 speed; // 初速度向量
         private Vector3 Gravity; // 重力向量
         private Vector3 currentAngle; // 当前角度
-        public ParabloaBullet(int damage,float shotSpeed,float time,Vector3 targetPos,Vector3 startPos,AbstractPerson ap,string path,float maxLife=4f, Transform parent = null) 
+        public ParabloaBullet(int damage,float shotSpeed,float time,Vector3 targetPos,Vector3 startPos,IHighFivePerson ap,string path,float maxLife=4f, Transform parent = null) 
             : base(damage,ap,path, startPos,maxLife, parent)
         {
             this.ShotSpeed = shotSpeed;

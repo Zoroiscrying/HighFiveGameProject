@@ -1,198 +1,86 @@
-﻿using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
-using HighFive.Const;
+﻿using System;
+using HighFive.Data;
 using ReadyGamerOne.Common;
+using ReadyGamerOne.Data;
+using UnityEngine;
 
 namespace HighFive.Model.RankSystem
 {
-	public class RankMgr:Singleton<RankMgr>,IXmlSerializable
+	public class RankMgr:Singleton<RankMgr>
 	{
-		#region Static
-		
-		public static List<AbstractLargeRank> LargeRankList = new List<AbstractLargeRank>();
-	
-		#endregion
+		public int Level { get; private set; } = 1;
+		private int _exp;
+		private int _hp;
+		private RankData _rankData;
 
-		public RankMgr()
+		public int BaseAttack { get; private set; }
+		public int Hp
 		{
-			CEventCenter.AddListener<int>(Message.M_ChangeSmallLevel,this.OnChangeSmallRankAdder);
-			CEventCenter.AddListener<int>(Message.M_AchieveLargeLevel,LargeLevelUp);
-			CEventCenter.AddListener<int>(Message.M_AchieveSmallLevel,SmallLevelUp);
-			CEventCenter.AddListener<int,int>(Message.M_RankAwake,OnRankAwake);
+			get { return _hp; }
+			set { _hp = value; }
+		} 
+		public int MaxHp => _rankData.maxHp;
+
+		public int Exp
+		{
+			get { return _exp; }
+			set { _exp = value; }
 		}
+		public int MaxExp => RankData.maxExp;
+		public string Rank => RankData.rankName;
 		
-		
-		#region 字段
-		
-		//当前等级唯一标记
-		private int currentLargeRank;
-		private int currentSmallRank;
-		//数值控制小等级升级
-		public int Adder;
-		
-		
-		#endregion
-		
-		
-		#region 属性
-		
-		//获取当前小等级和大等级
-		public AbstractSmallRank SmallRank
+		private RankData RankData
 		{
-			get { return LargeRankList[this.currentLargeRank].smallRanks[this.currentSmallRank]; }
-		}
-		public AbstractLargeRank LargeRank
-		{
-			get { return LargeRankList[this.currentLargeRank]; }
-		}
-		public int SmallRankIndex
-		{
-			get { return currentSmallRank; }
-			private set
+			get
 			{
-				currentSmallRank = value;
-			}
-		}
-		public int LargeRankIndex
-		{
-			get { return currentLargeRank; }
-			private set{ currentLargeRank = value; }
-		}
-		public string LargeRankName
-		{
-			get { return LargeRankList[this.currentLargeRank].name; } 
-		}
-		public string SmallRankName 
-		{
-			get { return LargeRankList[this.currentLargeRank].smallRanks[this.currentSmallRank].name; }
-		}
-		//当前最大经验
-    	public int Max
-    	{
-    		get { return SmallRank.max; }
-    	}	
-		//是否突破当前大等级瓶颈
-		private bool BreakRank
-		{
-			get { return LargeRank.BreakLimit(); }
-		}
-		#endregion
-		
-
-		
-		
-
-		//获得小经验
-		private void OnChangeSmallRankAdder(int change)
-		{
-			this.Adder += change;
-			if (Adder <= 0)
-				Adder = 0;
-			else if (Adder >= Max)
-			{
-				//升级！
-
-				//Debug.Log("当前SmallRankIndex: "+this.SmallRankIndex);
-				if (this.SmallRankIndex == this.LargeRank.smallRanks.Count - 1)
+				if (null == _rankData)
 				{
-					//巅峰
-					if (LargeRank.BreakLimit())
-					{
-						//大突破
-						//Debug.Log("即将进入下一大等级的Index: "+this.LargeRankIndex+1);
-						CEventCenter.BroadMessage(Message.M_AchieveLargeLevel,this.LargeRankIndex+1);
-					}
-					else
-					{
-						//等待突破
-					}
+					_rankData = CsvMgr.GetData<RankData>(Level.ToString());
+					RefreshValues();
 				}
-				else
-				{
-					//小升级
-					//Debug.Log("即将进入下一小等级Index: "+this.SmallRankIndex+1);
-					CEventCenter.BroadMessage(Message.M_AchieveSmallLevel,this.SmallRankIndex+1);
-				}
+				return _rankData;
 			}
 		}
 
-		private void OnRankAwake(int large, int small)
+		public void Init(int level)
 		{
-			this.currentLargeRank = large;
-			this.currentSmallRank = small;
-			this.Adder = 0;
-		}
-		
-		//小升级
-		void SmallLevelUp(int newRankIndex)
-		{
-			//Debug.Log(newRankIndex);
-			SmallRank.ImprovePlayer();
-			this.currentSmallRank = newRankIndex;
-			this.Adder = 0;
-		}
-		
-		//大升级
-		void LargeLevelUp(int newRankIndex)
-		{
-			LargeRank.ImprovePlayer();
-			this.currentLargeRank = newRankIndex;
-			this.currentSmallRank = 0;
-			this.Adder = 0;
-		}
-		
-		
-		
-		#region IXmlSerializable
-
-		public XmlSchema GetSchema()
-		{
-			return null;
+			this.Level = level;
+			this._rankData=CsvMgr.GetData<RankData>(Level.ToString());
+			RefreshValues();
 		}
 
-		public void ReadXml(XmlReader reader)
+		public bool TryLevelUp(int extraExp,Action<RankData> improvePlayer)
 		{
-			var intSer = new XmlSerializer(typeof(int));
+			if (!BreakLimit())
+				return false;
 
-			reader.Read();
-			reader.ReadStartElement("smallIndex");
-			this.currentSmallRank = (int) intSer.Deserialize(reader);
-			reader.ReadEndElement();
+			if (Level + 1 > RankData.RankDataCount)
+			{
+				Debug.LogWarning("超过等级上限：" + RankData.RankDataCount);
+				return false;
+			}
 
-			reader.ReadStartElement("largeIndex");
-			this.currentLargeRank = (int) intSer.Deserialize(reader);
-			reader.ReadEndElement();
-
-			reader.ReadStartElement("adder");
-			this.Adder = (int) intSer.Deserialize(reader);
-			reader.ReadEndElement();
+			this._rankData=CsvMgr.GetData<RankData>((++Level).ToString());
 			
-			reader.ReadEndElement();
+			RefreshValues(extraExp);
+			
+			//计算增益
+			improvePlayer?.Invoke(this._rankData);
 
-
+			return true;
 		}
 
-		public void WriteXml(XmlWriter writer)
+		public virtual bool BreakLimit()
 		{
-			var intSer = new XmlSerializer(typeof(int));
-
-
-			writer.WriteStartElement("smallIndex");
-			intSer.Serialize(writer, this.currentSmallRank);
-			writer.WriteEndElement();
-
-			writer.WriteStartElement("largeIndex");
-			intSer.Serialize(writer, this.currentLargeRank);
-			writer.WriteEndElement();
-
-			writer.WriteStartElement("adder");
-			intSer.Serialize(writer, this.Adder);
-			writer.WriteEndElement();
+			return true;
 		}
-		
-		#endregion
+
+		private void RefreshValues(int? exp=null, int? hp=null)
+		{
+			_hp = hp ?? MaxHp;
+			_exp = exp ?? 0;
+			BaseAttack = _rankData.attackC;
+		}
 	}
 }
 

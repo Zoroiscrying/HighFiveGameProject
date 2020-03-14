@@ -22,5 +22,9 @@ namespace HighFive.Control.EffectSystem
         /// 特效持有者
         /// </summary>
         T EffectPlayer { get; }
+
+        void PlayAcceptEffects(IEffector<T> ditascher);
+
+        void PlayAttackEffects(EffectInfoAsset effectInfoAsset);
     }
 }

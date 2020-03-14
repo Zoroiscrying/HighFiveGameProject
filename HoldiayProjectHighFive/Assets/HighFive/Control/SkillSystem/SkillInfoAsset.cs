@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using HighFive.Control.PersonSystem.Persons;
 using HighFive.Control.SkillSystem.Triggers;
+using HighFive.Model.Person;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.ScriptableObjects;
 using UnityEngine;
@@ -17,18 +17,21 @@ namespace HighFive.Control.SkillSystem
             get
             {
                 var time = 0f;
+//                var debugStr = "";
                 foreach (var VARIABLE in triggers)
                 {
+//                    debugStr += $"time: {time}, type: {VARIABLE.type}, triggerStartTime: {VARIABLE.startTime}, triggerLastTime{VARIABLE.lastTime}\n";
                     time = Mathf.Max(time, VARIABLE.startTime + VARIABLE.lastTime);
                 }
 
+//                Debug.Log(debugStr);
                 return time;
             }
         }
         public List<TriggerUnitInfo> triggers=new List<TriggerUnitInfo>();
         public Vector3 Vector3Cache;
 
-        public void RunSkill(Player self, bool ignoreInput, float startTime = 0)
+        public void RunSkill(IHighFiveCharacter self, bool ignoreInput, float startTime = 0)
         {
             if (!self.InputOk)
                 return;
@@ -51,7 +54,7 @@ namespace HighFive.Control.SkillSystem
             foreach (var trigger in triggers)
             {
 //                Debug.Log("Trigger:" + trigger.type);
-                trigger.RunTriggerUnit(self);
+                trigger.RunTriggerUnit(self as IHighFivePerson);
             }
             
             MainLoop.Instance.ExecuteLater(() =>
@@ -65,7 +68,7 @@ namespace HighFive.Control.SkillSystem
             }, lastTime);
         }
 
-        public void RunSkill(AbstractPerson self, float startTime = 0)
+        public void RunSkill(IHighFivePerson self, float startTime = 0)
         {
             var lastTime = LastTime;
             if (isUsed)

@@ -1,4 +1,5 @@
-﻿using HighFive.Control.PersonSystem.Persons;
+﻿using HighFive.Model.Person;
+using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using UnityEngine;
 
@@ -8,10 +9,10 @@ namespace HighFive.Model.SpriteObjSystem
     {
         private TriggerInputer triggerEvent;
         private int damage;
-        private AbstractPerson origin;
+        private IHighFivePerson origin;
         private float maxLife;
 
-        public BulletSpriteObj(int damage,AbstractPerson ap,string path, Vector3 pos, float maxLife,Transform parent = null) : base(path, pos, parent)
+        public BulletSpriteObj(int damage,IHighFivePerson ap,string path, Vector3 pos, float maxLife,Transform parent = null) : base(path, pos, parent)
         {
 
             this.maxLife = maxLife;
@@ -26,7 +27,7 @@ namespace HighFive.Model.SpriteObjSystem
                 throw new System.Exception("子弹发射者为空");
             }
             this.triggerEvent=this.obj.AddComponent<TriggerInputer>();
-            this.triggerEvent.onTriggerEnterEvent += OnTriggerEntry;
+            this.triggerEvent.onTriggerEnterEvent2D += OnTriggerEntry;
             this.maxLife = maxLife;
             MainLoop.Instance.ExecuteLater(() =>
             {
@@ -49,17 +50,17 @@ namespace HighFive.Model.SpriteObjSystem
                 DestoryThis();
                 return;
             }
-            var ap = AbstractPerson.GetInstance(col.gameObject);
+            var ap = col.gameObject.GetPersonInfo() as IHighFivePerson;
 
             if (ap == null)
                 return;
 
-            if (ap is Player && this.origin is Player)
+            if (ap is IHighFiveCharacter && this.origin is IHighFiveCharacter)
             {
 //                Debug.Log($"两个都是Player:[{ap.CharacterName}][{origin.CharacterName}]");
                 return;
             }
-            if (!(ap is Player) && !(this.origin is Player))
+            if (!(ap is IHighFiveCharacter) && !(this.origin is IHighFiveCharacter))
             {
 //                Debug.Log($"两个都不是Player:[{ap.CharacterName}][{origin.CharacterName}]");
                 return;
@@ -67,8 +68,8 @@ namespace HighFive.Model.SpriteObjSystem
 
 //            Debug.Log(this.origin.CharacterName+" 攻击 "+ap.characterInfoInfo);
 
-            this.origin.OnCauseDamage(damage);
-            ap.PlayAcceptEffects(origin);
+            this.origin.TryAttack(ap, damage);
+            ap.PlayAcceptEffects(origin as IHighFivePerson);
             DestoryThis();
         }
 

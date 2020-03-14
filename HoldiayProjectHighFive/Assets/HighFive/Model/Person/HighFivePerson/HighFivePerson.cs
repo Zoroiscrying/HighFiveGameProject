@@ -1,0 +1,219 @@
+using HighFive.Control.EffectSystem;
+using HighFive.Control.SkillSystem;
+using ReadyGamerOne.Rougelike.Person;
+using ReadyGamerOne.Script;
+using UnityEngine;
+using UnityEngine.Assertions;
+
+namespace HighFive.Model.Person
+{
+	public interface IHighFivePerson:
+		IPoolDataPerson,
+		IEffector<AbstractPerson>
+	{
+		int ChangeHp(int change);
+		
+		int Dir { get; set; }
+		bool IsConst { get; set; }
+		bool IgnoreHitback { get; set; }
+		float DefaultConstTime { get; set; }
+		float AttackSpeed { get; set; }
+		Vector2 HitBackSpeed { get; }
+		
+		int AttackAdder { get; set; }
+		float AttackScaler { get; set; }
+
+		void RunSkill(SkillInfoAsset skillInfoAsset);
+		void LookAt(Transform target);
+	}
+
+	public abstract class HighFivePerson<T>:
+		PoolDataPerson<T>,
+		IHighFivePerson
+		where T : HighFivePerson<T>,new()
+	{
+		#region Fields
+		
+		protected int _attackAdder;
+		protected float _attackScaler;
+
+		protected bool _ignoreHitback;
+		protected float _defaultConstTime;
+		protected float _attackSpeed=1;
+		protected Vector2 _hitBackSpeed;
+
+		protected bool _isConst;
+
+		#endregion
+
+		#region 血量
+
+		public int ChangeHp(int change)
+		{
+			this.Hp =
+				Mathf.Clamp(this.Hp + change, 0, this.MaxHp);
+			return 0;
+		}		
+
+		#endregion
+
+
+		public virtual int Dir
+		{
+			get
+			{
+				return (this.Controller as HighFivePersonController).Dir;
+			}
+			set { (this.Controller as HighFivePersonController).Dir = value; }
+		} 
+
+		public bool IsConst
+		{
+			get { return _isConst; }
+			set { _isConst = value; }
+		}
+
+		public bool IgnoreHitback
+		{
+			get
+			{
+				return _ignoreHitback;
+			}
+			set
+			{
+				_ignoreHitback = value;
+			} 
+		}
+
+		public float DefaultConstTime
+		{
+			get { return _defaultConstTime; }
+			set { _defaultConstTime = value; }
+		}
+
+		public float AttackSpeed
+		{
+			get { return _attackSpeed; }
+			set { _attackSpeed = value; }
+		}
+
+		public Vector2 HitBackSpeed
+		{
+			get { return _hitBackSpeed; }
+		}
+
+		public int AttackAdder
+		{
+			get { return _attackAdder; }
+			set { _attackAdder = value; }
+		}
+
+		public float AttackScaler
+		{
+			get { return _attackScaler;}
+			set { _attackScaler = value; }
+		}
+
+
+		#region ITakeDamageablePerson<T>
+
+
+		public virtual void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+		{
+			if (damage == 0)
+				Debug.LogWarning("伤害是 0 ？？");
+			
+
+			//播放受击动画
+			PlayAcceptEffects(takeDamageFrom as IHighFivePerson);
+			
+			Hp -= damage;
+//			Debug.Log($"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{damage}伤害，剩余血量：{Hp}");
+			if (Hp <= 0)
+			{
+				Hp = 0;
+				Kill();
+			}
+		}
+
+		public override void OnCauseDamage(AbstractPerson causeDamageTo, int damage)
+		{
+			base.OnCauseDamage(causeDamageTo, damage);
+			PlayAttackEffects(AttackEffects);
+		}
+		
+		#endregion
+
+		#region IEffector<AbstractPerson>
+
+		public EffectInfoAsset AttackEffects => (this.Controller as HighFivePersonController).attackEffects;
+		public EffectInfoAsset HitEffects => (this.Controller as HighFivePersonController).hitEffects;
+		public EffectInfoAsset AcceptEffects => (this.Controller as HighFivePersonController).acceptEffects;
+		public AbstractPerson EffectPlayer => this;		
+
+		/// <summary>
+		/// 播放受击特效
+		/// </summary>
+		/// <param name="ditascher"></param>
+		public void PlayAcceptEffects(IEffector<AbstractPerson> ditascher)
+		{
+			if (ditascher != null && ditascher.HitEffects != null)
+			{
+				ditascher.HitEffects.Play(ditascher, this);
+			}
+
+			if (AcceptEffects != null)
+			{
+				AcceptEffects.Play(null,this);
+			}
+		}
+
+		
+		/// <summary>
+		/// 播放攻击特效
+		/// </summary>
+		/// <param name="effectInfoAsset"></param>
+		public void PlayAttackEffects(EffectInfoAsset effectInfoAsset)
+		{
+			effectInfoAsset?.Play(this,null);
+		}
+
+
+
+		#endregion
+
+		/// <summary>
+		/// 执行技能
+		/// </summary>
+		/// <param name="skillInfoAsset"></param>
+		///
+		/// 
+		public void RunSkill(SkillInfoAsset skillInfoAsset)
+		{
+			skillInfoAsset.RunSkill(this);
+		}
+
+		public void LookAt(Transform target)
+		{
+			(Controller as HighFivePersonController).LookAt(target);
+		}
+		
+		/// <summary>
+		/// 变为硬直状态
+		/// </summary>
+		public void ToConst(float time)
+		{
+			Assert.IsTrue(!IsConst);
+			IsConst = !IsConst;
+			//            Debug.Log(this.obj.GetInstanceID() + "硬直 "+this.IsConst);
+			MainLoop.Instance.ExecuteLater(_Reset, time);
+			//硬直动画
+		}
+		private void _Reset()
+		{
+			//            Debug.Log(this.obj.GetInstanceID() + "恢复");
+			Assert.IsTrue(IsConst);
+			IsConst = !IsConst;
+		}
+	}
+}

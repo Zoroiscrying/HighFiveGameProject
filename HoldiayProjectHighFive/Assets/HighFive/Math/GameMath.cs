@@ -1,4 +1,4 @@
-﻿using HighFive.Control.PersonSystem.Persons;
+﻿using HighFive.Model.Person;
 
 namespace HighFive.Math
 {
@@ -9,10 +9,10 @@ namespace HighFive.Math
             return (int)(damage * multiplier + adder);
         }
 
-        public static int Damage(AbstractPerson attacker, AbstractPerson receiver)
+        public static int Damage(IHighFivePerson attacker, IHighFivePerson receiver)
         {
-            return (int) (attacker.BaseAttack * attacker.attack_scaler +
-                          attacker.attack_adder);
+            return (int) (attacker.Attack * attacker.AttackScaler +
+                          attacker.AttackAdder);
         }
     }
 }

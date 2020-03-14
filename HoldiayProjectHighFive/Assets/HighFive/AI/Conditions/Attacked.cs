@@ -1,7 +1,5 @@
 using BehaviorDesigner.Runtime.Tasks;
-using HighFive.Const;
-using ReadyGamerOne.Common;
-using UnityEngine;
+using ReadyGamerOne.Rougelike.Person;
 
 namespace HighFive.AI.Conditions
 {
@@ -9,7 +7,7 @@ namespace HighFive.AI.Conditions
     {
         private bool attacked = false;
 
-        private void OnAttacked(int damage)
+        private void OnAttacked(AbstractPerson takeFromWho, int damage)
         {
 //            Debug.Log("救命，有人打我");
             attacked = true;
@@ -19,14 +17,14 @@ namespace HighFive.AI.Conditions
             base.OnStart();
             attacked = false;
 //            Debug.Log("监听挨打");
-            CEventCenter.AddListener<int>(Message.M_BloodChange(gameObject), OnAttacked);
+            gameObject.GetPersonInfo().onTakeDamage += OnAttacked;
         }
 
         public override void OnBehaviorComplete()
         {
             base.OnBehaviorComplete();
-            Debug.Log("不再监听挨打");
-            CEventCenter.RemoveListener<int>(Message.M_BloodChange(gameObject), OnAttacked);
+//            Debug.Log("不再监听挨打");
+            gameObject.GetPersonInfo().onTakeDamage -= OnAttacked;
         }
         
 

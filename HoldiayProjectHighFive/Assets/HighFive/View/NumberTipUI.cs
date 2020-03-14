@@ -22,7 +22,7 @@ namespace HighFive.View
 
         public NumberTipUI(int number, float yOffect, int size, Color color, Transform targetPerson, int dir, float dur = 0.5f, float time = 1f)
         {
-            Create(UiPath.Text_Number);
+            Create(UiName.Text_Number);
             this.go = m_TransFrom.gameObject;
             this.target = targetPerson;
 

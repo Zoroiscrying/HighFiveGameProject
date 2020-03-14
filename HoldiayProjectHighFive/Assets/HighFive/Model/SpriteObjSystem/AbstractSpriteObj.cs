@@ -14,7 +14,7 @@ namespace HighFive.Model.SpriteObjSystem
 
         protected AbstractSpriteObj(string path, Vector3 pos, Transform parent = null)
         {
-            obj = MemoryMgr.InstantiateGameObject(path, pos, Quaternion.identity, parent);
+            obj = ResourceMgr.InstantiateGameObject(path, pos, Quaternion.identity, parent);
             if(obj==null)
             {
                 throw new Exception("子弹生成失败");

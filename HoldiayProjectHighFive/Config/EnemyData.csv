@@ -1,0 +1,4 @@
+personName,hitback_x,hitback_y,defaultConstTime,maxHp,attack
+string,float,float,float,int,int
+Boner,1,0,0,200,20
+Spider,1,0,0,200,40

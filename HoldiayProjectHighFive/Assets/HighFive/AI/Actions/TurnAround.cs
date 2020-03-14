@@ -1,16 +1,17 @@
 using BehaviorDesigner.Runtime.Tasks;
-using HighFive.Control.PersonSystem.Persons;
+using HighFive.Model.Person;
+using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 
 namespace HighFive.AI.Actions
 {
     public class TurnAround:Action
     {
-        private AbstractPerson self;
+        private IHighFivePerson self;
         public override void OnStart()
         {
             base.OnStart();
-            self = AbstractPerson.GetInstance(gameObject);
+            self = gameObject.GetPersonInfo() as IHighFivePerson;
         }
 
         public override TaskStatus OnUpdate()

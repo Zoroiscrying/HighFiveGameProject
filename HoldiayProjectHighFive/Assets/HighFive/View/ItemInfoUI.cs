@@ -1,26 +1,66 @@
-﻿using HighFive.Const;
-using HighFive.Model.ItemSystem;
-using ReadyGamerOne.View;
+﻿using System;
+using HighFive.Data;
+using ReadyGamerOne.Data;
+using ReadyGamerOne.MemorySystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace HighFive.View
+namespace HighFive.Script
 {
-    public class ItemInfoUI:AbstractUI
+    public class ItemInfoUi : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
     {
-        private Text name;
-        public ItemInfoUI()
-        {
-            Create(UiPath.Image_ItemInfo);
-            this.name = m_TransFrom.Find("Text").GetComponent<Text>();
-        }
+        public ItemData itemData;
+        public Image icon;
+        public Text countText;
+        public event Action<ItemInfoUi> onPointerEnter;
+        public event Action<ItemInfoUi> onPointerExit;
+
+        private Action<string> onDelete;
+
+        public int Count => int.Parse(countText.text);
         
-        public void Set(int itemID,Vector3 pos)
+        public void Refresh(string itemId, int count = 1,Action<string> ondelete=null)
         {
+            this.onDelete = ondelete;
             
-             var item = ItemMgr.Instance.GetItem(itemID);
-             this.name.text = item.ToString();
-            m_TransFrom.position = pos;
+            itemData = CsvMgr.GetData<ItemData>(itemId);
+            
+            icon.sprite = ResourceMgr.GetAsset<Sprite>(
+                itemData.spriteName
+            );
+
+            countText.text = count.ToString();
+        }
+
+        public void Add(int count)
+        {
+            countText.text = (Count + count).ToString();
+        }
+
+        public int Remove(int amount)
+        {
+            var count = Count;
+            if (count <= amount)
+            {
+                onDelete?.Invoke(itemData.ID);
+                Destroy(gameObject);
+                return count;
+            }
+            
+            countText.text = (Count - amount).ToString();
+
+            return amount;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            onPointerEnter?.Invoke(this);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            onPointerEnter?.Invoke(this);
         }
     }
 }

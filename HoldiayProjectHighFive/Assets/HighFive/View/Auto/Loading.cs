@@ -8,7 +8,8 @@ namespace HighFive.View
 
 		protected override void Load()
 		{
-			Create(PanelPath.Loading);
-			OnLoad();		}
+			Create(PanelName.Loading);
+			OnLoad();
+		}
 	}
 }

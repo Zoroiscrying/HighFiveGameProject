@@ -1,5 +1,5 @@
 ﻿using HighFive.Const;
-using HighFive.Control.PersonSystem.Persons;
+using HighFive.Model.Person;
 using ReadyGamerOne.Script;
 using UnityEngine;
 
@@ -11,14 +11,13 @@ namespace HighFive.Model.SpriteObjSystem
         private int damage;
         private Vector3 dir;
         private float speed;
-        private AbstractPerson origin;
 
-        public DirectLineBullet(int damage, Vector3 dir, Vector3 pos, AbstractPerson origin, string path,float speed = 8f, float maxLife=6f, Transform parent = null)
+        public DirectLineBullet(int damage, Vector3 dir, Vector3 pos, IHighFivePerson origin, string path,float speed = 8f, float maxLife=6f, Transform parent = null)
             : base(damage,origin,path, pos,maxLife, parent)
         {
             this.dir = dir;
             this.speed = speed;
-            AudioMgr.Instance.PlayEffect(AudioPath.beiji, this.obj.transform.position);
+            AudioMgr.Instance.PlayEffect(AudioName.beiji);
         }
         protected override void Update()
         {

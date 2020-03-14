@@ -17,6 +17,7 @@
       <Path>.idea</Path>
       <Path>.vs</Path>
       <Path>.vscode</Path>
+      <Path>Config</Path>
       <Path>Games</Path>
       <Path>Library</Path>
       <Path>Logs</Path>

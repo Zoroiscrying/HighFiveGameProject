@@ -1,42 +1,37 @@
 using ReadyGamerOne.EditorExtension;
 using HighFive.Const;
-using HighFive.Model.RankSystem;
-using HighFive.Model.RankSystem.LargeRank;
-using HighFive.Model.RankSystem.SmallRank;
 using ReadyGamerOne.Common;
-using ReadyGamerOne.Data;
 using ReadyGamerOne.View;
 using ReadyGamerOne.Script;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HighFive.Script
 {
 	public partial class HighFiveMgr
 	{
 		public StringChooser startPanel = new StringChooser(typeof(PanelName));
-		public StringChooser startBgm = new StringChooser(typeof(AudioPath));
+		public StringChooser startBgm = new StringChooser(typeof(AudioName));
+		public StringChooser ItemChooser=new StringChooser(typeof(ItemName));
 		partial void OnSafeAwake()
 		{
-			RegisterAll();
 			PanelMgr.PushPanel(startPanel.StringValue);
-//			AudioMgr.Instance.PlayBgm(startBgm.StringValue);
-			//do any thing you want
 		}
-		
-		private void RegisterAll()
+		private void Update()
 		{
-			print("GameMgr RegisterAll");
-			RegisterData();
-//			RegisterSpiritItem();
-			LoadDataFromFile();	
+			if (Input.GetKeyDown(KeyCode.T))
+			{
+				CEventCenter.BroadMessage(Message.M_AddItem, ItemName.Bear, 1);
+			}
 		}
-        
-		protected override void OnAnySceneUnload()
+
+		protected override void OnAnySceneUnload(Scene scene)
 		{
-			base.OnAnySceneUnload();
+			base.OnAnySceneUnload(scene);		
 			PanelMgr.Clear();
 			MainLoop.Instance.Clear();
 			CEventCenter.Clear();
-		}    
+		}
 
 		/// <summary>
 		/// 注册灵器
@@ -46,26 +41,6 @@ namespace HighFive.Script
 //			AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_First);
 //			AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_Second);
 //		}
-    
-		/// <summary>
-		/// 注册Data工厂
-		/// </summary>
-		void RegisterData()
-		{
-			TxtManager.RegisterDataFactory<L1Rank>(TxtSign.L1Rank);
-			TxtManager.RegisterDataFactory<L2Rank>(TxtSign.L2Rank);
-			TxtManager.RegisterDataFactory<S1Rank>(TxtSign.S1Rank);
-			TxtManager.RegisterDataFactory<S2Rank>(TxtSign.S2Rank);
-		}
-    
-		/// <summary>
-		/// 从文件中加载数据
-		/// </summary>
-		void LoadDataFromFile()
-		{
-			TxtManager.LoadDataFromFile<AbstractLargeRank>(FilePath.RankFilePath,
-				(largeRank) => { RankMgr.LargeRankList.Add(largeRank); });
-            
-		}
+
 	}
 }

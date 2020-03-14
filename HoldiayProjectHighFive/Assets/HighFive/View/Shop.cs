@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HighFive.Const;
-using HighFive.Model.ItemSystem;
+using HighFive.Data;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Script;
@@ -10,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 using HighFive.Global;
+using ReadyGamerOne.Data;
 
 
 namespace HighFive.View
@@ -24,7 +26,7 @@ namespace HighFive.View
 			{
 			
 				currentItemIndex = value;
-				this.itemInfo.text = ItemMgr.Instance.GetItem(itemIdList[value]).Description;
+				this.itemInfo.text = CsvMgr.GetData<ShopItemData>(itemIdList[value]).statement;
 			}
 			get { return currentItemIndex; }
 		}
@@ -34,7 +36,7 @@ namespace HighFive.View
 			set { playerMoney.text = value.ToString(); }
 		}
 
-		private List<int> itemIdList=new List<int>(DefaultData.shop);
+		private List<string> itemIdList=DefaultData.shop.ToList();
 		private List<GameObject> items =new List<GameObject>();
 
 		private float scrollTime = .25f;
@@ -134,8 +136,8 @@ namespace HighFive.View
 			GameObject itemObj;
 			foreach (var id in itemIdList)
 			{
-				var itemInfo = ItemMgr.Instance.GetItem(id);
-			    itemObj=MemoryMgr.InstantiateGameObject(UiPath.Image_ItemUI, this.itemList);
+				var itemInfo = CsvMgr.GetData<ShopItemData>(id);
+			    itemObj=ResourceMgr.InstantiateGameObject(UiName.Image_ItemBk, this.itemList);
 				Assert.IsTrue(itemObj);
 				
 				
@@ -146,8 +148,8 @@ namespace HighFive.View
 				if(image==null)
 					throw new Exception("Image is null");
 				image.sprite =
-					MemoryMgr.GetSourceFromResources<Sprite>(itemInfo.SpritePath);
-				itemObj.transform.Find("Tmp_Price").GetComponent<TextMeshProUGUI>().text = itemInfo.Price.ToString();
+					ResourceMgr.GetAsset<Sprite>(itemInfo.spriteName);
+				itemObj.transform.Find("Tmp_Price").GetComponent<TextMeshProUGUI>().text = itemInfo.price.ToString();
 				
 				this.items.Add(itemObj);
 			}

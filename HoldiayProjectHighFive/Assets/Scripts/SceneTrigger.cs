@@ -1,7 +1,8 @@
 ﻿using HighFive.Const;
-using HighFive.Control.PersonSystem.Persons;
+using HighFive.Model.Person;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Model.SceneSystem;
+using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 
 namespace Game.Scripts
@@ -24,7 +25,7 @@ namespace Game.Scripts
     
         void OnTriggerExit2D(Collider2D col)
         {
-            if (null == AbstractPerson.GetInstance<Player>(col.gameObject))
+            if ( !(col.gameObject.GetPersonInfo() is IHighFiveCharacter))
                 return;
             DefaultData.PlayerPos = this.newPosition;
     

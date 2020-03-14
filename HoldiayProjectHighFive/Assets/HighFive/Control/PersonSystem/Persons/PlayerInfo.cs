@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using HighFive.Control.SkillSystem;
-using HighFive.Model.SpiritItemSystem;
-using HighFive.View.AssetUIs.Panels;
-using ReadyGamerOne.Data;
+using HighFive.Model.Person;
 using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -13,31 +9,6 @@ using UnityEngine;
 
 namespace HighFive.Control.PersonSystem.Persons
 {
-
-    [Serializable]
-    public class CommonSkillInfo
-    {
-        public KeyCode key;
-        public SkillInfoAsset skillAsset;
-    }
-    
-    [Serializable]
-    public class ComboSkillInfo
-    {
-        public SkillInfoAsset skillAsset;
-        [Range(0, 1)] public float beginComboTest;
-        public float canMoveTime;
-        public bool ignoreInput;
-        public float faultToleranceTime;
-
-        public string SkillName => skillAsset.skillName.StringValue;
-        public float StartTime => skillAsset.startTime;
-        public float LastTime => skillAsset.LastTime;
-
-        public void RunSkill(Player self, bool ignoreInput = false, float startTimer = 0f) =>
-            skillAsset.RunSkill(self, ignoreInput, startTimer);
-    }
-    
     public class PlayerInfo:BaseCharacterInfo
     {
         #region Editor
@@ -70,17 +41,11 @@ namespace HighFive.Control.PersonSystem.Persons
         public KeyCode superKey = KeyCode.Z;
         public KeyCode bagKey = KeyCode.Tab;
         
-        public List<Player.ItemData> itemList = new List<Player.ItemData>();
         public int Maxdrag;   //最大药引上限
         public int money = 0;
         public float airXMove;
         public int MaxSpiritNum = 1;
 
-        public PackagePanelAsset packagePanelAsset;
-        
-        public SerializableDictionary<string, AbstractSpiritItem> spiritDic =
-            new SerializableDictionary<string, AbstractSpiritItem>();
-        
         public List<CommonSkillInfo> commonSkillInfos=new List<CommonSkillInfo>();
         public List<ComboSkillInfo> comboSkillInfos=new List<ComboSkillInfo>();
     }

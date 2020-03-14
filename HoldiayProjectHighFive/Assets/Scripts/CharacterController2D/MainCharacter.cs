@@ -1,5 +1,5 @@
 ﻿using HighFive.Const;
-using HighFive.Control.PersonSystem.Persons;
+using HighFive.Global;
 using HighFive.StateMachine;
 using UnityEngine;
 using ReadyGamerOne.Common;
@@ -137,7 +137,7 @@ public class MainCharacter : Actor
 		//Variables
 
 		//灵力归元加速
-		if (Player.isSuper)
+		if (GlobalVar.isSuper)
 		{
 			if (Input.GetKeyUp(KeyCode.Z))
 			{
@@ -267,7 +267,7 @@ public class MainCharacter : Actor
 	/// </summary>
 	private void Jump()
 	{
-		if (Player.isSuper)
+		if (GlobalVar.isSuper)
 		{
 			//High jump
 //			Debug.Log("High Jump");

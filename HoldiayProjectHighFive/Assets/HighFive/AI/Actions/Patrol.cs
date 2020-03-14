@@ -1,6 +1,7 @@
 ﻿using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
-using HighFive.Control.PersonSystem.Persons;
+using HighFive.Model.Person;
+using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 
 namespace HighFive.AI.Actions
@@ -20,13 +21,13 @@ namespace HighFive.AI.Actions
         private Actor actor;
         private Vector3 dir1;
         private Vector3 dir2;
-        private AbstractPerson self;
+        private IHighFivePerson self;
         private float timer = 0;
         public override void OnStart()
         {
 	        base.OnStart();
 	        actor = gameObject.GetComponent<Actor>();
-	        self = AbstractPerson.GetInstance(gameObject);
+	        self = gameObject.GetPersonInfo() as IHighFivePerson;
 	        gameObject.GetComponent<Animator>().Play(Animator.StringToHash(walkAni));
 	        timer = 0;
 

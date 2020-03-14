@@ -1,6 +1,6 @@
-﻿using HighFive.View.AssetUIs.Panels;
+﻿using HighFive.Const;
 using ReadyGamerOne.Script;
-using ReadyGamerOne.View.AssetUi;
+using ReadyGamerOne.View;
 using UnityEngine;
 
 namespace Game.Scripts
@@ -8,7 +8,6 @@ namespace Game.Scripts
 	public class ShopNpc : CloseEnough
     {
     	private bool isShowing;
-        public ShopPanelAsset shopPanelAsset;
     
     	protected override void Start()
     	{
@@ -22,16 +21,14 @@ namespace Game.Scripts
     			//Debug.Log("Close");
     			if (Input.GetKeyDown(KeyCode.E))
     			{
-    				Debug.Log("KeyDown");
     				if (isShowing)
     				{
-    					PanelAssetMgr.PopPanel();
+    					PanelMgr.PopPanel();
     					isShowing = false;
     				}
     				else
                     {
-	                    PanelAssetMgr.PushPanel(shopPanelAsset);
-    					//PanelMgr.PushPanel(PanelName.shopPanel);
+    					PanelMgr.PushPanel(PanelName.Shop);
     					isShowing = true;
     				}
     			}
@@ -41,8 +38,11 @@ namespace Game.Scripts
     	protected override void OnTriggerExit2D(Collider2D col)
     	{
     		base.OnTriggerExit2D(col);
-    		if(isShowing)
-    			PanelAssetMgr.PopPanel();
+            if (isShowing)
+            {
+	            PanelMgr.PopPanel();
+	            isShowing = false;
+            }
     	}
     }
 
