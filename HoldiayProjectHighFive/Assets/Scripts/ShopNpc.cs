@@ -28,7 +28,7 @@ namespace Game.Scripts
     				}
     				else
                     {
-    					PanelMgr.PushPanel(PanelName.Shop);
+    					PanelMgr.PushPanel(PanelName.ShopPanel);
     					isShowing = true;
     				}
     			}

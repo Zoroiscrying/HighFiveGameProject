@@ -15,20 +15,28 @@ namespace ReadyGamerOne.Global
             {
                 if (canvas == null)
                 {
-                    var canvasObj = new GameObject("GlobalCanvas");
-                    canvasObj.AddComponent<RectTransform>();
-                    var c = canvasObj.AddComponent<Canvas>();
-                    canvasObj.AddComponent<CanvasScaler>();
-                    canvasObj.AddComponent<GraphicRaycaster>();
-                    c.renderMode = RenderMode.ScreenSpaceOverlay;
-                    onCreateCanvas?.Invoke(c);
-                    canvas = canvasObj;
-
-                    if (null == Object.FindObjectOfType<EventSystem>())
+                    var c = Object.FindObjectOfType<Canvas>();
+                    if (c)
                     {
-                        var es = new GameObject("EventSystem");
-                        es.AddComponent<EventSystem>();
-                        es.AddComponent<StandaloneInputModule>();
+                        canvas = c.gameObject;
+                    }
+                    else
+                    {
+                        var canvasObj = new GameObject("GlobalCanvas");
+                        canvasObj.AddComponent<RectTransform>();
+                        c = canvasObj.AddComponent<Canvas>();
+                        canvasObj.AddComponent<CanvasScaler>();
+                        canvasObj.AddComponent<GraphicRaycaster>();
+                        c.renderMode = RenderMode.ScreenSpaceOverlay;
+                        onCreateCanvas?.Invoke(c);
+                        canvas = canvasObj;
+
+                        if (null == Object.FindObjectOfType<EventSystem>())
+                        {
+                            var es = new GameObject("EventSystem");
+                            es.AddComponent<EventSystem>();
+                            es.AddComponent<StandaloneInputModule>();
+                        }                        
                     }
                 }
 

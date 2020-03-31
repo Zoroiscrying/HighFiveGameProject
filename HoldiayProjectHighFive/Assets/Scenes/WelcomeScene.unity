@@ -113,6 +113,93 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1131058122 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1764960261439974, guid: 74878fb2b1022ed4fbef907375fc5f97,
+    type: 2}
+  m_PrefabInternal: {fileID: 1791757002}
+--- !u!114 &1131058123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1131058122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662de70ceffdea34689e3ba7be82912b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1541114262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1611617283708418, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1541114264}
+  - component: {fileID: 1541114263}
+  m_Layer: 0
+  m_Name: SceneUtil
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1541114263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114802899564879196, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1541114262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 275a8d9e5e250ce4abb843b1db401d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPanel:
+    values:
+    - BattlePanel
+    - LoadingPanel
+    - PackagePanel
+    - ShopPanel
+    - WelcomePanel
+    selectedIndex: 4
+  startBgm:
+    values:
+    - Au1
+    - Au2
+    - Au3
+    - Au4
+    - Au5
+    - beiji
+    - Bg
+    - Fuck
+    selectedIndex: 6
+  enableMiniMap: 1
+  enable_V_loadAsync: 1
+  sceneName:
+    values:
+    - WelcomeScene
+    - TestScene
+    - JbScene
+    selectedIndex: 1
+  Enable_C_ChangeScene: 1
+--- !u!4 &1541114264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4868050087208544, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1541114262}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0010206421, w: 0.9999995}
+  m_LocalPosition: {x: -14.82, y: -3.17, z: 0.03125}
+  m_LocalScale: {x: 1, y: 0.9625199, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.117000006}
 --- !u!1001 &1791757002
 Prefab:
   m_ObjectHideFlags: 0
@@ -120,6 +207,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114119141787554612, guid: 74878fb2b1022ed4fbef907375fc5f97,
+        type: 2}
+      propertyPath: startPanel.values.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4972092481736870, guid: 74878fb2b1022ed4fbef907375fc5f97, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -152,6 +244,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114119141787554612, guid: 74878fb2b1022ed4fbef907375fc5f97,
+        type: 2}
+      propertyPath: startBgm.selectedIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114119141787554612, guid: 74878fb2b1022ed4fbef907375fc5f97,
+        type: 2}
+      propertyPath: startPanel.values.Array.data[4]
+      value: WelcomePanel
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114119141787554612, guid: 74878fb2b1022ed4fbef907375fc5f97, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 74878fb2b1022ed4fbef907375fc5f97, type: 2}
   m_IsPrefabAsset: 0

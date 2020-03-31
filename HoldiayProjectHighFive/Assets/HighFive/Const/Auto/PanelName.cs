@@ -2,9 +2,10 @@ namespace HighFive.Const
 {
 	public partial class PanelName
 	{
-		public const string Battle = @"Battle";
-		public const string Loading = @"Loading";
-		public const string Package = @"Package";
-		public const string Shop = @"Shop";
+		public const string BattlePanel = @"BattlePanel";
+		public const string LoadingPanel = @"LoadingPanel";
+		public const string PackagePanel = @"PackagePanel";
+		public const string ShopPanel = @"ShopPanel";
+		public const string WelcomePanel = @"WelcomePanel";
 	}
 }

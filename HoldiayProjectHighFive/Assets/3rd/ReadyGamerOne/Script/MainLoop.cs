@@ -11,7 +11,7 @@ namespace ReadyGamerOne.Script
     /// 在外部调用，实现脱离MonoBehavior进行更新
     /// 封装多种协程便于调用
     /// </summary>
-    public sealed class MainLoop : MonoSingleton<MainLoop>
+    public sealed class MainLoop : GlobalMonoSingleton<MainLoop>
     {
         #region Static
 

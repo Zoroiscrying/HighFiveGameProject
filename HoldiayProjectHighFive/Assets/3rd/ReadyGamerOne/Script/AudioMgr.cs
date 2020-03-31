@@ -8,7 +8,7 @@ using UnityEngine;
 #endif
 namespace ReadyGamerOne.Script
 {
-    public class AudioMgr : MonoSingleton<AudioMgr>
+    public class AudioMgr : GlobalMonoSingleton<AudioMgr>
     {
         #region Private
 

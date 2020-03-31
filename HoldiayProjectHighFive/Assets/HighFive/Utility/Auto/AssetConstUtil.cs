@@ -34,10 +34,11 @@ namespace HighFive.Utility
 					{ @"Snowflower" , @"ClassItem\Snowflower" },
 					{ @"texGravBootsIcon" , @"ClassItem\texGravBootsIcon" },
 					{ @"texTeslaCoilIcon" , @"ClassItem\texTeslaCoilIcon" },
-					{ @"Battle" , @"ClassPanel\Battle" },
-					{ @"Loading" , @"ClassPanel\Loading" },
-					{ @"Package" , @"ClassPanel\Package" },
-					{ @"Shop" , @"ClassPanel\Shop" },
+					{ @"BattlePanel" , @"ClassPanel\BattlePanel" },
+					{ @"LoadingPanel" , @"ClassPanel\LoadingPanel" },
+					{ @"PackagePanel" , @"ClassPanel\PackagePanel" },
+					{ @"ShopPanel" , @"ClassPanel\ShopPanel" },
+					{ @"WelcomePanel" , @"ClassPanel\WelcomePanel" },
 					{ @"Sworder" , @"ClassPerson\TypeCharacter\Sworder" },
 					{ @"Boner" , @"ClassPerson\TypeEnemy\Boner" },
 					{ @"Spider" , @"ClassPerson\TypeEnemy\Spider" },
@@ -53,6 +54,7 @@ namespace HighFive.Utility
 					{ @"Image_Slot" , @"ClassUi\Image_Slot" },
 					{ @"Slider" , @"ClassUi\Slider" },
 					{ @"Text_Number" , @"ClassUi\Text_Number" },
+					{ @"DOTweenSettings" , @"DOTweenSettings" },
 					{ @"OnHitParticleMat" , @"Materials\OnHitParticleMat" },
 				};
 		public override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;

@@ -407,7 +407,7 @@ namespace HighFive.Model.Person
             //背包
             if (Input.GetKeyDown((Controller as HighFiveCharacterController).bagKey))
             {
-                PanelMgr.PushPanel(PanelName.Package);
+                PanelMgr.PushPanel(PanelName.PackagePanel);
             }
 
             if (Input.GetKeyUp((Controller as HighFiveCharacterController).bagKey))

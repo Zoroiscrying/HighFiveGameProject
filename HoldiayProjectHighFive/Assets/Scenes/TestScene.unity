@@ -400,6 +400,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4972092481736870, guid: 74878fb2b1022ed4fbef907375fc5f97, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74878fb2b1022ed4fbef907375fc5f97, type: 2}
   m_IsPrefabAsset: 0
@@ -1216,8 +1220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66f49a22d83f1e4abab4fc1ced690ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDir: {x: 0.05, y: 0.05, z: 0.05}
-  shakeTime: 0.05
 --- !u!114 &1677751953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,16 +1240,22 @@ MonoBehaviour:
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   m_CustomBlends: {fileID: 0}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Cinemachine.CinemachineBrain+BrainEvent, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Cinemachine.CinemachineBrain+BrainEvent, Cinemachine, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!20 &1677751954
 Camera:
@@ -1300,6 +1308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1740693562}
   - component: {fileID: 1740693563}
+  - component: {fileID: 1740693564}
   m_Layer: 0
   m_Name: SceneUtil
   m_TagString: Untagged
@@ -1333,17 +1342,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275a8d9e5e250ce4abb843b1db401d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UiPanelName:
+  startPanel:
     values:
-    - Panel_Battle
-    - Panel_Package
-    - Panel_Shop
-    - Panel_Loading
+    - BattlePanel
+    - LoadingPanel
+    - PackagePanel
+    - ShopPanel
+    - WelcomePanel
     selectedIndex: 0
-  creatTestPeople: 0
-  EnemyPos: {x: 0, y: 0, z: 0}
-  PlayerPos: {x: 0, y: 0, z: 0}
-  signalSize: 4
+  startBgm:
+    values:
+    - Au1
+    - Au2
+    - Au3
+    - Au4
+    - Au5
+    - beiji
+    - Bg
+    - Fuck
+    selectedIndex: 6
   enableMiniMap: 1
   enable_V_loadAsync: 1
   sceneName:
@@ -1353,6 +1370,22 @@ MonoBehaviour:
     - JbScene
     selectedIndex: 2
   Enable_C_ChangeScene: 1
+--- !u!114 &1740693564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1740693561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509f43a33eb7e37479f74825796c0099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signalSize: 1
+  CharacterInfos:
+  - _personType: 0
+    position: {x: 0, y: 0, z: 0}
+    color: {r: 0.05724919, g: 1, b: 0, a: 1}
 --- !u!1 &1834550841
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.MemorySystem;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace ReadyGamerOne.Script
@@ -9,22 +10,21 @@ namespace ReadyGamerOne.Script
     /// <summary>
     /// 使用SceneMgr推荐用脚本继承这个类
     /// </summary>
-    public abstract class AbstractGameMgr<T>:MonoSingleton<T>
+    public abstract class AbstractGameMgr<T>:GlobalMonoSingleton<T>
         where T:AbstractGameMgr<T>
     {
         public static event Action onDrawGizomos;
-        protected override void Awake()
+
+        protected override void OnStateIsNull()
         {
-            if (_instance == null)
-            {
-                base.Awake();
-                print("AbstractGameMgr_Awake——这句话应该只显示一次");
-                ResourceMgr.Init(ResourceLoader,PathData,OriginBundleData,AssetConstUtil);
-                RegisterSceneEvent();
-                WorkForOnlyOnce();
-                AutoGenerateTool.RegisterUi(GetType());                
-            }
+            base.OnStateIsNull();
+            print("AbstractGameMgr_Awake——这句话应该只显示一次");
+            ResourceMgr.Init(ResourceLoader,PathData,OriginBundleData,AssetConstUtil);
+            RegisterSceneEvent();
+            WorkForOnlyOnce();
+            QuickStartTool.RegisterUi(GetType());            
         }
+        
         protected abstract IResourceLoader ResourceLoader { get; }
         protected virtual IAssetConstUtil AssetConstUtil => null;
         protected virtual IHotUpdatePath PathData => null;
@@ -33,7 +33,7 @@ namespace ReadyGamerOne.Script
         protected virtual void RegisterSceneEvent()
         {
             SceneManager.sceneLoaded +=(scene,mode)=> this.OnAnySceneLoad();
-            SceneManager.sceneUnloaded +=(scene)=> this.OnAnySceneUnload(scene);            
+            SceneManager.sceneUnloaded +=(scene)=> this.OnAnySceneUnload();            
         }
 
         protected virtual void WorkForOnlyOnce()
@@ -46,7 +46,7 @@ namespace ReadyGamerOne.Script
             
         }
 
-        protected virtual void OnAnySceneUnload(Scene scene)
+        protected virtual void OnAnySceneUnload()
         {
             MainLoop.Instance.Clear();
         }

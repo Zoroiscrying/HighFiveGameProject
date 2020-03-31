@@ -1,6 +1,7 @@
 using ReadyGamerOne.EditorExtension;
 using HighFive.Const;
 using ReadyGamerOne.Common;
+using ReadyGamerOne.Model.SceneSystem;
 using ReadyGamerOne.View;
 using ReadyGamerOne.Script;
 using UnityEngine;
@@ -10,12 +11,8 @@ namespace HighFive.Script
 {
 	public partial class HighFiveMgr
 	{
-		public StringChooser startPanel = new StringChooser(typeof(PanelName));
-		public StringChooser startBgm = new StringChooser(typeof(AudioName));
-		public StringChooser ItemChooser=new StringChooser(typeof(ItemName));
 		partial void OnSafeAwake()
 		{
-			PanelMgr.PushPanel(startPanel.StringValue);
 		}
 		private void Update()
 		{
@@ -25,14 +22,26 @@ namespace HighFive.Script
 			}
 		}
 
-		protected override void OnAnySceneUnload(Scene scene)
+		protected override void OnAnySceneUnload()
 		{
-			base.OnAnySceneUnload(scene);		
+			base.OnAnySceneUnload();		
 			PanelMgr.Clear();
 			MainLoop.Instance.Clear();
 			CEventCenter.Clear();
 		}
 
+
+		protected override void RegisterSceneEvent()
+		{
+			AbstractSceneInfo.RegisterSceneInfo<DefaultSceneInfo>(SceneName.jbScene);
+			AbstractSceneInfo.RegisterSceneInfo<DefaultSceneInfo>(SceneName.testScene);
+			AbstractSceneInfo.RegisterSceneInfo<DefaultSceneInfo>(SceneName.welcomeScene);
+			
+			
+			AbstractSceneInfo.onAnySceneLoad += this.OnAnySceneLoad;
+			AbstractSceneInfo.onAnySceneUnLoaded += this.OnAnySceneUnload;
+			SceneMgr.LoadActiveScene();
+		}
 		/// <summary>
 		/// 注册灵器
 		/// </summary>

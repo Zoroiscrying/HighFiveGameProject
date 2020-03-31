@@ -4,6 +4,7 @@ using ReadyGamerOne.EditorExtension;
 using HighFive.Global;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Model.SceneSystem;
+using ReadyGamerOne.Script;
 using ReadyGamerOne.View;
 
 namespace Game.Scripts
@@ -18,6 +19,12 @@ namespace Game.Scripts
         
 //        [Header("是否生成敌方假人")]
 //        public bool creatTestPeople = false;
+
+        [Header("当前场景初始Panel")]
+        public StringChooser startPanel=new StringChooser(typeof(PanelName));
+        
+        [Header("当前场景初始Bgm")]
+        public StringChooser startBgm=new StringChooser(typeof(AudioName));
 
         [Header("是否开启小地图")]
         public bool enableMiniMap = true;
@@ -36,15 +43,13 @@ namespace Game.Scripts
 
         void Start()
         {
+            PanelMgr.PushPanel(startPanel.StringValue);
+            AudioMgr.Instance.PlayBgm(startBgm.StringValue);
+            
 
             if (enableMiniMap)
                 ResourceMgr.InstantiateGameObject(UiName.Image_MiniMapBackGround,
                     GlobalVar.G_Canvas.transform);
-
-//
-//            if (PanelUiAsset != null)
-//                PanelAssetMgr.PushPanel(PanelUiAsset);
-//            CEventCenter.BroadMessage(Message.M_RankAwake, 0, 0);
 
         }
 
@@ -61,7 +66,7 @@ namespace Game.Scripts
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
-                    PanelMgr.PushPanelWithMessage(PanelName.Loading, Message.M_LoadSceneAsync, sceneName.StringValue);
+                    PanelMgr.PushPanelWithMessage(PanelName.LoadingPanel, Message.M_LoadSceneAsync, sceneName.StringValue);
                 }
             }
         }

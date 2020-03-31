@@ -191,8 +191,6 @@ namespace ReadyGamerOne.Model.SceneSystem
             yield return _LoadScene(AbstractSceneInfo.GetScene(newSceneName), 
                 onLeaveOldScene,
                 onEnterNewScene);
-            
-//            Debug.Log("SceneMgr_LoadSceneCoroutine");
         }
 
         /// <summary>

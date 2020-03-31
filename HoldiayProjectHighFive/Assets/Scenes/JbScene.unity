@@ -435,6 +435,11 @@ Prefab:
       propertyPath: CharacterInfos.Array.data[2].position.x
       value: 14.15
       objectReference: {fileID: 0}
+    - target: {fileID: 114802899564879196, guid: ef5cc287ec0fa304892cbfa2cb5d3531,
+        type: 2}
+      propertyPath: startBgm.selectedIndex
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef5cc287ec0fa304892cbfa2cb5d3531, type: 2}
   m_IsPrefabAsset: 0
@@ -446,7 +451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1721041477}
-  - component: {fileID: 1721041476}
+  - component: {fileID: 1721041475}
   m_Layer: 0
   m_Name: HighFiveMgr
   m_TagString: Untagged
@@ -454,7 +459,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1721041476
+--- !u!114 &1721041475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -465,35 +470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662de70ceffdea34689e3ba7be82912b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPanel:
-    values:
-    - Battle
-    - Loading
-    - Package
-    - Shop
-    selectedIndex: 0
-  startBgm:
-    values:
-    - ClassAudio\Au1
-    - ClassAudio\Au2
-    - ClassAudio\Au3
-    - ClassAudio\Au4
-    - ClassAudio\Au5
-    - ClassAudio\beiji
-    - ClassAudio\Bg
-    - ClassAudio\Fuck
-    selectedIndex: 6
-  ItemChooser:
-    values:
-    - AlienHeadSprite
-    - BearSprite
-    - HookSprite
-    - KnifeSprite
-    - LeaveSprite
-    - GoldHeartSprite
-    - LittleBoySprite
-    - SnowflowerSprite
-    selectedIndex: 0
 --- !u!4 &1721041477
 Transform:
   m_ObjectHideFlags: 0
