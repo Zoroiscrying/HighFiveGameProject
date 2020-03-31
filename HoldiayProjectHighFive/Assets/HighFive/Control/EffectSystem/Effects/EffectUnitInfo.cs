@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using HighFive.Const;
 using HighFive.Model.Person;
+using HighFive.View;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Rougelike.Person;
@@ -182,7 +183,7 @@ namespace HighFive.Control.EffectSystem.Effects
 
                     //todo: 这里显示伤害数字才对
 //                    dp?.TryAttackSimple(rp);
-                    
+                    new DamageNumberUI(dp.Attack, 0, 1, Color.red, rp.transform, dp.Dir);
                     break;
 
                 #endregion
