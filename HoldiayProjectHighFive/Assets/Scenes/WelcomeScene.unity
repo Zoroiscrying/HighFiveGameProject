@@ -113,22 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1131058122 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1764960261439974, guid: 74878fb2b1022ed4fbef907375fc5f97,
-    type: 2}
-  m_PrefabInternal: {fileID: 1791757002}
---- !u!114 &1131058123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1131058122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662de70ceffdea34689e3ba7be82912b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1541114262
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,11 +191,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114119141787554612, guid: 74878fb2b1022ed4fbef907375fc5f97,
-        type: 2}
-      propertyPath: startPanel.values.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4972092481736870, guid: 74878fb2b1022ed4fbef907375fc5f97, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -244,17 +223,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114119141787554612, guid: 74878fb2b1022ed4fbef907375fc5f97,
-        type: 2}
-      propertyPath: startBgm.selectedIndex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114119141787554612, guid: 74878fb2b1022ed4fbef907375fc5f97,
-        type: 2}
-      propertyPath: startPanel.values.Array.data[4]
-      value: WelcomePanel
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114119141787554612, guid: 74878fb2b1022ed4fbef907375fc5f97, type: 2}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74878fb2b1022ed4fbef907375fc5f97, type: 2}
   m_IsPrefabAsset: 0

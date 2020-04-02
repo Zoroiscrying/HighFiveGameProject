@@ -34,15 +34,7 @@ namespace HighFive.Model.Person
 	{
 		#region Fields
 		
-		protected int _attackAdder;
-		protected float _attackScaler;
-
-		protected bool _ignoreHitback;
-		protected float _defaultConstTime;
-		protected float _attackSpeed=1;
 		protected Vector2 _hitBackSpeed;
-
-		protected bool _isConst;
 
 		#endregion
 
@@ -67,52 +59,21 @@ namespace HighFive.Model.Person
 			set { (this.Controller as HighFivePersonController).Dir = value; }
 		} 
 
-		public bool IsConst
-		{
-			get { return _isConst; }
-			set { _isConst = value; }
-		}
+		public bool IsConst { get; set; }
+		public bool IgnoreHitback { get; set; }
 
-		public bool IgnoreHitback
-		{
-			get
-			{
-				return _ignoreHitback;
-			}
-			set
-			{
-				_ignoreHitback = value;
-			} 
-		}
+		public float DefaultConstTime { get; set; }
 
-		public float DefaultConstTime
-		{
-			get { return _defaultConstTime; }
-			set { _defaultConstTime = value; }
-		}
-
-		public float AttackSpeed
-		{
-			get { return _attackSpeed; }
-			set { _attackSpeed = value; }
-		}
+		public float AttackSpeed { get; set; } = 1;
 
 		public Vector2 HitBackSpeed
 		{
 			get { return _hitBackSpeed; }
 		}
 
-		public int AttackAdder
-		{
-			get { return _attackAdder; }
-			set { _attackAdder = value; }
-		}
+		public int AttackAdder { get; set; } = 0;
 
-		public float AttackScaler
-		{
-			get { return _attackScaler;}
-			set { _attackScaler = value; }
-		}
+		public float AttackScaler { get; set; } = 1;
 
 
 		#region ITakeDamageablePerson<T>

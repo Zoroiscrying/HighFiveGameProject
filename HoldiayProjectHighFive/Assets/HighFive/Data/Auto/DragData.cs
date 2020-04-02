@@ -1,16 +1,15 @@
+using UnityEngine;
+using System.Collections;
+
 namespace HighFive.Data
 {
-	public class ShopItemData : ItemData
+	public class DragData : ItemData
 	{
-		public const int ShopItemDataCount = 2;
+		public const int DragDataCount = 2;
 
-		public override string ID => itemName.ToString();
-
-		public int price;
-		public int outPrice;
 		public override string ToString()
 		{
-			var ans="==《	ShopItemData	》==\n" +
+			var ans="==《	DragData	》==\n" +
 					"itemName" + "	" + itemName+"\n" +
 					"uitext" + "	" + uitext+"\n" +
 					"spriteName" + "	" + spriteName+"\n" +

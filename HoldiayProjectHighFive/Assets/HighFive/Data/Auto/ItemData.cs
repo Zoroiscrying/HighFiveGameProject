@@ -1,10 +1,12 @@
 using ReadyGamerOne.Data;
+using UnityEngine;
+using System.Collections;
 
 namespace HighFive.Data
 {
 	public class ItemData : CsvMgr
 	{
-		public const int ItemDataCount = 6;
+		public const int ItemDataCount = 2;
 
 		public override string ID => itemName.ToString();
 
@@ -14,6 +16,8 @@ namespace HighFive.Data
 		public string prefabName;
 		public string statement;
 		public int maxSlotCount;
+		public int price;
+		public int outPrice;
 		public override string ToString()
 		{
 			var ans="==《	ItemData	》==\n" +
@@ -22,7 +26,9 @@ namespace HighFive.Data
 					"spriteName" + "	" + spriteName+"\n" +
 					"prefabName" + "	" + prefabName+"\n" +
 					"statement" + "	" + statement+"\n" +
-					"maxSlotCount" + "	" + maxSlotCount;
+					"maxSlotCount" + "	" + maxSlotCount+"\n" +
+					"price" + "	" + price+"\n" +
+					"outPrice" + "	" + outPrice;
 			return ans;
 
 		}

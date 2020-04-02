@@ -1,5 +1,6 @@
 using ReadyGamerOne.EditorExtension;
 using HighFive.Const;
+using HighFive.Control.EffectSystem.Effects;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Model.SceneSystem;
 using ReadyGamerOne.View;
@@ -28,6 +29,7 @@ namespace HighFive.Script
 			PanelMgr.Clear();
 			MainLoop.Instance.Clear();
 			CEventCenter.Clear();
+			EffectUnitInfo.Clear();
 		}
 
 

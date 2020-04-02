@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4972092481736870}
-  - component: {fileID: 114119141787554612}
+  - component: {fileID: 114992478787928752}
   m_Layer: 5
   m_Name: GameMgr
   m_TagString: GameController
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114119141787554612
+--- !u!114 &114992478787928752
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,35 +51,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662de70ceffdea34689e3ba7be82912b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPanel:
-    values:
-    - Battle
-    - Loading
-    - Package
-    - Shop
-    selectedIndex: 0
-  startBgm:
-    values:
-    - Au1
-    - Au2
-    - Au3
-    - Au4
-    - Au5
-    - beiji
-    - Bg
-    - Fuck
-    selectedIndex: 6
-  ItemChooser:
-    values:
-    - AlienHead
-    - Bear
-    - Hook
-    - Knife
-    - Leave
-    - GoldHeart
-    - LittleBoy
-    - texKnurlIcon
-    - Snowflower
-    - texGravBootsIcon
-    - texTeslaCoilIcon
-    selectedIndex: 0

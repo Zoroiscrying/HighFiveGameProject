@@ -1,8 +1,0 @@
-﻿itemName,uitext,spriteName,prefabName,statement,maxSlotCount
-string,string,string,string,string,int
-AlienHead,外星人头骨,AlienHead,,冷却缩减一秒,64
-Leave,幸运草,Leave,,你很幸运哦,64
-Knife,祭祀小刀,Knife,,击杀敌方单位概率飞刀,64
-Snowflower,冰霜圣物,Snowflower,,一定半径内持续伤害,64
-Bear,迪奥最好的朋友,Bear,,复活一次,64
-Hook,致命钩爪,Hook,,发出钩爪造成伤害,64

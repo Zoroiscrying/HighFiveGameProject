@@ -29,7 +29,6 @@ namespace HighFive.View
 			Assert.IsTrue(this.moreInfoTextObj&&this.moreInfoSpriteObj&&this.backPackGridObj);
 			
 			//恢复背包信息
-
 			foreach(var item in GlobalVar.G_Player.GetItems())
 			{
 				OnAddItem(item.ID, item.Count);
@@ -37,11 +36,6 @@ namespace HighFive.View
 			moreInfoSpriteObj.enabled = false;
 		}
 		
-		public override void Destory()
-		{
-			base.Destory();
-			G_idToItemUi.Clear();
-		}
 
 		private void OnRemoveItem(string itemId, int count)
         {
@@ -55,13 +49,13 @@ namespace HighFive.View
             if (!G_idToItemUi.ContainsKey(itemId))
             {
                 var obj = ResourceMgr.InstantiateGameObject(PrefabName.Slot, backPackGridObj);
-                var infoUi = obj.GetComponent<Slot>();
-                if (!infoUi)
+                var slotUi = obj.GetComponent<Slot>();
+                if (!slotUi)
                     throw new Exception("获取到的ItemInfoUI为空");
 
-                infoUi.Refresh(itemId, count, id => G_idToItemUi.Remove(id));
+                slotUi.Refresh(itemId, count, id => G_idToItemUi.Remove(id));
 
-                G_idToItemUi.Add(itemId, infoUi);
+                G_idToItemUi.Add(itemId, slotUi);
                 
                 LayoutRebuilder.ForceRebuildLayoutImmediate(backPackGridObj.GetComponent<RectTransform>());
             }
@@ -103,13 +97,19 @@ namespace HighFive.View
 	        base.Disable();
 	        foreach (var kv in G_idToItemUi)
 	        {
-		        kv.Value.transform.SetParent(backPackGridObj);
 		        kv.Value.onPointerEnter -= OnPointerEnter;
 		        kv.Value.onPointerExit -= OnPointerExit;
 	        }
-//	        backPackGridObj.transform.DetachChildren();
         }
         
+		public override void Destory()
+		{
+			base.Destory();
+			G_idToItemUi.Clear();
+		}
+        
+		
+		
         
         private void OnPointerEnter(Slot ui)
         {

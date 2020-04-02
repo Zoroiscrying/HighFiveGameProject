@@ -8,11 +8,5 @@ namespace HighFive.Math
         {
             return (int)(damage * multiplier + adder);
         }
-
-        public static int Damage(IHighFivePerson attacker, IHighFivePerson receiver)
-        {
-            return (int) (attacker.Attack * attacker.AttackScaler +
-                          attacker.AttackAdder);
-        }
     }
 }

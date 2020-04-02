@@ -1,0 +1,4 @@
+﻿personName,money,drag_1,drag_2,stone_1,stone_2,reiki
+string,int,float,float,float,float,float
+Boner,100,0.2,0.8,0,0,50
+Spider,80,0,0,0.8,0.2,25

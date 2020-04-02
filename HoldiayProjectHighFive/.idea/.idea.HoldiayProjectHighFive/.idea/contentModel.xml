@@ -144,8 +144,11 @@
               <e p="CloseEnough.cs" t="Include" />
               <e p="Editor" t="Include">
                 <e p="AbstractCharacterControllerEditor.cs" t="Include" />
+                <e p="TabBarEditor.cs" t="Include" />
+                <e p="TabPairDrawer.cs" t="Include" />
               </e>
               <e p="MainLoop.cs" t="Include" />
+              <e p="TabBar.cs" t="Include" />
               <e p="TriggerContainer3D.cs" t="Include" />
               <e p="TriggerInputer.cs" t="Include" />
               <e p="TypeWriterEffect.cs" t="Include" />
@@ -979,11 +982,13 @@
           <e p="Data" t="Include">
             <e p="Auto" t="Include">
               <e p="CharacterData.cs" t="Include" />
+              <e p="DragData.cs" t="Include" />
+              <e p="DropData.cs" t="Include" />
               <e p="EnemyData.cs" t="Include" />
+              <e p="GemData.cs" t="Include" />
               <e p="ItemData.cs" t="Include" />
               <e p="PersonData.cs" t="Include" />
               <e p="RankData.cs" t="Include" />
-              <e p="ShopItemData.cs" t="Include" />
             </e>
           </e>
           <e p="Global" t="Include">
@@ -994,17 +999,27 @@
           </e>
           <e p="Model" t="Include">
             <e p="ItemSystem" t="Include">
-              <e p="AlienHead.cs" t="Include" />
-              <e p="Bear.cs" t="Include" />
+              <e p="DragItems" t="Include">
+                <e p="Medkit.cs" t="Include" />
+                <e p="Mushroom.cs" t="Include" />
+                <e p="Snail.cs" t="Include" />
+                <e p="Soda.cs" t="Include" />
+                <e p="StickyBomb.cs" t="Include" />
+                <e p="Syringe.cs" t="Include" />
+              </e>
+              <e p="GemItems" t="Include">
+                <e p="AlienHead.cs" t="Include" />
+                <e p="Bear.cs" t="Include" />
+                <e p="Hook.cs" t="Include" />
+                <e p="Knife.cs" t="Include" />
+                <e p="Leave.cs" t="Include" />
+                <e p="Snowflower.cs" t="Include" />
+              </e>
               <e p="GoldHeart.cs" t="Include" />
               <e p="HighFiveItem.cs" t="Include" />
-              <e p="Hook.cs" t="Include" />
               <e p="ItemDataExtension.cs" t="Include" />
-              <e p="Knife.cs" t="Include" />
-              <e p="Leave.cs" t="Include" />
               <e p="LittleBoy.cs" t="Include" />
               <e p="Slot.cs" t="Include" />
-              <e p="Snowflower.cs" t="Include" />
             </e>
             <e p="Person" t="Include">
               <e p="Character" t="Include">

@@ -78,7 +78,7 @@ namespace ReadyGamerOne.Common
     /// <typeparam name="T"></typeparam>
     public class PoolableObjectPool<T> :
         ObjPoor<T>
-        where T : class, IPoolable<T>, new()
+        where T : class, IPoolable, new()
     {
         public PoolableObjectPool() : base(()=>new T(),obj=>obj.OnRecycleToPool() , obj=>obj.OnGetFromPool())
         {

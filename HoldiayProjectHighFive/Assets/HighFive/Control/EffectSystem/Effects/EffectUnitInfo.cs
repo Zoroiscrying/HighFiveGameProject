@@ -74,6 +74,14 @@ namespace HighFive.Control.EffectSystem.Effects
             return partical;
         }
 
+        public static void Clear()
+        {
+            foreach (var obj_pool in poorDic)
+            {
+                obj_pool.Value.Clear();
+            }
+        }
+        
         [SerializeField] private EffectType type;
         [SerializeField] private EffectInfoAsset EffectInfoAsset;
 

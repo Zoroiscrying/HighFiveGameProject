@@ -211,7 +211,7 @@ namespace ReadyGamerOne.Data
 			}
 			else if (!File.Exists(this.fileName))
 			{
-				throw new Exception("指定的CSV文件不存在");
+				throw new Exception("指定的CSV文件不存在，fileName:"+fileName);
 			}
 			else
 			{

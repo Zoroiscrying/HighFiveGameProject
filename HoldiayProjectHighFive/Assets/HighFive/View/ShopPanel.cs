@@ -26,7 +26,7 @@ namespace HighFive.View
 			{
 			
 				currentItemIndex = value;
-				this.itemInfo.text = CsvMgr.GetData<ShopItemData>(itemIdList[value]).statement;
+				this.itemInfo.text = CsvMgr.GetData<ItemData>(itemIdList[value]).statement;
 			}
 			get { return currentItemIndex; }
 		}
@@ -136,7 +136,7 @@ namespace HighFive.View
 			GameObject itemObj;
 			foreach (var id in itemIdList)
 			{
-				var itemInfo = CsvMgr.GetData<ShopItemData>(id);
+				var itemInfo = CsvMgr.GetData<ItemData>(id);
 			    itemObj=ResourceMgr.InstantiateGameObject(UiName.Image_ItemBk, this.itemList);
 				Assert.IsTrue(itemObj);
 				

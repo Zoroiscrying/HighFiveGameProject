@@ -19,7 +19,7 @@ namespace ReadyGamerOne.Rougelike.Person
     public abstract class PoolPerson<T> : 
         AbstractPerson,
         IPoolPerson,
-        IPoolable<T>
+        IPoolable
         where T : PoolPerson<T>, new()
     {
         #region Static
@@ -68,8 +68,6 @@ namespace ReadyGamerOne.Rougelike.Person
         public virtual void OnRecycleToPool()
         {
             onBeforeRealse?.Invoke(this);
-            
-//            Debug.Log(" 2 ");
             DisableObject();
         }
 
@@ -89,6 +87,20 @@ namespace ReadyGamerOne.Rougelike.Person
         public event Action<IPoolPerson> onBeforeRealse;
 
         #endregion
-        
+
+        #region 禁止子类重载EnableObject和DisableObject，使用OnGetFromPool和OnRecycleToPool代替
+
+        public sealed override void EnableObject()
+        {
+            base.EnableObject();
+        }
+
+        public sealed override void DisableObject()
+        {
+            base.DisableObject();
+        }        
+
+        #endregion
+
     }
 }

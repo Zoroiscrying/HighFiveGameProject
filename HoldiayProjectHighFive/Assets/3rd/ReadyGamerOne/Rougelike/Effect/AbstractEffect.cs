@@ -6,7 +6,7 @@ using UnityEngine.Assertions;
 namespace ReadyGamerOne.Rougelike
 {
     public abstract class AbstractEffect<T>:
-        IPoolable<T>,
+        IPoolable,
         IResourcableObject
     where T:AbstractEffect<T>,new()
     {

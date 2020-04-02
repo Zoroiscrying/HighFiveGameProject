@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ReadyGamerOne.Global;
@@ -62,7 +63,7 @@ namespace ReadyGamerOne.Data
             EditorGUILayout.Space();
 
 
-            if (GUILayout.Button("生成具体数据类csv文件"))
+            if (GUILayout.Button("根据DataConfig文件生成空csv文件"))
             {               
                 if(!UnityEngine.Windows.Directory.Exists(csvDirPath))
                 {
@@ -97,7 +98,9 @@ namespace ReadyGamerOne.Data
                 {
                     foreach (var fileFullPath in Directory.GetFiles(csvDirPath))
                     {
-                        if(fileFullPath.EndsWith(".meta")||fileFullPath.Contains(DataConfigFileName))
+                        if(fileFullPath.EndsWith(".meta"))
+                            continue;
+                        if(Path.GetFileNameWithoutExtension(fileFullPath)==DataConfigFileName)
                             continue;
                         if (fileFullPath.EndsWith(".csv") || fileFullPath.EndsWith(".CSV"))
                         {
@@ -117,6 +120,11 @@ namespace ReadyGamerOne.Data
             }
         }
 
+        /// <summary>
+        /// 读取数据结构表信息
+        /// </summary>
+        /// <param name="copyToResource"></param>
+        /// <returns></returns>
         private static bool ReadDataConfigFile(bool copyToResource=false)
         {
             var filePath = "";
@@ -167,6 +175,12 @@ namespace ReadyGamerOne.Data
                         case "parentClassName":
                             config.parentName = name;
                             break;
+                        case "fileKeys":
+                            foreach (var fileKey in name.Split('_'))
+                            {
+                                config.fileKeys.Add(fileKey.Trim());
+                            }
+                            break;
                         default:
                             if (string.IsNullOrEmpty(name))
                                 break;
@@ -186,47 +200,60 @@ namespace ReadyGamerOne.Data
                     return false;
                 }
 
+                if (config.fileKeys.Count == 0)
+                {
+                    config.fileKeys.Add(config.className);
+                }
+                
                 _dataConfigInfos.Add(config.className, config);                
             }
 
             return true;
         }
 
+        /// <summary>
+        /// 根据DataConfig文件生成空csv文件
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private static bool CreateMoreCsvFile()
         {
-            if(!ReadDataConfigFile())
+            if(!ReadDataConfigFile(true))
             {
                 Debug.Log("读取DataConfig文件失败");
                 return false;
             }
-
-//            foreach (var VARIABLE in _dataConfigInfos)
-//            {
-//                var c = VARIABLE.Value;
-//                var fields = "";
-//                foreach (var info in c.fieldInfos)
-//                {
-//                    fields += info.Value.fieldName + " : " + info.Value.fieldType + "\n";
-//                }
-////                Debug.Log("name: "+c.className+"\nparent: "+c.parentName+"\n"+fields);
-//            }
             
             foreach (var kv  in _dataConfigInfos)
             {
                 var curClassName = kv.Key;
 
                 var classes = new Stack<string>();
+
+                #region 将当前类所有祖先类都以此压入classes中
+                
                 classes.Push(curClassName);
                 var temp = curClassName;
                 while (!string.IsNullOrEmpty(temp))
                 {
+                    if (!_dataConfigInfos.ContainsKey(temp))
+                    {
+                        throw new Exception($"{DataConfigFileName}文件中未注册的类型：{temp}");
+                    }
                     temp = _dataConfigInfos[temp].parentName;
                     if(!string.IsNullOrEmpty(temp))
                         classes.Push(temp);
                 }
                 
+
+                #endregion
+
+                
                 var nameList=new List<string>();
                 var typeList=new List<string>();
+
+                #region 将当前类及其所有祖先类的所有字段和类型加入到nameList和typeList中去
+
                 while (classes.Count > 0)
                 {
                     var name = classes.Pop();
@@ -236,38 +263,50 @@ namespace ReadyGamerOne.Data
                         nameList.Add(_kv.Value.fieldName);
                         typeList.Add(_kv.Value.fieldType);
                     }
-                }
+                }                
 
-                string path=null;
+                #endregion
 
-                if (File.Exists(csvDirPath + "/" + curClassName + ".csv"))
+
+                Assert.IsTrue(kv.Value.fileKeys.Count>0);
+                foreach (var fileKey in kv.Value.fileKeys)
                 {
-                    if(overriteOldFile)
-                        File.Delete(csvDirPath + "/" + curClassName + ".csv");
+                    #region 生成文件：typeName_fileKey
+
+                    var fileName = curClassName + "_" + fileKey;
+                                        
+                    if (File.Exists(csvDirPath + "/" + fileName + ".csv"))
+                    {
+                        if(overriteOldFile)
+                            File.Delete(csvDirPath + "/" + fileName + ".csv");
+                    }
+                
+                    var stream = new StreamWriter(csvDirPath + "/" + fileName + ".csv");
+
+                    for (var i = 0; i < nameList.Count; i++)
+                    {
+                        if(i==nameList.Count-1)
+                            stream.Write(nameList[i]);
+                        else 
+                            stream.Write(nameList[i]+",");
+                    }
+
+                    stream.Write("\n");
+                    for (var i = 0; i < typeList.Count; i++)
+                    {
+                        if(i==typeList.Count-1)
+                            stream.Write(typeList[i]);
+                        else 
+                            stream.Write(typeList[i]+",");
+                    }
+                
+                
+                    stream.Dispose();
+                    stream.Close();  
+
+                    #endregion
                 }
                 
-                var stream = new StreamWriter(csvDirPath + "/" + curClassName + ".csv");
-
-                for (var i = 0; i < nameList.Count; i++)
-                {
-                    if(i==nameList.Count-1)
-                        stream.Write(nameList[i]);
-                    else 
-                        stream.Write(nameList[i]+",");
-                }
-
-                stream.Write("\n");
-                for (var i = 0; i < typeList.Count; i++)
-                {
-                    if(i==typeList.Count-1)
-                        stream.Write(typeList[i]);
-                    else 
-                        stream.Write(typeList[i]+",");
-                }
-                
-                
-                stream.Dispose();
-                stream.Close();
             }
 
             return true;
@@ -286,25 +325,48 @@ namespace ReadyGamerOne.Data
             return info.fieldInfos.First().Value.fieldName;
         }
 
+        /// <summary>
+        /// 创建对应数据结构的类型定义
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="writePath"></param>
+        /// <param name="nameSpace"></param>
         private static void CreatConfigFile(string filePath, string writePath,string nameSpace)
         {
             var targetPath = Application.dataPath + "/Resources/ClassFile";
 
             if (!Directory.Exists(targetPath))
                 Directory.CreateDirectory(targetPath);
-            
-            var fileName = Path.GetFileNameWithoutExtension(filePath);
 
-            targetPath = targetPath + "/" + fileName + ".csv";
+            string className = null;
+            string fileKey = null;
+
+            #region 获取className,fileKey并设置好targetPath
+            
+            {
+                var fileName = Path.GetFileNameWithoutExtension(filePath);
+                var strs = fileName.Split('_');
+
+                if (strs.Length != 2)
+                {
+                    throw new Exception($"异常文件名：{fileName}");
+                }
+                className = strs[0].Trim();
+                fileKey = strs[1].Trim();
+                targetPath += "/" + fileName + ".csv";
+            }
+
+            #endregion
+            
+
             if (new FileInfo(targetPath).FullName != new FileInfo(filePath).FullName)
             {
                 File.Copy(filePath, targetPath, true);
             }
 
-            string className = fileName;
-            StreamWriter sw = new StreamWriter(writePath + "/" + className + ".cs");
+            var sw = new StreamWriter(writePath + "/" + className + ".cs");
 
-            var parentClass = _dataConfigInfos[fileName].parentName;
+            var parentClass = _dataConfigInfos[className].parentName;
 
             if (string.IsNullOrEmpty(parentClass))
             {
@@ -323,7 +385,7 @@ namespace ReadyGamerOne.Data
             sw.WriteLine("\t\tpublic const int "+className+"Count = "+(csr.RowCount-2)+";\n");
 
             var index = 0;
-            foreach (var kv in _dataConfigInfos[fileName].fieldInfos)
+            foreach (var kv in _dataConfigInfos[className].fieldInfos)
             {
                 var fieldName = kv.Value.fieldName;
                 var fieldType = kv.Value.fieldType;

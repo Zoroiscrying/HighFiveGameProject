@@ -1,0 +1,5 @@
+﻿itemName,uitext,spriteName,prefabName,statement,maxSlotCount,price,outPrice,attack,attackSpeed
+string,string,string,string,string,int,int,int,int,float
+Snowflower,冰霜圣物,Snowflower,,一定半径内持续伤害,64,80,40,4,0
+Bear,迪奥最好的朋友,Bear,,复活一次,64,100,50,5,0
+Hook,致命钩爪,Hook,,发出钩爪造成伤害,64,120,60,3,0

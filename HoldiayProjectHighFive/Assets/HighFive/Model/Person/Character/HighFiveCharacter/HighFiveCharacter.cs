@@ -17,24 +17,6 @@ using UnityEngine.Assertions;
 
 namespace HighFive.Model.Person
 {       
-//	/// <summary>
-//    /// 保存存储物品信息的内部类
-//    /// </summary>
-//    public class ItemData:IHasStringId
-//    {
-//        public string itemId;
-//        public int count;
-// 
-//        public ItemData(string itemid, int count)
-//        {
-//            this.count = count;
-//            itemId = itemid;
-//        }
-//
-//        public string ID => itemId.ToString();
-//    }
-//	
-	
 	public interface IHighFiveCharacter : 
 		IHighFivePerson,
 		IRankablePerson,
@@ -171,7 +153,7 @@ namespace HighFive.Model.Person
 
 		#endregion
 		
-		#region Hp_使用rankMgr
+		#region Hp_Attack_使用rankMgr
 
 		public override int Hp
 		{
@@ -192,7 +174,7 @@ namespace HighFive.Model.Person
 		{
 			get
 			{
-				return _rankMgr.BaseAttack;
+				return (int)((_rankMgr.BaseAttack+AttackAdder)*AttackScaler);
 			}
 			protected set
 			{
@@ -283,6 +265,34 @@ namespace HighFive.Model.Person
 
 		#endregion		
 		
+		#region IPoolable<PoolPerson<T>>
+
+		public override void OnGetFromPool()
+		{
+			base.OnGetFromPool();	
+			GlobalVar.G_Player = this;
+                                 			
+            CEventCenter.AddListener(Message.M_InitSuper, InitSuper);
+            CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
+            CEventCenter.AddListener<string>(Message.M_OnTryBut, OnTryBuy);
+            CEventCenter.AddListener<string, int>(Message.M_AddItem, (id,count)=>AddItem(id,count));
+            CEventCenter.AddListener<string, int>(Message.M_RemoveItem, (id,count)=>RemoveItem(id,count));
+		}
+
+		public override void OnRecycleToPool()
+		{
+			base.OnRecycleToPool();
+			CEventCenter.RemoveListener(Message.M_InitSuper, InitSuper);
+			CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
+			CEventCenter.RemoveListener<string>(Message.M_OnTryBut, OnTryBuy);
+
+			if(GlobalVar.G_Player==this)
+				GlobalVar.G_Player = null;			
+		}
+
+		#endregion
+		
+		
 		#region 技能与控制
 
 		/// <summary>
@@ -326,35 +336,6 @@ namespace HighFive.Model.Person
 			set { (Controller as HighFiveCharacterController).MaxSpiritNum = value; }
 		} 		
 
-		#region IResourcableObject
-
-		public override void EnableObject()
-		{
-			base.EnableObject();
-
-			GlobalVar.G_Player = this;
-			
-			CEventCenter.AddListener(Message.M_InitSuper, InitSuper);
-			CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
-			CEventCenter.AddListener<string>(Message.M_OnTryBut, OnTryBuy);
-			CEventCenter.AddListener<string, int>(Message.M_AddItem, (id,count)=>AddItem(id,count));
-			CEventCenter.AddListener<string, int>(Message.M_RemoveItem, (id,count)=>RemoveItem(id,count));
-		}
-
-		public override void DisableObject()
-		{
-			base.DisableObject();
-			CEventCenter.RemoveListener(Message.M_InitSuper, InitSuper);
-			CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
-			CEventCenter.RemoveListener<string>(Message.M_OnTryBut, OnTryBuy);
-//			CEventCenter.RemoveListener<string, int>(Message.M_AddItem, AddItem);
-//			CEventCenter.RemoveListener<string, int>(Message.M_RemoveItem, RemoveItem);
-
-			if(GlobalVar.G_Player==this)
-				GlobalVar.G_Player = null;
-		}		
-
-		#endregion
 		
 		#endregion
 
@@ -386,7 +367,6 @@ namespace HighFive.Model.Person
 		#endregion
         
 		#endregion
-		
 		
 		#region 更新与事件
 
@@ -519,7 +499,7 @@ namespace HighFive.Model.Person
 		#region Message_Handles
 		private void OnTryBuy(string id)
 		{
-			var itemData = CsvMgr.GetData<ShopItemData>(id);
+			var itemData = CsvMgr.GetData<ItemData>(id);
 			if (itemData == null)
 				throw new Exception("物品ID异常：id:" + id);
 

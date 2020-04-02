@@ -5,10 +5,13 @@ using HighFive.Const;
 using HighFive.Data;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Data;
+using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.Script;
 using ReadyGamerOne.Scripts;
 using UnityEngine;
 using UnityEngine.Assertions;
 using ReadyGamerOne.Utility;
+using Random = UnityEngine.Random;
 
 namespace HighFive.Model.Person
 {
@@ -32,7 +35,9 @@ namespace HighFive.Model.Person
 		protected SuperBloodBar headBloodBar;
 
 		#endregion
-		
+
+		#region IUseCsvData
+
 		public override Type DataType => typeof(EnemyData);
 
 		public override void LoadData(CsvMgr data)
@@ -47,8 +52,11 @@ namespace HighFive.Model.Person
 			this.Attack = enemyData.attack;
 			this.MaxHp = enemyData.maxHp;
 			this.Hp = this.MaxHp;
-		}
+		}		
 
+		#endregion
+		
+		
 		public HeadUiCanvas HeadUi => (Controller as HighFiveEnemyController).HeadUi;
 		
 		public override void OnInstanciateObject()
@@ -58,38 +66,89 @@ namespace HighFive.Model.Person
 			headBloodBar = HeadUi.GetComponent<SuperBloodBar>("SuperBloodBar");
 			Assert.IsTrue(headBloodBar);
 		}
-		public override void EnableObject()
-		{
-			base.EnableObject();
-			headBloodBar.InitValue(MaxHp);
-		}		
-		
 		
 		public override void OnGetFromPool()
 		{
 			base.OnGetFromPool();
 			HeadUi.GetComponent<Canvas>().enabled = true;
+			headBloodBar.InitValue(MaxHp);
 		}
 
 		public override void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
 		{
 			base.OnTakeDamage(takeDamageFrom, damage);
 			headBloodBar.Value -= damage;
-			
-			//赚钱和经验
-			CEventCenter.BroadMessage(Message.M_PlayerExpChange,damage*5);
-			CEventCenter.BroadMessage(Message.M_MoneyChange, damage * 3);
 		}
 		
 		
-
 		public override void Kill()
 		{
-//			Debug.Log(" 1 ");
+			DropItems(this.CharacterName);
 			base.Kill();
 			HeadUi.GetComponent<Canvas>().enabled = false;
+		}
+
+		private void DropItems(string itemId)
+		{
+			var dropData = CsvMgr.GetData<DropData>(itemId);
+			Assert.IsNotNull(dropData);
 			
+			//赚钱和经验
+			CEventCenter.BroadMessage(Message.M_PlayerExpChange,dropData.money*5);
+			CEventCenter.BroadMessage(Message.M_MoneyChange, dropData.money * 3);
 			
+			//掉落物品
+			ItemData itemData = null;
+
+			#region 获取itemData
+
+			var allRate = dropData.drag_1 + dropData.drag_2 + dropData.stone_1 + dropData.stone_2;
+			var rates = new[]
+			{
+				dropData.drag_1 / allRate,
+				(dropData.drag_1 + dropData.drag_2) / allRate,
+				(dropData.drag_1 + dropData.drag_2 + dropData.stone_1) / allRate,
+				(dropData.drag_1 + dropData.drag_2 + dropData.stone_1 + dropData.stone_2) / allRate,
+			};
+			var randomRate = Random.Range(0, 1f);
+			if (randomRate > rates[3])
+			{
+				throw new Exception("异常概率："+randomRate);
+			}else if (randomRate > rates[2])
+			{
+				itemData = CsvMgr.GetRandomData<GemData>(FileName.GemData_2);
+			}else if (randomRate > rates[1])
+			{
+				itemData = CsvMgr.GetRandomData<GemData>(FileName.GemData_1);
+			}else if (randomRate > rates[0])
+			{
+				itemData = CsvMgr.GetRandomData<DragData>(FileName.DragData_2);
+			}else
+			{
+				itemData = CsvMgr.GetRandomData<DragData>(FileName.DragData_1);
+			}			
+
+			#endregion
+
+			Assert.IsNotNull(itemData);
+			
+			var obj = ResourceMgr.InstantiateGameObject(PrefabName.DropItem, this.position);
+			
+			Assert.IsTrue(obj);
+			
+			obj.GetComponent<SpriteRenderer>().sprite =
+				ResourceMgr.GetAsset<Sprite>(itemData.spriteName);
+
+			var ti = obj.GetOrAddComponent<TriggerInputer>();
+			ti.onCollisionEnterEvent2D +=
+				col =>
+				{
+					if (col.gameObject.GetPersonInfo() is IHighFiveCharacter)
+					{
+						CEventCenter.BroadMessage(Message.M_AddItem, itemData.ID, 1);
+						GameObject.Destroy(ti.gameObject);
+					}
+				};
 		}
 	}
 }
