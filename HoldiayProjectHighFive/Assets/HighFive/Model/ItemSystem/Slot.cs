@@ -8,13 +8,14 @@ using UnityEngine.UI;
 
 namespace HighFive.Model.ItemSystem
 {
-    public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,IPointerClickHandler
     {
         public ItemData itemData;
         public Image icon;
         public Text countText;
         public event Action<Slot> onPointerEnter;
         public event Action<Slot> onPointerExit;
+        public event Action<Slot> onPointerClick;
 
         private Action<string> onDelete;
 
@@ -61,6 +62,11 @@ namespace HighFive.Model.ItemSystem
         public void OnPointerExit(PointerEventData eventData)
         {
             onPointerExit?.Invoke(this);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            onPointerClick?.Invoke(this);
         }
     }
 }

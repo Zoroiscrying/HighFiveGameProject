@@ -147,6 +147,7 @@
                 <e p="TabBarEditor.cs" t="Include" />
                 <e p="TabPairDrawer.cs" t="Include" />
               </e>
+              <e p="FreeGrid.cs" t="Include" />
               <e p="MainLoop.cs" t="Include" />
               <e p="TabBar.cs" t="Include" />
               <e p="TriggerContainer3D.cs" t="Include" />
@@ -1070,6 +1071,7 @@
             <e p="GameAnimator.cs" t="Include" />
           </e>
           <e p="Script" t="Include">
+            <e p="AnimateGrid.cs" t="Include" />
             <e p="Auto" t="Include">
               <e p="HighFiveMgr.cs" t="Include" />
             </e>

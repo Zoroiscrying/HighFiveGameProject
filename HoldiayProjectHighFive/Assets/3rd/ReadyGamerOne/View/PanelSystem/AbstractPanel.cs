@@ -112,6 +112,20 @@ namespace ReadyGamerOne.View
             }
 
         }        
+        
+        
+        protected Transform GetTransform(string path)
+        {
+            if (!view.ContainsKey(path))
+                throw new Exception("不包含这个路径：" + path);
+            return view[path].transform;
+        }
+        protected T GetComponent<T>(string path) where T : Component
+        {
+            if (!view.ContainsKey(path))
+                throw new Exception("不包含这个路径：" + path);
+            return view[path].GetComponent<T>();
+        }
 
         #endregion
 

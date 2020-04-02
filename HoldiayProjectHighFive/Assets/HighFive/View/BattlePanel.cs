@@ -28,19 +28,19 @@ namespace HighFive.View
         partial void OnLoad()
         {
             //do any thing you want
-            var trans_bloodBar = view["Image_PlayerStateBar/BloodBar"].transform;
+            var trans_bloodBar = GetTransform("Image_PlayerStateBar/BloodBar");
             this.bloodBar = trans_bloodBar.GetComponent<Slider>();
             this.bloodText = trans_bloodBar.Find("Number").GetComponent<Text>();
             Assert.IsTrue(this.bloodBar != null);
 
-            var trans_expBar = view["Image_PlayerStateBar/ExpBar"].transform;
+            var trans_expBar = GetTransform("Image_PlayerStateBar/ExpBar");
             this.ExpBar = trans_expBar.GetComponent<Slider>();
             this.expText = trans_expBar.Find("Number").GetComponent<Text>();
             Assert.IsTrue(this.ExpBar != null);
 
-            this.moneyText = GetComponentFromRoot<TextMeshProUGUI>("Image_MoneyBk/Tmp_Money");
+            this.moneyText = GetComponent<TextMeshProUGUI>("Image_MoneyBk/Tmp_Money");
             Assert.IsTrue(moneyText);
-            this.rankText = GetComponentFromRoot<Text>("Image_PlayerStateBar/Text_Rank");
+            this.rankText = GetComponent<Text>("Image_PlayerStateBar/Text_Rank");
             Assert.IsTrue(this.rankText);
         }
         

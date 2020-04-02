@@ -50,12 +50,10 @@ namespace HighFive.View
 		partial void OnLoad()
 		{
 			//do any thing you want
-			this.itemList = view["Image_ShopBk/Image_Back/Empty_ItemList"].transform;
-			this.buyBtn = view["Image_ShopBk/Image_ItemInfo/Tmp_BtnBuy"].transform;
-			this.itemInfo = view["Image_ShopBk/Image_ItemInfo/Tmp_ItemInfo"]
-				.GetComponent<TextMeshProUGUI>();
-			this.playerMoney = view["Image_MoneyBk/Tmp_Num"].GetComponent<TextMeshProUGUI>();
-			//this.itemDataObj = MemoryMgr.GetSourceFromResources<GameObject>(UiName.Image_ItemData);
+			this.itemList = GetTransform("Image_ShopBk/Image_Back/Empty_ItemList");
+			this.buyBtn = GetTransform("Image_ShopBk/Image_ItemInfo/Tmp_BtnBuy");
+			this.itemInfo = GetComponent<TextMeshProUGUI>("Image_ShopBk/Image_ItemInfo/Tmp_ItemInfo");
+			this.playerMoney = GetComponent<TextMeshProUGUI>("Image_MoneyBk/Tmp_Num");
 			Assert.IsTrue(itemList&&buyBtn&&itemInfo&&this.playerMoney);
 			InitItemList();
 			this.CurrentItemIndex = 0;

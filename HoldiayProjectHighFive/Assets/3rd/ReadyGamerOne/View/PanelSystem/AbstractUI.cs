@@ -152,22 +152,6 @@ namespace ReadyGamerOne.View
             m_bIsVisible = false;
 
         }
-
-
-        /// <summary>
-        /// 从根节点获取组件
-        /// </summary>
-        /// <param name="path"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        protected T GetComponentFromRoot<T>(string path)
-            where T : Component
-        {
-            return m_TransFrom.GetComponent<T>(path);
-        }
-        protected Transform GetComponentFromRoot(string path)
-        {
-            return m_TransFrom.Find(path);
-        }
+        
     }
 }

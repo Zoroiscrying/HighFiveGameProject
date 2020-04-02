@@ -15,8 +15,8 @@ namespace HighFive.View
 		partial void OnLoad()
 		{
 			//do any thing you want
-			this.slider = view["Slider_Progress"].GetComponent<Slider>();
-			this.text = view["Tmp_LoadingText"].GetComponent<TextMeshProUGUI>();
+			this.slider = GetComponent<Slider>("Slider_Progress");
+			this.text = GetComponent<TextMeshProUGUI>("Tmp_LoadingText");
 
 			Assert.IsTrue(this.slider && this.text);
 		}
