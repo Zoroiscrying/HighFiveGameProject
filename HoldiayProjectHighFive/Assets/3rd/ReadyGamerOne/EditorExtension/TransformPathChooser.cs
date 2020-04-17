@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace ReadyGamerOne.EditorExtension
 {
-//#pragma warning disable CS0649
     [Serializable]
     public class TransformPathChooser
     {
@@ -12,7 +11,9 @@ namespace ReadyGamerOne.EditorExtension
         
         [SerializeField] private GameObject go;
         [SerializeField] private int selectedIndex;
+#pragma warning disable 649
         [SerializeField] private string path;
+#pragma warning restore 649
 
         public string Path => path;
 

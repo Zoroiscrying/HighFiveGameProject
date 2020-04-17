@@ -20,6 +20,9 @@ namespace HighFive.Script
         public Vector3 position;
         public Color color;
     }
+    /// <summary>
+    /// 用于调试控制角色生成脚本
+    /// </summary>
     public class PersonCreater : UnityEngine.MonoBehaviour
     {
         public float signalSize = 1.0f;

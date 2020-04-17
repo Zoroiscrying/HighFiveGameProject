@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Game.Scripts
 {
+    
+    /// <summary>
+    /// 场景切换触发器
+    /// </summary>
     [RequireComponent(typeof(BoxCollider2D))]
     public class SceneTrigger : MonoBehaviour
     {

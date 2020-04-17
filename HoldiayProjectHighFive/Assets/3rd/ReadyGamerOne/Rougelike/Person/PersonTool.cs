@@ -14,7 +14,9 @@ namespace ReadyGamerOne.Rougelike.Person
 #endif
     {
 #if UNITY_EDITOR
+#pragma warning disable 414
         static string Title = "角色系统";
+#pragma warning restore 414
         private static string sourDir;
         private static string generateDir;
         private static bool createControllers = true;

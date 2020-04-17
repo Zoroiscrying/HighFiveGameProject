@@ -8,6 +8,7 @@ namespace ReadyGamerOne.EditorExtension
     [Serializable]
     public class MessageTrigger
     {
+#pragma warning disable 649
         public bool tickMessage;
 
         public int argCount;
@@ -116,6 +117,7 @@ namespace ReadyGamerOne.EditorExtension
                     break;
             }
         }
+#pragma warning restore 649
     }
 
 }

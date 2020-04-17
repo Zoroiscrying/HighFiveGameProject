@@ -7,15 +7,13 @@ namespace Game.Scripts
     {
     
     	private BoxCollider2D box;
-    	// Use this for initialization
-    	void Start () {
-    		
-    	}
-    
+        public Color color = Color.red;
     	private void OnDrawGizmos()
     	{
     		if (this.box == null)
     			this.box = GetComponent<BoxCollider2D>();
+
+            Gizmos.color = color;
     		var scanle = this.transform.localScale;
     		var offect = scanle * box.offset;
     		var size = scanle * box.size;
@@ -28,11 +26,6 @@ namespace Game.Scripts
     		Debug.DrawLine(lt, lb, Color.cyan);
     		Debug.DrawLine(rt, rb, Color.cyan);
     		Debug.DrawLine(lb,rb,Color.cyan);
-    	}
-    	
-    	// Update is called once per frame
-    	void Update () {
-    		
     	}
     }
 

@@ -26,8 +26,9 @@ namespace ReadyGamerOne.Data
             alignment = TextAnchor.MiddleCenter
         };
 
-        
+        #pragma warning disable 414
         private static string Title = "CSV解析";
+        #pragma warning restore 414
         private static string DataConfigFileName = "DataConfig";
         private static bool overriteOldFile = false;
         private static Dictionary<string, DataConfigInfo> _dataConfigInfos = new Dictionary<string, DataConfigInfo>();

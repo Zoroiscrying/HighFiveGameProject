@@ -72,7 +72,7 @@ namespace ReadyGamerOne.View.Effects
                 {
                     if(!newPanel.IsVisable())
                         return;
-                    newPanel.m_TransFrom.position = GlobalVar.G_Canvas.transform.position;
+                    newPanel.m_TransFrom.position = GlobalVar.GCanvasObj.transform.position;
                 });
 
 

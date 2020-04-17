@@ -68,7 +68,7 @@ namespace ReadyGamerOne.View.Effects
 
         protected override void OnEnd(AbstractPanel panelBefore,AbstractPanel newPanel)
         {
-            newPanel.m_TransFrom.position = GlobalVar.G_Canvas.transform.position;
+            newPanel.m_TransFrom.position = GlobalVar.GCanvasObj.transform.position;
             if(panelBefore!=null&&panelBefore.IsVisable())
                 panelBefore.Disable();
         }

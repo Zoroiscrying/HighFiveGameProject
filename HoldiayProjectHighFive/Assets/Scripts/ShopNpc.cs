@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Game.Scripts
 {
+	/// <summary>
+	/// 商店NPC脚本
+	/// </summary>
 	public class ShopNpc : CloseEnough
     {
     	private bool isShowing;

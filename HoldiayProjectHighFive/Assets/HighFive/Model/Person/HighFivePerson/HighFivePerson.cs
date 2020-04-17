@@ -79,22 +79,15 @@ namespace HighFive.Model.Person
 		#region ITakeDamageablePerson<T>
 
 
-		public virtual void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+		public override void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
 		{
 			if (damage == 0)
 				Debug.LogWarning("伤害是 0 ？？");
 			
-
 			//播放受击动画
 			PlayAcceptEffects(takeDamageFrom as IHighFivePerson);
 			
-			Hp -= damage;
-//			Debug.Log($"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{damage}伤害，剩余血量：{Hp}");
-			if (Hp <= 0)
-			{
-				Hp = 0;
-				Kill();
-			}
+			base.OnTakeDamage(takeDamageFrom,damage);
 		}
 
 		public override void OnCauseDamage(AbstractPerson causeDamageTo, int damage)

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -9,16 +10,16 @@ namespace ReadyGamerOne.Global
     public partial class GlobalVar
     {
         public static event Action<Canvas> onCreateCanvas; 
-        public static GameObject G_Canvas
+        public static GameObject GCanvasObj
         {
             get
             {
-                if (canvas == null)
+                if (canvasObj == null)
                 {
                     var c = Object.FindObjectOfType<Canvas>();
                     if (c)
                     {
-                        canvas = c.gameObject;
+                        canvasObj = c.gameObject;
                     }
                     else
                     {
@@ -29,7 +30,7 @@ namespace ReadyGamerOne.Global
                         canvasObj.AddComponent<GraphicRaycaster>();
                         c.renderMode = RenderMode.ScreenSpaceOverlay;
                         onCreateCanvas?.Invoke(c);
-                        canvas = canvasObj;
+                        GlobalVar.canvasObj = canvasObj;
 
                         if (null == Object.FindObjectOfType<EventSystem>())
                         {
@@ -38,20 +39,27 @@ namespace ReadyGamerOne.Global
                             es.AddComponent<StandaloneInputModule>();
                         }                        
                     }
+
+                    Assert.IsTrue(canvasObj);
+
+                    _canvasCom = canvasObj.GetComponent<Canvas>();
                 }
 
-                return canvas;
+                return canvasObj;
             }            
         }
+
+        public static Canvas CanvasComponent => _canvasCom;
         
-        private static GameObject canvas;
+        private static GameObject canvasObj;
+        private static Canvas _canvasCom;
 
-        public static Vector3 GCanvasButton => G_Canvas.transform.position - new Vector3(0, Screen.height, 0);
+        public static Vector3 GCanvasButton => GCanvasObj.transform.position - new Vector3(0, Screen.height, 0);
 
-        public static Vector3 GCanvasTop => G_Canvas.transform.position + new Vector3(0, Screen.height, 0);
+        public static Vector3 GCanvasTop => GCanvasObj.transform.position + new Vector3(0, Screen.height, 0);
 
-        public static Vector3 GCanvasLeft => G_Canvas.transform.position - new Vector3(Screen.width, 0, 0);
+        public static Vector3 GCanvasLeft => GCanvasObj.transform.position - new Vector3(Screen.width, 0, 0);
 
-        public static Vector3 GCanvasRight => G_Canvas.transform.position + new Vector3(Screen.width, 0, 0);
+        public static Vector3 GCanvasRight => GCanvasObj.transform.position + new Vector3(Screen.width, 0, 0);
     }
 }

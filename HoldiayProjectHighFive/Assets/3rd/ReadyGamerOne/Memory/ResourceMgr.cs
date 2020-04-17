@@ -201,7 +201,9 @@ namespace ReadyGamerOne.MemorySystem
         #region IEditorTools
 
 #if UNITY_EDITOR
+#pragma warning disable 414
         static string Title = "资源管理";
+#pragma warning restore 414
 
         private static ResourceManagerType _resourceManagerType = ResourceManagerType.Resource;
        

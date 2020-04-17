@@ -19,7 +19,7 @@ namespace ReadyGamerOne.Utility
             if (!camera)
                 throw new Exception("Camera is null");
 
-            var canvas = uiCanvas ?? ReadyGamerOne.Global.GlobalVar.G_Canvas?.GetComponent<Canvas>();
+            var canvas = uiCanvas ?? ReadyGamerOne.Global.GlobalVar.GCanvasObj?.GetComponent<Canvas>();
             if (!canvas)
                 throw new Exception("Canvas is null");
 

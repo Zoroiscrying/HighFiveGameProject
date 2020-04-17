@@ -13,8 +13,10 @@ namespace HighFive.Script
         public ItemData itemData;
         public Image icon;
         public Text countText;
+#pragma warning disable 67
         public event Action<ItemInfoUi> onPointerEnter;
         public event Action<ItemInfoUi> onPointerExit;
+#pragma warning restore 67
 
         private Action<string> onDelete;
 

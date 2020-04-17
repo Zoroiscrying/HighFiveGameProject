@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace ReadyGamerOne.Utility
 {
@@ -52,6 +53,25 @@ namespace ReadyGamerOne.Utility
                 throw new Exception($"{self.gameObject.name} 获取组建失败：" + transformPath);
             }
             return temp.GetComponentsInChildren<T>();
+        }
+        
+        
+        public static T GetOrAddComponent<T>(this Component self)
+            where T:Component
+        {
+            var ans = self.GetComponent<T>();
+            if (!ans)
+                ans = self.gameObject.AddComponent<T>();
+            return ans;
+        }     
+
+        public static Component GetOrAddComponent(this Component self, Type componentType)
+        {
+            var com = self.GetComponent(componentType);
+            if (!com)
+                com = self.gameObject.AddComponent(componentType);
+            Assert.IsTrue(com);
+            return com;
         }
     }
 }

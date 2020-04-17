@@ -199,11 +199,11 @@ namespace ReadyGamerOne.View
 
         private static Image GetEffectImage()
         {
-            var effectPanel = Global.GlobalVar.G_Canvas.transform.Find("EffectPanel");
+            var effectPanel = Global.GlobalVar.GCanvasObj.transform.Find("EffectPanel");
             if (effectPanel == null)
             {
                 var panelObj = new GameObject("EffectPanel");
-                panelObj.transform.SetParent(Global.GlobalVar.G_Canvas.transform);
+                panelObj.transform.SetParent(Global.GlobalVar.GCanvasObj.transform);
                 panelObj.transform.localPosition = Vector3.zero;
                 var image = panelObj.AddComponent<Image>();
                 var rect = panelObj.GetComponent<RectTransform>();

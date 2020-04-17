@@ -19,8 +19,11 @@ namespace ReadyGamerOne.EditorExtension
 #endif
     {
 #if UNITY_EDITOR
-
+        
+#pragma warning disable 414
         static string Title = "自动类生成";
+#pragma warning restore 414
+
 
         private static string generateDir;
         private static string sourDir;

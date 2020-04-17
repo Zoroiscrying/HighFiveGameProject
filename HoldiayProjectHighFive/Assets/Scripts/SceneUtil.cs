@@ -9,10 +9,11 @@ using ReadyGamerOne.View;
 
 namespace Game.Scripts
 {
+    /// <summary>
+    /// 每个Scene必备的控制整个Scene逻辑的脚本
+    /// </summary>
     public class SceneUtil : MonoBehaviour
     {
-        
-    
         #region Public_Fields
 
        // [Header("设定当前场景UIPanel")] public PanelUiAsset PanelUiAsset;
@@ -49,7 +50,7 @@ namespace Game.Scripts
 
             if (enableMiniMap)
                 ResourceMgr.InstantiateGameObject(UiName.Image_MiniMapBackGround,
-                    GlobalVar.G_Canvas.transform);
+                    GlobalVar.GCanvasObj.transform);
 
         }
 

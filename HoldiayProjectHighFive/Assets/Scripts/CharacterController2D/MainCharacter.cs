@@ -688,7 +688,7 @@ public class MainCharacter : Actor
 	
 		private void WallJump_Enter()
 		{
-			Debug.Log("Wall Jump");
+//			Debug.Log("Wall Jump");
 			_animator.Play(Animator.StringToHash(jumpAniName.StringValue));
 			_wallJumpTimer = _wallJumpTime;
 			_inControl = false;

@@ -121,9 +121,9 @@ namespace HighFive.Model.Person
 			return itemDic[itemId];
 		}
 
-		public List<HighFiveItem> GetItems()
+		public Dictionary<string,HighFiveItem> GetItems()
 		{
-			return itemDic.Values.ToList();
+			return itemDic;
 		}
 
 		public int GetItemCount(string itemId)
@@ -503,7 +503,7 @@ namespace HighFive.Model.Person
 			if (itemData == null)
 				throw new Exception("物品ID异常：id:" + id);
 
-//			Assert.IsTrue(itemData.Type == ItemType.Commercial);
+//			Assert.IsTrue(ItemData.Type == ItemType.Commercial);
 
 			if (this.Money - itemData.price < 0)
 			{

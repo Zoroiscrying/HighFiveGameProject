@@ -88,10 +88,10 @@ namespace ReadyGamerOne.View
                 return;
             }
 
-            if (GlobalVar.G_Canvas == null)
-                throw new Exception("你忘了初始化GlobalVar.G_Canvas");
+            if (GlobalVar.GCanvasObj == null)
+                throw new Exception("你忘了初始化GlobalVar.GCanvasObj");
 
-            var canvas = Global.GlobalVar.G_Canvas.transform;
+            var canvas = Global.GlobalVar.GCanvasObj.transform;
 
             if (null == canvas)
                 throw new Exception("画布获取失败");

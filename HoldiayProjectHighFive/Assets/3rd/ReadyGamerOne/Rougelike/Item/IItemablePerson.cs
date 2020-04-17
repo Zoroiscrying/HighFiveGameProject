@@ -27,7 +27,7 @@ namespace ReadyGamerOne.Rougelike.Item
         /// 获取物品信息
         /// </summary>
         /// <returns></returns>
-        List<ItemType> GetItems();
+        Dictionary<string,ItemType> GetItems();
         /// <summary>
         /// 获取物品数量
         /// </summary>

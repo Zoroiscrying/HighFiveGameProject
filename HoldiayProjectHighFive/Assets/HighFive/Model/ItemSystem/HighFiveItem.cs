@@ -2,6 +2,7 @@ using System;
 using HighFive.Data;
 using ReadyGamerOne.Data;
 using ReadyGamerOne.Rougelike.Item;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace HighFive.Model.ItemSystem
@@ -17,6 +18,9 @@ namespace HighFive.Model.ItemSystem
         AbstractItemInfo,
         IHighFiveItem
     {
+        public int gemBoxIndex = -1;
+        public bool isOn = false;
+        
         #region IUseCsvData
 
         public CsvMgr CsvData => _itemData;
@@ -56,6 +60,41 @@ namespace HighFive.Model.ItemSystem
         {
             _count = count;
             LoadData(itemData);
+        }
+
+        /// <summary>
+        /// 开启物品效果
+        /// </summary>
+        public void Enable()
+        {
+            if (!isOn)
+            {
+                AddEffects();
+                isOn = true;
+            }
+        }
+
+        /// <summary>
+        /// 关闭物品效果
+        /// </summary>
+        public void Disable()
+        {
+            if (isOn)
+            {
+                RemoveEffects();
+                isOn = false;
+            }
+        }
+
+
+        protected virtual void AddEffects()
+        {
+            Debug.Log($"{ItemName}开启");
+        }
+
+        protected virtual void RemoveEffects()
+        {
+            Debug.Log($"{ItemName}关闭");
         }
         
         #region Fields

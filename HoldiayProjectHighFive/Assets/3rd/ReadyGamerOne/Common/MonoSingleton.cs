@@ -10,7 +10,7 @@ namespace ReadyGamerOne.Common
         MonoBehaviour
         where T:MonoSingleton<T>
     {
-        protected static T _instance;
+        private static T _instance;
         
         public static T Instance {
             get {

@@ -1,5 +1,6 @@
 using System;
 using HighFive.Data;
+using ReadyGamerOne.Utility;
 
 namespace HighFive.Model.ItemSystem
 {
@@ -17,10 +18,10 @@ namespace HighFive.Model.ItemSystem
             
             var itemInfoObj = Activator.CreateInstance(type);
             
-            var method = type.GetMethod("Refresh");
+            var method = type.GetMethodFromBase("Refresh");
 
             if (null == method)
-                throw new Exception("方法为空");
+                throw new Exception($"{typeName}类查找Refresh方法为空,dateID:{data.ID}");
             
             method.Invoke(itemInfoObj,new object[]{data,count});
 

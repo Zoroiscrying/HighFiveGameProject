@@ -4,7 +4,9 @@ using HighFive.Global;
 using HighFive.Model.Person;
 
 namespace Game.Scripts{
-	
+	/// <summary>
+	/// 背景图片移动控制器
+	/// </summary>
 	public class BackGroundController : MonoBehaviour
 	{
 		private IHighFiveCharacter player;

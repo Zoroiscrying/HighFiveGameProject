@@ -79,9 +79,19 @@ namespace HighFive.View
 					var speed = 134 / this.scrollTime;
 					var pos = this.itemList.transform.position;
 					MainLoop.Instance.UpdateForSeconds(
-                          () => itemList.transform.Translate(Vector3.up * Time.deltaTime * speed),
+                          () =>
+                          {
+	                          if (null == itemList)
+		                          return;
+	                          itemList.transform.Translate(Vector3.up * Time.deltaTime * speed);
+                          },
                           this.scrollTime,
-                          () => itemList.position = pos + new Vector3(0, 134, 0));
+                          () =>
+                          {
+	                          if (itemList == null)
+		                          return;
+	                          itemList.position = pos + new Vector3(0, 134, 0);
+                          });
 					CurrentItemIndex++;
 				}
 					

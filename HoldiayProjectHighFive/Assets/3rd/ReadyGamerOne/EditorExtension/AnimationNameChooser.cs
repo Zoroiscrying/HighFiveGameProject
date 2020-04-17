@@ -6,6 +6,7 @@ namespace ReadyGamerOne.EditorExtension
     [Serializable]
     public class AnimationNameChooser
     {
+#pragma warning disable 649
         public const float LabelWidth=0.4f;
         public const float ObjectFieldWidth = 0.2f;
         
@@ -22,5 +23,6 @@ namespace ReadyGamerOne.EditorExtension
                 return stringValue;
             }
         }
+#pragma warning restore 649
     }
 }

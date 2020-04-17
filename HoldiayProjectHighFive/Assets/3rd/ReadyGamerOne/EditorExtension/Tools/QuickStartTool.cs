@@ -26,7 +26,9 @@ namespace ReadyGamerOne.EditorExtension
         }
 
 #if UNITY_EDITOR
+#pragma warning disable 414
         private static string Title = "快速启动工具";
+#pragma warning restore 414
         private static List<string> autoClassName = new List<string>();
         private static Dictionary<string, string> otherResPathDic = new Dictionary<string, string>();
         private static Dictionary<string, string> otherResFileNameDic = new Dictionary<string, string>();

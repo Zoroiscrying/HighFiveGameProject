@@ -320,7 +320,6 @@ namespace ReadyGamerOne.Data
 								break;
 							default:
 								throw new Exception($"意料之外的字段类型:{fieldInfos [j].FieldType}\ntype:{type.Name}\nfileKey:{fileName}");
-								break;
 						}
 					}
 					catch (FormatException e)

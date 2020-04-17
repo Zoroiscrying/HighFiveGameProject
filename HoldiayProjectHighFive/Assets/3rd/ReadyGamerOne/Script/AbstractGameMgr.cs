@@ -21,7 +21,6 @@ namespace ReadyGamerOne.Script
             print("AbstractGameMgr_Awake——这句话应该只显示一次");
             ResourceMgr.Init(ResourceLoader,PathData,OriginBundleData,AssetConstUtil);
             RegisterSceneEvent();
-            WorkForOnlyOnce();
             QuickStartTool.RegisterUi(GetType());            
         }
         
@@ -34,11 +33,6 @@ namespace ReadyGamerOne.Script
         {
             SceneManager.sceneLoaded +=(scene,mode)=> this.OnAnySceneLoad();
             SceneManager.sceneUnloaded +=(scene)=> this.OnAnySceneUnload();            
-        }
-
-        protected virtual void WorkForOnlyOnce()
-        {
-            print("work for only once");
         }
 
         protected virtual void OnAnySceneLoad()

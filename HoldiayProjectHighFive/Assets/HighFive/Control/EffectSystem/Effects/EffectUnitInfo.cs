@@ -37,6 +37,7 @@ namespace HighFive.Control.EffectSystem.Effects
     [Serializable]
     public sealed class EffectUnitInfo
     {
+#pragma warning disable 649
         private static Dictionary<GameObject, ObjPoor<GameObject>> poorDic =
             new Dictionary<GameObject, ObjPoor<GameObject>>();
 
@@ -322,5 +323,6 @@ namespace HighFive.Control.EffectSystem.Effects
             }
         }
 #endif
+#pragma warning restore 649
     }
 }

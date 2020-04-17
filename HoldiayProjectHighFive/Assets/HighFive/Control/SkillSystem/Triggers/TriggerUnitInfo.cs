@@ -32,6 +32,8 @@ namespace HighFive.Control.SkillSystem.Triggers
     [Serializable]
     public class TriggerUnitInfo
     {
+#pragma warning disable 649
+        
         #region Every
 
         [SerializeField] private SkillInfoAsset skillAsset;
@@ -448,5 +450,6 @@ namespace HighFive.Control.SkillSystem.Triggers
 #endif
 
 
+#pragma warning restore 649
     }
 }

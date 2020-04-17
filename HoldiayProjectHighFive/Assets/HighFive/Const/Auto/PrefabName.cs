@@ -7,6 +7,5 @@ namespace HighFive.Const
 		public const string ImpuseGenerator = @"ImpuseGenerator";
 		public const string OnHitParticle = @"OnHitParticle";
 		public const string SwordLight = @"SwordLight";
-		public const string Slot = @"Slot";
 	}
 }
