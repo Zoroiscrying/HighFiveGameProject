@@ -128,7 +128,6 @@ namespace ReadyGamerOne.Model.SceneSystem
             sceneNameBefore = currentSceneName;
             currentSceneName = newScene.sceneName;
             
-            
 //            Debug.Log(3);
             newScene.OnSceneLoad();
             
@@ -136,6 +135,7 @@ namespace ReadyGamerOne.Model.SceneSystem
             
             yield return null;
 //            Debug.Log("SceneMgr_LoadScene_end");
+
         }
         
 

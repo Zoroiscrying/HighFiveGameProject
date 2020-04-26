@@ -47,10 +47,15 @@ namespace DialogSystem.Scripts.Editor
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-            
             EditorGUILayout.PropertyField(targetDialogSystemPorp);
+            if (!targetDialogSystemPorp.objectReferenceValue)
+            {
+                EditorGUILayout.HelpBox("如果targetDialogSystem为空会默认使用自身的第一个DialogSystem, 如果自身没有会报错",MessageType.Info);
+            }
             if (mb.UsedDialogSystem == null)
+            {
                 return;
+            }
             EditorUtil.InitSerializedStringArray(this.dialogNameToTriggerProp.FindPropertyRelative("values"), mb.UsedDialogSystem.GetAssetNames());
 
             EditorGUILayout.PropertyField(this.workTypeProp);

@@ -10,7 +10,7 @@ namespace HighFive.Control.SkillSystem.Editor
     [CustomEditor(typeof(SkillInfoAsset))]
     public class SkillInfoEditor:UnityEditor.Editor
     {
-        [MenuItem("ReadyGamerOne/Create/RPG/SkillAsset")]
+        [MenuItem("ReadyGamerOne/RPG/Create/SkillAsset")]
         public static void CreateInstance()
         {
             string[] strs = Selection.assetGUIDs;

@@ -5,7 +5,6 @@ using ReadyGamerOne.Script;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
-using ReadyGamerOne.Utility;
 
 namespace ReadyGamerOne.View
 {

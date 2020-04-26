@@ -1,6 +1,5 @@
 using System;
 using ReadyGamerOne.Data;
-using ReadyGamerOne.MemorySystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

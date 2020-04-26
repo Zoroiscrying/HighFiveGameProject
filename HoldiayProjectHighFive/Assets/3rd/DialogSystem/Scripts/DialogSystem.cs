@@ -139,10 +139,14 @@ namespace DialogSystem.Scripts
             
             if(!IsRunningAll)
                 onStartDialog?.Invoke();
-//            var text = "对话开始-";
-//            for (int i = 0; i < stackSize; i++)
-//                text += "-";
-//            print(text+info.name);
+            if (DialogSettings.Instance.ShowDialogStackInfo)
+            {
+                var text = "对话开始-";
+                for (var i = 0; i < stackSize; i++)
+                    text += "-";
+                print(text+info.name);                
+            }
+
 
             #endregion
             
@@ -153,7 +157,7 @@ namespace DialogSystem.Scripts
             
             var DialogUnits = info.DialogUnits;
 
-            Stack<bool> ifConditions=new Stack<bool>();
+            var ifConditions=new Stack<bool>();
             var ifTrue = false;
 
             var currentIndex = 0;
@@ -174,6 +178,7 @@ namespace DialogSystem.Scripts
                 switch (dialogUnitInfo.UnitType)
                 {
                     case UnitType.Word:
+//                        Debug.Log("DialogSystem_RunDialog_Switch_UnitType.Word_Start");
                         yield return dialogUnitInfo.RunWordUnit();
 //                        Debug.Log("DialogSystem_RunDialog_Switch_UnitType.Word_end");
                         break;
@@ -412,17 +417,26 @@ namespace DialogSystem.Scripts
              //监听选择语句不再返回的消息
              CEventCenter.AddListener<string>(ChooseNotBack,(assetName)=>AddAssetMessage(ChooseNotBack,assetName));
          }    
+        /// <summary>
+        /// 结束对话调用此函数
+        /// </summary>
+        /// <param name="endStatement"></param>
+        /// <param name="assetName"></param>
         private static void EndRunningDialog(string endStatement, string assetName)
         {
             if(!IsRunningAll)
                 onEndDialog?.Invoke();
             
             stackSize--;
-            
-//            var text = endStatement + "\t-";
-//            for (var i = 0; i < stackSize; i++)
-//                text += "-";
-//            print(text+assetName);
+
+            if (DialogSettings.Instance.ShowDialogStackInfo)
+            {
+                var text = "对话结束-";
+                for (var i = 0; i < stackSize; i++)
+                    text += "-";
+                print($"{text}{assetName}【{endStatement}】");                
+            }
+
         }
         
         #endregion      

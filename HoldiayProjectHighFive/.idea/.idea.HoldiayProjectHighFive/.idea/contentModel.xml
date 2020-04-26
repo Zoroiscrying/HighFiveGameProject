@@ -704,11 +704,13 @@
               <e p="AbstractDialogInfoAsset.cs" t="Include" />
               <e p="DialogCharacterAsset.cs" t="Include" />
               <e p="DialogProgressAsset.cs" t="Include" />
+              <e p="DialogSettings.cs" t="Include" />
               <e p="DialogVarAsset.cs" t="Include" />
               <e p="Editor" t="Include">
                 <e p="AbstractDialogInfoAssetEditor.cs" t="Include" />
                 <e p="DialogCharacterAssetEditor.cs" t="Include" />
                 <e p="DialogProgressAssetEditor.cs" t="Include" />
+                <e p="DialogSettingsEditor.cs" t="Include" />
                 <e p="DialogVarAssetEditor.cs" t="Include" />
               </e>
             </e>
@@ -745,6 +747,8 @@
               <e p="MonoSingleton.cs" t="Include" />
               <e p="ObjPoor.cs" t="Include" />
               <e p="SafeSingleton.cs" t="Include" />
+              <e p="ScriptableSingleton.cs" t="Include" />
+              <e p="ScriptableSingletonInfoAttribute.cs" t="Include" />
               <e p="Singleton.cs" t="Include" />
               <e p="Trigger2DMessage.cs" t="Include" />
             </e>
@@ -1017,15 +1021,6 @@
                 <e p="EffectUnitInfo.cs" t="Include" />
               </e>
               <e p="IEffector.cs" t="Include" />
-            </e>
-            <e p="PersonSystem" t="Include">
-              <e p="Persons" t="Include">
-                <e p="AbstractPerson.cs" t="Include" />
-                <e p="BaseCharacterInfo.cs" t="Include" />
-                <e p="Player.cs" t="Include" />
-                <e p="PlayerInfo.cs" t="Include" />
-                <e p="TestPerson.cs" t="Include" />
-              </e>
             </e>
             <e p="SkillSystem" t="Include">
               <e p="Editor" t="Include">

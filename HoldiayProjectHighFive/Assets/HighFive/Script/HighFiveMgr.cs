@@ -1,4 +1,3 @@
-using ReadyGamerOne.EditorExtension;
 using HighFive.Const;
 using HighFive.Control.EffectSystem.Effects;
 using ReadyGamerOne.Common;
@@ -6,7 +5,6 @@ using ReadyGamerOne.Model.SceneSystem;
 using ReadyGamerOne.View;
 using ReadyGamerOne.Script;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace HighFive.Script
 {
@@ -25,10 +23,9 @@ namespace HighFive.Script
 
 		protected override void OnAnySceneUnload()
 		{
-			base.OnAnySceneUnload();		
+			base.OnAnySceneUnload();
 			PanelMgr.Clear();
 			MainLoop.Instance.Clear();
-			CEventCenter.Clear();
 			EffectUnitInfo.Clear();
 		}
 
@@ -42,11 +39,12 @@ namespace HighFive.Script
 			
 			AbstractSceneInfo.onAnySceneLoad += this.OnAnySceneLoad;
 			AbstractSceneInfo.onAnySceneUnLoaded += this.OnAnySceneUnload;
+			
 			SceneMgr.LoadActiveScene();
 		}
-		/// <summary>
-		/// 注册灵器
-		/// </summary>
+//		/// <summary>
+//		/// 注册灵器
+//		/// </summary>
 //		void RegisterSpiritItem()
 //		{
 //			AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_First);

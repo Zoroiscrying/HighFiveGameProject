@@ -6,7 +6,7 @@ namespace DialogSystem.ScriptObject.Editor
     [CustomEditor(typeof(DialogProgressAsset))]
     public class DialogProgressAssetEditor:UnityEditor.Editor
     {
-        [MenuItem("ReadyGamerOne/DialogSystem/ShowGlobalProgressPoints")]
+        [MenuItem("ReadyGamerOne/DialogSystem/ShowDialogProgressPoints")]
         public static void CreateAsset()
         {
             Selection.activeInstanceID = DialogProgressAsset.Instance.GetInstanceID();

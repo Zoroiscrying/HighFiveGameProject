@@ -1,6 +1,4 @@
-﻿using HighFive.Model.Person;
-
-namespace HighFive.Math
+﻿namespace HighFive.Math
 {
     public static partial class GameMath
     {

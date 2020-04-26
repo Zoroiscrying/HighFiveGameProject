@@ -14,18 +14,20 @@ namespace Game.Scripts
     			this.box = GetComponent<BoxCollider2D>();
 
             Gizmos.color = color;
-    		var scanle = this.transform.localScale;
-    		var offect = scanle * box.offset;
-    		var size = scanle * box.size;
-    		var center = new Vector2(transform.position.x + offect.x, transform.position.y + offect.y);
+            var transform1 = this.transform;
+            var scale = transform1.localScale;
+    		var offset = scale * box.offset;
+    		var size = scale * box.size;
+            var position = transform1.position;
+            var center = new Vector2(position.x + offset.x, position.y + offset.y);
     		var lt = center + new Vector2(-size.x / 2, size.y / 2);
     		var lb = center + new Vector2(-size.x / 2, -size.y / 2);
     		var rt = center + new Vector2(size.x / 2, size.y / 2);
     		var rb = center + new Vector2(size.x / 2, -size.y / 2);
-    		Debug.DrawLine(lt, rt, Color.cyan);
-    		Debug.DrawLine(lt, lb, Color.cyan);
-    		Debug.DrawLine(rt, rb, Color.cyan);
-    		Debug.DrawLine(lb,rb,Color.cyan);
+            Gizmos.DrawLine(lt, rt);
+            Gizmos.DrawLine(lt, lb);
+            Gizmos.DrawLine(rt, rb);
+            Gizmos.DrawLine(lb,rb);
     	}
     }
 

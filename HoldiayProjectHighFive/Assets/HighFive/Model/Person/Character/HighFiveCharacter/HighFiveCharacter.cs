@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using HighFive.Const;
 using HighFive.Data;
 using HighFive.Global;

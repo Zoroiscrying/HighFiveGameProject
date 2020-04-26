@@ -11,7 +11,7 @@ namespace DialogSystem.ScriptObject.Editor
     public class DialogVarAssetEditor:UnityEditor.Editor
     {
         private Vector2 pos;
-        [MenuItem("ReadyGamerOne/DialogSystem/ShowGlobalVar")]
+        [MenuItem("ReadyGamerOne/DialogSystem/ShowDialogVars")]
         public static void CreateAsset()
         {
             Selection.activeInstanceID = DialogVarAsset.Instance.GetInstanceID();

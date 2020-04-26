@@ -1,58 +1,26 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Windows;
-#if UNITY_EDITOR
+using ReadyGamerOne.Common;
 
+#if UNITY_EDITOR
+using UnityEditor;
 #endif
 
 namespace HighFive.Control.EffectSystem
 {
-    public class EffectMgr:ScriptableObject
+    [ScriptableSingletonInfo("RpgEffectMgr")]
+    public class EffectMgr: ReadyGamerOne.Common.ScriptableSingleton<EffectMgr>
     {
-        #region Singleton_Editor
 
 #if UNITY_EDITOR
-        [MenuItem("ReadyGamerOne/Global/ShowEffectInfos")]
+        [MenuItem("ReadyGamerOne/RPG/ShowRpgEffectMgr")]
         public static void ShowEffects()
         {
             Selection.activeInstanceID = Instance.GetInstanceID();
         }
 #endif
         
-        private static EffectMgr _instance;
         
-        public static EffectMgr Instance
-        {
-            get
-            {
-                if (!_instance)
-                {
-                    _instance = Resources.Load<EffectMgr>("GlobalAssets/EffectInfos");
-                }
-#if UNITY_EDITOR
-                if (!_instance)
-                {
-                    _instance = CreateInstance<EffectMgr>();
-                    var path = "Assets/Resources";
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-                    path += "/GlobalAssets";
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-                    path += "/EffectInfos.asset";
-                    UnityEditor.AssetDatabase.CreateAsset(_instance, path);
-                }
-#endif
-                if (_instance == null)
-                    throw new System.Exception("初始化失败");
-
-                return _instance;
-            }        
-        }        
-
-        #endregion
 
         [Serializable]
         public class EffectAssetMsg

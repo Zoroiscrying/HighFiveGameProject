@@ -1,15 +1,11 @@
 ﻿using System;
-using Game.Scripts;
 using HighFive.Data;
 using HighFive.Global;
-using ReadyGamerOne.Data;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Rougelike.Item;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace HighFive.Model.ItemSystem
 {

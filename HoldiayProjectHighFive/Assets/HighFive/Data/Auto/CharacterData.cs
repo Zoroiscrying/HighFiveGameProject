@@ -1,6 +1,3 @@
-using UnityEngine;
-using System.Collections;
-
 namespace HighFive.Data
 {
 	public class CharacterData : PersonData

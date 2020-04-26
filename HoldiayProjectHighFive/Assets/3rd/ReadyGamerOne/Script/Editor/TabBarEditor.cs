@@ -1,4 +1,3 @@
-using System;
 using ReadyGamerOne.View;
 using UnityEditor;
 using UnityEditorInternal;

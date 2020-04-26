@@ -7,7 +7,7 @@ namespace DialogSystem.ScriptObject.Editor
     [CustomEditor(typeof(DialogCharacterAsset))]
     public class DialogCharacterAssetEditor:UnityEditor.Editor
     {
-        [MenuItem("ReadyGamerOne/DialogSystem/ShowGlobalCharacter")]
+        [MenuItem("ReadyGamerOne/DialogSystem/ShowDialogCharacters")]
         public static void CreateAsset()
         {
             Selection.activeInstanceID = DialogCharacterAsset.Instance.GetInstanceID();

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using HighFive.Control.EffectSystem.Effects;
-using ReadyGamerOne.Rougelike.Person;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Windows;
 #if UNITY_EDITOR
+using UnityEditor;
 #endif
+using ReadyGamerOne.Rougelike.Person;
+using HighFive.Control.EffectSystem.Effects;
 
 namespace HighFive.Control.EffectSystem
 {
@@ -22,7 +22,7 @@ namespace HighFive.Control.EffectSystem
 
 #if UNITY_EDITOR
         
-        [MenuItem("ReadyGamerOne/Create/RPG/EffectInfoAsset")]
+        [MenuItem("ReadyGamerOne/RPG/Create/EffectInfoAsset")]
         public static void CreateInstance()
         {
             string[] strs = Selection.assetGUIDs;

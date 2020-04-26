@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using Game.Scripts;
 using HighFive.Const;
 using HighFive.Data;
 using HighFive.Model.ItemSystem;

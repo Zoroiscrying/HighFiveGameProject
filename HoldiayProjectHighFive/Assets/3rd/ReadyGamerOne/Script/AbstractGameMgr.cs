@@ -2,7 +2,6 @@ using System;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.MemorySystem;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace ReadyGamerOne.Script

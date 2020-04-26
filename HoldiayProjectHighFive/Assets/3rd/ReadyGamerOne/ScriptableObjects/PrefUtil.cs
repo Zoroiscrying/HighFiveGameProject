@@ -1,39 +1,12 @@
 using System.Collections.Generic;
-using System.IO;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using ReadyGamerOne.Common;
 using UnityEngine;
 
 namespace ReadyGamerOne.ScriptableObjects
 {
-    public class PrefUtil:ScriptableObject
+    [ScriptableSingletonInfo("GlobalConstStrings")]
+    public class PrefUtil: Common.ScriptableSingleton<PrefUtil>
     {
-        private static PrefUtil _instance;
-        public static PrefUtil Instance
-        {
-            get
-            {
-                if (!_instance)
-                { 
-                    _instance = Resources.Load<PrefUtil>("GlobalAssets/GlobalConstStrings");
-                }
-#if UNITY_EDITOR
-                if (!_instance)
-                {
-                    _instance = CreateInstance<PrefUtil>();
-                    var path = "Assets/Resources/GlobalAssets";
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-                    AssetDatabase.CreateAsset(_instance, path+"/GlobalConstStrings.asset");
-                }
-#endif
-                if (_instance == null)
-                    throw new System.Exception("初始化失败");
-
-                return _instance;
-            }
-        }
 
         public List<string> constStrings = new List<string>();
 
