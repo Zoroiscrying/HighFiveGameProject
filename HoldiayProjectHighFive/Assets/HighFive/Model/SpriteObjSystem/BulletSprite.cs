@@ -68,7 +68,7 @@ namespace HighFive.Model.SpriteObjSystem
 
 //            Debug.Log(this.origin.CharacterName+" 攻击 "+ap.characterInfoInfo);
 
-            this.origin.TryAttack(ap, damage);
+            this.origin.TryAttack(ap);
             ap.PlayAcceptEffects(origin as IHighFivePerson);
             DestoryThis();
         }

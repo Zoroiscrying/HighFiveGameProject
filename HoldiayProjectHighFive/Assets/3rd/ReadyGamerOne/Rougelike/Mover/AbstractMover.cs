@@ -17,8 +17,8 @@ namespace HighFive.Control.Movers
         public abstract LayerMask ColliderLayers { get; set; }
         public abstract LayerMask TriggerLayers { get; set; }
         
-        public event Action<GameObject, TouchDir> eventOnColliderEnter;
-        public event Action<GameObject, TouchDir> eventOnTriggerEnter;        
+        public abstract event Action<GameObject, TouchDir> eventOnColliderEnter;
+        public abstract event Action<GameObject, TouchDir> eventOnTriggerEnter;        
 
         #endregion
 
