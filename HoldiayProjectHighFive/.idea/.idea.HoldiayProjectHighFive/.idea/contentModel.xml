@@ -1033,10 +1033,10 @@
               <e p="IEffector.cs" t="Include" />
             </e>
             <e p="Movers" t="Include">
-              <e p="ActorBaseMover.cs" t="Include" />
+              <e p="ActorMover.cs" t="Include" />
               <e p="BaseMover.cs" t="Include" />
-              <e p="BulletBaseMover.cs" t="Include" />
-              <e p="CharacterBaseMover.cs" t="Include" />
+              <e p="BulletMover.cs" t="Include" />
+              <e p="CharacterMover.cs" t="Include" />
             </e>
             <e p="SkillSystem" t="Include">
               <e p="Editor" t="Include">

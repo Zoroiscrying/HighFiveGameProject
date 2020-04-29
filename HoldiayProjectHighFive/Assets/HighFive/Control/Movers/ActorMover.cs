@@ -7,7 +7,7 @@ namespace HighFive.Control.Movers
     /// <summary>
     /// 角色移动器
     /// </summary>
-    public class ActorBaseMover:BaseMover
+    public class ActorMover:BaseMover
     {
         #region IMover2D
 
@@ -66,7 +66,5 @@ namespace HighFive.Control.Movers
             
         }
         #endregion
-        
-
     }
 }

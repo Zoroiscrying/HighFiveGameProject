@@ -3,7 +3,7 @@ namespace HighFive.Control.Movers
     /// <summary>
     /// 玩家角色移动器
     /// </summary>
-    public class CharacterBaseMover:ActorBaseMover
+    public class CharacterMover:ActorMover
     {
         #region Character_特有接口
 
