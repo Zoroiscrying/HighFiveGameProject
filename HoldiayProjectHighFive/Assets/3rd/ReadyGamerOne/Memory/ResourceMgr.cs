@@ -524,7 +524,7 @@ namespace ReadyGamerOne.MemorySystem
                 var pureName = name.GetAfterLastChar('/');
                 if (pureName == "Audio" || pureName == "File")
                     continue;
-                otherClassBody += "\t\tpublic const string " + name.Trim().GetAfterLastChar('/') + " = " +
+                otherClassBody += "\t\tpublic static readonly string " + name.Trim().GetAfterLastChar('/') + " = " +
                                   "@\"" + name.Trim() + "\";\n";
             }
 
@@ -721,7 +721,7 @@ namespace ReadyGamerOne.MemorySystem
                                      var varName = FileUtil.FileNameToVarName(fileName);
                                      var loadPath = fileInfo.FullName.GetAfterSubstring("Resources\\")
                                          .GetBeforeSubstring(Path.GetExtension(fileInfo.FullName));
-                                     stream.Write("\t\tpublic const string " + varName + " = @\"" + loadPath + "\";\n");
+                                     stream.Write("\t\tpublic static readonly string " + varName + " = @\"" + loadPath + "\";\n");
                                  }
                              }, true);           
                 }
@@ -752,7 +752,7 @@ namespace ReadyGamerOne.MemorySystem
                                 allResFileNameDic.Add(varName, fileName);
                             }
 
-                            stream.Write("\t\tpublic const string " + varName + " = @\"" + fileName + "\";\n");
+                            stream.Write("\t\tpublic static readonly string " + varName + " = @\"" + fileName + "\";\n");
                         }
                     }, true);
             }

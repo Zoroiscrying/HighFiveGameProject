@@ -53,6 +53,7 @@ namespace HighFive.Utility
 					{ @"Boner" , @"ClassPerson\TypeEnemy\Boner" },
 					{ @"Spider" , @"ClassPerson\TypeEnemy\Spider" },
 					{ @"bullet_1" , @"ClassPrefab\Bullet\bullet_1" },
+					{ @"NewBullet" , @"ClassPrefab\Bullet\NewBullet" },
 					{ @"DropItem" , @"ClassPrefab\GameObjects\DropItem" },
 					{ @"ImpuseGenerator" , @"ClassPrefab\GameObjects\ImpuseGenerator" },
 					{ @"OnHitParticle" , @"ClassPrefab\GameObjects\OnHitParticle" },

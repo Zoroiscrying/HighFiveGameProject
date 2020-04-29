@@ -1,11 +1,14 @@
 using System;
+using System.Reflection;
 using HighFive.Const;
 using HighFive.Control.EffectSystem;
 using HighFive.Math;
+using HighFive.Model;
 using HighFive.Model.Person;
 using HighFive.Model.SpriteObjSystem;
 using HighFive.Others;
 using ReadyGamerOne.EditorExtension;
+using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
@@ -62,11 +65,10 @@ namespace HighFive.Control.SkillSystem.Triggers
         #region Bullet
 
         public StringChooser bulletName=new StringChooser(typeof(PrefabName));
-        public int damage;
+        public float damageScale;
         public Vector3 dir;
-        public float bulletSpeed;
-        public float maxLife;
-
+        public float speed;
+        
         #endregion
 
         #region RayDamage
@@ -205,9 +207,15 @@ namespace HighFive.Control.SkillSystem.Triggers
                     #region Bullet
 
                     case TriggerType.Bullet:
-                        var d = new Vector2(self.Dir * Mathf.Abs(this.dir.x), this.dir.y);
-                        new DirectLineBullet(GameMath.Damage(self.Attack), d, self.position + new Vector3(0, 1, 0)
-                            , self, this.bulletName.StringValue, speed:this.bulletSpeed,maxLife:this.maxLife);
+                        var bulletObj = ResourceMgr.InstantiateGameObject(bulletName.StringValue,
+                            self.position + new Vector3(0, 0.3f, 0));
+
+                        var bullet = bulletObj.GetComponent<DirectBullet>();
+                        if(!bullet)
+                            throw new Exception($"{bulletObj.name}没有DirectBullet组建");
+                        bullet.initialSpeed = speed * new Vector2(self.Dir * Mathf.Abs(this.dir.x), this.dir.y);
+                        bullet.damageScale = damageScale;
+                        bullet.ShotStart(self);
                         break;                        
 
                     #endregion
@@ -216,18 +224,18 @@ namespace HighFive.Control.SkillSystem.Triggers
 
 
                     case TriggerType.Parabloa:
-                        switch (targetType)
-                        {
-                            case TargetType.Vector3Offset:                        
-                                new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget, self.position + offset,
-                                    self.position, self, this.bulletName.StringValue, this.maxLife);
-                                break;
-                            case TargetType.GetFromCache:
-//                                Debug.Log($"SkillAsset【{skillAsset.skillName.StringValue}】.Vector3Cache:"+skillAsset.Vector3Cache);
-                                new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget,skillAsset.Vector3Cache ,
-                                    self.position, self, this.bulletName.StringValue, this.maxLife);
-                                break;
-                        }
+//                        switch (targetType)
+//                        {
+//                            case TargetType.Vector3Offset:                        
+//                                new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget, self.position + offset,
+//                                    self.position, self, this.bulletName.StringValue, this.maxLife);
+//                                break;
+//                            case TargetType.GetFromCache:
+////                                Debug.Log($"SkillAsset【{skillAsset.skillName.StringValue}】.Vector3Cache:"+skillAsset.Vector3Cache);
+//                                new ParabloaBullet(this.damage, this.bulletSpeed, this.timeToTarget,skillAsset.Vector3Cache ,
+//                                    self.position, self, this.bulletName.StringValue, this.maxLife);
+//                                break;
+//                        }
 
                         break;                        
 
@@ -308,6 +316,18 @@ namespace HighFive.Control.SkillSystem.Triggers
         }
 
 #if UNITY_EDITOR
+        
+        
+        private static void InitSerializedStringArray(SerializedProperty arrProp, Type type)
+        {
+            arrProp.arraySize = 0;
+            var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static);
+            for (int i = 0; i < fieldInfos.Length; i++)
+            {
+                arrProp.InsertArrayElementAtIndex(i);
+                arrProp.GetArrayElementAtIndex(i).stringValue = fieldInfos[i].GetValue(null) as string;
+            }
+        }
 
         public void OnDrawMoreInfo(SerializedProperty property, Rect position)
         {
@@ -361,22 +381,22 @@ namespace HighFive.Control.SkillSystem.Triggers
                 case TriggerType.Parabloa:
 
 
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("bulletName"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("damage"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("bulletSpeed"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("maxLife"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("timeToTarget"));                    
-                    var typeProp = property.FindPropertyRelative("targetType");
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),typeProp);
-                    switch (typeProp.enumValueIndex)
-                    {
-                        case 0:
-                            EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("offset"));
-                            break;
-                    }
+//                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+//                        property.FindPropertyRelative("bulletName"));
+//                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("damage"));
+//                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+//                        property.FindPropertyRelative("bulletSpeed"));
+//                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("maxLife"));
+//                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+//                        property.FindPropertyRelative("timeToTarget"));                    
+//                    var typeProp = property.FindPropertyRelative("targetType");
+//                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),typeProp);
+//                    switch (typeProp.enumValueIndex)
+//                    {
+//                        case 0:
+//                            EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("offset"));
+//                            break;
+//                    }
                     break;
 
                 #endregion
@@ -402,13 +422,12 @@ namespace HighFive.Control.SkillSystem.Triggers
                 
                 #region Bullet
                 case TriggerType.Bullet:
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("bulletName"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("damage"));
+                    var bulletProp = property.FindPropertyRelative("bulletName");
+                    InitSerializedStringArray(bulletProp.FindPropertyRelative("values"), typeof(PrefabName));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),bulletProp);
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("damageScale"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("dir"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("bulletSpeed"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("maxLife"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("speed"));
                     
                     break;
 
@@ -439,14 +458,20 @@ namespace HighFive.Control.SkillSystem.Triggers
 
                     
                 case TriggerType.Audio:
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("audioName"));
+                    var audioProp = property.FindPropertyRelative("audioName");
+                    InitSerializedStringArray(audioProp.FindPropertyRelative("values"), typeof(AudioName));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),audioProp);
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),audioProp);
                     break;
 
                 #endregion
             }
 
-        }        
+        }    
+        
+        
+        
+        
 #endif
 
 
