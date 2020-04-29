@@ -1,4 +1,4 @@
-﻿using HighFive.Model.Person;
+﻿﻿using HighFive.Model.Person;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using UnityEngine;
