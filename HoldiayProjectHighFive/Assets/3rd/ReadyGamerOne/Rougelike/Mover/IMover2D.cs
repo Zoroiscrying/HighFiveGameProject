@@ -19,6 +19,11 @@ namespace ReadyGamerOne.Rougelike.Mover
         Vector2 Velocity { get; set; }
 
         /// <summary>
+        /// 重力值
+        /// </summary>
+        float Gravity { get; set; }
+        
+        /// <summary>
         /// 重力缩放
         /// </summary>
         float GravityScale { get; set; }

@@ -3,10 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Danger
-  - Floor
-  - AP
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -41,12 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: BackGround
-    uniqueID: 2751828365
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: ForwardGround
-    uniqueID: 1148919353
     locked: 0
