@@ -1,7 +1,9 @@
 using HighFive.Const;
 using HighFive.Control.EffectSystem.Effects;
+using ReadyGamerOne.Attributes;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Model.SceneSystem;
+using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.View;
 using ReadyGamerOne.Script;
 using UnityEngine;
@@ -12,6 +14,7 @@ namespace HighFive.Script
 	{
 		partial void OnSafeAwake()
 		{
+			
 		}
 		private void Update()
 		{
