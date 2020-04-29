@@ -4,6 +4,7 @@ using HighFive.Global;
 using HighFive.Model.Person;
 using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
+using Action = BehaviorDesigner.Runtime.Tasks.Action;
 
 namespace HighFive.AI.Actions
 {
@@ -11,7 +12,6 @@ namespace HighFive.AI.Actions
 		
 		public string walkAni;
 		public SharedFloat attackDistance;
-		private IHighFiveCharacter player;
 		private Actor actor;
 		private Animator _animator;
 		private IHighFivePerson self;
@@ -20,7 +20,6 @@ namespace HighFive.AI.Actions
 		{
 			self = gameObject.GetPersonInfo() as IHighFivePerson;
 			
-			player=GlobalVar.G_Player as IHighFiveCharacter;
 			
 			actor = gameObject.GetComponent<Actor>();
 			_animator = gameObject.GetComponent<Animator>();
@@ -29,6 +28,8 @@ namespace HighFive.AI.Actions
 
 		public override void OnDrawGizmos()
 		{
+			if (null == transform)
+				return;
 			var color = Gizmos.color;
 			Gizmos.color=Color.red;
 			Gizmos.DrawWireSphere(transform.position, attackDistance.Value);
@@ -38,16 +39,16 @@ namespace HighFive.AI.Actions
 		public override TaskStatus OnUpdate()
 		{
 			
-			if (Vector2.Distance(player.position, transform.position) < attackDistance.Value)
+			if (Vector2.Distance(GlobalVar.G_Player.position, transform.position) < attackDistance.Value)
 			{
 //				Debug.Log("距离在攻击范围内，转到Attack");
 				return TaskStatus.Success;
 			}
 
-			self.LookAt(player.transform);
+			self.LookAt(GlobalVar.G_Player.transform);
 
-			actor.PatrolOneDirInDistance(Mathf.Abs(player.position.x - transform.position.x),
-				player.position.x > transform.position.x);
+			actor.PatrolOneDirInDistance(Mathf.Abs(GlobalVar.G_Player.position.x - transform.position.x),
+				GlobalVar.G_Player.position.x > transform.position.x);
 			
 			return TaskStatus.Running;
 		}

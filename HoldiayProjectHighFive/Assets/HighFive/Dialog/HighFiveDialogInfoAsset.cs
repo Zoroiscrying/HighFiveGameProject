@@ -3,8 +3,6 @@ using DialogSystem.Model;
 using DialogSystem.ScriptObject;
 using UnityEngine;
 #if UNITY_EDITOR
-    
-using UnityEngine.Windows;
 using UnityEditor;
 #endif
 
@@ -17,27 +15,7 @@ namespace HighFive.Dialog
         [MenuItem("ReadyGamerOne/DialogSystem/Create/HighFiveDialogInfoAsset #&I")]
         public static void CreateAsset()
         {
-            string[] strs = Selection.assetGUIDs;
-
-            string path = AssetDatabase.GUIDToAssetPath(strs[0]);
-
-            if (path.Contains("."))
-            {
-                path=path.Substring(0, path.LastIndexOf('/'));
-            }
-
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            var name = path + "/NewDialogInfo";
-            while (File.Exists(name + ".asset"))
-                name += "(1)";
-            
-
-            AssetDatabase.CreateAsset(CreateInstance<HighFiveDialogInfoAsset>(), name + ".asset");
-            AssetDatabase.Refresh();
-
-            Selection.activeObject = AssetDatabase.LoadAssetAtPath<HighFiveDialogInfoAsset>(name + ".asset");
+            AbstractDialogInfoAsset.CreateAsset<HighFiveDialogInfoAsset>();
         }         
 #endif
 

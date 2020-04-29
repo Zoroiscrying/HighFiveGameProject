@@ -1,3 +1,4 @@
+using System;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using HighFive.Model.Person;
@@ -37,6 +38,10 @@ namespace HighFive.AI.Conditions
 
         public override void OnDrawGizmos()
         {
+            if (null == transform)
+                return;
+            if (detectDistance == null)
+                throw new Exception("detectDistance[SharedFloat] is null");
             Gizmos.DrawLine(transform.position,transform.position + new Vector3(self.Dir * detectDistance.Value, 0,0));
         }
     }

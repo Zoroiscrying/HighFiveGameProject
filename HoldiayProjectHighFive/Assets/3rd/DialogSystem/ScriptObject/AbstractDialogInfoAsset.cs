@@ -3,11 +3,48 @@ using System.Collections.Generic;
 using DialogSystem.Model;
 using ReadyGamerOne.EditorExtension;
 using UnityEngine;
-
+#if UNITY_EDITOR
+    
+using UnityEngine.Windows;
+using UnityEditor;
+#endif
 namespace DialogSystem.ScriptObject
 {
     public abstract class AbstractDialogInfoAsset:ScriptableObject
     {
+        #region Static
+
+#if UNITY_EDITOR
+        protected static void CreateAsset<T>()
+            where T:AbstractDialogInfoAsset
+        {
+            var strs = Selection.assetGUIDs;
+
+            var path = AssetDatabase.GUIDToAssetPath(strs[0]);
+
+            if (path.Contains("."))
+            {
+                path=path.Substring(0, path.LastIndexOf('/'));
+            }
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            var name = path + "/NewDialogInfo";
+            while (File.Exists(name + ".asset"))
+                name += "(1)";
+            
+
+            AssetDatabase.CreateAsset(CreateInstance<T>(), name + ".asset");
+            AssetDatabase.Refresh();
+
+            Selection.activeObject = AssetDatabase.LoadAssetAtPath<T>(name + ".asset");
+        }        
+#endif
+
+
+        #endregion
+        
         #region DataStructures
 
 
