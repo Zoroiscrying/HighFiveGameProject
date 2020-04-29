@@ -13,6 +13,7 @@ namespace HighFive.Control.Movers
         #region IMover2D
 
         public abstract Vector2 Velocity { get; set; }
+        public abstract float Gravity { get; set; }
         public abstract float GravityScale { get; set; }
         public abstract LayerMask ColliderLayers { get; set; }
         public abstract LayerMask TriggerLayers { get; set; }
@@ -33,7 +34,7 @@ namespace HighFive.Control.Movers
 
         protected virtual void FixedUpdate(){}
 
-        protected virtual void OnTriggerEnter2D(Collider2D collider2D){}
+        protected virtual void OnTriggerEnter2D(Collider2D col){}
 
         protected virtual void OnCollisionEnter2D(Collision2D collision2D){}        
 
