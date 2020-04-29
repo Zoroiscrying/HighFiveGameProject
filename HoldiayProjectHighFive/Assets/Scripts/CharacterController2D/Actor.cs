@@ -18,21 +18,21 @@ public class Actor : MonoBehaviour
     #region Consts
 
     #endregion
-
+    
     #region Public Variables
-
+    
     [Header("AutoJump")] public JumpType ActorJumpType = JumpType.SimpleJump;
     public Vector2 JumpForce = Vector2.right;
     public bool AutoJump = false;
     public float JumpStopTime = 1.0f;
-
+    
     [Header("AutoPatrol")] [FormerlySerializedAs("_patrolType")]
     public PatrolType ActorPatrolType;
-
+    
     public bool _isPatrolling = false;
     public float PatrolStopTime = 1.0f;
-
-    [Header("PreciseMovementCtrl")] public float _accelerationTimeAirborne = .2f;
+    
+    [Header("PreciseMovementControl")] public float _accelerationTimeAirborne = .2f;
     public float _accelerationTimeGrounded = .1f;
     [Space(5)] public float _timeToJumpApex = .4f;
     public float _maxJumpHeight = 1f;
@@ -40,7 +40,7 @@ public class Actor : MonoBehaviour
     [Space(5)] public float _horizontalSpeedMultiplier = 1f;
     public float _verticalSpeedMultiplier = 1f;
     public bool _affectedByGravity = true;
-
+    //动画
     public GameAnimator _animator;
 
     public int _normalizedDirX
@@ -140,6 +140,9 @@ public class Actor : MonoBehaviour
 
     #region Struct,Class,Enums..
 
+    /// <summary>
+    /// Actor巡逻类型
+    /// </summary>
     public enum PatrolType
     {
         SimpleCornerP,
@@ -147,6 +150,9 @@ public class Actor : MonoBehaviour
         PatrolBetweenDistanceNCorner
     }
 
+    /// <summary>
+    /// Actor跳跃模式
+    /// </summary>
     public enum JumpType
     {
         SimpleJump,
@@ -166,7 +172,7 @@ public class Actor : MonoBehaviour
         _animator = GameAnimator.GetInstance(GetComponent<Animator>());
 
         _controller.onControllerCollidedEvent += onControllerCollider;
-        _controller.onTriggerExitEvent += onTriggerEnterEvent;
+        _controller.onTriggerEnterEvent += onTriggerEnterEvent;
         _controller.onTriggerExitEvent += onTriggerExitEvent;
 
         CalculateGravityNVelocity();
@@ -207,12 +213,12 @@ public class Actor : MonoBehaviour
         }
 
         //todo::这段代码不再调试后，可以去掉这个函数
-        CalculateGravityNVelocity();
+        //CalculateGravityNVelocity();
 
         CalculateVelocity();
-
+        
         MoveActor(); //这个是每帧根据Velocity对角色进行移动，但是被继承之后还是把移动放到所有计算最后比较好，所以注释掉
-
+        
         CheckCollisions();
 
         AnimFaceDirControl();
@@ -507,7 +513,6 @@ public class Actor : MonoBehaviour
             _gravity = 0;
         }
 
-        //print(gravity);
         _maxJumpVelocity = Mathf.Abs(_gravity) * _timeToJumpApex;
     }
 

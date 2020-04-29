@@ -17,8 +17,6 @@ public class MainCharacter : Actor
 	#region Public Variables
 	
 	public float _minJumpHeight = .25f;
-
-	
 	public bool CanHighJump;
 	public bool CanAcceleration;
 	public bool CanDash;
@@ -51,20 +49,18 @@ public class MainCharacter : Actor
 	[Header("Dash")]
 	public float _dashTime = .5f;
 	public float _dashDistance = 8f;
-	
+
 	[Header("Wall")]
 	//public float _wallStickTime = 2f;//暂时不用
 	public float _wallSlideVelocity = 2f;
 	public float _wallJumpTime = .25f;
 	public Vector2 _wallJumpClimb;
 	public Vector2 _wallJumpNormal;
-	
-
 
 	public int _canJump = _jumpPoint;
 
 	public bool _inControl = true;
-
+    
 
 	[Header("动画名字")] 
 	public AnimationNameChooser idleAniName;
@@ -79,27 +75,29 @@ public class MainCharacter : Actor
 
 	private StateMachine<PlayerStates> _stateMachine;
 	//timer
+	//acceleration
 	private float _aclratnTimer = 0.0f;
-	
-	
+	//highjump
 	private float _highJumpVelocity;
+	//jump velocity
 	private float _minJumpVelocity;
+	//dash
 	private float _dashVelocity;
+	//wall sliding
 	private bool _wallSliding;
+	//running on wall
 	private bool _runningOnWall;
-	private bool _standingOnMovingPlatform = false;
-	private bool _afterSuperUpZ = false;
 	private int _wallDirX;
 	private float _wallJumpDisableInputTimer;
-	
-	
+	private bool _standingOnMovingPlatform = false;
+	private bool _afterSuperUpZ = false;
 	
 	#endregion
 
 	#region Protected Variables
-
 	
-
+	
+	
 	#endregion
 
 	#region Struct, Class, Enums
@@ -108,7 +106,6 @@ public class MainCharacter : Actor
 		{
 			Idle,
 			Run,
-		//	Jump,
 			DoubleJump,
 			WallSliding,
 			Dashing,
@@ -246,11 +243,11 @@ public class MainCharacter : Actor
 		}
 		
 		//Jump
-		if (!_controller.isGrounded &&
-		    (_stateMachine.State == PlayerStates.Idle || _stateMachine.State == PlayerStates.Run))
-		{
-			_stateMachine.ChangeState(PlayerStates.InAir);
-		}
+		// if (!_controller.isGrounded &&
+		//     (_stateMachine.State == PlayerStates.Idle || _stateMachine.State == PlayerStates.Run))
+		// {
+		// 	_stateMachine.ChangeState(PlayerStates.InAir);
+		// }
 		
 	}
 
@@ -355,7 +352,10 @@ public class MainCharacter : Actor
 	/// </summary>
 	private void Dash()
 	{
-		_stateMachine.ChangeState(PlayerStates.Dashing);
+		if (CanDash )
+		{
+			_stateMachine.ChangeState(PlayerStates.Dashing);
+		}
 		//无敌帧
 	}
 
@@ -366,7 +366,6 @@ public class MainCharacter : Actor
 	{
 		if (_inControl)
 		{
-
 			_directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
 			if (Input.GetKeyDown(KeyCode.Space) && _stateMachine.State != PlayerStates.DoubleJump)
@@ -553,8 +552,7 @@ public class MainCharacter : Actor
 		private float _dashTimer;
 		private int _dashDirX;
 		private void Dashing_Enter()
-		{	
-			//Debug.Log("Dash Begin");
+		{
 			_animator.Play(Animator.StringToHash(dashAniName.StringValue));
 			_dashTimer = _dashTime;
 			_inControl = false;
