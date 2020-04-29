@@ -45,7 +45,7 @@ namespace HighFive.Model
         public float damageScale = 1;
         public float maxLife = 2.0f;
         protected IHighFivePerson selfPerson;
-        protected AbstractMover mover;
+        protected IMover2D mover;
 
         public LayerMask EnemyLayers
         {
@@ -67,7 +67,7 @@ namespace HighFive.Model
         {
             Assert.IsNotNull(self);
             selfPerson = self;
-            mover = GetComponent<BulletMover>();
+            mover = GetComponent<IMover2D>();
             mover.eventOnColliderEnter += OnTerrainEnter;
             mover.eventOnTriggerEnter += OnEnemyEnter;
             _init = true;
@@ -81,13 +81,13 @@ namespace HighFive.Model
             OnShotUpdate?.Invoke();
         }
         
-        protected virtual void OnTerrainEnter(GameObject terrain, TouchDir touchDir)
+        protected virtual void OnTerrainEnter(GameObject terrain, ReadyGamerOne.Rougelike.Mover.TouchDir touchDir)
         {
             Debug.Log($"hit terrain [{terrain.name}], destory self");
             DestorySelf();
         }
 
-        protected virtual void OnEnemyEnter(GameObject enemy, TouchDir touchDir)
+        protected virtual void OnEnemyEnter(GameObject enemy, ReadyGamerOne.Rougelike.Mover.TouchDir touchDir)
         {
             if (!selfPerson.gameObject.TryAttack(enemy, damageScale))
             {

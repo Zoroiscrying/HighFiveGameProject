@@ -17,9 +17,9 @@ namespace HighFive.Model.SpriteObjSystem
             mover.GravityScale = 0;
         }
 
-        protected override void OnEnemyEnter(GameObject enemy, TouchDir touchDir)
+        protected override void OnEnemyEnter(GameObject enemy, ReadyGamerOne.Rougelike.Mover.TouchDir dir)
         {
-            base.OnEnemyEnter(enemy, touchDir);
+            base.OnEnemyEnter(enemy, dir);
             //如果不射穿，那么击中后就要销毁自己
             if(!shotThrough)
                 DestorySelf();
