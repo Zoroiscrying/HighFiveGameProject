@@ -21,12 +21,8 @@ namespace ReadyGamerOne.Rougelike.Mover
         /// <summary>
         /// 重力值
         /// </summary>
-        float Gravity { get; set; }
-        
-        /// <summary>
-        /// 重力缩放
-        /// </summary>
         float GravityScale { get; set; }
+        
         
         /// <summary>
         /// 会和什么层发生碰撞碰撞

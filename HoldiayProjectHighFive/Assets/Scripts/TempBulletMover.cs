@@ -14,11 +14,11 @@ namespace Game.Scripts
         
         
         public virtual Vector2 Velocity { get; set; }=Vector2.zero;
-        [SerializeField] private float gravityScale = 1.0f;
+        [SerializeField] private float gravity = 1.0f;
         public virtual float GravityScale
         {
-            get => gravityScale;
-            set => gravityScale = value;
+            get => gravity;
+            set => gravity = value;
         }
 
         [SerializeField] private LayerMask colliderLayers;

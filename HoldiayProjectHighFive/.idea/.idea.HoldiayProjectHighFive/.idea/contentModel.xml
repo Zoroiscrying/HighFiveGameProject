@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\a\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\a\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_HoldiayProjectHighFive.1754759029.00" t="ExcludeRecursive" />
-    <e p="D:\unreal pro\HighFiveGameProject\HoldiayProjectHighFive" t="IncludeRecursive">
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
+    <e p="F:\Projects\unity\HiFive\HoldiayProjectHighFive" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -86,7 +87,7 @@
                   <e p="UntilSuccess.cs" t="Include" />
                 </e>
                 <e p="EntryTask.cs" t="Include" />
-                <e p="Unity" t="Include">
+                <e p="unity" t="Include">
                   <e p="Animation" t="Include">
                     <e p="Blend.cs" t="Include" />
                     <e p="CrossFade.cs" t="Include" />
@@ -725,7 +726,7 @@
                 <e p="DialogTriggerEditor.cs" t="Include" />
               </e>
             </e>
-            <e p="VIew" t="Include">
+            <e p="View" t="Include">
               <e p="AbstractChooseDialogUI.cs" t="Include" />
               <e p="AbstractNarratorDialogUI.cs" t="Include" />
               <e p="AbstractWordDialogUI.cs" t="Include" />
@@ -843,7 +844,6 @@
                 <e p="Slot.cs" t="Include" />
               </e>
               <e p="Mover" t="Include">
-                <e p="AbstractMover.cs" t="Include" />
                 <e p="IMover2D.cs" t="Include" />
               </e>
               <e p="Person" t="Include">
@@ -928,7 +928,7 @@
                 <e p="WindowsUtil.cs" t="Include" />
               </e>
             </e>
-            <e p="VIew" t="Include">
+            <e p="View" t="Include">
               <e p="PanelSystem" t="Include">
                 <e p="AbstractPanel.cs" t="Include" />
                 <e p="AbstractUI.cs" t="Include" />
@@ -1172,7 +1172,7 @@
               <e p="AssetConstUtil.cs" t="Include" />
             </e>
           </e>
-          <e p="VIew" t="Include">
+          <e p="View" t="Include">
             <e p="Auto" t="Include">
               <e p="BattlePanel.cs" t="Include" />
               <e p="LoadingPanel.cs" t="Include" />

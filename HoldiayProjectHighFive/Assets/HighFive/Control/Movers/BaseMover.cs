@@ -134,7 +134,7 @@ namespace HighFive.Control.Movers
         /// 重力，影响Mover的垂直速度
         /// </summary>
         [SerializeField] private float gravity = 20f;
-        public override float Gravity {
+        public virtual float GravityScale {
             get => gravity;
             set => gravity = value;
         }
@@ -147,14 +147,7 @@ namespace HighFive.Control.Movers
             get => velocity;
             set => velocity = value;
         }
-        /// <summary>
-        /// 重力Scaler，影响重力改变速度的程度
-        /// </summary>
-        [SerializeField] private float gravityScale = 1.0f;
-        public virtual float GravityScale { 
-            get => gravityScale;
-            set => gravityScale = value;
-        }
+
         /// <summary>
         /// mask with all layers that the player should interact with
         /// </summary>
@@ -177,23 +170,7 @@ namespace HighFive.Control.Movers
         public event Action<GameObject, ReadyGamerOne.Rougelike.Mover.TouchDir> eventOnTriggerEnter;
 
         #endregion
-        
-        #region UnityCallBacks_子类如果想用的话一定要override父类的，自己另写的话父类就不会调用了
 
-        protected virtual void Awake(){}
-
-        protected virtual void Start(){}
-
-        protected virtual void Update(){}
-
-        protected virtual void FixedUpdate(){}
-
-        protected virtual void OnTriggerEnter2D(Collider2D collider2D){}
-
-        protected virtual void OnCollisionEnter2D(Collision2D collision2D){}        
-
-        #endregion
-        
         #region Movement Relevant Attributes and Functions
 
         [HideInInspector] public Vector2 MoverInput;
@@ -647,9 +624,8 @@ namespace HighFive.Control.Movers
 
         #region Monobehavior
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
             // add our one-way platforms to our normal platform mask so that we can land on them from above
             
             // cache some components
@@ -673,10 +649,8 @@ namespace HighFive.Control.Movers
             }
         }
 
-        protected override void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
-            base.FixedUpdate();
-            
             CalculateVelocity();
             
             //Move the mover by its velocity * time.deltatime
@@ -704,9 +678,8 @@ namespace HighFive.Control.Movers
             }
         }
 
-        protected override void Update()
+        protected virtual void Update()
         {
-            base.Update();
             DrawRay();
             // if (Input.GetKeyDown(KeyCode.Space))
             // {
@@ -714,9 +687,8 @@ namespace HighFive.Control.Movers
             // }
         }
 
-        protected override void OnTriggerEnter2D(Collider2D col)
+        protected virtual void OnTriggerEnter2D(Collider2D col)
         {
-            base.OnTriggerEnter2D(col);
             onTriggerEnterEvent?.Invoke(col);
         }
 
