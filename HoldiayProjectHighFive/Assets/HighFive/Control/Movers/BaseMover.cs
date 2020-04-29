@@ -11,8 +11,7 @@ namespace HighFive.Control.Movers
     /// 通过Raycast进行碰撞（如果碰撞则调整velocity）和trigger检测
     /// 
     /// </summary>
-    [RequireComponent(typeof(BoxCollider2D))]
-    public class BaseMover:AbstractMover
+    public class BaseMover:MonoBehaviour,IMover2D
     {
         
         #region Raycast Relevant Attributes and Functions
@@ -143,7 +142,7 @@ namespace HighFive.Control.Movers
         /// 速度，影响实际物体的移动
         /// </summary>
         [SerializeField]private Vector2 velocity;
-        public override Vector2 Velocity
+        public virtual Vector2 Velocity
         {
             get => velocity;
             set => velocity = value;
@@ -152,23 +151,46 @@ namespace HighFive.Control.Movers
         /// 重力Scaler，影响重力改变速度的程度
         /// </summary>
         [SerializeField] private float gravityScale = 1.0f;
-        public override float GravityScale { 
+        public virtual float GravityScale { 
             get => gravityScale;
             set => gravityScale = value;
         }
+        /// <summary>
+        /// mask with all layers that the player should interact with
+        /// </summary>
+        public LayerMask platformMask = 0;
 
-        public override LayerMask ColliderLayers { 
+        /// <summary>
+        /// mask with all layers that trigger events should fire when intersected
+        /// </summary>
+        public LayerMask triggerMask = 0;
+        public virtual LayerMask ColliderLayers { 
             get => platformMask;
             set => platformMask = value;
         }
-        public override LayerMask TriggerLayers
+        public virtual LayerMask TriggerLayers
         {
             get => triggerMask;
             set => triggerMask = value;
         }
+        public event Action<GameObject, ReadyGamerOne.Rougelike.Mover.TouchDir> eventOnColliderEnter;
+        public event Action<GameObject, ReadyGamerOne.Rougelike.Mover.TouchDir> eventOnTriggerEnter;
+
+        #endregion
         
-        public event Action<GameObject, TouchDir> eventOnColliderEnter;
-        public event Action<GameObject, TouchDir> eventOnTriggerEnter;        
+        #region UnityCallBacks_子类如果想用的话一定要override父类的，自己另写的话父类就不会调用了
+
+        protected virtual void Awake(){}
+
+        protected virtual void Start(){}
+
+        protected virtual void Update(){}
+
+        protected virtual void FixedUpdate(){}
+
+        protected virtual void OnTriggerEnter2D(Collider2D collider2D){}
+
+        protected virtual void OnCollisionEnter2D(Collision2D collision2D){}        
 
         #endregion
         
@@ -216,16 +238,6 @@ namespace HighFive.Control.Movers
         /// when true, one way platforms will be ignored when moving vertically for a single frame
         /// </summary>
         public bool ignoreOneWayPlatformsThisFrame; //这一帧忽略OneWayPlatform层，可以穿过
-
-        /// <summary>
-        /// mask with all layers that the player should interact with
-        /// </summary>
-        public LayerMask platformMask = 0;
-
-        /// <summary>
-        /// mask with all layers that trigger events should fire when intersected
-        /// </summary>
-        public LayerMask triggerMask = 0;
 
         /// <summary>
         /// mask with all layers that should act as one-way platforms. Note that one-way platforms should always be EdgeCollider2Ds. This is because it does not support being

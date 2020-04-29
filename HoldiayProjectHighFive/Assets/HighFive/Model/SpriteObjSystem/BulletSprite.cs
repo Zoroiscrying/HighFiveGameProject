@@ -1,4 +1,4 @@
-﻿using HighFive.Model.Person;
+﻿﻿using HighFive.Model.Person;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using UnityEngine;
@@ -68,7 +68,7 @@ namespace HighFive.Model.SpriteObjSystem
 
 //            Debug.Log(this.origin.CharacterName+" 攻击 "+ap.characterInfoInfo);
 
-            this.origin.TryAttack(ap, damage);
+            this.origin.TryAttack(ap);
             ap.PlayAcceptEffects(origin as IHighFivePerson);
             DestoryThis();
         }

@@ -38,6 +38,9 @@ namespace HighFive.Model.Person
 
 		float AirXMove { get; set; }
 		int MaxSpiritNum { get; set; }
+				
+		int AttackAdder { get; set; }
+		float AttackScaler { get; set; }
 		
 		bool InputOk { get; }
 		void IgnoreInput(float time);
@@ -171,16 +174,13 @@ namespace HighFive.Model.Person
 
 		public override int Attack
 		{
-			get
-			{
-				return (int)((_rankMgr.BaseAttack+AttackAdder)*AttackScaler);
-			}
-			protected set
-			{
-				throw new Exception("HighFiveCharacter禁止使用Attack的Set方法");
-			}
-			
+			get => Mathf.RoundToInt((_rankMgr.BaseAttack+AttackAdder)*AttackScaler);
+			protected set => throw new Exception("HighFiveCharacter禁止使用Attack的Set方法");
 		}
+		
+		public int AttackAdder { get; set; } = 0;
+
+		public float AttackScaler { get; set; } = 1;
 
 		#endregion
 		

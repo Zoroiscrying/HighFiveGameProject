@@ -1139,6 +1139,7 @@
               <e p="AbstractBullet.cs" t="Include" />
               <e p="AbstractSpriteObj.cs" t="Include" />
               <e p="BulletSprite.cs" t="Include" />
+              <e p="DirectBullet.cs" t="Include" />
               <e p="DirectLineBullet.cs" t="Include" />
               <e p="ParabloaBullet.cs" t="Include" />
             </e>
@@ -1203,6 +1204,7 @@
           <e p="SceneUtil.cs" t="Include" />
           <e p="ShopNpc.cs" t="Include" />
           <e p="ShowCollider2D.cs" t="Include" />
+          <e p="TempBulletMover.cs" t="Include" />
           <e p="TestScripts" t="Include">
             <e p="TestImpulse.cs" t="Include" />
           </e>

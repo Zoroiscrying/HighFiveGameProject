@@ -18,7 +18,7 @@ namespace HighFive.Script
             if (player is IHighFiveCharacter)
             {
 //                Debug.Log("Player碰我");
-                gameObject.GetPersonInfo().TryAttackSimple(player);
+                gameObject.GetPersonInfo().TryAttack(player);
             }
         }
     }

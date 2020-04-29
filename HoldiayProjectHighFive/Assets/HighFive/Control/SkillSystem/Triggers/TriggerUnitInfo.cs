@@ -130,12 +130,12 @@ namespace HighFive.Control.SkillSystem.Triggers
                 case DamageType.PlayerToEnemy:
                     if (hitPerson is IHighFiveCharacter)
                         break;
-                    self.TryAttackSimple(hitPerson);
+                    self.TryAttack(hitPerson);
                     break;
                 case DamageType.EnemyToPlayer:
                     if (hitPerson is IHighFiveCharacter)
                     {
-                        self.TryAttackSimple(hitPerson);
+                        self.TryAttack(hitPerson);
                     }
 
                     break;
@@ -261,7 +261,7 @@ namespace HighFive.Control.SkillSystem.Triggers
                                 Debug.Log(result.transform.gameObject);
                                 continue;
                             }
-                            self.TryAttackSimple(hitPerson);
+                            self.TryAttack(hitPerson);
                         }
                         break;                        
 

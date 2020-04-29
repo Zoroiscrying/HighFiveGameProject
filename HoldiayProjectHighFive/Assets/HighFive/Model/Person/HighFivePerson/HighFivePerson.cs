@@ -19,9 +19,6 @@ namespace HighFive.Model.Person
 		float DefaultConstTime { get; set; }
 		float AttackSpeed { get; set; }
 		Vector2 HitBackSpeed { get; }
-		
-		int AttackAdder { get; set; }
-		float AttackScaler { get; set; }
 
 		void RunSkill(SkillInfoAsset skillInfoAsset);
 		void LookAt(Transform target);
@@ -49,7 +46,6 @@ namespace HighFive.Model.Person
 
 		#endregion
 
-
 		public virtual int Dir
 		{
 			get
@@ -70,10 +66,6 @@ namespace HighFive.Model.Person
 		{
 			get { return _hitBackSpeed; }
 		}
-
-		public int AttackAdder { get; set; } = 0;
-
-		public float AttackScaler { get; set; } = 1;
 
 
 		#region ITakeDamageablePerson<T>

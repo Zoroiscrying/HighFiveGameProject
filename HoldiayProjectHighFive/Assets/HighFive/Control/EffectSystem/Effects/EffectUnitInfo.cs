@@ -143,7 +143,7 @@ namespace HighFive.Control.EffectSystem.Effects
                         {
                             rp = col.gameObject.GetPersonInfo() as IHighFivePerson;
                             if (rp != null)
-                                dp.TryAttackSimple(rp);
+                                dp.TryAttack(rp);
                         };
 
                     }
@@ -191,7 +191,7 @@ namespace HighFive.Control.EffectSystem.Effects
                 case EffectType.Damage:
 
                     //todo: 这里显示伤害数字才对
-//                    dp?.TryAttackSimple(rp);
+//                    dp?.TryAttack(rp);
                     new DamageNumberUI(dp.Attack, 0, 1, Color.red, rp.transform, dp.Dir);
                     break;
 
