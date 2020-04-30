@@ -1,15 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ReadyGamerOne.Rougelike.Mover;
 using UnityEngine;
 
 namespace HighFive.Control.Movers
 {
+    public enum InteractState
+    {
+        UnActivated,
+        Enter,
+        Stay,
+        Exit
+    }
+    public class InteractStateAndDirection
+    {
+        public InteractState interactState;
+        public InteractStateAndDirection(InteractState interactState)
+        {
+            this.interactState = interactState;
+        }
+    }
+    
     /// <summary>
     /// 移动器基类
     /// 负责每帧通过velocity进行移动
-    /// 通过Raycast进行碰撞（如果碰撞则调整velocity）和trigger检测
-    /// 
+    /// 通过Raycast进行碰撞（如果碰撞则调整velocity）
+    /// 移动系统的基本元素，所有与世界产生碰撞、带有重力的移动物体都可以用这个类来控制移动
+    /// 需要注意的是这个移动器基类不带有物理世界的摩擦、弹力等属性（也许是未来改进的方向）
     /// </summary>
     public class BaseMover:MonoBehaviour,IMover2D
     {
@@ -47,7 +65,7 @@ namespace HighFive.Control.Movers
             public Vector2 topRight;
         }
 
-        private CharacterRaycastOrigins _raycastOrigins;
+        protected CharacterRaycastOrigins _raycastOrigins;
         private BoxCollider2D boxCollider;
         
         // we use this flag to mark the case where we are travelling up a slope and we modified our delta.y to allow the climb to occur.
@@ -129,34 +147,58 @@ namespace HighFive.Control.Movers
         #endregion
         
         #region IMover2D
-
+        
         /// <summary>
         /// 重力，影响Mover的垂直速度
         /// </summary>
-        [SerializeField] private float gravity = 20f;
-        public virtual float GravityScale {
+        [SerializeField] protected float gravity = 20f;
+        public virtual float Gravity
+        {
             get => gravity;
-            set => gravity = value;
+            set => throw new Exception("Cannot Reset Gravity During Run Time.");
+        }
+        /// <summary>
+        /// 重力Scalar 重力对速度造成影响的程度
+        /// </summary>
+        [SerializeField] protected float gravityScale = 1.0f;
+        public virtual float GravityScale {
+            get => gravityScale;
+            set => gravityScale = value;
         }
         /// <summary>
         /// 速度，影响实际物体的移动
         /// </summary>
-        [SerializeField]private Vector2 velocity;
+        [SerializeField]protected Vector2 velocity;
+
         public virtual Vector2 Velocity
         {
             get => velocity;
             set => velocity = value;
         }
 
+        [SerializeField] protected Vector2 velocityMultiplier = new Vector2(1f,1f);
+        public virtual Vector2 VelocityMultiplier
+        {
+            get => velocityMultiplier;
+            set => velocityMultiplier = value;
+        }
+
+        [SerializeField] protected bool canMove = true;
+        public virtual bool CanMove
+        {
+            get => canMove;
+            set => throw new Exception("Can Move Attribute cannot be changed by other code!");
+        }
+
         /// <summary>
         /// mask with all layers that the player should interact with
         /// </summary>
-        public LayerMask platformMask = 0;
+        [SerializeField] protected LayerMask platformMask = 0;
 
         /// <summary>
         /// mask with all layers that trigger events should fire when intersected
         /// </summary>
-        public LayerMask triggerMask = 0;
+        [SerializeField]protected LayerMask triggerMask = 0;
         public virtual LayerMask ColliderLayers { 
             get => platformMask;
             set => platformMask = value;
@@ -166,14 +208,23 @@ namespace HighFive.Control.Movers
             get => triggerMask;
             set => triggerMask = value;
         }
-        public event Action<GameObject, ReadyGamerOne.Rougelike.Mover.TouchDir> eventOnColliderEnter;
-        public event Action<GameObject, ReadyGamerOne.Rougelike.Mover.TouchDir> eventOnTriggerEnter;
-
+        public event Action<GameObject> eventOnColliderEnter;
+        public event Action<GameObject> eventOnColliderStay;
+        public event Action<GameObject> eventOnColliderExit;
+        public event Action<GameObject> eventOnTriggerEnter;
+        public event Action<GameObject> eventOnTriggerStay;
+        public event Action<GameObject> eventOnTriggerExit;
+        
         #endregion
 
         #region Movement Relevant Attributes and Functions
 
-        [HideInInspector] public Vector2 MoverInput;
+        [SerializeField] protected Vector2 moverInput;
+        public Vector2 MoverInput
+        {
+            get => moverInput;
+            set => moverInput = value;
+        }
 
         /// <summary>
         /// Mover的碰撞状态
@@ -206,10 +257,8 @@ namespace HighFive.Control.Movers
             }
         }
         //Events
-        public event Action<RaycastHit2D> onControllerCollidedEvent; //如果碰撞会调用这个event
-        public event Action<Collider2D> onTriggerEnterEvent; //如果TriggerEnter会调用这个event
-        public event Action<Collider2D> onTriggerStayEvent; //如果TriggerStay会调用这个event
-        public event Action<Collider2D> onTriggerExitEvent; //同理
+        private Dictionary<GameObject, InteractStateAndDirection> _rayCastedHits = new Dictionary<GameObject, InteractStateAndDirection>();
+        private Dictionary<GameObject, InteractStateAndDirection> _activatedRayCastedHits = new Dictionary<GameObject, InteractStateAndDirection>();
 
         /// <summary>
         /// when true, one way platforms will be ignored when moving vertically for a single frame
@@ -222,21 +271,21 @@ namespace HighFive.Control.Movers
         /// </summary>
         [SerializeField] public LayerMask oneWayPlatformMask = 0;
 
-        /// <summary>
-        /// the max slope angle that the CC2D can climb
-        /// </summary>
-        /// <value>The slope limit.</value>
-        [Range(0f, 90f)] public float slopeLimit = 30f;
+        // /// <summary>
+        // /// the max slope angle that the CC2D can climb
+        // /// </summary>
+        // /// <value>The slope limit.</value>
+        // [Range(0f, 90f)] public float slopeLimit = 30f;
 
-        /// <summary>
-        /// the threshold in the change in vertical movement between frames that constitutes jumping
-        /// </summary>
-        /// <value>The jumping threshold.</value>
-        public float jumpingThreshold = 0.07f;
+        // /// <summary>
+        // /// the threshold in the change in vertical movement between frames that constitutes jumping
+        // /// </summary>
+        // /// <value>The jumping threshold.</value>
+        // public float jumpingThreshold = 0.07f;
 
         private new Transform transform;
         private Rigidbody2D rigidBody2D;
-        [SerializeField] private MoverCollisionState2D collisionState = new MoverCollisionState2D();
+        [SerializeField] protected MoverCollisionState2D collisionState = new MoverCollisionState2D();
         public bool isGrounded
         {
             get { return collisionState.below; }
@@ -273,33 +322,28 @@ namespace HighFive.Control.Movers
         public void Move(Vector2 deltaMovement, Vector2 input, bool standingOnPlatform = false)
         {
             InitializeRayCastOrigins();
-
             // save off our current grounded state which we will use for wasGroundedLastFrame and becameGroundedThisFrame
             collisionState.wasGroundedLastFrame = collisionState.below;
             // clear our state
             collisionState.Reset();
             _raycastHitsThisFrame.Clear();
+            //todo::Question?
+            _rayCastedHits.Clear();
             MoverInput = input;
-            
-//            
-//            // first, we check for a slope below us before moving
-//            // only check slopes if we are going down and grounded
-//            if (deltaMovement.y < 0f && collisionState.wasGroundedLastFrame)
-//            {
-//               // DecendSlope(ref deltaMovement);
-//            }
 
             if (deltaMovement.x != 0)
             {
                 collisionState.faceDir = (int) Mathf.Sign(deltaMovement.x);
             }
 
+            //碰撞检测和事件添加
             CheckHorizontalCollision(ref deltaMovement);
 
             if (deltaMovement.y != 0)
             {
                 CheckVerticalCollision(ref deltaMovement);
             }
+            
 
             //实际的移动在这里发生
             transform.Translate(deltaMovement, Space.World);
@@ -312,14 +356,17 @@ namespace HighFive.Control.Movers
             if (!collisionState.wasGroundedLastFrame && collisionState.below)
                 collisionState.becameGroundedThisFrame = true;
 
+            
+            //物理事件处理
+            CheckRayCastObjEvent();
             // 委托事件调用
-            if (onControllerCollidedEvent != null)
-            {
-                for (var i = 0; i < _raycastHitsThisFrame.Count; i++)
-                {
-                    onControllerCollidedEvent(_raycastHitsThisFrame[i]);
-                }
-            }
+            // if (onControllerCollidedEvent != null)
+            // {
+            //     for (var i = 0; i < _raycastHitsThisFrame.Count; i++)
+            //     {
+            //         onControllerCollidedEvent(_raycastHitsThisFrame[i]);
+            //     }
+            // }
 
             if (standingOnPlatform && !collisionState.wasGroundedLastFrame)
             {
@@ -328,6 +375,56 @@ namespace HighFive.Control.Movers
             }
 
             ignoreOneWayPlatformsThisFrame = false;
+        }
+
+        /// <summary>
+        /// 检查Enter、Stay、Exit事件
+        /// </summary>
+        private void CheckRayCastObjEvent()
+        {
+            foreach (var objAndState in _activatedRayCastedHits.ToList())
+            {
+                //unusable
+                if (objAndState.Key == null || !objAndState.Key.activeSelf)
+                {
+                    _activatedRayCastedHits.Remove(objAndState.Key);
+                }
+                else
+                {
+                    //这一帧的检测中包含被追踪的obj，则应调用stay回调
+                    if (_rayCastedHits.ContainsKey(objAndState.Key))
+                    {
+                        Debug.Log("ONCollision STAY");
+                        _rayCastedHits.Remove(objAndState.Key);
+                        objAndState.Value.interactState = InteractState.Stay;
+                        eventOnColliderStay?.Invoke(objAndState.Key);
+                    }
+                    else //没有包含被追踪的obj，则应调用exit回调并移除
+                    {
+                        Debug.Log("ONCollision EXIT");
+                        _activatedRayCastedHits.Remove(objAndState.Key);
+                        objAndState.Value.interactState = InteractState.Exit;
+                        eventOnColliderExit?.Invoke(objAndState.Key);
+                    }
+                }
+            }
+
+            foreach (var objAndState in _rayCastedHits.ToList())
+            {
+                //unusable
+                if (objAndState.Key == null || !objAndState.Key.activeSelf)
+                {
+                    _rayCastedHits.Remove(objAndState.Key);
+                }
+                else
+                {
+                    //调用enter回调并加入激活字典
+                    Debug.Log("ONCollision ENTER");
+                    objAndState.Value.interactState = InteractState.Enter;
+                    eventOnColliderEnter?.Invoke(objAndState.Key);
+                    _activatedRayCastedHits.Add(objAndState.Key,objAndState.Value);
+                }
+            }
         }
         
         /// <summary>
@@ -491,13 +588,11 @@ namespace HighFive.Control.Movers
                     if (!_raycastHitsThisFrame.Contains(_raycastHit))
                     {
                         _raycastHitsThisFrame.Add(_raycastHit);
-                        if (collisionState.left)
+                        if (!_rayCastedHits.ContainsKey(_raycastHit.transform.gameObject))
                         {
-                            eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Left);
-                        }
-                        else if(collisionState.right)
-                        {
-                            eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Left);
+                            _rayCastedHits.Add(_raycastHit.transform.gameObject, new InteractStateAndDirection(InteractState.UnActivated));
+                            // eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Left);
+                        
                         }
                     }
                     // _raycastHitsThisFrame.Add(_raycastHit);
@@ -574,13 +669,13 @@ namespace HighFive.Control.Movers
                     if (!_raycastHitsThisFrame.Contains(_raycastHit))
                     {
                         _raycastHitsThisFrame.Add(_raycastHit); //stores all the hits this frame.
-                        if (collisionState.above)
+                        if (!_rayCastedHits.ContainsKey(_raycastHit.transform.gameObject))
                         {
-                            eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Top);
-                        }
-                        else if(collisionState.below)
-                        {
-                            eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Bottom);
+
+                            _rayCastedHits.Add(_raycastHit.transform.gameObject,
+                                new InteractStateAndDirection(InteractState.UnActivated));
+                            // eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Bottom);
+                        
                         }
                     }
 
@@ -652,16 +747,20 @@ namespace HighFive.Control.Movers
         protected virtual void FixedUpdate()
         {
             CalculateVelocity();
-            
-            //Move the mover by its velocity * time.deltatime
-            this.Move(velocity*Time.fixedDeltaTime);
+
+            if (canMove)
+            {
+                //Move the mover by its velocity * time.deltatime
+                this.Move(new Vector2(velocity.x * velocityMultiplier.x, velocity.y * velocityMultiplier.y) *
+                          Time.fixedDeltaTime);
+            }
             
             CheckCollisions();
         }
 
         protected virtual void CalculateVelocity()
         {
-            velocity.y -= gravity * GravityScale * Time.deltaTime;
+            velocity.y -= gravity * GravityScale * Time.fixedDeltaTime;
         }
 
         protected virtual void CheckCollisions()
@@ -687,21 +786,21 @@ namespace HighFive.Control.Movers
             // }
         }
 
-        protected virtual void OnTriggerEnter2D(Collider2D col)
+        public void OnTriggerEnter2D(Collider2D col)
         {
-            onTriggerEnterEvent?.Invoke(col);
+            eventOnTriggerEnter?.Invoke(col.gameObject);
         }
 
 
         public void OnTriggerStay2D(Collider2D col)
         {
-            onTriggerStayEvent?.Invoke(col);
+            eventOnTriggerStay?.Invoke(col.gameObject);
         }
         
 
         public void OnTriggerExit2D(Collider2D col)
         {
-            onTriggerExitEvent?.Invoke(col);
+            eventOnTriggerExit?.Invoke(col.gameObject);
         }
 
         #endregion

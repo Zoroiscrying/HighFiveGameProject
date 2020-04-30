@@ -34,7 +34,11 @@ namespace ReadyGamerOne.Rougelike.Mover
         /// </summary>
         LayerMask TriggerLayers { get; set; }
 
-        event Action<GameObject, TouchDir> eventOnColliderEnter;
-        event Action<GameObject, TouchDir> eventOnTriggerEnter;
+        event Action<GameObject> eventOnColliderEnter;
+        event Action<GameObject> eventOnColliderStay;
+        event Action<GameObject> eventOnColliderExit;
+        event Action<GameObject> eventOnTriggerEnter;
+        event Action<GameObject> eventOnTriggerStay;
+        event Action<GameObject> eventOnTriggerExit;
     }
 }

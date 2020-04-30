@@ -81,13 +81,13 @@ namespace HighFive.Model
             OnShotUpdate?.Invoke();
         }
         
-        protected virtual void OnTerrainEnter(GameObject terrain, ReadyGamerOne.Rougelike.Mover.TouchDir touchDir)
+        protected virtual void OnTerrainEnter(GameObject terrain)
         {
             Debug.Log($"hit terrain [{terrain.name}], destory self");
             DestorySelf();
         }
 
-        protected virtual void OnEnemyEnter(GameObject enemy, ReadyGamerOne.Rougelike.Mover.TouchDir touchDir)
+        protected virtual void OnEnemyEnter(GameObject enemy)
         {
             if (!selfPerson.gameObject.TryAttack(enemy, damageScale))
             {
