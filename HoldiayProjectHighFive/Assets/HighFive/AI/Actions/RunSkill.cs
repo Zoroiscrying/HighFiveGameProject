@@ -17,6 +17,8 @@ namespace HighFive.AI.Actions
 
 		public override void OnStart()
 		{
+			if (null == SkillInfoAsset)
+				return;
 			self = gameObject.GetPersonInfo() as IHighFivePerson;
 			SkillInfoAsset.Vector3Cache = GlobalVar.G_Player.position;
 //			Debug.Log($"写入用户数据：【{SkillInfoAsset.skillName.StringValue}】" + SkillInfoAsset.Vector3Cache);
@@ -28,6 +30,9 @@ namespace HighFive.AI.Actions
 
 		public override TaskStatus OnUpdate()
 		{
+			if (null == SkillInfoAsset)
+				return TaskStatus.Failure;
+			
 			timer += Time.deltaTime;
 			if (timer > SkillInfoAsset.LastTime)
 				return TaskStatus.Success;

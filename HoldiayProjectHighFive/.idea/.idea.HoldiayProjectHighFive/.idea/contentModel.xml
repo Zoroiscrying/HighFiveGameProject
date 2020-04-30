@@ -1137,11 +1137,8 @@
             </e>
             <e p="SpriteObjSystem" t="Include">
               <e p="AbstractBullet.cs" t="Include" />
-              <e p="AbstractSpriteObj.cs" t="Include" />
-              <e p="BulletSprite.cs" t="Include" />
-              <e p="DirectBullet.cs" t="Include" />
-              <e p="DirectLineBullet.cs" t="Include" />
-              <e p="ParabloaBullet.cs" t="Include" />
+              <e p="CurvedBullet.cs" t="Include" />
+              <e p="SingleBullet.cs" t="Include" />
             </e>
           </e>
           <e p="Others" t="Include">

@@ -18,7 +18,997 @@ MonoBehaviour:
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 11400000}
+    id: 1
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.38515258
+        value: 1.8431509
+        inSlope: -3.8647554
+        outSlope: -3.8647554
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.5536415
+      - serializedVersion: 3
+        time: 2.242889
+        value: 7.224964
+        inSlope: -0.56309634
+        outSlope: -0.56309634
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.4060916
+        outWeight: 1
+      - serializedVersion: 3
+        time: 7.751671
+        value: 10.625336
+        inSlope: -3.4388826
+        outSlope: -3.4388826
+        tangentMode: 0
+        weightedMode: 2
+        inWeight: 0.33333334
+        outWeight: 0.35603467
+      - serializedVersion: 3
+        time: 9.684938
+        value: 0.30611992
+        inSlope: -5.0041766
+        outSlope: -5.0041766
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.26757354
+        outWeight: 0.14231695
+      - serializedVersion: 3
+        time: 10.227642
+        value: -2.3192892
+        inSlope: -0.79437673
+        outSlope: -0.79437673
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.35822693
+        outWeight: 0.295218
+      - serializedVersion: 3
+        time: 13.085234
+        value: -0.23032184
+        inSlope: 0.20350924
+        outSlope: 0.20350924
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.36511374
+        outWeight: 0.57451016
+      - serializedVersion: 3
+        time: 16.048347
+        value: 5.2109094
+        inSlope: -2.3594959
+        outSlope: -2.3594959
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.5048496
+        outWeight: 0.32558525
+      - serializedVersion: 3
+        time: 23.261076
+        value: 15.892334
+        inSlope: -0.23210095
+        outSlope: -0.23210095
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.30355301
+        outWeight: 0.38989154
+      - serializedVersion: 3
+        time: 28.82269
+        value: 1.6418467
+        inSlope: 0.015009997
+        outSlope: 0.015009997
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.9486858
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 1
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.05467224
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.34085715
+        value: 2.1994627
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0659077
+        value: -2.7259278
+        inSlope: 0.13233161
+        outSlope: 0.13233161
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 1
+      - serializedVersion: 3
+        time: 1.5825787
+        value: 1.9981875
+        inSlope: -7.6449065
+        outSlope: -7.6449065
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.275833
+      - serializedVersion: 3
+        time: 2.3077536
+        value: 1.8678118
+        inSlope: -7.150643
+        outSlope: -7.150643
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 1
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 3.0529752
+        value: 1.9035568
+        inSlope: 27.114166
+        outSlope: 27.114166
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.70750433
+        outWeight: 0.51625484
+      - serializedVersion: 3
+        time: 3.2318606
+        value: -0.032386377
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 1
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
     id: 0
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 5.000351
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 5.000351
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 2
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 5
+        value: -5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 3
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -2.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 5
+        value: -2.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 4
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 2.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 5
+        value: 2.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 5
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 5
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 6
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 5
+        value: -0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 7
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1.0005987
+        value: -2.4048147
+        inSlope: 28.263643
+        outSlope: 28.263643
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.20730941
+      - serializedVersion: 3
+        time: -0.5005985
+        value: 4.8841314
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.59940153
+        value: -9.234339
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.94940156
+        value: -2.4048147
+        inSlope: 29.60907
+        outSlope: 29.60907
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.29615486
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 1
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 1
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 8
+    startTime: 0
+    lastTime: 0
+    type: 3
+    enable: 1
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 1
+    damageScale: 1
+    dir: {x: 1, y: 0, z: 0}
+    speed: 5
+    gravityScale: 0
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.023899287
+        value: 0.9651649
+        inSlope: 30.570425
+        outSlope: 30.570425
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.24128017
+      - serializedVersion: 3
+        time: 0.24356376
+        value: 4.739101
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.74387264
+        value: -2.5709007
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9158976
+        value: 0.9651649
+        inSlope: 50.19586
+        outSlope: 50.19586
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.20922317
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 1
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    targetType: 0
+    timeToTarget: 0
+    offset: {x: 0, y: 0, z: 0}
+    attackEffects: {fileID: 0}
+    damageType: 0
+    triggerPath: 
+    HitBack: {x: 0, y: 0}
+  - skillAsset: {fileID: 11400000}
+    id: 9
     startTime: 0
     lastTime: 0
     type: 2
@@ -34,15 +1024,86 @@ MonoBehaviour:
     bulletName:
       values:
       - bullet_1
-      - NewBullet
+      - CurvedBullet
+      - SingleBullet
       - DropItem
       - ImpuseGenerator
       - OnHitParticle
       - SwordLight
-      selectedIndex: 1
-    damageScale: 0
-    dir: {x: 1, y: 0, z: 0}
-    speed: 10
+      selectedIndex: 2
+    damageScale: 1
+    dir: {x: 1, y: 1, z: 0}
+    speed: 3
+    gravityScale: 1
+    maxLife: 9
+    aniX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 10.146439
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.023899287
+        value: 0.9651649
+        inSlope: 30.570425
+        outSlope: 30.570425
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.24128017
+      - serializedVersion: 3
+        time: 0.24356376
+        value: 4.739101
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.74387264
+        value: -2.5709007
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9158976
+        value: 0.9651649
+        inSlope: 50.19586
+        outSlope: 50.19586
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.20922317
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 1
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
     rayDir: {x: 0, y: 0}
     rayLength: 0
     hitSpeed: 0

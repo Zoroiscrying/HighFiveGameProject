@@ -14,6 +14,11 @@ namespace ReadyGamerOne.Rougelike.Mover
     public interface IMover2D
     {
         /// <summary>
+        /// 设置和获取位置
+        /// </summary>
+        Vector3 Position { get; set; }
+        
+        /// <summary>
         /// 获取和设置速度
         /// </summary>
         Vector2 Velocity { get; set; }
