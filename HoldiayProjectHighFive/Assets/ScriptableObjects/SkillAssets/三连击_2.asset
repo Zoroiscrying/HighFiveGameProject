@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 3
-  startTime: 0.64913553
+  startTime: 0
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 0}
@@ -28,15 +29,43 @@ MonoBehaviour:
       stringValue: Player@Attack3
     animationSpeed: 1
     audioName:
+      values:
+      - Au1
+      - Au2
+      - Au3
+      - Au4
+      - Au5
+      - beiji
+      - Bg
+      - Fuck
       selectedIndex: 0
-      Path: 
     bulletName:
+      values:
+      - bullet_1
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
       selectedIndex: 0
-      Path: 
-    damage: 0
+    damageScale: 0
     dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
-    maxLife: 0
+    speed: 0
+    gravityScale: 0
+    maxLife: 3
+    aniX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
     rayDir: {x: 0, y: 0}
     rayLength: 0
     hitSpeed: 0
@@ -51,43 +80,7 @@ MonoBehaviour:
     attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
-    hitBack: {x: 0, y: 0}
-  - skillAsset: {fileID: 0}
-    id: 2
-    startTime: 0.1
-    lastTime: 0.833
-    type: 6
-    enable: 1
-    animationName:
-      rac: {fileID: 0}
-      selectedIndex: 0
-      stringValue: 
-    animationSpeed: 1
-    audioName:
-      selectedIndex: 0
-      Path: 
-    bulletName:
-      selectedIndex: 0
-      Path: 
-    damage: 0
-    dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
-    maxLife: 0
-    rayDir: {x: 0, y: 0}
-    rayLength: 0
-    hitSpeed: 0
-    rayTestLayer:
-      serializedVersion: 2
-      m_Bits: 0
-    shineLastTime: 0
-    shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
-    attackEffects: {fileID: 0}
-    damageType: 0
-    triggerPath: GameObject
-    hitBack: {x: 0, y: 0.3}
+    HitBack: {x: 0, y: 0}
   - skillAsset: {fileID: 0}
     id: 1
     startTime: 0.2
@@ -100,15 +93,43 @@ MonoBehaviour:
       stringValue: 
     animationSpeed: 1
     audioName:
+      values:
+      - Au1
+      - Au2
+      - Au3
+      - Au4
+      - Au5
+      - beiji
+      - Bg
+      - Fuck
       selectedIndex: 2
-      Path: ClassAudio/Au2
     bulletName:
+      values:
+      - bullet_1
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
       selectedIndex: 0
-      Path: 
-    damage: 0
+    damageScale: 0
     dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
-    maxLife: 0
+    speed: 0
+    gravityScale: 0
+    maxLife: 3
+    aniX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
     rayDir: {x: 0, y: 0}
     rayLength: 0
     hitSpeed: 0
@@ -123,5 +144,5 @@ MonoBehaviour:
     attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
-    hitBack: {x: 0, y: 0}
+    HitBack: {x: 0, y: 0}
   Vector3Cache: {x: 0, y: 0, z: 0}

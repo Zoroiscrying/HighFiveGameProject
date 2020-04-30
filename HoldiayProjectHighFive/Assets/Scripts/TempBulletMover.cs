@@ -1,25 +1,44 @@
 using System;
-using ReadyGamerOne.Attributes;
 using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.Utility;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Game.Scripts
 {
     public class TempBulletMover:MonoBehaviour,IMover2D
     {
-        [RequireInterface(typeof(IMover2D))]
-        public Object mover;
+        public Vector3 Position
+        {
+            get => Rig.position;
+            set => Rig.position = value;
+        }
+
+        public Vector2 Velocity
+        {
+            get => Rig.velocity;
+            set => Rig.velocity = value;
+        }
         
-        
-        public virtual Vector2 Velocity { get; set; }=Vector2.zero;
-        [SerializeField] private float gravity = 1.0f;
+        #region GravityScale
+
+        private Rigidbody2D rig;
+        private Rigidbody2D Rig
+        {
+            get
+            {
+                if (!rig)
+                    rig = GetComponent<Rigidbody2D>();
+                return rig;
+            }
+        }
         public virtual float GravityScale
         {
-            get => gravity;
-            set => gravity = value;
-        }
+            get => Rig.gravityScale;
+            set => Rig.gravityScale = value;
+        }        
+
+        #endregion
+
 
         [SerializeField] private LayerMask colliderLayers;
         public virtual LayerMask ColliderLayers
@@ -45,6 +64,19 @@ namespace Game.Scripts
         {
             transform.position += Time.deltaTime * new Vector3(Velocity.x, Velocity.y);
         }
-        
+
+        protected virtual void OnCollisionEnter2D(Collision2D collision2D)
+        {
+            eventOnColliderEnter?.Invoke(collision2D.gameObject);
+        }
+
+
+        protected virtual void OnTriggerEnter2D(Collider2D other)
+        {
+            if (1 == triggerLayers.value.GetNumAtBinary(other.gameObject.layer))
+            {
+                eventOnTriggerEnter?.Invoke(other.gameObject);
+            }
+        }
     }
 }

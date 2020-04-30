@@ -1,5 +1,4 @@
 using System;
-using HighFive.Control.Movers;
 using HighFive.Model.Person;
 using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.Rougelike.Person;
@@ -44,6 +43,8 @@ namespace HighFive.Model
         private bool _init = false;
         public float damageScale = 1;
         public float maxLife = 2.0f;
+
+        public float? gravityScale = null;
         protected IHighFivePerson selfPerson;
         protected IMover2D mover;
 
@@ -70,6 +71,8 @@ namespace HighFive.Model
             mover = GetComponent<IMover2D>();
             mover.eventOnColliderEnter += OnTerrainEnter;
             mover.eventOnTriggerEnter += OnEnemyEnter;
+            if (null != gravityScale)
+                mover.GravityScale = gravityScale.Value;
             _init = true;
             MainLoop.Instance.ExecuteLater(DestorySelf, maxLife);
         }

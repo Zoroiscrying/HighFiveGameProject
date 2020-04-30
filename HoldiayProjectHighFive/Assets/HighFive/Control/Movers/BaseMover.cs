@@ -169,6 +169,12 @@ namespace HighFive.Control.Movers
         /// 速度，影响实际物体的移动
         /// </summary>
         [SerializeField]protected Vector2 velocity;
+        public Vector3 Position
+        {
+            get => transform.position;
+            set => transform.position = value;
+
+        }
 
         public virtual Vector2 Velocity
         {

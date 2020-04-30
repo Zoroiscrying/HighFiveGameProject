@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -28,15 +29,45 @@ MonoBehaviour:
       stringValue: Enemy1@Attack1
     animationSpeed: 1
     audioName:
+      values:
+      - Au1
+      - Au2
+      - Au3
+      - Au4
+      - Au5
+      - beiji
+      - Bg
+      - Fuck
       selectedIndex: 0
-      Path: 
     bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
       selectedIndex: 0
-      Path: 
-    damage: 0
+    damageScale: 0
     dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
+    speed: 0
+    gravityScale: 0
     maxLife: 0
+    aniX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
     rayDir: {x: 0, y: 0}
     rayLength: 0
     hitSpeed: 0
@@ -51,41 +82,5 @@ MonoBehaviour:
     attackEffects: {fileID: 0}
     damageType: 0
     triggerPath: 
-    hitBack: {x: 0, y: 0}
-  - skillAsset: {fileID: 0}
-    id: 1
-    startTime: 0
-    lastTime: 0.667
-    type: 6
-    enable: 1
-    animationName:
-      rac: {fileID: 9100000, guid: af182e61e6f222048b3a5e12ac733cd0, type: 2}
-      selectedIndex: 0
-      stringValue: Enemy1@Attack1
-    animationSpeed: 1
-    audioName:
-      selectedIndex: 0
-      Path: 
-    bulletName:
-      selectedIndex: 0
-      Path: 
-    damage: 0
-    dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
-    maxLife: 0
-    rayDir: {x: 0, y: 0}
-    rayLength: 0
-    hitSpeed: 0
-    rayTestLayer:
-      serializedVersion: 2
-      m_Bits: 0
-    shineLastTime: 0
-    shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
-    attackEffects: {fileID: 0}
-    damageType: 1
-    triggerPath: Sword
-    hitBack: {x: 0, y: 0}
-  Vector3Cache: {x: 3.2908547, y: -4.52, z: 0}
+    HitBack: {x: 0, y: 0}
+  Vector3Cache: {x: -4.1408877, y: -4.52, z: 0}
