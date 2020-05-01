@@ -1,6 +1,9 @@
 using System;
+using System.ComponentModel;
+using BehaviorDesigner.Runtime.Tasks;
 using HighFive.Others;
 using UnityEngine;
+using UnityEngine.Serialization;
 using zoroiscrying;
 
 namespace HighFive.Control.Movers
@@ -11,9 +14,9 @@ namespace HighFive.Control.Movers
     /// 添加角色的移动速度；角色的输入（MoverInput）会影响角色实际移动速度
     /// 添加角色的动画控制
     /// </summary>
-    public class ActorMover:BaseMover
+    [RequireComponent(typeof(Animator))]
+    public class ActorMover : BaseMover
     {
-        
         #region IMover2D
 
         public override float GravityScale
@@ -25,28 +28,28 @@ namespace HighFive.Control.Movers
 
         public override float Gravity
         {
-            get=>default; 
-            set=>throw new Exception("Actor不允许直接修改Gravity属性，请调节跳跃相关属性或者GravityScale.");
+            get => default;
+            set => throw new Exception("Actor不允许直接修改Gravity属性，请调节跳跃相关属性或者GravityScale.");
         }
 
         #endregion
-        
+
         #region Actor_特有接口和属性
 
-        [Header("PreciseMovementControl")] 
-        [SerializeField]private float accelerationTimeAirborne = .2f;
-        [SerializeField]private float accelerationTimeGrounded = .1f;
-        [Space(5)] 
-        [SerializeField]private float timeToJumpApex = .4f;
-        [SerializeField]private float maxJumpHeight = 1f;
-        [Space(5)] 
-        [SerializeField]private float runSpeed = 8f;
-        [Space(5)] 
-        [SerializeField]private float horizontalSpeedMultiplier = 1f; 
-        [SerializeField]private float verticalSpeedMultiplier = 1f;
-        [Header("Animation Control")]
-        public GameAnimator animator;
-        
+        [Header("PreciseMovementControl")] [SerializeField]
+        private float accelerationTimeAirborne = .2f;
+
+        [SerializeField] private float accelerationTimeGrounded = .1f;
+        [Space(5)] [SerializeField] private float timeToJumpApex = .4f;
+        [SerializeField] private float maxJumpHeight = 1f;
+        [Space(5)] [SerializeField] private float runSpeed = 8f;
+        [Space(5)] [SerializeField] private float horizontalSpeedMultiplier = 1f;
+        [SerializeField] private float verticalSpeedMultiplier = 1f;
+        [SerializeField] protected int faceDir = 1;
+        // [Header("Animation Control")] 
+        // public GameAnimator animator;
+        [Header("Other")] public bool rayCastDebug = false;
+
         /// <summary>
         /// 角色的横向输入方向（1右-1左0为无输入）
         /// </summary>
@@ -67,11 +70,15 @@ namespace HighFive.Control.Movers
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// 角色的面朝方向，右 1 ，左 - 1
         /// </summary>
-        public virtual int FaceDir { get; set; }
+        public virtual int FaceDir
+        {
+            get => faceDir;
+            set=>throw new Exception("Face Dir Cannot be changed by other code.");
+        }
 
         /// <summary>
         /// 判断角色是否在平台边缘
@@ -128,10 +135,11 @@ namespace HighFive.Control.Movers
             }
         }
 
-        private float _movementDamping;
-        
+        private float _movementDampingHorizontal;
+        private float _movementDampingVertical;
+
         protected float maxJumpVelocity;
-        
+
         // 速度的缩放，现已整合在BaseMover中，为一二维向量。
         // 属性名为VelocityMultiplier
 
@@ -143,25 +151,34 @@ namespace HighFive.Control.Movers
         {
             this.canMove = arg;
         }
-        
+
         /// <summary>
         /// 计算有关跳跃的各种变量，比如重力、跳起的速度
         /// </summary>
         protected virtual void CalculateGravityNVelocity()
         {
-            gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+            gravity = (2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
             maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         }
-
+        
+        /// <summary>
+        /// Actor的速度计算开始计算MoverInput对速度造成的影响，影响因子分别为RunSpeed、SpeedMultiplier和damp系数
+        /// </summary>
         protected override void CalculateVelocity()
         {
-            base.CalculateVelocity();
-            float targetVelocityX = moverInput.x * runSpeed * horizontalSpeedMultiplier;
+            var targetVelocityX = moverInput.x * runSpeed * horizontalSpeedMultiplier;
             // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
             //var smoothedMovementFactor = _controller.isGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref _movementDamping,
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref _movementDampingHorizontal,
                 (collisionState.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
             // apply gravity before moving
+            if (canMoveVertically)
+            {
+                var targetVelocityY = moverInput.y * runSpeed * verticalSpeedMultiplier;
+                velocity.y = Mathf.SmoothDamp(velocity.y, targetVelocityY, ref _movementDampingVertical,
+                    accelerationTimeAirborne);
+            }
+            velocity.y -= gravity * gravityScale * Time.fixedDeltaTime;
         }
 
         /// <summary>
@@ -169,23 +186,144 @@ namespace HighFive.Control.Movers
         /// </summary>
         private void AnimFaceDirControl()
         {
+            var localScaleThisFrame = transform.localScale;
             if (NormalizedInputDirX == 1) //向右
             {
-                //Debug.Log("Turn right!");
-                FaceDir = 1;
+                faceDir = 1;
                 if (transform.localScale.x < 0f)
                     transform.localScale =
-                        new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                        new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
             }
             else if (NormalizedInputDirX == -1) //向左
             {
-                FaceDir = -1;
+                faceDir = -1;
                 if (transform.localScale.x > 0f)
                     transform.localScale =
-                        new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                        new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
             }
         }
-        
+
+        // 开放给外部使用的操纵Actor进行移动的接口，包括移动、跳跃和巡逻函数。
+        // 需要注意的是本Actor类并不进行计时器控制，更高级的移动方法请调用ActorMovementController类中的函数
+        #region Actor Movement Ctrl
+
+        //-----------移动函数------------
+        /// <summary>
+        /// 控制Actor是否向右移动
+        /// </summary>
+        /// <param name="moveRight">是否向右移动</param>
+        public void MoveHorizontally(bool moveRight)
+        {
+            if (moveRight)
+            {
+                moverInput.x = 1.0f;
+            }
+            else
+            {
+                moverInput.x = -1.0f;
+            }
+        }
+
+        /// <summary>
+        /// 反转Mover的横向移动输入
+        /// </summary>
+        public void ReverseMovementInputX()
+        {
+            moverInput.x = -moverInput.x;
+        }
+
+        /// <summary>
+        /// 反转Mover的纵向移动输入
+        /// </summary>
+        public void ReverseMovementInputY()
+        {
+            moverInput.y = -moverInput.y;
+        }
+
+        /// <summary>
+        /// 向Target方向移动，可以控制自己y轴移动速度的Actor（比如浮游物）会同时更改x、y方向的速度
+        /// 无法控制自己y轴移动速度的Actor，则只能改变自己在x轴方向的移动。
+        /// </summary>
+        /// <param name="target">Target的世界2维xy坐标</param>
+        public void MoveToward(Vector2 target)
+        {
+            var posVe2 = new Vector2(this.transform.position.x, this.transform.position.y);
+            var dir = target - posVe2;
+            moverInput = dir.normalized;
+        }
+
+        /// <summary>
+        /// 停止x轴的Actor输入
+        /// </summary>
+        public void StopHorizontallyInput()
+        {
+            moverInput.x = 0;
+        }
+
+        /// <summary>
+        /// 停止y轴的Actor输入
+        /// </summary>
+        public void StopVerticallyInput()
+        {
+            moverInput.y = 0;
+        }
+
+        /// <summary>
+        /// 停止输入控制的位移
+        /// </summary>
+        public void StopInputMoving()
+        {
+            StopHorizontallyInput();
+            StopVerticallyInput();
+        }
+
+        /// <summary>
+        /// 给actor一个突然的速度变化，用于瞬移、打击位移等突然的移动。
+        /// </summary>
+        /// <param name="vel"></param>
+        public void ChangeHorizontalVelocityInstantly(float vel)
+        {
+            this.velocity.x = vel;
+        }
+
+        /// <summary>
+        /// 根据传入的击退方向，进行方向上的位移
+        /// </summary>
+        /// <param name="hitDir">带有Actor接受到的打击的方向信息和大小信息的向量</param>
+        /// <param name="multiplier">用于影响击退效果的multiplier</param>
+        public void ChangeVelBasedOnHitDir(Vector2 hitDir, float multiplier = 1)
+        {
+            this.velocity = hitDir * multiplier;
+        }
+
+        //-----------跳跃函数------------
+        /// <summary>
+        /// 跳跃一次，注意这个函数只在Actor处于地面上时有用
+        /// </summary>
+        /// <param name="jumpForce"></param>
+        public void JumpOnce(Vector2 jumpForce)
+        {
+            if (this.isGrounded)
+            {
+                velocity.x = jumpForce.x;
+                velocity.y = jumpForce.y;
+            }
+            else
+            {
+                throw new WarningException("The Actor cannot jump in air!");
+            }
+        }
+
+        public void JumpAllTheTime(Vector2 jumpForce)
+        {
+            if (!this.isGrounded) return;
+            velocity.x = jumpForce.x;
+            velocity.y = jumpForce.y;
+        }
+        //-----------巡逻函数------------
+
+        #endregion
+
         #endregion
 
 
@@ -194,17 +332,30 @@ namespace HighFive.Control.Movers
         protected override void Awake()
         {
             base.Awake();
-            animator = GameAnimator.GetInstance(GetComponent<Animator>());
+            // animator = GameAnimator.GetInstance(GetComponent<Animator>());
             CalculateGravityNVelocity();
+            MoveHorizontally(true);
         }
 
         protected override void Update()
         {
             base.Update();
-            AnimFaceDirControl();
+            //AnimFaceDirControl();
         }
 
-
+        protected override void FixedUpdate()
+        {
+            this.CalculateVelocity();
+            
+            if (canMove)
+            {
+                //Move the mover by its velocity * time.deltatime
+                this.Move(new Vector2(velocity.x * velocityMultiplier.x, velocity.y * velocityMultiplier.y) *
+                          Time.fixedDeltaTime);
+            }
+            
+            CheckCollisions();
+        }
 
         #endregion
     }

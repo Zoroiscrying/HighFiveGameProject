@@ -29,6 +29,7 @@ namespace HighFive.Control.Movers
     /// 移动系统的基本元素，所有与世界产生碰撞、带有重力的移动物体都可以用这个类来控制移动
     /// 需要注意的是这个移动器基类不带有物理世界的摩擦、弹力等属性（也许是未来改进的方向）
     /// </summary>
+    [RequireComponent(typeof(BoxCollider2D))][RequireComponent(typeof(Rigidbody2D))]
     public class BaseMover:MonoBehaviour,IMover2D
     {
         
@@ -233,6 +234,18 @@ namespace HighFive.Control.Movers
         }
 
         /// <summary>
+        /// 可以垂直移动的Mover在接受y轴MoverInput时可以直接进行垂直方向的移动
+        /// 就像俯视角的移动一上下左右都可以令Input对速度产生影响
+        /// </summary>
+        [SerializeField] protected bool canMoveVertically = false;
+
+        public bool CanMoveVertically
+        {
+            get => canMoveVertically;
+            set => canMoveVertically = value;
+        }
+
+        /// <summary>
         /// Mover的碰撞状态
         /// </summary>
         public class MoverCollisionState2D 
@@ -276,19 +289,7 @@ namespace HighFive.Control.Movers
         /// updated anytime outside of the inspector for now.
         /// </summary>
         [SerializeField] public LayerMask oneWayPlatformMask = 0;
-
-        // /// <summary>
-        // /// the max slope angle that the CC2D can climb
-        // /// </summary>
-        // /// <value>The slope limit.</value>
-        // [Range(0f, 90f)] public float slopeLimit = 30f;
-
-        // /// <summary>
-        // /// the threshold in the change in vertical movement between frames that constitutes jumping
-        // /// </summary>
-        // /// <value>The jumping threshold.</value>
-        // public float jumpingThreshold = 0.07f;
-
+        
         private new Transform transform;
         private Rigidbody2D rigidBody2D;
         [SerializeField] protected MoverCollisionState2D collisionState = new MoverCollisionState2D();
@@ -317,7 +318,7 @@ namespace HighFive.Control.Movers
         /// <param name="standingOnPlatform"></param>
         public void Move(Vector2 deltaMovement, bool standingOnPlatform = false)
         {
-            Move(deltaMovement, Vector2.zero, standingOnPlatform);
+            Move(deltaMovement, moverInput, standingOnPlatform);
         }
         
         /// <summary>
@@ -349,7 +350,6 @@ namespace HighFive.Control.Movers
             {
                 CheckVerticalCollision(ref deltaMovement);
             }
-            
 
             //实际的移动在这里发生
             transform.Translate(deltaMovement, Space.World);
@@ -357,6 +357,8 @@ namespace HighFive.Control.Movers
             // 计算速度
             if (Time.deltaTime > 0f)
                 velocity = deltaMovement / Time.fixedDeltaTime;
+            
+            
 
             //如果移动前不在地面上，而移动后到达了地面，则把如下变量设为true
             if (!collisionState.wasGroundedLastFrame && collisionState.below)
@@ -400,14 +402,14 @@ namespace HighFive.Control.Movers
                     //这一帧的检测中包含被追踪的obj，则应调用stay回调
                     if (_rayCastedHits.ContainsKey(objAndState.Key))
                     {
-                        Debug.Log("ONCollision STAY");
+                        // Debug.Log("ONCollision STAY");
                         _rayCastedHits.Remove(objAndState.Key);
                         objAndState.Value.interactState = InteractState.Stay;
                         eventOnColliderStay?.Invoke(objAndState.Key);
                     }
                     else //没有包含被追踪的obj，则应调用exit回调并移除
                     {
-                        Debug.Log("ONCollision EXIT");
+                        // Debug.Log("ONCollision EXIT");
                         _activatedRayCastedHits.Remove(objAndState.Key);
                         objAndState.Value.interactState = InteractState.Exit;
                         eventOnColliderExit?.Invoke(objAndState.Key);
@@ -425,7 +427,7 @@ namespace HighFive.Control.Movers
                 else
                 {
                     //调用enter回调并加入激活字典
-                    Debug.Log("ONCollision ENTER");
+                    // Debug.Log("ONCollision ENTER");
                     objAndState.Value.interactState = InteractState.Enter;
                     eventOnColliderEnter?.Invoke(objAndState.Key);
                     _activatedRayCastedHits.Add(objAndState.Key,objAndState.Value);
@@ -786,10 +788,6 @@ namespace HighFive.Control.Movers
         protected virtual void Update()
         {
             DrawRay();
-            // if (Input.GetKeyDown(KeyCode.Space))
-            // {
-            //     this.velocity = new Vector2(2,20);
-            // }
         }
 
         public void OnTriggerEnter2D(Collider2D col)
