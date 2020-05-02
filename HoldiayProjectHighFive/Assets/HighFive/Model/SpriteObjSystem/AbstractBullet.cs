@@ -68,7 +68,7 @@ namespace HighFive.Model
             MainLoop.Instance.ExecuteLater(DestorySelf, maxLife);
         }
         
-        protected virtual void OnTerrainEnter(GameObject terrain, ReadyGamerOne.Rougelike.Mover.TouchDir touchDir)
+        protected virtual void OnTerrainEnter(GameObject terrain)
         {
 //            Debug.Log($"hit terrain [{terrain.name}], destory self");
             DestorySelf();

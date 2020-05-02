@@ -19,9 +19,9 @@ namespace HighFive.Model.SpriteObjSystem
             mover.Velocity = initialSpeed;
         }
 
-        protected override void OnEnemyEnter(GameObject enemy, TouchDir dir)
+        protected override void OnEnemyEnter(GameObject enemy)
         {
-            base.OnEnemyEnter(enemy, dir);
+            base.OnEnemyEnter(enemy);
             //如果不射穿，那么击中后就要销毁自己
             if(!shotThrough)
                 DestorySelf();

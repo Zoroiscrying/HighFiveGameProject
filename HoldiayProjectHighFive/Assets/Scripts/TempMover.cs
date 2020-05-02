@@ -51,9 +51,24 @@ namespace Game.Scripts
             set=>triggerLayers=value; 
         }
 
-        public event Action<GameObject, TouchDir> eventOnColliderEnter;
-        public event Action<GameObject, TouchDir> eventOnTriggerEnter;
-        
+        public event Action<GameObject> eventOnColliderEnter;
+        public event Action<GameObject> eventOnColliderStay;
+        public event Action<GameObject> eventOnColliderExit;
+        public event Action<GameObject> eventOnTriggerEnter;
+        public event Action<GameObject> eventOnTriggerStay;
+        public event Action<GameObject> eventOnTriggerExit;
+
+        private void Update()
+        {
+            transform.position += Time.deltaTime * new Vector3(Velocity.x, Velocity.y);
+        }
+
+        protected virtual void OnCollisionEnter2D(Collision2D collision2D)
+        {
+            eventOnColliderEnter?.Invoke(collision2D.gameObject);
+        }
+
+
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
 //            Debug.Log($"发现：{other.name}");
@@ -63,7 +78,7 @@ namespace Game.Scripts
             }
             else if (1 == triggerLayers.value.GetNumAtBinary(other.gameObject.layer))
             {
-                eventOnTriggerEnter?.Invoke(other.gameObject,TouchDir.Top);
+                eventOnTriggerEnter?.Invoke(other.gameObject);
             }
         }
     }
