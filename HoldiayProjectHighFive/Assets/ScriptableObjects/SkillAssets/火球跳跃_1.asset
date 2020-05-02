@@ -15,7 +15,7 @@ MonoBehaviour:
   skillName:
     selectedIndex: 7
   startTime: 0
-  isUsed: 1
+  isUsed: 0
   triggers:
   - skillAsset: {fileID: 11400000}
     id: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   - skillAsset: {fileID: 11400000}
     id: 1
     startTime: 0
-    lastTime: 0.2
+    lastTime: 0
     type: 2
     enable: 1
     animationName:
@@ -114,6 +114,7 @@ MonoBehaviour:
       - bullet_1
       - CurvedBullet
       - EnemyFireBall
+      - LightSword
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -175,7 +176,7 @@ MonoBehaviour:
   - skillAsset: {fileID: 11400000}
     id: 2
     startTime: 0
-    lastTime: 0.2
+    lastTime: 0
     type: 2
     enable: 1
     animationName:
@@ -191,6 +192,7 @@ MonoBehaviour:
       - bullet_1
       - CurvedBullet
       - EnemyFireBall
+      - LightSword
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -252,7 +254,7 @@ MonoBehaviour:
   - skillAsset: {fileID: 11400000}
     id: 3
     startTime: 0
-    lastTime: 0.2
+    lastTime: 0
     type: 2
     enable: 1
     animationName:
@@ -268,6 +270,7 @@ MonoBehaviour:
       - bullet_1
       - CurvedBullet
       - EnemyFireBall
+      - LightSword
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -329,7 +332,7 @@ MonoBehaviour:
   - skillAsset: {fileID: 11400000}
     id: 4
     startTime: 0
-    lastTime: 0.2
+    lastTime: 0
     type: 2
     enable: 1
     animationName:
@@ -345,6 +348,7 @@ MonoBehaviour:
       - bullet_1
       - CurvedBullet
       - EnemyFireBall
+      - LightSword
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -406,7 +410,7 @@ MonoBehaviour:
   - skillAsset: {fileID: 11400000}
     id: 5
     startTime: 0
-    lastTime: 0.2
+    lastTime: 0
     type: 2
     enable: 1
     animationName:
@@ -422,6 +426,7 @@ MonoBehaviour:
       - bullet_1
       - CurvedBullet
       - EnemyFireBall
+      - LightSword
       - SingleBullet
       - DropItem
       - ImpuseGenerator

@@ -22,7 +22,7 @@ namespace HighFive.AI.Actions
 
         public override void OnEnd()
         {
-            Debug.Log("掉头");
+//            Debug.Log("掉头");
         }
     }
 }

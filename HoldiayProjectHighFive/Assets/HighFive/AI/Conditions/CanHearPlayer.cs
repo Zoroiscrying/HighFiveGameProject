@@ -35,7 +35,7 @@ namespace HighFive.AI.Conditions
                 && GlobalVar.G_Player.IsAlive)
             {
                 outDetectedPerson.Value = hitInfo.transform.gameObject;
-                Debug.Log(outDetectedPerson.Value.name);
+//                Debug.Log(outDetectedPerson.Value.name);
                 return TaskStatus.Success;
             }
 

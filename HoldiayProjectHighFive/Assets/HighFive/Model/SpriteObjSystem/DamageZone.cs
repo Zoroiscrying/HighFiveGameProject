@@ -27,12 +27,8 @@ namespace HighFive.Model.SpriteObjSystem
             set => mover.TriggerLayers = value;
         }
 
-        public List<Collider2D> caches = new List<Collider2D>();
-
-        protected virtual void Awake()
-        {
-            
-        }
+        public List<GameObject> caches = new List<GameObject>();
+        
         
         public virtual void Init(IHighFivePerson self)
         {
@@ -40,7 +36,29 @@ namespace HighFive.Model.SpriteObjSystem
             selfPerson = self;
             mover = GetComponent<IMover2D>();
             mover.eventOnTriggerEnter += OnEnemyEnter;
+            mover.eventOnTriggerExit += OnEnemyExit;
+            mover.eventOnTriggerStay += OnEnemyStay;
             _init = true;
+        }
+
+        protected virtual void OnEnemyStay(GameObject obj)
+        {
+            if (enableTrigger)
+            {
+                if (caches.Contains(obj))
+                {
+                    OnEnemyEnter(obj);
+                    caches.Remove(obj);
+                }
+            }
+        }
+
+        protected virtual void OnEnemyExit(GameObject obj)
+        {
+            if (caches.Contains(obj))
+            {
+                caches.Remove(obj);
+            }
         }
 
         private void Update()
@@ -50,15 +68,14 @@ namespace HighFive.Model.SpriteObjSystem
             OnWork?.Invoke();
         }
         
-        protected virtual void OnEnemyEnter(GameObject enemy, TouchDir touchDir)
+        protected virtual void OnEnemyEnter(GameObject enemy)
         {
             if (!enableTrigger)
             {
-                Debug.Log("?????");
+                caches.Add(enemy);
                 return;
             }
             
-            Debug.Log(this.GetType());
             if (!selfPerson.gameObject.TryAttack(enemy, damageScale))
             {
                 Debug.LogWarning($"无效攻击【{selfPerson?.CharacterName}=>{enemy.name}】");

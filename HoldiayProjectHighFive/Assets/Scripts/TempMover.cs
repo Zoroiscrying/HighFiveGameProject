@@ -57,15 +57,38 @@ namespace Game.Scripts
         public event Action<GameObject> eventOnTriggerEnter;
         public event Action<GameObject> eventOnTriggerStay;
         public event Action<GameObject> eventOnTriggerExit;
-
-        private void Update()
-        {
-            transform.position += Time.deltaTime * new Vector3(Velocity.x, Velocity.y);
-        }
+        
 
         protected virtual void OnCollisionEnter2D(Collision2D collision2D)
         {
             eventOnColliderEnter?.Invoke(collision2D.gameObject);
+        }
+
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            eventOnColliderExit?.Invoke(other.gameObject);
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            eventOnColliderStay?.Invoke(other.gameObject);
+        }
+
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (1 == triggerLayers.value.GetNumAtBinary(other.gameObject.layer))
+            {
+                eventOnTriggerStay?.Invoke(other.gameObject);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (1 == triggerLayers.value.GetNumAtBinary(other.gameObject.layer))
+            {
+                eventOnTriggerExit?.Invoke(other.gameObject);
+            }
         }
 
 
@@ -74,7 +97,7 @@ namespace Game.Scripts
 //            Debug.Log($"发现：{other.name}");
             if (1 == colliderLayers.value.GetNumAtBinary(other.gameObject.layer))
             {
-                eventOnColliderEnter?.Invoke(other.gameObject,TouchDir.Top);
+                eventOnColliderEnter?.Invoke(other.gameObject);
             }
             else if (1 == triggerLayers.value.GetNumAtBinary(other.gameObject.layer))
             {
