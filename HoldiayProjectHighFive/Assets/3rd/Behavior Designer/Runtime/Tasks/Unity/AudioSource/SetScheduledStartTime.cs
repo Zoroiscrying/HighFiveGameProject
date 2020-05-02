@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAudioSource
 {
     [TaskCategory("Unity/AudioSource")]
-    [TaskDescription("Changes the time at which a sound that has already been scheduled to play will start. Returns Success.")]
+    [TaskDescription("Changes the inTime at which a sound that has already been scheduled to play will start. Returns Success.")]
     public class SetScheduledStartTime : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]

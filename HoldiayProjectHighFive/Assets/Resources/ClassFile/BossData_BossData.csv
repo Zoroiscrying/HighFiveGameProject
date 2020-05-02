@@ -1,0 +1,3 @@
+personName,hitback_x,hitback_y,defaultConstTime,maxHp,attack
+string,float,float,float,int,int
+AngryBall,2,0,0,1000,50

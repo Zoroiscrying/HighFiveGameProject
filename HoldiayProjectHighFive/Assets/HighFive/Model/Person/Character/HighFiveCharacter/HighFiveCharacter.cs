@@ -285,8 +285,8 @@ namespace HighFive.Model.Person
 			CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
 			CEventCenter.RemoveListener<string>(Message.M_OnTryBut, OnTryBuy);
 
-			if(GlobalVar.G_Player==this)
-				GlobalVar.G_Player = null;			
+//			if(GlobalVar.G_Player==this)
+//				GlobalVar.G_Player = null;			
 		}
 
 		#endregion
@@ -306,7 +306,7 @@ namespace HighFive.Model.Person
 		/// <summary>
 		/// 不接受输入
 		/// </summary>
-		/// <param CharacterName="time"></param>
+		/// <param CharacterName="inTime"></param>
 		public void IgnoreInput(float time)
 		{
 			this.InputOk = false;

@@ -13,7 +13,7 @@ namespace HighFive.Model.SpriteObjSystem
 
         private float timer;
 
-        protected override Action OnShotUpdate => () =>
+        protected override Action OnWork => () =>
         {
             this.mover.Velocity =
                 new Vector2(

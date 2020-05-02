@@ -39,7 +39,11 @@ namespace ReadyGamerOne.Common
             }
         }
         
-        private void Awake() {
+        private void Awake()
+        {
+            if (gameObject.activeSelf == false||enabled==false)
+                return;
+            
             if (_instance == null)
             {
                 OnStateIsNull();

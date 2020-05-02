@@ -7,7 +7,6 @@ using FileUtil = ReadyGamerOne.Utility.FileUtil;
 
 namespace ReadyGamerOne.Rougelike.Person
 {
-//#pragma warning disable CS0414
     public class PersonTool
 #if UNITY_EDITOR
         :IEditorTools
@@ -160,7 +159,6 @@ namespace ReadyGamerOne.Rougelike.Person
                          "\tpublic class "+className+" :\n" +
                          "\t\t"+parentName+"\n" +
                          "\t{\n" +
-                         "\t\tpublic override float MoveSpeed { get; set; }\n" +
                          "\t\tpublic override void SetMoveable(bool state)\n" +
                          "\t\t{\n" +
                          "\t\t\tthrow new System.NotImplementedException();\n" +
@@ -193,9 +191,11 @@ namespace ReadyGamerOne.Rougelike.Person
             stream.Write("\tpublic partial class "+className+" :\n" +
                          "\t\t"+parentName+"<"+className+">\n" +
                          "\t{\n" +
-                         "\t\tpublic override string ResPath => PersonPath."+className+";\n" +
+                         "\t\tpublic override string ResKey => PersonName."+className+";\n" +
                          "\t\tpublic override void LoadData(CsvMgr data)\n" +
                          "\t\t{\n" +
+                         "\t\t\t//    如果父类没有此方法，删掉就行\n"+
+                         "\t\t\tbase.LoadData(data);\n"+
                          "\t\t\t//    在这里需要使用数据对类内变量进行初始化赋值(比如_hp,_maxhp,_attack，这三项自动生成在基类中了)\n" +
                          "\t\t\t//    这个函数人物每次激活时都会调用\n" +
                          "\t\t}\n" +
@@ -289,6 +289,4 @@ namespace ReadyGamerOne.Rougelike.Person
         }
 #endif
     }
-    
-    
 }

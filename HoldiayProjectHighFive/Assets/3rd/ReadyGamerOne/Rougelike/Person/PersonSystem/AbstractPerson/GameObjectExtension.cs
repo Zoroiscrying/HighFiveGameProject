@@ -21,9 +21,13 @@ namespace ReadyGamerOne.Rougelike.Person
         public static AbstractPerson GetPersonInfo(this GameObject obj)
         {
             var id = obj.GetComponent<AbstractPerson.PersonIdentity>();
-            if (id == null)
+            if (id) 
+                return id.abstractPerson;
+
+            if (!obj.transform.parent) 
                 return null;
-            return id.abstractPerson;
+            
+            return obj.GetComponentInParent<AbstractPerson.PersonIdentity>()?.abstractPerson;
         }
     }
 }

@@ -182,7 +182,7 @@ namespace ReadyGamerOne.View
         private static Stack<IStackPanel> panelStack = new Stack<IStackPanel>();
         private static IEnumerator ChangeAlpha(Image image, int targetAlpha, float time, Action callBack)
         {
-             //Time.deltaTime/time
+             //Time.deltaTime/inTime
              var rowColor = image.color;
              for (var timer = 0f; timer < time; timer += Time.deltaTime)
              {

@@ -5,21 +5,9 @@ using UnityEngine;
 
 namespace Game.Scripts
 {
-    public class TempBulletMover:MonoBehaviour,IMover2D
+    public class TempMover:MonoBehaviour,IMover2D
     {
-        public Vector3 Position
-        {
-            get => Rig.position;
-            set => Rig.position = value;
-        }
-
-        public Vector2 Velocity
-        {
-            get => Rig.velocity;
-            set => Rig.velocity = value;
-        }
-        
-        #region GravityScale
+        #region Rigidbody
 
         private Rigidbody2D rig;
         private Rigidbody2D Rig
@@ -30,24 +18,34 @@ namespace Game.Scripts
                     rig = GetComponent<Rigidbody2D>();
                 return rig;
             }
-        }
-        public virtual float GravityScale
-        {
-            get => Rig.gravityScale;
-            set => Rig.gravityScale = value;
         }        
 
         #endregion
 
-
+        public Vector3 Position
+        {
+            get => Rig.position;
+            set => Rig.position = value;
+        }
+        public Vector2 Velocity
+        {
+            get => Rig.velocity;
+            set => Rig.velocity = value;
+        }
+        public float GravityScale
+        {
+            get => Rig.gravityScale;
+            set => Rig.gravityScale = value;
+        }
+        
         [SerializeField] private LayerMask colliderLayers;
-        public virtual LayerMask ColliderLayers
+        public LayerMask ColliderLayers
         {
             get => colliderLayers;
             set => colliderLayers = value;
-        }        
+        }
         [SerializeField] private LayerMask triggerLayers;
-        public virtual LayerMask TriggerLayers
+        public LayerMask TriggerLayers
         {
             get => triggerLayers; 
             set=>triggerLayers=value; 
@@ -55,16 +53,15 @@ namespace Game.Scripts
 
         public event Action<GameObject, TouchDir> eventOnColliderEnter;
         public event Action<GameObject, TouchDir> eventOnTriggerEnter;
-
-        protected virtual void OnCollisionEnter2D(Collision2D collision2D)
-        {
-            eventOnColliderEnter?.Invoke(collision2D.gameObject,TouchDir.Top);
-        }
-
-
+        
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (1 == triggerLayers.value.GetNumAtBinary(other.gameObject.layer))
+//            Debug.Log($"发现：{other.name}");
+            if (1 == colliderLayers.value.GetNumAtBinary(other.gameObject.layer))
+            {
+                eventOnColliderEnter?.Invoke(other.gameObject,TouchDir.Top);
+            }
+            else if (1 == triggerLayers.value.GetNumAtBinary(other.gameObject.layer))
             {
                 eventOnTriggerEnter?.Invoke(other.gameObject,TouchDir.Top);
             }

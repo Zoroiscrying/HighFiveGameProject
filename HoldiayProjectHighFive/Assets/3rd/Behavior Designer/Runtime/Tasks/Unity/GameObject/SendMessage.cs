@@ -1,7 +1,7 @@
 ﻿namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject
 {
     [TaskCategory("Unity/GameObject")]
-    [TaskDescription("Sends a message to the target GameObject. Returns Success.")]
+    [TaskDescription("Sends a message to the inTarget GameObject. Returns Success.")]
     public class SendMessage : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]

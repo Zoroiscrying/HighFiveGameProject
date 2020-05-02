@@ -3,12 +3,12 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAudioSource
 {
     [TaskCategory("Unity/AudioSource")]
-    [TaskDescription("Stores the time samples value of the AudioSource. Returns Success.")]
+    [TaskDescription("Stores the inTime samples value of the AudioSource. Returns Success.")]
     public class GetTimeSamples : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
-        [Tooltip("The time samples value of the AudioSource")]
+        [Tooltip("The inTime samples value of the AudioSource")]
         [RequiredField]
         public SharedFloat storeValue;
 

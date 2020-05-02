@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimation
 {
     [TaskCategory("Unity/Animation")]
-    [TaskDescription("Fades the animation over a period of time and fades other animations out. Returns Success.")]
+    [TaskDescription("Fades the animation over a period of inTime and fades other animations out. Returns Success.")]
     public class CrossFade : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
@@ -12,7 +12,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimation
         public SharedString animationName;
         [Tooltip("The speed of the animation. Use a negative value to play the animation backwards")]
         public SharedFloat animationSpeed = 1f;
-        [Tooltip("The amount of time it takes to blend")]
+        [Tooltip("The amount of inTime it takes to blend")]
         public SharedFloat fadeLength = 0.3f;
         [Tooltip("The play mode of the animation")]
         public PlayMode playMode = PlayMode.StopSameLayer;

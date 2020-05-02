@@ -1,5 +1,6 @@
 using HighFive.Control.EffectSystem;
 using HighFive.Control.SkillSystem;
+using HighFive.View;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace HighFive.Model.Person
 		float AttackSpeed { get; set; }
 		Vector2 HitBackSpeed { get; }
 
-		void RunSkill(SkillInfoAsset skillInfoAsset);
+		void RunSkill(SkillInfoAsset skillInfoAsset,params object[] args);
 		void LookAt(Transform target);
 	}
 
@@ -78,6 +79,10 @@ namespace HighFive.Model.Person
 			
 			//播放受击动画
 			PlayAcceptEffects(takeDamageFrom as IHighFivePerson);
+
+			var dir = (takeDamageFrom as IHighFivePerson).Dir;
+			
+			new DamageNumberUI(damage, 0, 30, Color.red, transform, dir);
 			
 			base.OnTakeDamage(takeDamageFrom,damage);
 		}
@@ -134,9 +139,9 @@ namespace HighFive.Model.Person
 		/// <param name="skillInfoAsset"></param>
 		///
 		/// 
-		public void RunSkill(SkillInfoAsset skillInfoAsset)
+		public void RunSkill(SkillInfoAsset skillInfoAsset,params object[] args)
 		{
-			skillInfoAsset.RunSkill(this);
+			skillInfoAsset.RunSkill(this,args: args);
 		}
 
 		public void LookAt(Transform target)

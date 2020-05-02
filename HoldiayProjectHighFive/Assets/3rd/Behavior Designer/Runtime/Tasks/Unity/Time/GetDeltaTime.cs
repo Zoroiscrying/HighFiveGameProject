@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityTime
 {
     [TaskCategory("Unity/Time")]
-    [TaskDescription("Returns the time in seconds it took to complete the last frame.")]
+    [TaskDescription("Returns the inTime in seconds it took to complete the last frame.")]
     public class GetDeltaTime : Action
     {
         [Tooltip("The variable to store the result")]

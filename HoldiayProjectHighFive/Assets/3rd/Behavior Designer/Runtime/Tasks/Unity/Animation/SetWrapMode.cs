@@ -8,7 +8,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimation
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
-        [Tooltip("How should time beyond the playback range of the clip be treated?")]
+        [Tooltip("How should inTime beyond the playback range of the clip be treated?")]
         public WrapMode wrapMode = WrapMode.Default;
 
         // cache the animation component

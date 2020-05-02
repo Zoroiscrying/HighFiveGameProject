@@ -38,16 +38,12 @@ namespace HighFive.Model.Person
 			set { actor._faceDir = value; }
 		}
 
-		public override float MoveSpeed
-		{
-			get { return actor._runSpeed; }
-			set { actor._runSpeed = value; }
-		}
-
 		public override void SetMoveable(bool state)
 		{
-			actor.enabled = state;
-			characterController.enabled = state;
+			if(actor)
+				actor.enabled = state;
+			if(characterController)
+				characterController.enabled = state;
 		}
 	}
 }

@@ -93,7 +93,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2304
   triggerLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -162,6 +162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageScale: 1
   maxLife: 2
+  xDir: 1
+  yDir: 1
   aniX:
     serializedVersion: 2
     m_Curve: []

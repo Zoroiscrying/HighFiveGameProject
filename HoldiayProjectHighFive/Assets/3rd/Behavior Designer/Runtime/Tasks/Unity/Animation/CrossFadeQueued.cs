@@ -10,7 +10,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimation
         public SharedGameObject targetGameObject;
         [Tooltip("The name of the animation")]
         public SharedString animationName;
-        [Tooltip("The amount of time it takes to blend")]
+        [Tooltip("The amount of inTime it takes to blend")]
         public float fadeLength = 0.3f;
         [Tooltip("Specifies when the animation should start playing")]
         public QueueMode queue = QueueMode.CompleteOthers;

@@ -7,9 +7,7 @@ namespace HighFive.Script
     public class TouchDamage:MonoBehaviour
     {
 
-        public int damage;
-        public Vector2 hitback;
-
+        public float damageScale=1.0f;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -18,7 +16,7 @@ namespace HighFive.Script
             if (player is IHighFiveCharacter)
             {
 //                Debug.Log("Player碰我");
-                gameObject.GetPersonInfo().TryAttack(player);
+                gameObject.GetPersonInfo().TryAttack(player,damageScale);
             }
         }
     }

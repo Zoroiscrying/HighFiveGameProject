@@ -13,9 +13,9 @@ namespace HighFive.Model.SpriteObjSystem
 
         private bool shoted = false;
 
-        public override void ShotStart(IHighFivePerson self)
+        public override void Init(IHighFivePerson self)
         {
-            base.ShotStart(self);
+            base.Init(self);
             mover.Velocity = initialSpeed;
         }
 

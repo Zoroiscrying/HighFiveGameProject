@@ -780,7 +780,6 @@
               <e p="XmlManager.cs" t="Include" />
             </e>
             <e p="Editor" t="Include">
-              <e p="EditorUtility.cs" t="Include" />
               <e p="ToolWindow.cs" t="Include" />
             </e>
             <e p="EditorExtension" t="Include">
@@ -895,6 +894,7 @@
               </e>
             </e>
             <e p="ScriptableObjects" t="Include">
+              <e p="AnimationCurveAsset.cs" t="Include" />
               <e p="ConstStringChooser.cs" t="Include" />
               <e p="Editor" t="Include">
                 <e p="ConstStringChooserDrawer.cs" t="Include" />
@@ -916,10 +916,12 @@
                 <e p="StringExtension.cs" t="Include" />
                 <e p="TransformExtension.cs" t="Include" />
                 <e p="TypeExtension.cs" t="Include" />
+                <e p="VectorExtension.cs" t="Include" />
               </e>
               <e p="IDrawGizmo.cs" t="Include" />
               <e p="Utils" t="Include">
                 <e p="ConvertUtil.cs" t="Include" />
+                <e p="EditorUtility.cs" t="Include" />
                 <e p="EnumUtil.cs" t="Include" />
                 <e p="FileUtil.cs" t="Include" />
                 <e p="GizmosUtil.cs" t="Include" />
@@ -983,6 +985,10 @@
         <e p="HighFive" t="Include">
           <e p="AI" t="Include">
             <e p="Actions" t="Include">
+              <e p="AiCurvedVelocity.cs" t="Include" />
+              <e p="AiGetLandingPoint.cs" t="Include" />
+              <e p="AiJumpToVector3.cs" t="Include" />
+              <e p="AiJumToGameObject.cs" t="Include" />
               <e p="IdleState.cs" t="Include" />
               <e p="Patrol.cs" t="Include" />
               <e p="RunSkill.cs" t="Include" />
@@ -1052,6 +1058,7 @@
           </e>
           <e p="Data" t="Include">
             <e p="Auto" t="Include">
+              <e p="BossData.cs" t="Include" />
               <e p="CharacterData.cs" t="Include" />
               <e p="DragData.cs" t="Include" />
               <e p="DropData.cs" t="Include" />
@@ -1114,6 +1121,16 @@
                   <e p="Boner.cs" t="Include" />
                   <e p="BonerController.cs" t="Include" />
                 </e>
+                <e p="Boss" t="Include">
+                  <e p="AngryBall" t="Include">
+                    <e p="AngryBall.cs" t="Include" />
+                    <e p="AngryBallController.cs" t="Include" />
+                  </e>
+                  <e p="HighFiveBoss" t="Include">
+                    <e p="HighFiveBoss.cs" t="Include" />
+                    <e p="HighFiveBossController.cs" t="Include" />
+                  </e>
+                </e>
                 <e p="HighFiveEnemy" t="Include">
                   <e p="HighFiveEnemy.cs" t="Include" />
                   <e p="HighFiveEnemyController.cs" t="Include" />
@@ -1138,6 +1155,8 @@
             <e p="SpriteObjSystem" t="Include">
               <e p="AbstractBullet.cs" t="Include" />
               <e p="CurvedBullet.cs" t="Include" />
+              <e p="DamageZone.cs" t="Include" />
+              <e p="LightSword.cs" t="Include" />
               <e p="SingleBullet.cs" t="Include" />
             </e>
           </e>
@@ -1201,7 +1220,7 @@
           <e p="SceneUtil.cs" t="Include" />
           <e p="ShopNpc.cs" t="Include" />
           <e p="ShowCollider2D.cs" t="Include" />
-          <e p="TempBulletMover.cs" t="Include" />
+          <e p="TempMover.cs" t="Include" />
           <e p="TestScripts" t="Include">
             <e p="TestImpulse.cs" t="Include" />
           </e>

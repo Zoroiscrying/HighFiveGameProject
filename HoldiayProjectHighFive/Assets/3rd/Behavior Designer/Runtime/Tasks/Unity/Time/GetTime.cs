@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityTime
 {
     [TaskCategory("Unity/Time")]
-    [TaskDescription("Returns the time in second since the start of the game.")]
+    [TaskDescription("Returns the inTime in second since the start of the game.")]
     public class GetTime : Action
     {
         [Tooltip("The variable to store the result")]

@@ -12,7 +12,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimation
         public SharedString animationName;
         [Tooltip("The weight the animation should blend to")]
         public float targetWeight = 1;
-        [Tooltip("The amount of time it takes to blend")]
+        [Tooltip("The amount of inTime it takes to blend")]
         public float fadeLength = 0.3f;
 
         // cache the animation component

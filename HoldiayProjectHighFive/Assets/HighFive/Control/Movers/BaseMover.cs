@@ -661,7 +661,7 @@ namespace HighFive.Control.Movers
         {
             CalculateVelocity();
             
-            //Move the mover by its velocity * time.deltatime
+            //Move the mover by its velocity * inTime.deltatime
             this.Move(velocity*Time.fixedDeltaTime);
             
             CheckCollisions();

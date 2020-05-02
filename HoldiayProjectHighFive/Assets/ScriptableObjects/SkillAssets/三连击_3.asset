@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 4
-  startTime: 1.2640315
+  startTime: 1.0230881
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 0}
@@ -46,10 +47,25 @@ MonoBehaviour:
       - SwordLight
       - Slot
       selectedIndex: 0
-    damage: 0
+    damageScale: 0
     dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
+    speed: 0
+    gravityScale: 0
     maxLife: 0
+    aniX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
     rayDir: {x: 0, y: 0}
     rayLength: 0
     hitSpeed: 0
@@ -63,8 +79,10 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 0}
     id: 1
     startTime: 0.2
@@ -95,10 +113,25 @@ MonoBehaviour:
       - SwordLight
       - Slot
       selectedIndex: 0
-    damage: 0
+    damageScale: 0
     dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
+    speed: 0
+    gravityScale: 0
     maxLife: 0
+    aniX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
     rayDir: {x: 0, y: 0}
     rayLength: 0
     hitSpeed: 0
@@ -112,8 +145,10 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 0}
     id: 2
     startTime: 0.1
@@ -144,10 +179,25 @@ MonoBehaviour:
       - SwordLight
       - Slot
       selectedIndex: 0
-    damage: 0
+    damageScale: 0
     dir: {x: 0, y: 0, z: 0}
-    bulletSpeed: 0
+    speed: 0
+    gravityScale: 0
     maxLife: 0
+    aniX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
     rayDir: {x: 0, y: 0}
     rayLength: 0
     hitSpeed: 0
@@ -161,6 +211,8 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
     damageType: 0
-    triggerPath: GameObject
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 1888196854289950, guid: 3a9e1cefcd2541946853b4c18dc9ffac, type: 3}
+      selectedIndex: 3
+      path: DamageTester
   Vector3Cache: {x: 0, y: 0, z: 0}

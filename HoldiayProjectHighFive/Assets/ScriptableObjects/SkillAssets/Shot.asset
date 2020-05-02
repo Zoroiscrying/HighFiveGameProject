@@ -35,6 +35,7 @@ MonoBehaviour:
       values:
       - bullet_1
       - CurvedBullet
+      - EnemyFireBall
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -46,6 +47,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -212,13 +214,30 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 0
     startTime: 0
@@ -237,6 +256,7 @@ MonoBehaviour:
       values:
       - bullet_1
       - CurvedBullet
+      - EnemyFireBall
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -248,6 +268,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -306,13 +327,30 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 2
     startTime: 0
@@ -342,6 +380,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -400,13 +439,30 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 3
     startTime: 0
@@ -425,6 +481,7 @@ MonoBehaviour:
       values:
       - bullet_1
       - CurvedBullet
+      - EnemyFireBall
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -436,6 +493,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -494,13 +552,30 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 4
     startTime: 0
@@ -519,6 +594,7 @@ MonoBehaviour:
       values:
       - bullet_1
       - CurvedBullet
+      - EnemyFireBall
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -530,6 +606,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -588,13 +665,30 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 5
     startTime: 0
@@ -624,6 +718,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -682,13 +777,30 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 6
     startTime: 0
@@ -707,6 +819,7 @@ MonoBehaviour:
       values:
       - bullet_1
       - CurvedBullet
+      - EnemyFireBall
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -718,6 +831,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -776,13 +890,30 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 7
     startTime: 0
@@ -801,6 +932,7 @@ MonoBehaviour:
       values:
       - bullet_1
       - CurvedBullet
+      - EnemyFireBall
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -812,6 +944,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -888,13 +1021,30 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 8
     startTime: 0
@@ -913,6 +1063,7 @@ MonoBehaviour:
       values:
       - bullet_1
       - CurvedBullet
+      - EnemyFireBall
       - SingleBullet
       - DropItem
       - ImpuseGenerator
@@ -924,6 +1075,7 @@ MonoBehaviour:
     speed: 5
     gravityScale: 0
     maxLife: 9
+    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve:
@@ -1000,123 +1152,27 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
-    damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
-  - skillAsset: {fileID: 11400000}
-    id: 9
-    startTime: 0
-    lastTime: 0
-    type: 2
-    enable: 1
-    animationName:
-      rac: {fileID: 0}
-      selectedIndex: 0
-      stringValue: 
-    animationSpeed: 0
-    audioName:
-      values: []
-      selectedIndex: 0
-    bulletName:
+    swordPrefabName:
       values:
       - bullet_1
       - CurvedBullet
+      - EnemyFireBall
       - SingleBullet
       - DropItem
       - ImpuseGenerator
       - OnHitParticle
       - SwordLight
-      selectedIndex: 2
-    damageScale: 1
-    dir: {x: 1, y: 1, z: 0}
-    speed: 3
-    gravityScale: 1
-    maxLife: 9
-    aniX:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 10.146439
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 10.146439
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    aniY:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0.023899287
-        value: 0.9651649
-        inSlope: 30.570425
-        outSlope: 30.570425
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.24128017
-      - serializedVersion: 3
-        time: 0.24356376
-        value: 4.739101
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.74387264
-        value: -2.5709007
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.9158976
-        value: 0.9651649
-        inSlope: 50.19586
-        outSlope: 50.19586
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.20922317
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 1
-      m_RotationOrder: 4
-    reverseX: 0
-    reverseY: 0
-    rayDir: {x: 0, y: 0}
-    rayLength: 0
-    hitSpeed: 0
-    rayTestLayer:
-      serializedVersion: 2
-      m_Bits: 0
-    shineLastTime: 0
-    shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
-    attackEffects: {fileID: 0}
+      selectedIndex: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    HandleOffset: {x: 0, y: 0, z: 0}
+    RotateDegree: 0
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
-  Vector3Cache: {x: 0, y: 0, z: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 

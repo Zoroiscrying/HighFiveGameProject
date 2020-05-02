@@ -5,7 +5,8 @@ using UnityEngine;
 namespace ReadyGamerOne.Rougelike.Person
 {
     public interface IPoolPerson :
-        IPerson
+        IPerson,
+        IPoolable
     {
         void Release();
         event Action<IPoolPerson> onAfterGet;
@@ -18,8 +19,7 @@ namespace ReadyGamerOne.Rougelike.Person
     /// <typeparam name="T"></typeparam>
     public abstract class PoolPerson<T> : 
         AbstractPerson,
-        IPoolPerson,
-        IPoolable
+        IPoolPerson
         where T : PoolPerson<T>, new()
     {
         #region Static

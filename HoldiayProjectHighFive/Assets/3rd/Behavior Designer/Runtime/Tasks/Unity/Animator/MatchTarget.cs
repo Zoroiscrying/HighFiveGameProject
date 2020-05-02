@@ -18,9 +18,9 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator
         public Vector3 weightMaskPosition;
         [Tooltip("Weights for matching rotation")]
         public float weightMaskRotation;
-        [Tooltip("Start time within the animation clip")]
+        [Tooltip("Start inTime within the animation clip")]
         public float startNormalizedTime;
-        [Tooltip("End time within the animation clip")]
+        [Tooltip("End inTime within the animation clip")]
         public float targetNormalizedTime = 1;
 
         private Animator animator;

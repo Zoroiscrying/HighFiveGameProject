@@ -76,7 +76,7 @@ namespace ReadyGamerOne.Script.Editor
         }
         private void OnEnable()
         {
-            //this.behavior = target as BasicCharacterController;
+            //this.behavior = inTarget as BasicCharacterController;
             mb=target as AbstractCharacterController;
 
             ani = mb.GetComponent<Animator>();

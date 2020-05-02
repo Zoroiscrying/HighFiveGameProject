@@ -4,7 +4,7 @@ using UnityEngine.AI;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityNavMeshAgent
 {
     [TaskCategory("Unity/NavMeshAgent")]
-    [TaskDescription("Gets the distance between the agent's position and the destination on the current path. Returns Success.")]
+    [TaskDescription("Gets the distance between the agent's position and the outTargetVector3 on the current path. Returns Success.")]
     public class GetRemainingDistance : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]

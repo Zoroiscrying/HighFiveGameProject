@@ -6,11 +6,6 @@ namespace ReadyGamerOne.Rougelike.Person
     public abstract class AbstractPersonController:MonoBehaviour
     {
         public AbstractPerson selfPerson;
-        
-        /// <summary>
-        /// 走路速度
-        /// </summary>
-        public abstract float MoveSpeed { get; set; }
         public virtual Vector3 Velocity3D => Vector3.zero;
         public virtual Vector2 Velocity2D => Vector2.zero;
 

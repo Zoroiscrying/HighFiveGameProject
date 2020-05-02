@@ -2,6 +2,7 @@ namespace HighFive.Const
 {
 	public partial class FileName
 	{
+		public static readonly string BossData_BossData = @"BossData_BossData";
 		public static readonly string CharacterData_CharacterData = @"CharacterData_CharacterData";
 		public static readonly string DataConfig = @"DataConfig";
 		public static readonly string DragData_1 = @"DragData_1";

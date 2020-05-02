@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityTime
 {
     [TaskCategory("Unity/Time")]
-    [TaskDescription("Returns the real time in seconds since the game started.")]
+    [TaskDescription("Returns the real inTime in seconds since the game started.")]
     public class GetRealtimeSinceStartup : Action
     {
         [Tooltip("The variable to store the result")]

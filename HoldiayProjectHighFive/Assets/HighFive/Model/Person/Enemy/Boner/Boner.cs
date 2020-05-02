@@ -6,6 +6,6 @@ namespace HighFive.Model.Person
 	public partial class Boner :
 		HighFiveEnemy<Boner>
 	{
-		public override string ResPath => PersonName.Boner;
+		public override string ResKey => PersonName.Boner;
 	}
 }

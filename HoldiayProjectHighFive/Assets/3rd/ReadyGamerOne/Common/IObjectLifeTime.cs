@@ -9,7 +9,7 @@ namespace ReadyGamerOne.Common
         /// <summary>
         /// 预制体或资源路径
         /// </summary>
-        string ResPath { get; }
+        string ResKey { get; }
         /// <summary>
         /// 实例化物体
         /// </summary>

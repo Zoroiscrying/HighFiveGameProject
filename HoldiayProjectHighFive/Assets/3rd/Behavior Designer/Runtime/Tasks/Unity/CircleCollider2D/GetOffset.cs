@@ -3,12 +3,12 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityCircleCollider2D
 {
     [TaskCategory("Unity/CircleCollider2D")]
-    [TaskDescription("Stores the offset of the CircleCollider2D. Returns Success.")]
+    [TaskDescription("Stores the inOffset of the CircleCollider2D. Returns Success.")]
     public class GetOffset : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
-        [Tooltip("The offset of the CircleCollider2D")]
+        [Tooltip("The inOffset of the CircleCollider2D")]
         [RequiredField]
         public SharedVector3 storeValue;
 

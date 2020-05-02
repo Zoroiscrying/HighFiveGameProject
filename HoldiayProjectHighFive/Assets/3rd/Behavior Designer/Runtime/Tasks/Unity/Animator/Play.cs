@@ -12,7 +12,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator
         public SharedString stateName;
         [Tooltip("The layer where the state is")]
         public int layer = -1;
-        [Tooltip("The normalized time at which the state will play")]
+        [Tooltip("The normalized inTime at which the state will play")]
         public float normalizedTime = float.NegativeInfinity;
 
         private Animator animator;

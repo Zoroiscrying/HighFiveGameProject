@@ -270,7 +270,7 @@ namespace ReadyGamerOne.Script
                     out mouseLocalPoint);
 
                 offset = selfLocalPoint - mouseLocalPoint;
-//                Debug.Log($"offset:{offset}");
+//                Debug.Log($"inOffset:{inOffset}");
 
                 #endregion
 
@@ -342,7 +342,7 @@ namespace ReadyGamerOne.Script
 
         private void OnEnter(GameObject target)
         {
-//            print("Dragging " + name + "时，经过：" + target.name);
+//            print("Dragging " + name + "时，经过：" + inTarget.name);
             eventOnEnter?.Invoke(target);
         }
         

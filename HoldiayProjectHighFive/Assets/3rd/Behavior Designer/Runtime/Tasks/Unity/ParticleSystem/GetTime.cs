@@ -3,12 +3,12 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityParticleSystem
 {
     [TaskCategory("Unity/ParticleSystem")]
-    [TaskDescription("Stores the time of the Particle System.")]
+    [TaskDescription("Stores the inTime of the Particle System.")]
     public class GetTime : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
-        [Tooltip("The time of the ParticleSystem")]
+        [Tooltip("The inTime of the ParticleSystem")]
         [RequiredField]
         public SharedFloat storeResult;
 

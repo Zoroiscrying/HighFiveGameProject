@@ -51,11 +51,11 @@ namespace ReadyGamerOne.Rougelike
         }
         #endregion
         
-        public abstract string ResPath { get; }
+        public abstract string ResKey { get; }
         public virtual void OnInstanciateObject()
         {
             Assert.IsNull(_gameObject);
-            _gameObject = ResourceMgr.InstantiateGameObject(ResPath);
+            _gameObject = ResourceMgr.InstantiateGameObject(ResKey);
         }
 
         public virtual void DestroyObject()

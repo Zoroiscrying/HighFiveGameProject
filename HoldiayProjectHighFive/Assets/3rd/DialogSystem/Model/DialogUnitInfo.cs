@@ -174,7 +174,7 @@ namespace DialogSystem.Model
 //            if (abstractAbstractDialogInfoAsset.refreshStringChooser)
 //            {
                 if(abstractAbstractDialogInfoAsset.MessageType!=null)
-                    InitSerializedStringArray(msgProp.FindPropertyRelative("messageToTick").FindPropertyRelative("values"),
+                    EditorUtil.InitSerializedStringArray(msgProp.FindPropertyRelative("messageToTick").FindPropertyRelative("values"),
                         abstractAbstractDialogInfoAsset.MessageType);
 //                //if(abstractAbstractDialogInfoAsset.SceneType!=null)
 //                    InitSerializedStringArray(sceneNameChooserProp.FindPropertyRelative("values"), 
@@ -526,33 +526,6 @@ namespace DialogSystem.Model
             }
         }
 
-        #region Static
-
-        private static void InitSerializedStringArray(SerializedProperty arrProp, Type type)
-        {
-            arrProp.arraySize = 0;
-            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-            for (int i = 0; i < fieldInfos.Length; i++)
-            {
-                arrProp.InsertArrayElementAtIndex(i);
-                arrProp.GetArrayElementAtIndex(i).stringValue = fieldInfos[i].GetValue(null) as string;
-            }
-        }
-
-        private static void InitSerializedStringArray(SerializedProperty arrProp, IList<string> list)
-        {
-        
-            arrProp.arraySize = 0;
-            for (var i = 0; i < list.Count; i++)
-            {
-                arrProp.InsertArrayElementAtIndex(i);
-                arrProp.GetArrayElementAtIndex(i).stringValue = list[i];
-            }
-        }         
-
-        #endregion
-       
-        
 #endif        
 
         #endregion

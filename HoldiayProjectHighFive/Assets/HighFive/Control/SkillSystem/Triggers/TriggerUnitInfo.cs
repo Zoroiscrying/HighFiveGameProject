@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using DG.Tweening;
 using HighFive.Const;
 using HighFive.Control.EffectSystem;
 using HighFive.Math;
@@ -24,12 +25,13 @@ namespace HighFive.Control.SkillSystem.Triggers
     {
         Animation,
         Audio,
-        Bullet,
+        SingleBullet,
         CurvedBullet,
         Dash,
         RayDamage,
         Trigger2D,
-        Effect
+        Effect,
+        LightSword,
     }
     
     [Serializable]
@@ -62,14 +64,15 @@ namespace HighFive.Control.SkillSystem.Triggers
 
         #endregion
 
-        #region Bullet
+        #region SingleBullet
 
         public StringChooser bulletName=new StringChooser(typeof(PrefabName));
-        public float damageScale;
-        public Vector3 dir;
-        public float speed;
+        public float damageScale=1;
+        public Vector3 dir=Vector3.right;
+        public float speed=5;
         public float gravityScale = 0;
         public float maxLife = 3.0f;
+        public Vector3 offset;
         
         #endregion
 
@@ -92,25 +95,26 @@ namespace HighFive.Control.SkillSystem.Triggers
         public float shineDurTime;
 
         #endregion
-
-        #region Parabloa
-
-        public enum TargetType
-        {
-            Vector3Offset,
-            GetFromCache
-        }
-
-        public TargetType targetType;
-        public float timeToTarget;
-        public Vector3 offset;
-
-        #endregion
+        
 
         #region Effect
 
         [SerializeField] private EffectInfoAsset attackEffects;
 
+        #endregion
+
+
+        #region LightSword
+
+        public StringChooser swordPrefabName=new StringChooser(typeof(PrefabName));
+        public Vector2 targetSize;
+        public Vector2 startSize;
+        public float delayTime;
+        public float widenTime;
+        public Ease easeType;
+        public Vector3 HandleOffset;
+        public float RotateDegree;
+        
         #endregion
 
         #region Trigger2D
@@ -122,15 +126,14 @@ namespace HighFive.Control.SkillSystem.Triggers
         }
 
         public DamageType damageType;
-        public string triggerPath;
-        public Vector2 HitBack;
+        public TransformPathChooser triggerPath;
         private float preLastTime;
         private void OnTriggerEnter(Collider2D col)
         {
             var hitPerson = col.gameObject.GetPersonInfo() as IHighFivePerson;
             if (hitPerson == null)
             {
-//                Debug.Log("打击人物为空");
+//                Debug.Log($"打击人物为空:{col.name}");
                 return;
             }
 //            else
@@ -157,7 +160,7 @@ namespace HighFive.Control.SkillSystem.Triggers
         
         #endregion
 
-        public void RunTriggerUnit(IHighFivePerson self)
+        public void RunTriggerUnit(IHighFivePerson self,params object[] args)
         {
             if (!enable)
                 return;
@@ -215,11 +218,12 @@ namespace HighFive.Control.SkillSystem.Triggers
 
                     #endregion
 
-                    #region Bullet
+                    #region SingleBullet
 
-                    case TriggerType.Bullet:
+                    case TriggerType.SingleBullet:
+
                         var bulletObj = ResourceMgr.InstantiateGameObject(bulletName.StringValue,
-                            self.position + new Vector3(0, 0.3f, 0));
+                            self.position + offset);
 
                         var bullet = bulletObj.GetComponent<SingleBullet>();
                         if(!bullet)
@@ -228,7 +232,7 @@ namespace HighFive.Control.SkillSystem.Triggers
                         bullet.damageScale = damageScale;
                         bullet.gravityScale = gravityScale;
                         bullet.maxLife = maxLife;
-                        bullet.ShotStart(self);
+                        bullet.Init(self);
                         break;                        
 
                     #endregion
@@ -249,7 +253,7 @@ namespace HighFive.Control.SkillSystem.Triggers
                         curveBullet.damageScale = damageScale;
                         curveBullet.gravityScale = gravityScale;
                         curveBullet.maxLife = maxLife;
-                        curveBullet.ShotStart(self);
+                        curveBullet.Init(self);
                         break;
                         
 
@@ -299,9 +303,8 @@ namespace HighFive.Control.SkillSystem.Triggers
                         lastTime /= self.AttackSpeed;
                         if (self.gameObject == null)
                             break;
-                        var sword = self.gameObject.transform.Find(triggerPath);
-                        var trigger = (sword.GetComponent<TriggerInputer>() ??
-                                       sword.gameObject.AddComponent<TriggerInputer>());
+                        var sword = self.gameObject.transform.Find(triggerPath.Path);
+                        var trigger = sword.GetOrAddComponent<TriggerInputer>();
 
                         trigger.onTriggerEnterEvent2D += this.OnTriggerEnter;
 //                        Debug.Log("添加监听");
@@ -312,6 +315,29 @@ namespace HighFive.Control.SkillSystem.Triggers
                         }, lastTime);
                    
                         break;                        
+
+                    #endregion
+
+                    #region LightSword
+
+                    case TriggerType.LightSword:
+                        var swordObj = ResourceMgr.InstantiateGameObject(swordPrefabName.StringValue);
+                        
+                        var lightSword = swordObj.GetComponent<LightSword>();
+                        if(!lightSword)
+                            throw new Exception($"{swordObj.name}没有LightSword组建");
+
+                        lightSword.damageScale = damageScale;
+                        lightSword.delayTime = delayTime;
+                        lightSword.easeType = easeType;
+                        lightSword.startSize = startSize;
+                        lightSword.targetSize = targetSize;
+                        lightSword.widenTime = widenTime;
+                        lightSword.HandlePosition = self.position + HandleOffset;
+                        lightSword.RotateDegree = RotateDegree;
+                        lightSword.Init(self);
+
+                        break;
 
                     #endregion
                 }                
@@ -330,19 +356,6 @@ namespace HighFive.Control.SkillSystem.Triggers
         }
 
 #if UNITY_EDITOR
-        
-        
-        private static void InitSerializedStringArray(SerializedProperty arrProp, Type type)
-        {
-            arrProp.arraySize = 0;
-            var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-            for (var i = 0; i < fieldInfos.Length; i++)
-            {
-                arrProp.InsertArrayElementAtIndex(i);
-                arrProp.GetArrayElementAtIndex(i).stringValue = fieldInfos[i].GetValue(null) as string;
-            }
-        }
-
         public void OnDrawMoreInfo(SerializedProperty property, Rect position)
         {
             #region Every
@@ -383,8 +396,7 @@ namespace HighFive.Control.SkillSystem.Triggers
                         property.FindPropertyRelative("damageType"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                         property.FindPropertyRelative("triggerPath"));
-                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),
-                        property.FindPropertyRelative("hitBack"));
+
                     break;
 
                 #endregion
@@ -409,20 +421,39 @@ namespace HighFive.Control.SkillSystem.Triggers
 
                 #endregion
                 
-                #region Bullet
-                case TriggerType.Bullet:
+                #region SingleBullet
+                case TriggerType.SingleBullet:
                     var bulletProp = property.FindPropertyRelative("bulletName");
-                    InitSerializedStringArray(bulletProp.FindPropertyRelative("values"), typeof(PrefabName));
+                    EditorUtil.InitSerializedStringArray(bulletProp.FindPropertyRelative("values"), typeof(PrefabName));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),bulletProp);
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("damageScale"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("gravityScale"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("maxLife"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("dir"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("speed"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("offset"));
+                    
                     
                     break;
+                #endregion
 
-                    
+
+                #region LightSword
+
+                case TriggerType.LightSword:
+                    var swordNameProp = property.FindPropertyRelative("swordPrefabName");
+                    EditorUtil.InitSerializedStringArray(swordNameProp.FindPropertyRelative("values"), typeof(PrefabName));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),swordNameProp); 
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("damageScale"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("targetSize"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("startSize"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("delayTime"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("widenTime"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("easeType"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("HandleOffset"));
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("RotateDegree"));
+
+                    break;
 
                 #endregion
 
@@ -430,7 +461,7 @@ namespace HighFive.Control.SkillSystem.Triggers
 
                 case TriggerType.CurvedBullet:
                     var curveBulletProp = property.FindPropertyRelative("bulletName");
-                    InitSerializedStringArray(curveBulletProp.FindPropertyRelative("values"), typeof(PrefabName));
+                    EditorUtil.InitSerializedStringArray(curveBulletProp.FindPropertyRelative("values"), typeof(PrefabName));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),curveBulletProp);
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("damageScale"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("gravityScale"));
@@ -470,7 +501,7 @@ namespace HighFive.Control.SkillSystem.Triggers
                     
                 case TriggerType.Audio:
                     var audioProp = property.FindPropertyRelative("audioName");
-                    InitSerializedStringArray(audioProp.FindPropertyRelative("values"), typeof(AudioName));
+                    EditorUtil.InitSerializedStringArray(audioProp.FindPropertyRelative("values"), typeof(AudioName));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),audioProp);
                     break;
 

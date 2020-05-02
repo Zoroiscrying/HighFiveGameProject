@@ -4,13 +4,13 @@ using UnityEngine.AI;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityNavMeshAgent
 {
     [TaskCategory("Unity/NavMeshAgent")]
-    [TaskDescription("Sets the destination of the agent in world-space units. Returns Success if the destination is valid.")]
+    [TaskDescription("Sets the outTargetVector3 of the agent in world-space units. Returns Success if the outTargetVector3 is valid.")]
     public class SetDestination: Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
         [SharedRequired]
-        [Tooltip("The NavMeshAgent destination")]
+        [Tooltip("The NavMeshAgent outTargetVector3")]
         public SharedVector3 destination;
 
         // cache the navmeshagent component

@@ -1,18 +1,19 @@
-﻿using BehaviorDesigner.Runtime.Tasks;
+﻿using BehaviorDesigner.Runtime;
+using BehaviorDesigner.Runtime.Tasks;
 using HighFive.Control.SkillSystem;
 using HighFive.Global;
 using HighFive.Model.Person;
 using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace HighFive.AI.Actions
 {
 	public class RunSkill : Action
 	{
 		public SkillInfoAsset SkillInfoAsset;
+		
 		private IHighFivePerson self;
-
-		private Animator _animator;
 		private float timer = 0;
 
 		public override void OnStart()
@@ -20,12 +21,11 @@ namespace HighFive.AI.Actions
 			if (null == SkillInfoAsset)
 				return;
 			self = gameObject.GetPersonInfo() as IHighFivePerson;
-			SkillInfoAsset.Vector3Cache = GlobalVar.G_Player.position;
-//			Debug.Log($"写入用户数据：【{SkillInfoAsset.skillName.StringValue}】" + SkillInfoAsset.Vector3Cache);
 			self.RunSkill(SkillInfoAsset);
 			timer = 0;
-			gameObject.GetComponent<Actor>()._velocity = Vector3.zero;
-			
+			var actor=gameObject.GetComponent<Actor>();
+			if(actor)
+				actor._velocity = Vector3.zero;
 		}
 
 		public override TaskStatus OnUpdate()

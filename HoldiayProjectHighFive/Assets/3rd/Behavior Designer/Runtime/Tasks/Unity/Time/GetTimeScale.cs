@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityTime
 {
     [TaskCategory("Unity/Time")]
-    [TaskDescription("Returns the scale at which time is passing.")]
+    [TaskDescription("Returns the scale at which inTime is passing.")]
     public class GetTimeScale : Action
     {
         [Tooltip("The variable to store the result")]

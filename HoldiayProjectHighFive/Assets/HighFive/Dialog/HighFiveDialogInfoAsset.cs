@@ -3,6 +3,7 @@ using DialogSystem.Model;
 using DialogSystem.ScriptObject;
 using UnityEngine;
 #if UNITY_EDITOR
+using ReadyGamerOne.Utility;
 using UnityEditor;
 #endif
 
@@ -15,7 +16,7 @@ namespace HighFive.Dialog
         [MenuItem("ReadyGamerOne/DialogSystem/Create/HighFiveDialogInfoAsset #&I")]
         public static void CreateAsset()
         {
-            AbstractDialogInfoAsset.CreateAsset<HighFiveDialogInfoAsset>();
+            EditorUtil.CreateAsset<HighFiveDialogInfoAsset>("DialogAsset");
         }         
 #endif
 

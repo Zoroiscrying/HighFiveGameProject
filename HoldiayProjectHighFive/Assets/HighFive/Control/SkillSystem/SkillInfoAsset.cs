@@ -6,7 +6,18 @@ using ReadyGamerOne.ScriptableObjects;
 using UnityEngine;
 
 namespace HighFive.Control.SkillSystem
-{  
+{
+    public static class SkillSystemCache
+    {
+        public static GameObject GameObject;
+        public static Vector3 Vector3;
+
+        public static void Clear()
+        {
+            GameObject = null;
+            Vector3=Vector3.zero;
+        }
+    }
     public class SkillInfoAsset:ScriptableObject
     {
         public ConstStringChooser skillName;
@@ -20,7 +31,7 @@ namespace HighFive.Control.SkillSystem
 //                var debugStr = "";
                 foreach (var VARIABLE in triggers)
                 {
-//                    debugStr += $"time: {time}, type: {VARIABLE.type}, triggerStartTime: {VARIABLE.startTime}, triggerLastTime{VARIABLE.lastTime}\n";
+//                    debugStr += $"inTime: {inTime}, type: {VARIABLE.type}, triggerStartTime: {VARIABLE.startTime}, triggerLastTime{VARIABLE.lastTime}\n";
                     time = Mathf.Max(time, VARIABLE.startTime + VARIABLE.lastTime);
                 }
 
@@ -29,9 +40,8 @@ namespace HighFive.Control.SkillSystem
             }
         }
         public List<TriggerUnitInfo> triggers=new List<TriggerUnitInfo>();
-        public Vector3 Vector3Cache;
 
-        public void RunSkill(IHighFiveCharacter self, bool ignoreInput, float startTime = 0)
+        public void RunSkill(IHighFiveCharacter self, bool ignoreInput, float startTime = 0,object args=null)
         {
             if (!self.InputOk)
                 return;
@@ -53,8 +63,7 @@ namespace HighFive.Control.SkillSystem
             this.startTime = startTime;
             foreach (var trigger in triggers)
             {
-//                Debug.Log("Trigger:" + trigger.type);
-                trigger.RunTriggerUnit(self as IHighFivePerson);
+                trigger.RunTriggerUnit(self,args);
             }
             
             MainLoop.Instance.ExecuteLater(() =>
@@ -68,7 +77,7 @@ namespace HighFive.Control.SkillSystem
             }, lastTime);
         }
 
-        public void RunSkill(IHighFivePerson self, float startTime = 0)
+        public void RunSkill(IHighFivePerson self, float startTime = 0,params object[] args)
         {
             var lastTime = LastTime;
             if (isUsed)
@@ -84,7 +93,7 @@ namespace HighFive.Control.SkillSystem
             foreach (var trigger in triggers)
             {
 //                Debug.Log("Trigger:" + trigger.type);
-                trigger.RunTriggerUnit(self);
+                trigger.RunTriggerUnit(self,args);
             }
             
             MainLoop.Instance.ExecuteLater(() =>

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAudioSource
 {
     [TaskCategory("Unity/AudioSource")]
-    [TaskDescription("Changes the time at which a sound that has already been scheduled to play will end. Notice that depending on the " +
+    [TaskDescription("Changes the inTime at which a sound that has already been scheduled to play will end. Notice that depending on the " +
                      "timing not all rescheduling requests can be fulfilled. Returns Success.")]
     public class SetScheduledEndTime : Action
     {

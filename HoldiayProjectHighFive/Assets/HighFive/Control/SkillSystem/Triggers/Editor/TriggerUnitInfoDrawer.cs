@@ -23,8 +23,8 @@ namespace HighFive.Control.SkillSystem.Triggers.Editor
                 case (int)TriggerType.RayDamage:
                     height += 6;
                     break;
-                case (int)TriggerType.Bullet:
-                    height += 6;
+                case (int)TriggerType.SingleBullet:
+                    height += 7;
                     break;
                 case (int)TriggerType.CurvedBullet:
                     height += 8;
@@ -34,6 +34,9 @@ namespace HighFive.Control.SkillSystem.Triggers.Editor
                     break;
                 case (int)TriggerType.Audio:
                     height += 1;
+                    break;
+                case (int)TriggerType.LightSword:
+                    height += 9;
                     break;
             }
             return height * EditorGUIUtility.singleLineHeight;

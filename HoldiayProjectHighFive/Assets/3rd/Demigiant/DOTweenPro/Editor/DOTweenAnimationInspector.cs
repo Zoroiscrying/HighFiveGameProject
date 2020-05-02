@@ -167,10 +167,10 @@ namespace DG.DOTweenEditor
             "OTHER", "Will animate components on the given gameObject instead than on this one"
         );
         static readonly GUIContent _GuiC_tweenTargetIsTargetGO_true = new GUIContent(
-            "Use As Tween Target", "Will set the tween target (via SetTarget, used to control a tween directly from a target) to the \"OTHER\" gameObject"
+            "Use As Tween Target", "Will set the tween inTarget (via SetTarget, used to control a tween directly from a inTarget) to the \"OTHER\" gameObject"
         );
         static readonly GUIContent _GuiC_tweenTargetIsTargetGO_false = new GUIContent(
-            "Use As Tween Target", "Will set the tween target (via SetTarget, used to control a tween directly from a target) to the gameObject containing this animation, not the \"OTHER\" one"
+            "Use As Tween Target", "Will set the tween inTarget (via SetTarget, used to control a tween directly from a inTarget) to the gameObject containing this animation, not the \"OTHER\" one"
         );
 
         #region MonoBehaviour Methods
@@ -235,7 +235,7 @@ namespace DG.DOTweenEditor
                     if (GUILayout.Button(new GUIContent("Activate Edit Mode", "Switches to Runtime Edit Mode, where you can change animations values and restart them"))) {
                         _runtimeEditMode = true;
                     }
-                    GUILayout.Label("NOTE: when using DOPlayNext, the sequence is determined by the DOTweenAnimation Components order in the target GameObject's Inspector", EditorGUIUtils.wordWrapLabelStyle);
+                    GUILayout.Label("NOTE: when using DOPlayNext, the sequence is determined by the DOTweenAnimation Components order in the inTarget GameObject's Inspector", EditorGUIUtils.wordWrapLabelStyle);
                     GUILayout.Space(10);
                     if (!_runtimeEditMode) return;
                 }
@@ -290,7 +290,7 @@ namespace DG.DOTweenEditor
             bool isPreviewing = _settings.showPreviewPanel ? DOTweenPreviewManager.PreviewGUI(_src) : false;
 
             EditorGUI.BeginDisabledGroup(isPreviewing);
-            // Choose target
+            // Choose inTarget
             GUILayout.BeginHorizontal();
                 _src.isActive = EditorGUILayout.Toggle(new GUIContent("", "If unchecked, this animation will not be created"), _src.isActive, GUILayout.Width(14));
                 EditorGUI.BeginChangeCheck();
@@ -322,7 +322,7 @@ namespace DG.DOTweenEditor
             GameObject targetGO = _src.targetIsSelf ? _src.gameObject : _src.targetGO;
 
             if (targetGO == null) {
-                // Uses external target gameObject but it's not set
+                // Uses external inTarget gameObject but it's not set
                 if (_src.targetGO != null || _src.target != null) {
                     _src.targetGO = null;
                     _src.target = null;
@@ -404,7 +404,7 @@ namespace DG.DOTweenEditor
 #if true // UI_MARKER
                     if (_src.animationType == DOTweenAnimation.AnimationType.Fade && targetGO.GetComponent<CanvasGroup>() != null && targetGO.GetComponent<Image>() != null) {
                         _chooseTargetMode = ChooseTargetMode.BetweenCanvasGroupAndImage;
-                        // Reassign target and forcedTargetType if lost
+                        // Reassign inTarget and forcedTargetType if lost
                         if (_src.forcedTargetType == DOTweenAnimation.TargetType.Unset) _src.forcedTargetType = _src.targetType;
                         switch (_src.forcedTargetType) {
                         case DOTweenAnimation.TargetType.CanvasGroup:
@@ -434,13 +434,13 @@ namespace DG.DOTweenEditor
                 }
 
 #if true // UI_MARKER
-                // Special cases in which multiple target types could be used (set after validation)
+                // Special cases in which multiple inTarget types could be used (set after validation)
                 if (_chooseTargetMode == ChooseTargetMode.BetweenCanvasGroupAndImage && _src.forcedTargetType != DOTweenAnimation.TargetType.Unset) {
                     FadeTargetType fadeTargetType = (FadeTargetType)Enum.Parse(typeof(FadeTargetType), _src.forcedTargetType.ToString());
                     DOTweenAnimation.TargetType prevTargetType = _src.forcedTargetType;
                     _src.forcedTargetType = (DOTweenAnimation.TargetType)Enum.Parse(typeof(DOTweenAnimation.TargetType), EditorGUILayout.EnumPopup(_src.animationType + " Target", fadeTargetType).ToString());
                     if (_src.forcedTargetType != prevTargetType) {
-                        // Target type change > assign correct target
+                        // Target type change > assign correct inTarget
                         switch (_src.forcedTargetType) {
                         case DOTweenAnimation.TargetType.CanvasGroup:
                             _src.target = targetGO.GetComponent<CanvasGroup>();
@@ -585,7 +585,7 @@ namespace DG.DOTweenEditor
                 foreach (Type t in _Tk2dAnimationTypeToComponent[_src.animationType]) {
                     srcTarget = targetGO.GetComponent(t);
                     if (srcTarget != null) {
-                        _src.target = srcTarget;
+                        _src.inTarget = srcTarget;
                         _src.targetType = DOTweenAnimation.TypeToDOTargetType(t);
                         return true;
                     }
@@ -597,7 +597,7 @@ namespace DG.DOTweenEditor
                 foreach (Type t in _TMPAnimationTypeToComponent[_src.animationType]) {
                     srcTarget = targetGO.GetComponent(t);
                     if (srcTarget != null) {
-                        _src.target = srcTarget;
+                        _src.inTarget = srcTarget;
                         _src.targetType = DOTweenAnimation.TypeToDOTargetType(t);
                         return true;
                     }
@@ -661,11 +661,11 @@ namespace DG.DOTweenEditor
                     // Check that it's a Transform for a Transform or a RectTransform for a RectTransform
                     if (targetGO.GetComponent<RectTransform>() != null) {
                         if (_src.endValueTransform.GetComponent<RectTransform>() == null) {
-                            EditorUtility.DisplayDialog("DOTween Pro", "For Unity UI elements, the target must also be a UI element", "Ok");
+                            EditorUtility.DisplayDialog("DOTween Pro", "For Unity UI elements, the inTarget must also be a UI element", "Ok");
                             _src.endValueTransform = null;
                         }
                     } else if (_src.endValueTransform.GetComponent<RectTransform>() != null) {
-                        EditorUtility.DisplayDialog("DOTween Pro", "You can't use a UI target for a non UI object", "Ok");
+                        EditorUtility.DisplayDialog("DOTween Pro", "You can't use a UI inTarget for a non UI object", "Ok");
                         _src.endValueTransform = null;
                     }
 #endif
@@ -674,12 +674,12 @@ namespace DG.DOTweenEditor
                 _src.endValueV3 = EditorGUILayout.Vector3Field("", _src.endValueV3, GUILayout.Height(16));
             }
             if (optionalTransform) {
-                if (GUILayout.Button(_src.useTargetAsV3 ? "target" : "value", EditorGUIUtils.sideBtStyle, GUILayout.Width(44))) _src.useTargetAsV3 = !_src.useTargetAsV3;
+                if (GUILayout.Button(_src.useTargetAsV3 ? "inTarget" : "value", EditorGUIUtils.sideBtStyle, GUILayout.Width(44))) _src.useTargetAsV3 = !_src.useTargetAsV3;
             }
             GUILayout.EndHorizontal();
 #if true // UI_MARKER
             if (_src.useTargetAsV3 && _src.endValueTransform != null && _src.target is RectTransform) {
-                EditorGUILayout.HelpBox("NOTE: when using a UI target, the tween will be created during Start instead of Awake", MessageType.Info);
+                EditorGUILayout.HelpBox("NOTE: when using a UI inTarget, the tween will be created during Start instead of Awake", MessageType.Info);
             }
 #endif
         }

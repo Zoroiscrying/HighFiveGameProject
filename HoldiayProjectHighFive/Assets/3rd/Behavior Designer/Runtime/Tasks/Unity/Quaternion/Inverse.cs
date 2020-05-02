@@ -6,7 +6,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityQuaternion
     [TaskDescription("Stores the inverse of the specified quaternion.")]
     public class Inverse : Action
     {
-        [Tooltip("The target quaternion")]
+        [Tooltip("The inTarget quaternion")]
         public SharedQuaternion targetQuaternion;
         [Tooltip("The stored quaternion")]
         [RequiredField]

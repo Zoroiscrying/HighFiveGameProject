@@ -44,6 +44,8 @@ namespace Game.Scripts
 
         void Start()
         {
+            if (!gameObject.activeSelf || !enabled)
+                return;
             PanelMgr.PushPanel(startPanel.StringValue);
             AudioMgr.Instance.PlayBgm(startBgm.StringValue);
             
@@ -57,6 +59,8 @@ namespace Game.Scripts
 
         private void Update()
         {
+            if (!gameObject.activeSelf || !enabled)
+                return;
             if (Enable_C_ChangeScene)
             {
                 if (Input.GetKeyDown(KeyCode.C))

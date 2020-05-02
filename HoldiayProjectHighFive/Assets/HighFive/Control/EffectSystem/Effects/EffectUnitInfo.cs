@@ -163,8 +163,7 @@ namespace HighFive.Control.EffectSystem.Effects
                     break;
 
                 #endregion
-
-
+                
                 #region Partical
 
                 case EffectType.Partical:
@@ -251,7 +250,8 @@ namespace HighFive.Control.EffectSystem.Effects
 //                        trans.position += new Vector3(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y, 0);
                         var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y);
                         //TODO:需要更好接口
-                        rp.Controller.GetComponent<Actor>().ChangeVelBasedOnHitDir(hitBack,15);
+                        var actor = rp.Controller.GetComponent<Actor>();
+                        actor?.ChangeVelBasedOnHitDir(hitBack,15);
                     }
 
                     break;
@@ -308,18 +308,6 @@ namespace HighFive.Control.EffectSystem.Effects
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                         property.FindPropertyRelative("particalPrefab"));
                     break;
-            }
-        }
-
-
-        public static void InitSerializedStringArray(SerializedProperty arrProp, Type type)
-        {
-            arrProp.arraySize = 0;
-            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-            for (int i = 0; i < fieldInfos.Length; i++)
-            {
-                arrProp.InsertArrayElementAtIndex(i);
-                arrProp.GetArrayElementAtIndex(i).stringValue = fieldInfos[i].GetValue(null) as string;
             }
         }
 #endif

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4757565831265091712}
   - component: {fileID: 5071731704066280991}
   m_Layer: 15
-  m_Name: NewBullet
+  m_Name: SingleBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -142,11 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa7b81bfd254c4f8fb25d3e890058d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mover: {fileID: 0}
-  gravity: 1
   colliderLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2304
   triggerLayers:
     serializedVersion: 2
     m_Bits: 512

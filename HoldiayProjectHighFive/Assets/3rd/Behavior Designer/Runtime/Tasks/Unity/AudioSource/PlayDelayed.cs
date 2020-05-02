@@ -8,7 +8,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAudioSource
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
-        [Tooltip("Delay time specified in seconds")]
+        [Tooltip("Delay inTime specified in seconds")]
         public SharedFloat delay = 0;
 
         private AudioSource audioSource;

@@ -223,14 +223,14 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 资预制体路径
         /// </summary>
-        public abstract string ResPath { get; }
+        public abstract string ResKey { get; }
 
         /// <summary>
         /// 实例化角色预制体时创建
         /// </summary>
         public virtual void OnInstanciateObject()
         {            
-            _gameObject = ResourceMgr.InstantiateGameObject(ResPath);
+            _gameObject = ResourceMgr.InstantiateGameObject(ResKey);
 
             gameObject.name = GetType().Name;
 

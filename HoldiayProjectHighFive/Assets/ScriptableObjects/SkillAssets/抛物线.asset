@@ -73,8 +73,10 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 1
     startTime: 0
@@ -131,8 +133,10 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 2
     startTime: 0
@@ -189,8 +193,10 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   - skillAsset: {fileID: 11400000}
     id: 3
     startTime: 0
@@ -247,6 +253,8 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
     damageType: 0
-    triggerPath: 
-    HitBack: {x: 0, y: 0}
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
   Vector3Cache: {x: 0, y: 0, z: 0}

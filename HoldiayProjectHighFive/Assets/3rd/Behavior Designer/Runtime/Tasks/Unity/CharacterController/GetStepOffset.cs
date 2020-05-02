@@ -3,12 +3,12 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController
 {
     [TaskCategory("Unity/CharacterController")]
-    [TaskDescription("Stores the step offset of the CharacterController. Returns Success.")]
+    [TaskDescription("Stores the step inOffset of the CharacterController. Returns Success.")]
     public class GetStepOffset : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
-        [Tooltip("The step offset of the CharacterController")]
+        [Tooltip("The step inOffset of the CharacterController")]
         [RequiredField]
         public SharedFloat storeValue;
 

@@ -1,10 +1,10 @@
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityString
 {
     [TaskCategory("Unity/String")]
-    [TaskDescription("Stores a substring of the target string")]
+    [TaskDescription("Stores a substring of the inTarget string")]
     public class GetSubstring : Action
     {
-        [Tooltip("The target string")]
+        [Tooltip("The inTarget string")]
         public SharedString targetString;
         [Tooltip("The start substring index")]
         public SharedInt startIndex = 0;

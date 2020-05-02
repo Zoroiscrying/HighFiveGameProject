@@ -3,12 +3,12 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAudioSource
 {
     [TaskCategory("Unity/AudioSource")]
-    [TaskDescription("Sets the time value of the AudioSource. Returns Success.")]
+    [TaskDescription("Sets the inTime value of the AudioSource. Returns Success.")]
     public class SetTime : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
-        [Tooltip("The time value of the AudioSource")]
+        [Tooltip("The inTime value of the AudioSource")]
         public SharedFloat time;
 
         private AudioSource audioSource;

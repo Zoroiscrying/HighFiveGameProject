@@ -105,6 +105,8 @@ namespace HighFive.View
         /// <param name="change"></param>
         void OnPlayerBloodChanged(int change)
         {
+            if (GlobalVar.G_Player == null)
+                throw new Exception($"GlobalVar.G_Player is null");
             this.bloodBar.value = GlobalVar.G_Player.Hp / (float) GlobalVar.G_Player.MaxHp;
             this.bloodText.text = GlobalVar.G_Player.Hp + "/" + GlobalVar.G_Player.MaxHp;
         }

@@ -280,6 +280,10 @@ namespace ReadyGamerOne.Data
                     {
                         if(overriteOldFile)
                             File.Delete(csvDirPath + "/" + fileName + ".csv");
+                        else
+                        {
+                            continue;
+                        }
                     }
                 
                     var stream = new StreamWriter(csvDirPath + "/" + fileName + ".csv");

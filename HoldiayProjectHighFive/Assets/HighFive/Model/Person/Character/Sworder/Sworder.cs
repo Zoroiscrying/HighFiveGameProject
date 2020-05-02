@@ -6,6 +6,6 @@ namespace HighFive.Model.Person
 	public partial class Sworder :
 		HighFiveCharacter<Sworder>
 	{
-		public override string ResPath => PersonName.Sworder;
+		public override string ResKey => PersonName.Sworder;
 	}
 }

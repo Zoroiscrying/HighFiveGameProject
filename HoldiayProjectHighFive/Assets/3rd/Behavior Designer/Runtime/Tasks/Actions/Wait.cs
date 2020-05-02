@@ -2,29 +2,29 @@
 
 namespace BehaviorDesigner.Runtime.Tasks
 {
-    [TaskDescription("Wait a specified amount of time. The task will return running until the task is done waiting. It will return success after the wait time has elapsed.")]
+    [TaskDescription("Wait a specified amount of inTime. The task will return running until the task is done waiting. It will return success after the wait inTime has elapsed.")]
     [TaskIcon("{SkinColor}WaitIcon.png")]
     public class Wait : Action
     {
-        [Tooltip("The amount of time to wait")]
+        [Tooltip("The amount of inTime to wait")]
         public SharedFloat waitTime = 1;
         [Tooltip("Should the wait be randomized?")]
         public SharedBool randomWait = false;
-        [Tooltip("The minimum wait time if random wait is enabled")]
+        [Tooltip("The minimum wait inTime if random wait is enabled")]
         public SharedFloat randomWaitMin = 1;
-        [Tooltip("The maximum wait time if random wait is enabled")]
+        [Tooltip("The maximum wait inTime if random wait is enabled")]
         public SharedFloat randomWaitMax = 1;
 
-        // The time to wait
+        // The inTime to wait
         private float waitDuration;
-        // The time that the task started to wait.
+        // The inTime that the task started to wait.
         private float startTime;
-        // Remember the time that the task is paused so the time paused doesn't contribute to the wait time.
+        // Remember the inTime that the task is paused so the inTime paused doesn't contribute to the wait inTime.
         private float pauseTime;
 
         public override void OnStart()
         {
-            // Remember the start time.
+            // Remember the start inTime.
             startTime = Time.time;
             if (randomWait.Value) {
                 waitDuration = Random.Range(randomWaitMin.Value, randomWaitMax.Value);
@@ -35,7 +35,7 @@ namespace BehaviorDesigner.Runtime.Tasks
 
         public override TaskStatus OnUpdate()
         {
-            // The task is done waiting if the time waitDuration has elapsed since the task was started.
+            // The task is done waiting if the inTime waitDuration has elapsed since the task was started.
             if (startTime + waitDuration < Time.time) {
                 return TaskStatus.Success;
             }
@@ -46,10 +46,10 @@ namespace BehaviorDesigner.Runtime.Tasks
         public override void OnPause(bool paused)
         {
             if (paused) {
-                // Remember the time that the behavior was paused.
+                // Remember the inTime that the behavior was paused.
                 pauseTime = Time.time;
             } else {
-                // Add the difference between Time.time and pauseTime to figure out a new start time.
+                // Add the difference between Time.inTime and pauseTime to figure out a new start inTime.
                 startTime += (Time.time - pauseTime);
             }
         }

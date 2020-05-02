@@ -6,6 +6,6 @@ namespace HighFive.Model.Person
 	public partial class Spider :
 		HighFiveEnemy<Spider>
 	{
-		public override string ResPath => PersonName.Spider;
+		public override string ResKey => PersonName.Spider;
 	}
 }

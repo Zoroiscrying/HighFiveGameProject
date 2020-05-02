@@ -11,6 +11,8 @@ namespace HighFive.Script
         Player,
         Boner,
         Spider,
+        Boss,
+        Null,
     }
 
     [Serializable]
@@ -31,6 +33,9 @@ namespace HighFive.Script
         private void Start()
         {
 
+            if (!gameObject.activeSelf || !enabled)
+                return;
+            
             foreach (var VARIABLE in CharacterInfos)
             {
                 switch (VARIABLE._personType)
@@ -44,6 +49,9 @@ namespace HighFive.Script
                     case PersonType.Spider:
                         Spider.GetInstance(VARIABLE.position);
                         break;
+                    case PersonType.Boss:
+                        AngryBall.GetInstance(VARIABLE.position);
+                        break;
                 }
             }
             
@@ -51,10 +59,12 @@ namespace HighFive.Script
 
         private void OnDrawGizmos()
         {
+            if (!gameObject.activeSelf || !enabled)
+                return;
             foreach (var VARIABLE in CharacterInfos)
             {
-//                if(VARIABLE.characterInfo==null)
-//                    continue;
+                if(VARIABLE._personType==PersonType.Null)
+                    continue;
                 Gizmos.color = VARIABLE.color;
                 GizmosUtil.DrawSign(VARIABLE.position, signalSize);
             }

@@ -1,5 +1,6 @@
 using System;
 using HighFive.Model.Person;
+using HighFive.Model.SpriteObjSystem;
 using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
@@ -32,72 +33,47 @@ namespace HighFive.Model
     ///         input:initialSpeed
     ///         思路：考虑重力，速度会受重力影响，抛物线运动
     ///     追踪子弹：
-    ///         input:target,speed
+    ///         input:inTarget,speed
     ///         思路：
     ///     弹道子弹：
     ///         input：具体看情况
     ///         思路：使用数学公式计算其每一时刻速度
     /// </summary>
-    public abstract class AbstractBullet:MonoBehaviour
+    
+    
+    
+    /// <summary>
+    /// 子弹基类，子弹会额外检测和地面的碰撞并做一些操作【销毁子弹】
+    /// <summary>
+    public abstract class AbstractBullet:DamageZone
     {
-        private bool _init = false;
-        public float damageScale = 1;
         public float maxLife = 2.0f;
-
         public float? gravityScale = null;
-        protected IHighFivePerson selfPerson;
-        protected IMover2D mover;
-
-        public LayerMask EnemyLayers
-        {
-            get => mover.TriggerLayers;
-            set => mover.TriggerLayers = value;
-        }
+        
         public LayerMask TerrainLayers
         {
             get => mover.ColliderLayers;
             set => mover.ColliderLayers = value;
         }
 
-        protected virtual Action OnShotUpdate => null;
-
         /// <summary>
         /// 初始化子弹
         /// </summary>
-        public virtual void ShotStart(IHighFivePerson self)
+        public override void Init(IHighFivePerson self)
         {
-            Assert.IsNotNull(self);
-            selfPerson = self;
-            mover = GetComponent<IMover2D>();
+            base.Init(self);
             mover.eventOnColliderEnter += OnTerrainEnter;
-            mover.eventOnTriggerEnter += OnEnemyEnter;
             if (null != gravityScale)
                 mover.GravityScale = gravityScale.Value;
-            _init = true;
             MainLoop.Instance.ExecuteLater(DestorySelf, maxLife);
-        }
-
-        protected virtual void Update()
-        {
-            if (!_init)
-                return;
-            OnShotUpdate?.Invoke();
         }
         
         protected virtual void OnTerrainEnter(GameObject terrain, ReadyGamerOne.Rougelike.Mover.TouchDir touchDir)
         {
-            Debug.Log($"hit terrain [{terrain.name}], destory self");
+//            Debug.Log($"hit terrain [{terrain.name}], destory self");
             DestorySelf();
         }
-
-        protected virtual void OnEnemyEnter(GameObject enemy, ReadyGamerOne.Rougelike.Mover.TouchDir touchDir)
-        {
-            if (!selfPerson.gameObject.TryAttack(enemy, damageScale))
-            {
-                Debug.LogWarning($"无效攻击【{selfPerson?.CharacterName}=>{enemy.name}】");
-            }
-        }
-
+        
 
         protected void DestorySelf()
         {

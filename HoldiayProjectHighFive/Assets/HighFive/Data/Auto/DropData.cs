@@ -1,10 +1,12 @@
 using ReadyGamerOne.Data;
+using UnityEngine;
+using System.Collections;
 
 namespace HighFive.Data
 {
 	public class DropData : CsvMgr
 	{
-		public const int DropDataCount = 2;
+		public const int DropDataCount = 3;
 
 		public override string ID => personName.ToString();
 

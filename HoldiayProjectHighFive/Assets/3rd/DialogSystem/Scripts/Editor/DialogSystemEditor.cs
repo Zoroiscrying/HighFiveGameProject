@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using DialogSystem.ScriptObject;
+using ReadyGamerOne.Utility;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -61,7 +62,7 @@ namespace DialogSystem.Scripts.Editor
 //                }
 //            }
 
-            var list = ReadyGamerOne.Editor.EditorUtil.GetDragObjectsFromArea<AbstractDialogInfoAsset>("拖拽 SimpleDialogInfoAsset 资源到这里添加到List中去");
+            var list = EditorUtil.GetDragObjectsFromArea<AbstractDialogInfoAsset>("拖拽 SimpleDialogInfoAsset 资源到这里添加到List中去");
 
             foreach(var asset in list)
             {               
