@@ -42,9 +42,9 @@ namespace HighFive.Control.Movers
         [SerializeField] private float accelerationTimeGrounded = .1f;
         [Space(5)] [SerializeField] private float timeToJumpApex = .4f;
         [SerializeField] private float maxJumpHeight = 1f;
-        [Space(5)] [SerializeField] private float runSpeed = 8f;
-        [Space(5)] [SerializeField] private float horizontalSpeedMultiplier = 1f;
-        [SerializeField] private float verticalSpeedMultiplier = 1f;
+        [Space(5)] [SerializeField] protected float runSpeed = 8f;
+        [Space(5)] [SerializeField] protected float horizontalSpeedMultiplier = 1f;
+        [SerializeField] protected float verticalSpeedMultiplier = 1f;
         [SerializeField] protected int faceDir = 1;
         // [Header("Animation Control")] 
         // public GameAnimator animator;
@@ -83,7 +83,7 @@ namespace HighFive.Control.Movers
         /// <summary>
         /// 判断角色是否在平台边缘
         /// </summary>
-        private bool IsAtCorner
+        protected bool IsAtCorner
         {
             //判断到达边角的条件：横向射线和竖向射线
             get
@@ -295,31 +295,7 @@ namespace HighFive.Control.Movers
         {
             this.velocity = hitDir * multiplier;
         }
-
-        //-----------跳跃函数------------
-        /// <summary>
-        /// 跳跃一次，注意这个函数只在Actor处于地面上时有用
-        /// </summary>
-        /// <param name="jumpForce"></param>
-        public void JumpOnce(Vector2 jumpForce)
-        {
-            if (this.isGrounded)
-            {
-                velocity.x = jumpForce.x;
-                velocity.y = jumpForce.y;
-            }
-            else
-            {
-                throw new WarningException("The Actor cannot jump in air!");
-            }
-        }
-
-        public void JumpAllTheTime(Vector2 jumpForce)
-        {
-            if (!this.isGrounded) return;
-            velocity.x = jumpForce.x;
-            velocity.y = jumpForce.y;
-        }
+        
         //-----------巡逻函数------------
 
         #endregion
