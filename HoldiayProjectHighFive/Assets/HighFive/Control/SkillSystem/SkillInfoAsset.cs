@@ -93,7 +93,8 @@ namespace HighFive.Control.SkillSystem
             foreach (var trigger in triggers)
             {
 //                Debug.Log("Trigger:" + trigger.type);
-                trigger.RunTriggerUnit(self,args);
+                for(var i=0;i<trigger.workTimes;i++)
+                    trigger.RunTriggerUnit(self,args);
             }
             
             MainLoop.Instance.ExecuteLater(() =>

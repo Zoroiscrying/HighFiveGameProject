@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22361e5d5dd2d5645b5e64567947e354, type: 3}
-  m_Name: "\u4E24\u4FA7\u5251\u950B"
+  m_Name: "\u6EE1\u5C4F\u5200\u950B"
   m_EditorClassIdentifier: 
   skillName:
-    selectedIndex: 0
+    selectedIndex: 11
   startTime: 0
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 11400000}
     id: 0
-    workTimes: 1
+    workTimes: 3
     startTime: 0
-    lastTime: 0
-    type: 2
+    lastTime: 1
+    type: 8
     enable: 1
     degree: 0
-    randomDegree: 0
-    degreeRange: {x: 0, y: 0}
-    locateType: 0
+    randomDegree: 1
+    degreeRange: {x: 45, y: 135}
+    locateType: 1
     offset: {x: 0, y: 0, z: 0}
-    randomPos: 0
+    randomPos: 1
     locateInterpolation: 0
-    interpolationRange: {x: 0, y: 0}
-    sideType: 0
+    interpolationRange: {x: 0, y: 1}
+    sideType: 3
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -42,21 +42,12 @@ MonoBehaviour:
       values: []
       selectedIndex: 0
     bulletName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - EnemyFireBall
-      - LightSword
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
-      selectedIndex: 2
+      values: []
+      selectedIndex: 0
     damageScale: 1
-    speed: 15
+    speed: 0
     gravityScale: 0
-    maxLife: 3
+    maxLife: 0
     aniX:
       serializedVersion: 2
       m_Curve: []
@@ -81,35 +72,44 @@ MonoBehaviour:
     shineDurTime: 0
     attackEffects: {fileID: 0}
     swordPrefabName:
-      values: []
-      selectedIndex: 0
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 3
     anchorMode: 0
-    targetSize: {x: 0, y: 0}
-    startSize: {x: 0, y: 0}
-    delayTime: 0
-    widenTime: 0
-    easeType: 0
+    targetSize: {x: 1.5, y: 20}
+    startSize: {x: 0.2, y: 20}
+    delayTime: 0.8
+    widenTime: 0.15
+    easeType: 35
     damageType: 0
     triggerPath:
       go: {fileID: 0}
       selectedIndex: 0
       path: 
   - skillAsset: {fileID: 11400000}
-    id: 1
-    workTimes: 1
+    id: 3
+    workTimes: 3
     startTime: 0
-    lastTime: 0
-    type: 2
+    lastTime: 1
+    type: 8
     enable: 1
-    degree: 180
-    randomDegree: 0
-    degreeRange: {x: 0, y: 0}
-    locateType: 0
+    degree: 0
+    randomDegree: 1
+    degreeRange: {x: 45, y: 135}
+    locateType: 1
     offset: {x: 0, y: 0, z: 0}
-    randomPos: 0
+    randomPos: 1
     locateInterpolation: 0
-    interpolationRange: {x: 0, y: 0}
-    sideType: 0
+    interpolationRange: {x: 0, y: 1}
+    sideType: 1
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -119,21 +119,12 @@ MonoBehaviour:
       values: []
       selectedIndex: 0
     bulletName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - EnemyFireBall
-      - LightSword
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
-      selectedIndex: 2
+      values: []
+      selectedIndex: 0
     damageScale: 1
-    speed: 15
+    speed: 0
     gravityScale: 0
-    maxLife: 3
+    maxLife: 0
     aniX:
       serializedVersion: 2
       m_Curve: []
@@ -158,14 +149,23 @@ MonoBehaviour:
     shineDurTime: 0
     attackEffects: {fileID: 0}
     swordPrefabName:
-      values: []
-      selectedIndex: 0
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 3
     anchorMode: 0
-    targetSize: {x: 0, y: 0}
-    startSize: {x: 0, y: 0}
-    delayTime: 0
-    widenTime: 0
-    easeType: 0
+    targetSize: {x: 1.5, y: 30}
+    startSize: {x: 0.2, y: 30}
+    delayTime: 0.8
+    widenTime: 0.15
+    easeType: 35
     damageType: 0
     triggerPath:
       go: {fileID: 0}

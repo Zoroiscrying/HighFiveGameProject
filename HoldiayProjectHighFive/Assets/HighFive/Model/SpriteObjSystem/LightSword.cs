@@ -8,12 +8,20 @@ using UnityEngine.Assertions;
 
 namespace HighFive.Model.SpriteObjSystem
 {
+    public enum AnchorMode
+    {
+        Handle,
+        Center,
+    }
     /// <summary>
     /// 光刀脚本，像控制刀一样控制DamageZone
     /// </summary>
     [RequireComponent(typeof(SpriteRenderer))]
     public class LightSword:DamageZone
     {
+        [Header("定位模式")]
+        public AnchorMode anchorMode;
+        
         [Header("目标Sprite大小")]
         public Vector2 targetSize;
         [Header("初始状态Sprite大小")]
@@ -85,8 +93,12 @@ namespace HighFive.Model.SpriteObjSystem
             }
             set
             {
-                var deltaY = value.y - transform.localScale.y*OriginSize.y;
-                transform.position += deltaY/2f * transform.up;
+                if (anchorMode == AnchorMode.Handle)
+                {
+                    var deltaY = value.y - transform.localScale.y*OriginSize.y;
+                    transform.position += deltaY/2f * transform.up;                    
+                }
+
                 transform.localScale =new Vector3(
                         value.x / OriginSize.x,
                         value.y / OriginSize.y);
@@ -122,10 +134,18 @@ namespace HighFive.Model.SpriteObjSystem
             set
             {
                 var tf = SpriteRenderer.transform;
-                var y = OriginSize.y * tf.localScale.y;
-                var pos =  HandlePosition + (Vector3.up * y/2).RotateDegree(value);
-                tf.localEulerAngles = new Vector3(0, 0, value);
-                tf.position = pos;
+                switch (anchorMode)
+                {
+                    case AnchorMode.Center:
+                        tf.localEulerAngles = new Vector3(0, 0, value);
+                        break;
+                    case AnchorMode.Handle:
+                        var y = OriginSize.y * tf.localScale.y;
+                        var pos =  HandlePosition + (Vector3.up * y/2).RotateDegree(value);
+                        tf.localEulerAngles = new Vector3(0, 0, value);
+                        tf.position = pos;
+                        break;
+                }
             }
             get => SpriteRenderer.transform.localEulerAngles.z;
         }
@@ -137,15 +157,28 @@ namespace HighFive.Model.SpriteObjSystem
         {
             get
             {
-                var tf = SpriteRenderer.transform;
+                var transform1 = SpriteRenderer.transform;
+                
+                if (anchorMode == AnchorMode.Center)
+                    return transform1.position;
+
+                var tf = transform1;
                 var y = OriginSize.y * tf.localScale.y;
-                return SpriteRenderer.transform.position - transform.up * y/2;
+                return transform1.position - transform.up * y/2;
             }
             set
             {
                 var tf = SpriteRenderer.transform;
-                var y = OriginSize.y * tf.localScale.y;
-                SpriteRenderer.transform.position = value + transform.up * y/2;
+                switch (anchorMode)
+                {
+                    case AnchorMode.Center:
+                        tf.position = value;
+                        break;
+                    case AnchorMode.Handle:
+                        var y = OriginSize.y * tf.localScale.y;
+                        tf.position = value + transform.up * y/2;
+                        break;
+                }
             }
         }
         

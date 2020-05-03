@@ -10,64 +10,65 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22361e5d5dd2d5645b5e64567947e354, type: 3}
-  m_Name: "\u4E09\u8FDE\u51FB_2"
+  m_Name: "\u5929\u964D\u9668\u77F3"
   m_EditorClassIdentifier: 
   skillName:
-    selectedIndex: 3
+    selectedIndex: 9
   startTime: 0
   isUsed: 0
   triggers:
-  - skillAsset: {fileID: 0}
+  - skillAsset: {fileID: 11400000}
     id: 0
-    workTimes: 1
+    workTimes: 10
     startTime: 0
-    lastTime: 1
-    type: 0
+    lastTime: 0.5
+    type: 2
     enable: 1
+    degree: 90
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 1
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 1
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 1}
+    sideType: 0
     animationName:
-      rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
-      selectedIndex: 2
-      stringValue: Player@Attack3
-    animationSpeed: 1
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
     audioName:
-      values:
-      - Au1
-      - Au2
-      - Au3
-      - Au4
-      - Au5
-      - beiji
-      - Bg
-      - Fuck
+      values: []
       selectedIndex: 0
     bulletName:
       values:
       - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
       - DropItem
       - ImpuseGenerator
       - OnHitParticle
       - SwordLight
-      selectedIndex: 0
-    damageScale: 0
-    dirDegree: 0
-    speed: 0
+      selectedIndex: 2
+    damageScale: 1
+    speed: 10
     gravityScale: 0
     maxLife: 3
-    offset: {x: 0, y: 0, z: 0}
-    randomDegree: 0
-    degreeRange: {x: 0, y: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     aniY:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     reverseX: 0
     reverseY: 0
     rayDir: {x: 0, y: 0}
@@ -80,82 +81,71 @@ MonoBehaviour:
     shineDurTime: 0
     attackEffects: {fileID: 0}
     swordPrefabName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - EnemyFireBall
-      - LightSword
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
+      values: []
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    locateType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
-    sideType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}
       selectedIndex: 0
       path: 
-  - skillAsset: {fileID: 0}
+  - skillAsset: {fileID: 11400000}
     id: 1
-    workTimes: 1
-    startTime: 0.2
+    workTimes: 10
+    startTime: 1
     lastTime: 0.5
-    type: 1
-    enable: 0
+    type: 2
+    enable: 1
+    degree: 90
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 1
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 1
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 1}
+    sideType: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
       stringValue: 
-    animationSpeed: 1
+    animationSpeed: 0
     audioName:
-      values:
-      - Au1
-      - Au2
-      - Au3
-      - Au4
-      - Au5
-      - beiji
-      - Bg
-      - Fuck
-      selectedIndex: 2
+      values: []
+      selectedIndex: 0
     bulletName:
       values:
       - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
       - DropItem
       - ImpuseGenerator
       - OnHitParticle
       - SwordLight
-      selectedIndex: 0
-    damageScale: 0
-    dirDegree: 0
-    speed: 0
+      selectedIndex: 2
+    damageScale: 1
+    speed: 10
     gravityScale: 0
     maxLife: 3
-    offset: {x: 0, y: 0, z: 0}
-    randomDegree: 0
-    degreeRange: {x: 0, y: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     aniY:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     reverseX: 0
     reverseY: 0
     rayDir: {x: 0, y: 0}
@@ -168,26 +158,14 @@ MonoBehaviour:
     shineDurTime: 0
     attackEffects: {fileID: 0}
     swordPrefabName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - EnemyFireBall
-      - LightSword
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
+      values: []
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    locateType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
-    sideType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}
@@ -195,55 +173,56 @@ MonoBehaviour:
       path: 
   - skillAsset: {fileID: 11400000}
     id: 2
-    workTimes: 1
-    startTime: 0.2
+    workTimes: 10
+    startTime: 2
     lastTime: 0.5
-    type: 6
+    type: 2
     enable: 1
+    degree: 90
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 1
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 1
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 1}
+    sideType: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
       stringValue: 
-    animationSpeed: 1
+    animationSpeed: 0
     audioName:
-      values:
-      - Au1
-      - Au2
-      - Au3
-      - Au4
-      - Au5
-      - beiji
-      - Bg
-      - Fuck
-      selectedIndex: 2
+      values: []
+      selectedIndex: 0
     bulletName:
       values:
       - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
       - DropItem
       - ImpuseGenerator
       - OnHitParticle
       - SwordLight
-      selectedIndex: 0
-    damageScale: 0
-    dirDegree: 0
-    speed: 0
+      selectedIndex: 2
+    damageScale: 1
+    speed: 10
     gravityScale: 0
     maxLife: 3
-    offset: {x: 0, y: 0, z: 0}
-    randomDegree: 0
-    degreeRange: {x: 0, y: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     aniY:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     reverseX: 0
     reverseY: 0
     rayDir: {x: 0, y: 0}
@@ -256,28 +235,16 @@ MonoBehaviour:
     shineDurTime: 0
     attackEffects: {fileID: 0}
     swordPrefabName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - EnemyFireBall
-      - LightSword
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
+      values: []
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    locateType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
-    sideType: 0
     damageType: 0
     triggerPath:
-      go: {fileID: 1888196854289950, guid: 3a9e1cefcd2541946853b4c18dc9ffac, type: 3}
-      selectedIndex: 3
-      path: DamageTester
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
