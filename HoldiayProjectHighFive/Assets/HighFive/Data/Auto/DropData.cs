@@ -16,7 +16,7 @@ namespace HighFive.Data
 		public float drag_2;
 		public float stone_1;
 		public float stone_2;
-		public float reiki;
+		public int reiki;
 		public override string ToString()
 		{
 			var ans="==《	DropData	》==\n" +

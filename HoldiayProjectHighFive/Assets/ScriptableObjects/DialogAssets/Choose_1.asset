@@ -141,7 +141,7 @@ MonoBehaviour:
     fromNull: 0
     character:
       selectedIndex: 1
-    words: "\u7B2C\u4E8C\u4E2A"
+    words: xxx
     needInput: 0
     title: 
     Choices: []
