@@ -358,7 +358,7 @@ MonoBehaviour:
     - beiji
     - Bg
     - Fuck
-    selectedIndex: 0
+    selectedIndex: 6
   enableMiniMap: 1
   enable_V_loadAsync: 1
   sceneName:
@@ -386,15 +386,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   signalSize: 3.13
   CharacterInfos:
-  - _personType: 1
-    position: {x: -4.53, y: 2.44, z: 0}
-    color: {r: 1, g: 0, b: 0, a: 1}
-  - _personType: 2
-    position: {x: 16.06, y: 3.19, z: 0}
-    color: {r: 0.8057406, g: 1, b: 0, a: 1}
   - _personType: 0
-    position: {x: 0, y: -1.79, z: 0}
-    color: {r: 0.24720883, g: 1, b: 0, a: 1}
+    position: {x: 0, y: 0, z: 0}
+    color: {r: 0, g: 1, b: 0.14819956, a: 1}
 --- !u!1 &1733121649965414
 GameObject:
   m_ObjectHideFlags: 0
