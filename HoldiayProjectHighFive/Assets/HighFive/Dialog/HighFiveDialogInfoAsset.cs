@@ -24,7 +24,8 @@ namespace HighFive.Dialog
 
         #region 基础
 
-        public override Func<bool> CanGoToNext => () => Input.GetMouseButtonDown(0);
+        public override Func<bool> CanGoToNext =>
+            () => Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return);
         
         public override Action<DialogUnitInfo> CreateWordUI =>(info)=>new HighFiveCaptionWordUi(info);
         public override string[] CaptionWordUiKeys => new[]

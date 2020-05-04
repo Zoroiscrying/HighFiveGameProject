@@ -60,13 +60,19 @@ namespace HighFive.Model.RankSystem
 				return false;
 			}
 
-			this._rankData=CsvMgr.GetData<RankData>((++Level).ToString());
-			
-			RefreshValues(extraExp);
-			
-			//计算增益
-			improvePlayer?.Invoke(this._rankData);
+			while (extraExp >= 0)
+			{
+				this._rankData=CsvMgr.GetData<RankData>((++Level).ToString());
+				
+				RefreshValues(extraExp);
+				
+				//计算增益
+				improvePlayer?.Invoke(this._rankData);
 
+				extraExp -= MaxExp;
+			}
+
+//			Debug.Log("成功升级");
 			return true;
 		}
 

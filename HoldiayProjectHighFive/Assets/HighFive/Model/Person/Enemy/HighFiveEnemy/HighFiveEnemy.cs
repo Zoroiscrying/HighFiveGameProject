@@ -3,6 +3,7 @@ using System;
 using Game.Scripts;
 using HighFive.Const;
 using HighFive.Data;
+using HighFive.Global;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Data;
 using ReadyGamerOne.MemorySystem;
@@ -94,9 +95,10 @@ namespace HighFive.Model.Person
 			Assert.IsNotNull(dropData);
 			
 			//赚钱和经验
-			CEventCenter.BroadMessage(Message.M_PlayerExpChange,dropData.money*5);
-			CEventCenter.BroadMessage(Message.M_MoneyChange, dropData.money * 3);
+			CEventCenter.BroadMessage(Message.M_PlayerExpChange,dropData.reiki*GameSettings.Instance.reikiScale);
+			CEventCenter.BroadMessage(Message.M_MoneyChange, dropData.money * GameSettings.Instance.moneyScale);
 			
+//			Debug.Log($"掉落经验：【{dropData.reiki}】*[{GameSettings.Instance.reikiScale}]");
 			//掉落物品
 			ItemData itemData = null;
 

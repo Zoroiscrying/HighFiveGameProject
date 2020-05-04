@@ -137,7 +137,7 @@ MonoBehaviour:
     UnitType: 10
     id: 1
     showType: 1
-    wordPrefabIndex: 0
+    wordPrefabIndex: 1
     fromNull: 0
     character:
       selectedIndex: 1
@@ -297,7 +297,7 @@ MonoBehaviour:
       targetDialogInfoAsset: {fileID: 11400000, guid: 1c579fcfb5b436e49b9519e01b792e8b,
         type: 2}
       willBack: 0
-    timeLimit: 1
+    timeLimit: 0
     limitTime: 3
     defaultIndex: 0
     sendToExWord: 0

@@ -216,20 +216,28 @@ namespace HighFive.Model.Person
 			var levelUp = false;
 			var extraExp = Drag + change - this.MaxDrag;
 
-			if (extraExp >= 0)
+
+			if(extraExp >= 0)
 			{
 				levelUp =_rankMgr.TryLevelUp(extraExp,
-					rankData => { });
+					rankData =>
+					{
+						
+					});
 			}
 
+
 			if (!levelUp)
-			{
+			{// 升级失败
 				Drag = Mathf.Clamp(Drag + change, 0, this.MaxDrag);
+//				Debug.Log($"升级失败：【{Drag}】");
 			}
 			else
 			{
 				CEventCenter.BroadMessage(Message.M_LevelUp);
+//				Debug.Log($"升级成功：【{Drag}】");
 			}
+			
 			
 			return Drag;
 		}
