@@ -1,6 +1,6 @@
 ﻿namespace HighFive.Const
 {
-    public static class FilePath
+    public partial class FilePath
     {
         public static readonly string SkillFilePath = "SkillData.txt";
         public static readonly string RankFilePath = "RankData.txt";

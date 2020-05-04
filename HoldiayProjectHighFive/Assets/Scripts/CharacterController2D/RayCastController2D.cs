@@ -72,7 +72,7 @@ public class RayCastController2D : MonoBehaviour {
         _raycastOrigins.topRight = new Vector2(modifiedBounds.max.x,modifiedBounds.max.y);
 		
     }
-    
+    //
     [System.Diagnostics.Conditional( "DEBUG_CC2D_RAYS" )]
     public void DrawRay()
     {

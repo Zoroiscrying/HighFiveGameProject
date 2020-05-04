@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Danger
   - Floor
-  - AP
+  - Through
   layers:
   - Default
   - TransparentFX
@@ -22,10 +21,10 @@ TagManager:
   - OneWayPlatform
   - Trigger
   - BackGround
-  - 
-  - 
-  - 
-  - 
+  - DialogTrigger
+  - Bullet
+  - EnemyBullet
+  - BasicMover
   - 
   - 
   - 
@@ -41,12 +40,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: BackGround
-    uniqueID: 2751828365
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: ForwardGround
-    uniqueID: 1148919353
     locked: 0

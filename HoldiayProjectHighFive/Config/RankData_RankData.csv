@@ -1,0 +1,5 @@
+﻿level,maxHp,maxExp,rankName,limit,bloodC,attackC
+int,int,int,string,string,int,int
+1,1000,100,九转斗尊,,50,10
+2,2000,200,一星斗圣,,100,20
+3,3000,300,最强王者,,150,30

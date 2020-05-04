@@ -1,28 +1,32 @@
 ﻿using UnityEngine;
 using HighFive.Const;
-using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using HighFive.Global;
+using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Model.SceneSystem;
+using ReadyGamerOne.Script;
 using ReadyGamerOne.View;
-using ReadyGamerOne.View.AssetUi;
 
 namespace Game.Scripts
 {
-    public class SceneUtil : MonoBehaviour
+    /// <summary>
+    /// 每个Scene必备的控制整个Scene逻辑的脚本
+    /// </summary>
+    public class SceneUtil : MonoSingleton<SceneUtil>
     {
-    
-        #region Private_Fields
-
-        #endregion
-    
         #region Public_Fields
 
-        [Header("设定当前场景UIPanel")] public PanelUiAsset PanelUiAsset;
+       // [Header("设定当前场景UIPanel")] public PanelUiAsset PanelUiAsset;
         
-        [Header("是否生成敌方假人")]
-        public bool creatTestPeople = false;
+//        [Header("是否生成敌方假人")]
+//        public bool creatTestPeople = false;
+
+        [Header("当前场景初始Panel")]
+        public StringChooser startPanel=new StringChooser(typeof(PanelName));
+        
+        [Header("当前场景初始Bgm")]
+        public StringChooser startBgm=new StringChooser(typeof(AudioName));
 
         [Header("是否开启小地图")]
         public bool enableMiniMap = true;
@@ -34,6 +38,13 @@ namespace Game.Scripts
         
         [Header("启用C测试(伪)同步加载场景")]
         public bool Enable_C_ChangeScene = true;
+
+
+        [Header("Boss场景需要的BossArea四个角")]
+        public Transform bossLT;
+        public Transform bossRT;
+        public Transform bossLB;
+        public Transform bossRB;
         
         #endregion
         
@@ -41,21 +52,23 @@ namespace Game.Scripts
 
         void Start()
         {
+            if (!gameObject.activeSelf || !enabled)
+                return;
+            PanelMgr.PushPanel(startPanel.StringValue);
+            AudioMgr.Instance.PlayBgm(startBgm.StringValue);
+            
 
             if (enableMiniMap)
-                MemoryMgr.InstantiateGameObject(UiPath.Image_MiniMapBackGround,
-                    GlobalVar.G_Canvas.transform);
-
-
-            if (PanelUiAsset != null)
-                PanelAssetMgr.PushPanel(PanelUiAsset);
-            CEventCenter.BroadMessage(Message.M_RankAwake, 0, 0);
+                ResourceMgr.InstantiateGameObject(UiName.Image_MiniMapBackGround,
+                    GlobalVar.GCanvasObj.transform);
 
         }
 
 
         private void Update()
         {
+            if (!gameObject.activeSelf || !enabled)
+                return;
             if (Enable_C_ChangeScene)
             {
                 if (Input.GetKeyDown(KeyCode.C))
@@ -66,14 +79,12 @@ namespace Game.Scripts
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
-                    PanelMgr.PushPanelWithMessage(PanelName.Loading, Message.M_LoadSceneAsync, sceneName.StringValue);
+                    PanelMgr.PushPanelWithMessage(PanelName.LoadingPanel, Message.M_LoadSceneAsync, sceneName.StringValue);
                 }
             }
         }
     
         #endregion
-        
     }
-
 }
 

@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using HighFive.Const;
-using HighFive.Control.PersonSystem.Persons;
-using HighFive.Math;
+using HighFive.Model.Person;
+using HighFive.View;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
+using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using UnityEngine;
@@ -36,6 +37,7 @@ namespace HighFive.Control.EffectSystem.Effects
     [Serializable]
     public sealed class EffectUnitInfo
     {
+#pragma warning disable 649
         private static Dictionary<GameObject, ObjPoor<GameObject>> poorDic =
             new Dictionary<GameObject, ObjPoor<GameObject>>();
 
@@ -73,12 +75,20 @@ namespace HighFive.Control.EffectSystem.Effects
             return partical;
         }
 
+        public static void Clear()
+        {
+            foreach (var obj_pool in poorDic)
+            {
+                obj_pool.Value.Clear();
+            }
+        }
+        
         [SerializeField] private EffectType type;
         [SerializeField] private EffectInfoAsset EffectInfoAsset;
 
         #region Audio
 
-        [SerializeField] private StringChooser audioPath;
+        [SerializeField] private StringChooser audioName=new StringChooser(typeof(AudioName));
 
         #endregion
 
@@ -107,8 +117,8 @@ namespace HighFive.Control.EffectSystem.Effects
 
         public void Play(IEffector<AbstractPerson> ditascher, IEffector<AbstractPerson> receiver)
         {
-            var dp = ditascher?.EffectPlayer;
-            var rp = receiver?.EffectPlayer;
+            var dp = ditascher?.EffectPlayer as IHighFivePerson;
+            var rp = receiver?.EffectPlayer as IHighFivePerson;
             switch (type)
             {
                 #region Animation
@@ -118,7 +128,7 @@ namespace HighFive.Control.EffectSystem.Effects
 
                     var pos = new Vector3(dp.Dir * localPosition.x, localPosition.y, localPosition.z);
 
-                    var aniObj = GetPrefabGo(animationPrefab, dp.obj, pos,localScale);
+                    var aniObj = GetPrefabGo(animationPrefab, dp.gameObject, pos,localScale);
 //                    Debug.Log("Animator");
                     
                     var ani = aniObj.GetComponent<Animator>();
@@ -131,9 +141,9 @@ namespace HighFive.Control.EffectSystem.Effects
                         trigger.Clear();
                         trigger.onTriggerEnterEvent += (col) =>
                         {
-                            rp = AbstractPerson.GetInstance(col.gameObject);
+                            rp = col.gameObject.GetPersonInfo() as IHighFivePerson;
                             if (rp != null)
-                                dp.CauseDamageTo(rp);
+                                dp.TryAttack(rp);
                         };
 
                     }
@@ -153,12 +163,11 @@ namespace HighFive.Control.EffectSystem.Effects
                     break;
 
                 #endregion
-
-
+                
                 #region Partical
 
                 case EffectType.Partical:
-                    var psObj = GetPrefabGo(particalPrefab, rp.obj);
+                    var psObj = GetPrefabGo(particalPrefab, rp.gameObject);
                     var ps = psObj.GetComponent<ParticleSystem>();
 //                    Debug.Log("Partical");
                     ps.Stop();
@@ -180,8 +189,9 @@ namespace HighFive.Control.EffectSystem.Effects
 
                 case EffectType.Damage:
 
-                    dp?.CauseDamageTo(rp);
-                    
+                    //todo: 这里显示伤害数字才对
+//                    dp?.TryAttack(rp);
+                    new DamageNumberUI(dp.Attack, 0, 1, Color.red, rp.transform, dp.Dir);
                     break;
 
                 #endregion
@@ -193,11 +203,11 @@ namespace HighFive.Control.EffectSystem.Effects
                     {
                         case EffectInfoAsset.EffectorType.Ditascher:
                             Assert.IsTrue(dp != null);
-                            AudioMgr.Instance.PlayEffect(this.audioPath.StringValue, dp.Pos);
+                            AudioMgr.Instance.PlayEffect(this.audioName.StringValue, dp.position);
                             break;
                         case EffectInfoAsset.EffectorType.Receiver:
                             Assert.IsTrue(rp != null);
-                            AudioMgr.Instance.PlayEffect(this.audioPath.StringValue, rp.Pos);
+                            AudioMgr.Instance.PlayEffect(this.audioName.StringValue, rp.position);
                             break;
                     }
 
@@ -209,8 +219,8 @@ namespace HighFive.Control.EffectSystem.Effects
 
                 case EffectType.Shining:
                     Assert.IsTrue(rp != null);
-                    var sr = rp.obj.GetComponent<SpriteRenderer>();
-                    var times = rp is Player ? rp.DefaultConstTime / shiningDuring : 0.8f;
+                    var sr = rp.gameObject.GetComponent<SpriteRenderer>();
+                    var times = rp is IHighFiveCharacter ? rp.DefaultConstTime / shiningDuring : 0.8f;
                     MainLoop.Instance.ExecuteEverySeconds(
                         render =>
                         {
@@ -236,10 +246,12 @@ namespace HighFive.Control.EffectSystem.Effects
 
                     if (!rp.IgnoreHitback)
                     {
-                        var trans = rp.obj.transform;
+                        var trans = rp.gameObject.transform;
 //                        trans.position += new Vector3(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y, 0);
                         var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y);
-                        rp.Actor.ChangeVelBasedOnHitDir(hitBack,15);
+                        //TODO:需要更好接口
+                        var actor = rp.Controller.GetComponent<Actor>();
+                        actor?.ChangeVelBasedOnHitDir(hitBack,15);
                     }
 
                     break;
@@ -281,8 +293,9 @@ namespace HighFive.Control.EffectSystem.Effects
                     break;
                 
                 case EffectType.Audio:
-                    var audioNameProp = property.FindPropertyRelative("audioPath");
-                    InitSerializedStringArray(audioNameProp.FindPropertyRelative("values"), typeof(AudioPath));
+                    var audioNameProp = property.FindPropertyRelative("audioName");
+                    //TODO:AUDIOpath
+//                    InitSerializedStringArray(audioNameProp.FindPropertyRelative("values"), typeof(AudioPath));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), audioNameProp);
                     break;
                 case EffectType.Shining:
@@ -297,18 +310,7 @@ namespace HighFive.Control.EffectSystem.Effects
                     break;
             }
         }
-
-
-        public static void InitSerializedStringArray(SerializedProperty arrProp, Type type)
-        {
-            arrProp.arraySize = 0;
-            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-            for (int i = 0; i < fieldInfos.Length; i++)
-            {
-                arrProp.InsertArrayElementAtIndex(i);
-                arrProp.GetArrayElementAtIndex(i).stringValue = fieldInfos[i].GetValue(null) as string;
-            }
-        }
 #endif
+#pragma warning restore 649
     }
 }

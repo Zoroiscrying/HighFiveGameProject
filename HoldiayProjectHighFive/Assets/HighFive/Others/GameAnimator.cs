@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using HighFive.Const;
-using ReadyGamerOne.Common;
+using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using UnityEngine;
 
@@ -32,9 +32,22 @@ namespace HighFive.Others
             this.ani = ani;
             if (this.ani == null)
                 throw new Exception("未获取到Animator");
-            CEventCenter.AddListener(Message.M_Destory(ani.gameObject), _Remomve);
+
+            MainLoop.Instance.StartCoroutine(AddCleaner());
         }
 
+
+        private IEnumerator AddCleaner()
+        {
+
+            AbstractPerson person = null;
+            while (null == person)
+            {
+                person = ani.gameObject.GetPersonInfo();
+                yield return null;
+            }
+            person.onBeforeKill += _ => _Remomve();            
+        }
 
         public void Play(int stateNameHash, AnimationWeight weight = AnimationWeight.Normal)
         {

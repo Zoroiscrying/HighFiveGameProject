@@ -10,7 +10,7 @@ namespace HighFive.Control.SkillSystem.Editor
     [CustomEditor(typeof(SkillInfoAsset))]
     public class SkillInfoEditor:UnityEditor.Editor
     {
-        [MenuItem("ReadyGamerOne/Create/RPG/SkillAsset")]
+        [MenuItem("ReadyGamerOne/RPG/Create/SkillAsset")]
         public static void CreateInstance()
         {
             string[] strs = Selection.assetGUIDs;
@@ -30,6 +30,7 @@ namespace HighFive.Control.SkillSystem.Editor
             Selection.activeObject = AssetDatabase.LoadAssetAtPath<SkillInfoAsset>(path + "/NewSkillInfo.asset");
         }
 
+        private Vector2 scrolPos;
         private Vector2 detailPos;
         private ReorderableList triggerList;
         private SerializedProperty triggerListProp;
@@ -76,8 +77,6 @@ namespace HighFive.Control.SkillSystem.Editor
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-
-            this.detailPos = GUILayout.BeginScrollView(this.detailPos ,GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(skillNameProp);
             if (EditorGUI.EndChangeCheck())
@@ -92,17 +91,23 @@ namespace HighFive.Control.SkillSystem.Editor
             
             if (GUILayout.Button("清空触发器列表"))
                 triggerListProp.arraySize = 0;
+            var minHeight = Mathf.Min(triggerList.GetHeight(),400);
+            this.scrolPos = GUILayout.BeginScrollView(this.scrolPos, false,false,GUILayout.ExpandHeight(true),GUILayout.MaxHeight(minHeight));
+
             triggerList.DoLayoutList();
+            GUILayout.EndScrollView();
             if (selectIndex != -1 && selectIndex <triggerList.serializedProperty.arraySize)
             {
-
                 var prop = triggerListProp.GetArrayElementAtIndex(selectIndex);
-                var rect = GUILayoutUtility.GetRect(100, EditorGUI.GetPropertyHeight(prop),
+                var height = EditorGUI.GetPropertyHeight(prop);
+                this.detailPos = GUILayout.BeginScrollView(this.detailPos ,false,false,GUILayout.ExpandHeight(true), GUILayout.MaxHeight(height));
+
+                var rect = GUILayoutUtility.GetRect(100,height,
                     GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
                 _skillInfoAsset.triggers[selectIndex].OnDrawMoreInfo(prop, rect);
+                GUILayout.EndScrollView();
             }
             
-            GUILayout.EndScrollView();
             serializedObject.ApplyModifiedProperties();
         }
 

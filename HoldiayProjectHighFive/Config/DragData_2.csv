@@ -1,0 +1,4 @@
+﻿itemName,uitext,spriteName,prefabName,statement,maxSlotCount,price,outPrice
+string,string,string,string,string,int,int,int
+Medkit,医疗包,Medkit,Medkit,受伤回血,64,100,80
+Mushroom,真菌,Mushroom,Mushroom,站立不动回血,64,100,80

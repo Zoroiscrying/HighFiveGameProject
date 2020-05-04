@@ -1,0 +1,5 @@
+﻿itemName,uitext,spriteName,prefabName,statement,maxSlotCount,price,outPrice
+string,string,string,string,string,int,int,int
+Snail,海螺,Snail,Snail,脱战回血,64,100,80
+Soda,饮料,Soda,Soda,加快移动速度,64,100,80
+StickyBomb,粘弹,StickyBomb,StickyBomb,攻击概率减速,64,100,80

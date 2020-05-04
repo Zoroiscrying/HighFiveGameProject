@@ -385,13 +385,15 @@ namespace zoroiscrying
 
                         collisionState.left = isGoingRight == -1;
                         collisionState.right = isGoingRight == 1;
-
-                        _raycastHitsThisFrame.Add(_raycastHit);
+                        if (!_raycastHitsThisFrame.Contains(_raycastHit))
+                        {
+                            _raycastHitsThisFrame.Add(_raycastHit);
+                        }
                         // we add a small fudge factor for the float operations here. if our rayDistance is smaller
                         // than the width + fudge bail out because we have a direct impact
                         if (rayDistance < skinWidth + kSkinWidthFloatFudgeFactor)
                             break;
-                    }
+                }
                     
                 
             }

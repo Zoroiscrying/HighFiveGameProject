@@ -9,7 +9,37 @@ namespace HighFive.Control.SkillSystem.Triggers.Editor
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return 2 * EditorGUIUtility.singleLineHeight;
+            var sp = property.FindPropertyRelative("type");
+
+            var height = 8;
+            switch (EnumUtil.GetEnumValue<TriggerType>(sp.enumValueIndex))
+            {
+                case (int)TriggerType.Effect:
+                    height += 1;
+                    break;
+                case (int)TriggerType.Trigger2D:
+                    height += 3;
+                    break;
+                case (int)TriggerType.RayDamage:
+                    height += 6;
+                    break;
+                case (int)TriggerType.SingleBullet:
+                    height += 13;
+                    break;
+                case (int)TriggerType.CurvedBullet:
+                    height += 8;
+                    break;
+                case (int)TriggerType.Animation:
+                    height += 2;
+                    break;
+                case (int)TriggerType.Audio:
+                    height += 1;
+                    break;
+                case (int)TriggerType.LightSword:
+                    height += 15;
+                    break;
+            }
+            return height * EditorGUIUtility.singleLineHeight;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

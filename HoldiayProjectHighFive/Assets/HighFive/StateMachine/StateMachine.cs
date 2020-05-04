@@ -189,21 +189,21 @@ namespace HighFive.StateMachine
             {
                 //case StateMachineTransition.Blend:
                 //Do nothing - allows the state transitions to overlap each other. This is a dumb idea, as previous state might trigger new changes. 
-                //A better way would be to start the two couroutines at the same time. IE don't wait for exit before starting start.
+                //A better way would be to start the two couroutines at the same inTime. IE don't wait for exit before starting start.
                 //How does this work in terms of overwrite?
                 //Is there a way to make this safe, I don't think so? 
                 //break;
                 case StateTransition.Safe:
                     if (isInTransition)
                     {
-                        if (exitRoutine != null) //We are already exiting current state on our way to our previous target state
+                        if (exitRoutine != null) //We are already exiting current state on our way to our previous inTarget state
                         {
-                            //Overwrite with our new target
+                            //Overwrite with our new inTarget
                             destinationState = nextState;
                             return;
                         }
 
-                        if (enterRoutine != null) //We are already entering our previous target state. Need to wait for that to finish and call the exit routine.
+                        if (enterRoutine != null) //We are already entering our previous inTarget state. Need to wait for that to finish and call the exit routine.
                         {
                             //Damn, I need to test this hard
                             queuedChange = WaitForPreviousTransition(nextState);
