@@ -832,6 +832,10 @@ MonoBehaviour:
     - JbScene
     selectedIndex: 0
   Enable_C_ChangeScene: 1
+  bossLT: {fileID: 0}
+  bossRT: {fileID: 0}
+  bossLB: {fileID: 0}
+  bossRB: {fileID: 0}
 --- !u!1 &1413906273
 GameObject:
   m_ObjectHideFlags: 0

@@ -200,8 +200,8 @@ namespace HighFive.Control.Movers
         protected override void Awake()
         {
             base.Awake();
-            StartPatrolling(Vector2.right,0f,3f,true);
-            StartJumping(new Vector2(0,5),0f,1,true);
+            // StartPatrolling(Vector2.right,0f,3f,true);
+            // StartJumping(new Vector2(0,5),0f,1,true);
         }
 
         protected override void FixedUpdate()
