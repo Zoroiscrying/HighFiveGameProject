@@ -271,7 +271,7 @@ namespace HighFive.Control.Movers
         /// <summary>
         /// 停止输入控制的位移
         /// </summary>
-        public void StopInputMoving()
+        public void StopMoverInput()
         {
             StopHorizontallyInput();
             StopVerticallyInput();
@@ -295,8 +295,6 @@ namespace HighFive.Control.Movers
         {
             this.velocity = hitDir * multiplier;
         }
-        
-        //-----------巡逻函数------------
 
         #endregion
 
