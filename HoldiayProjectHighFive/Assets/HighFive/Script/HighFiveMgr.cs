@@ -45,14 +45,5 @@ namespace HighFive.Script
 			
 			SceneMgr.LoadActiveScene();
 		}
-//		/// <summary>
-//		/// 注册灵器
-//		/// </summary>
-//		void RegisterSpiritItem()
-//		{
-//			AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_First);
-//			AbstractSpiritItem.RegisterSpiritItem<TestSpirit>(SpiritName.C_Second);
-//		}
-
 	}
 }

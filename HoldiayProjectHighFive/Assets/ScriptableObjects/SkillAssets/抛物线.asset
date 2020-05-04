@@ -19,10 +19,20 @@ MonoBehaviour:
   triggers:
   - skillAsset: {fileID: 11400000}
     id: 0
+    workTimes: 1
     startTime: 0
     lastTime: 0
     type: 2
     enable: 1
+    degree: 60
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -44,11 +54,9 @@ MonoBehaviour:
       - SwordLight
       selectedIndex: 4
     damageScale: 1.5
-    dir: {x: 1, y: 1.5, z: 0}
-    speed: 1
+    speed: 5
     gravityScale: 1
     maxLife: 3
-    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
@@ -84,13 +92,12 @@ MonoBehaviour:
       - OnHitParticle
       - SwordLight
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}
@@ -98,10 +105,20 @@ MonoBehaviour:
       path: 
   - skillAsset: {fileID: 11400000}
     id: 1
+    workTimes: 1
     startTime: 0
     lastTime: 0
     type: 2
     enable: 1
+    degree: 60
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -123,11 +140,9 @@ MonoBehaviour:
       - SwordLight
       selectedIndex: 4
     damageScale: 1.5
-    dir: {x: -1, y: 1.5, z: 0}
-    speed: 1
+    speed: 5
     gravityScale: 1
     maxLife: 3
-    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
@@ -163,92 +178,12 @@ MonoBehaviour:
       - OnHitParticle
       - SwordLight
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
-    damageType: 0
-    triggerPath:
-      go: {fileID: 0}
-      selectedIndex: 0
-      path: 
-  - skillAsset: {fileID: 11400000}
-    id: 2
-    startTime: 0
-    lastTime: 0
-    type: 2
-    enable: 1
-    animationName:
-      rac: {fileID: 0}
-      selectedIndex: 0
-      stringValue: 
-    animationSpeed: 0
-    audioName:
-      values: []
-      selectedIndex: 0
-    bulletName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - EnemyFireBall
-      - LightSword
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
-      selectedIndex: 4
-    damageScale: 1.5
-    dir: {x: -1, y: 0.75, z: 0}
-    speed: 1
-    gravityScale: 1
-    maxLife: 3
-    offset: {x: 0, y: 0, z: 0}
-    aniX:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    aniY:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    reverseX: 0
-    reverseY: 0
-    rayDir: {x: 0, y: 0}
-    rayLength: 0
-    hitSpeed: 0
-    rayTestLayer:
-      serializedVersion: 2
-      m_Bits: 0
-    shineLastTime: 0
-    shineDurTime: 0
-    attackEffects: {fileID: 0}
-    swordPrefabName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - EnemyFireBall
-      - LightSword
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
-      selectedIndex: 0
-    targetSize: {x: 0, y: 0}
-    startSize: {x: 0, y: 0}
-    delayTime: 0
-    widenTime: 0
-    easeType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}
@@ -256,10 +191,20 @@ MonoBehaviour:
       path: 
   - skillAsset: {fileID: 11400000}
     id: 3
+    workTimes: 1
     startTime: 0
     lastTime: 0
     type: 2
     enable: 1
+    degree: 120
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -281,11 +226,9 @@ MonoBehaviour:
       - SwordLight
       selectedIndex: 4
     damageScale: 1.5
-    dir: {x: 1, y: 0.75, z: 0}
-    speed: 1
+    speed: 5
     gravityScale: 1
     maxLife: 3
-    offset: {x: 0, y: 0, z: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
@@ -321,13 +264,98 @@ MonoBehaviour:
       - OnHitParticle
       - SwordLight
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
+    damageType: 0
+    triggerPath:
+      go: {fileID: 0}
+      selectedIndex: 0
+      path: 
+  - skillAsset: {fileID: 11400000}
+    id: 2
+    workTimes: 1
+    startTime: 0
+    lastTime: 0
+    type: 2
+    enable: 1
+    degree: 120
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 0
+    audioName:
+      values: []
+      selectedIndex: 0
+    bulletName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 4
+    damageScale: 1.5
+    speed: 5
+    gravityScale: 1
+    maxLife: 3
+    aniX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    anchorMode: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}

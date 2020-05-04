@@ -5,6 +5,7 @@ using ReadyGamerOne.Common;
 using HighFive.Global;
 using ReadyGamerOne.Script;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
@@ -117,6 +118,7 @@ namespace HighFive.View
         /// <param name="change"></param>
         void OnExpChange(int change)
         {
+//            Debug.Log($"获取经验[{change}]");
             var value = GlobalVar.G_Player.ChangeDrag(change);
             this.ExpBar.value = value / (float) GlobalVar.G_Player.MaxExp;
             this.expText.text = value + "/" + GlobalVar.G_Player.MaxExp;

@@ -2,6 +2,7 @@
 using HighFive.Const;
 using ReadyGamerOne.EditorExtension;
 using HighFive.Global;
+using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Model.SceneSystem;
 using ReadyGamerOne.Script;
@@ -12,7 +13,7 @@ namespace Game.Scripts
     /// <summary>
     /// 每个Scene必备的控制整个Scene逻辑的脚本
     /// </summary>
-    public class SceneUtil : MonoBehaviour
+    public class SceneUtil : MonoSingleton<SceneUtil>
     {
         #region Public_Fields
 
@@ -37,6 +38,13 @@ namespace Game.Scripts
         
         [Header("启用C测试(伪)同步加载场景")]
         public bool Enable_C_ChangeScene = true;
+
+
+        [Header("Boss场景需要的BossArea四个角")]
+        public Transform bossLT;
+        public Transform bossRT;
+        public Transform bossLB;
+        public Transform bossRB;
         
         #endregion
         
@@ -77,8 +85,6 @@ namespace Game.Scripts
         }
     
         #endregion
-        
     }
-
 }
 

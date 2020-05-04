@@ -27,7 +27,7 @@ namespace HighFive.Model.SpriteObjSystem
             set => mover.TriggerLayers = value;
         }
 
-        public List<GameObject> caches = new List<GameObject>();
+        private List<GameObject> caches = new List<GameObject>();
         
         
         public virtual void Init(IHighFivePerson self)

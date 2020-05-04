@@ -11,7 +11,7 @@ namespace HighFive.Control.SkillSystem.Triggers.Editor
         {
             var sp = property.FindPropertyRelative("type");
 
-            var height = 7;
+            var height = 8;
             switch (EnumUtil.GetEnumValue<TriggerType>(sp.enumValueIndex))
             {
                 case (int)TriggerType.Effect:
@@ -24,7 +24,7 @@ namespace HighFive.Control.SkillSystem.Triggers.Editor
                     height += 6;
                     break;
                 case (int)TriggerType.SingleBullet:
-                    height += 7;
+                    height += 13;
                     break;
                 case (int)TriggerType.CurvedBullet:
                     height += 8;
@@ -36,7 +36,7 @@ namespace HighFive.Control.SkillSystem.Triggers.Editor
                     height += 1;
                     break;
                 case (int)TriggerType.LightSword:
-                    height += 9;
+                    height += 15;
                     break;
             }
             return height * EditorGUIUtility.singleLineHeight;
