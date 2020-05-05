@@ -39,15 +39,15 @@ namespace HighFive.Control.Movers
         [Header("PreciseMovementControl")] [SerializeField]
         private float accelerationTimeAirborne = .2f;
 
-        [SerializeField] private float accelerationTimeGrounded = .1f;
-        [Space(5)] [SerializeField] private float timeToJumpApex = .4f;
-        [SerializeField] private float maxJumpHeight = 1f;
+        [SerializeField] protected float accelerationTimeGrounded = .1f;
+        [Space(5)] [SerializeField] protected float timeToJumpApex = .4f;
+        [SerializeField] protected float maxJumpHeight = 1f;
         [Space(5)] [SerializeField] protected float runSpeed = 8f;
         [Space(5)] [SerializeField] protected float horizontalSpeedMultiplier = 1f;
         [SerializeField] protected float verticalSpeedMultiplier = 1f;
         [SerializeField] protected int faceDir = 1;
-        // [Header("Animation Control")] 
-        // public GameAnimator animator;
+        [Header("Animation Control")] 
+        public GameAnimator animator;
         [Header("Other")] public bool rayCastDebug = false;
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace HighFive.Control.Movers
         protected override void Awake()
         {
             base.Awake();
-            // animator = GameAnimator.GetInstance(GetComponent<Animator>());
+            animator = GameAnimator.GetInstance(GetComponent<Animator>());
             CalculateGravityNVelocity();
             MoveHorizontally(true);
         }

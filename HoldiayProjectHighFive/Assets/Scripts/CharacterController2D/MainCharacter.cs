@@ -279,7 +279,7 @@ public class MainCharacter : Actor
 //			Debug.Log("DOUBLE JUMP");
 			_stateMachine.ChangeState(PlayerStates.DoubleJump);
 			_velocity.y = _maxJumpVelocity;
-			_canJump --;
+			_canJump--;
 		}
 		else if (_canJump >= 1)
 		{
@@ -343,8 +343,6 @@ public class MainCharacter : Actor
 		{
 			_stateMachine.ChangeState(PlayerStates.WallSliding);
 		}
-		
-		
 	}
 
 	/// <summary>
