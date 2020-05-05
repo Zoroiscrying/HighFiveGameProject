@@ -30,7 +30,7 @@ namespace ReadyGamerOne.Model.SceneSystem
             {
                 if (SceneManager.GetSceneByName(name).IsValid())
                 {
-                    Debug.LogWarning("没有注册场景："+name+" 但是，Unity中Build了这个场景");
+                    Debug.LogWarning("没有注册场景："+name+" 但是，SceneManager.GetSceneByName(name).IsValid");
                     return new DefaultSceneInfo()
                     {
                         sceneName = name
