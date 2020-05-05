@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\a\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\a\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_HoldiayProjectHighFive.1754759029.00" t="ExcludeRecursive" />
-    <e p="D:\unreal pro\HighFiveGameProject\HoldiayProjectHighFive" t="IncludeRecursive">
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
+    <e p="F:\Projects\unity\HiFive\HoldiayProjectHighFive" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -848,6 +849,7 @@
                 <e p="Interfaces" t="Include">
                   <e p="IInteractablePerson.cs" t="Include" />
                   <e p="IRankablePerson.cs" t="Include" />
+                  <e p="IRichDamage.cs" t="Include" />
                   <e p="ITakeDamageablePerson.cs" t="Include" />
                 </e>
                 <e p="PersonController" t="Include">
@@ -924,6 +926,7 @@
                 <e p="EnumUtil.cs" t="Include" />
                 <e p="FileUtil.cs" t="Include" />
                 <e p="GizmosUtil.cs" t="Include" />
+                <e p="GUILayoutUtil.cs" t="Include" />
                 <e p="InputUtil.cs" t="Include" />
                 <e p="UiUtil.cs" t="Include" />
                 <e p="WindowsUtil.cs" t="Include" />
@@ -1080,6 +1083,7 @@
             <e p="HighFiveNarratorUi.cs" t="Include" />
           </e>
           <e p="Global" t="Include">
+            <e p="GameSettings.cs" t="Include" />
             <e p="GlobalVar.cs" t="Include" />
           </e>
           <e p="Math" t="Include">
@@ -1114,6 +1118,7 @@
                 <e p="HighFiveCharacter" t="Include">
                   <e p="HighFiveCharacter.cs" t="Include" />
                   <e p="HighFiveCharacterController.cs" t="Include" />
+                  <e p="IMoreBuff.cs" t="Include" />
                 </e>
                 <e p="Sworder" t="Include">
                   <e p="Sworder.cs" t="Include" />

@@ -5,14 +5,17 @@ using HighFive.Data;
 using HighFive.Global;
 using HighFive.Model.ItemSystem;
 using HighFive.Model.RankSystem;
+using HighFive.Script;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Data;
 using ReadyGamerOne.Rougelike.Item;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
+using ReadyGamerOne.Utility;
 using ReadyGamerOne.View;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 namespace HighFive.Model.Person
 {       
@@ -36,11 +39,10 @@ namespace HighFive.Model.Person
 
 		#endregion
 
+		int BaseAttack { get; }
+		
 		float AirXMove { get; set; }
 		int MaxSpiritNum { get; set; }
-				
-		int AttackAdder { get; set; }
-		float AttackScaler { get; set; }
 		
 		bool InputOk { get; }
 		void IgnoreInput(float time);
@@ -51,16 +53,50 @@ namespace HighFive.Model.Person
 		IHighFiveCharacter
 		where T : HighFiveCharacter<T>,new()
 	{
-		#region IUseCsvData
+		#region GUI
 
-		public override Type DataType => typeof(CharacterData);
+		public GUIStyle style;
+		
+		public HighFiveCharacter()
+		{
+			style = new GUIStyle
+			{
+				fontSize = 50
+			};
+			style.normal.textColor = Color.cyan;
+			style.alignment = TextAnchor.MiddleCenter;
+			
+			MainLoop.Instance.AddGUIFunc(() =>
+			{
+				var player = GlobalVar.G_Player;
+				if (null == player)
+					return;
+				GUILayout.Space(40);
+				style.fontSize = (int)GUILayoutUtil.Slider("字体大小", style.fontSize, 0, 100, style);
+				GUILayout.Label($"基础攻击\t【{player.BaseAttack}】",style);
+				player.AttackAdder = GUILayoutUtil.Slider("攻击加成", player.AttackAdder, 0, 100, style);
+				player.AttackScale = GUILayoutUtil.Slider("攻击倍率", player.AttackScale, 0, 5, style);
+				player.AttackSpeed = GUILayoutUtil.Slider("攻速", player.AttackSpeed, 0, 5, style);
+				player.CritRate = GUILayoutUtil.Slider("暴击率", player.CritRate, 0, 1, style);
+				player.CritScale = GUILayoutUtil.Slider("暴击倍率", player.CritScale, 0, 5, style);
+				player.TakeDamageScale = GUILayoutUtil.Slider("承伤倍率", player.TakeDamageScale, 0, 2, style);
+				player.TakeDamageBlock = GUILayoutUtil.Slider("固定格挡", player.TakeDamageBlock, 0, 50, style);
+				player.DodgeRate = GUILayoutUtil.Slider("闪避", player.DodgeRate, 0, 1, style);
+				player.RepulseScale = GUILayoutUtil.Slider("击退强度", player.RepulseScale, 0, 5, style);
+				GUILayout.Label($"是否无敌\t【{player.IsInvincible}】",style);
+				player.DefaultConstTime = GUILayoutUtil.Slider("无敌时间", player.DefaultConstTime, 0, 5, style);
+			});
+		}
 
 		#endregion
 		
 		#region Fields
 
 		protected RankMgr _rankMgr = RankMgr.Instance;
-
+		private bool isInputOk = true;
+		private int comboNum = 0;
+		private float timer = 0;
+		
 		#endregion
 
 		#region 背包
@@ -141,15 +177,33 @@ namespace HighFive.Model.Person
 
 		#region IHighFiveCharacter
 
+		#region IUseCsvData
+
+		public override Type DataType => typeof(CharacterData);
+
+
+		public override void LoadData(CsvMgr data)
+		{
+			base.LoadData(data);
+			var characterData = data as CharacterData;
+			Assert.IsNotNull(characterData);
+			DefaultConstTime = characterData.defaultConstTime;
+		}
+
+		#endregion
 
 		#region ITakeDamageablePerson<AbstractPerson>
 
-		public override void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+		public override float OnTakeDamage(AbstractPerson takeDamageFrom, float damage)
         {
-        	if (IsConst)
-        		return;
-        	base.OnTakeDamage(takeDamageFrom, damage);
-        	CEventCenter.BroadMessage(Message.M_PlayerBloodChange,-Mathf.Abs(damage));
+	        var realDamage = base.OnTakeDamage(takeDamageFrom, damage);
+	        if (realDamage > 0)
+	        {
+		        CEventCenter.BroadMessage(Message.M_PlayerBloodChange,-Mathf.RoundToInt(realDamage));
+		        this.IsInvincible = true;
+		        MainLoop.Instance.ExecuteLater(() => IsInvincible = false, this.DefaultConstTime);
+	        }
+            return realDamage;
         }
 
 
@@ -174,13 +228,15 @@ namespace HighFive.Model.Person
 
 		public override int Attack
 		{
-			get => Mathf.RoundToInt((_rankMgr.BaseAttack+AttackAdder)*AttackScaler);
-			protected set => throw new Exception("HighFiveCharacter禁止使用Attack的Set方法");
+			get
+			{
+				var normalDamage = (_rankMgr.BaseAttack + AttackAdder) * AttackScale;
+				if (Random.Range(0, 1f) < CritRate)
+					normalDamage *= CritScale;
+				return  Mathf.RoundToInt(normalDamage);
+			}
 		}
 		
-		public int AttackAdder { get; set; } = 0;
-
-		public float AttackScaler { get; set; } = 1;
 
 		#endregion
 		
@@ -245,7 +301,9 @@ namespace HighFive.Model.Person
 		/// <summary>
 		/// 最大药引上限
 		/// </summary>
-		public int MaxDrag => MaxExp;		
+		public int MaxDrag => MaxExp;
+
+		public int BaseAttack => _rankMgr.BaseAttack;
 
 		#endregion
 		
@@ -362,19 +420,6 @@ namespace HighFive.Model.Person
 
 		#endregion
 		
-		#region Private_Fields
-        
-		private bool isInputOk = true;
-
-		#region 连击
-
-		private int comboNum = 0;
-		private float timer = 0;
-
-		#endregion
-        
-		#endregion
-		
 		#region 更新与事件
 
 		protected override void Update()
@@ -413,14 +458,14 @@ namespace HighFive.Model.Person
 
                 Assert.IsTrue(this.comboNum > 0 && this.comboNum < 4);
 
-                if (this.timer - lastSkill.StartTime > lastSkill.canMoveTime)
+                if (this.timer - lastSkill.StartTime > lastSkill.CanMoveTime)
                 {
 //                    Debug.Log("过了移动锁定时间，恢复人物控制");
                     Controller.SetMoveable(true);
                 }
 
                 if (this.timer - lastSkill.StartTime >
-                    lastSkill.LastTime * lastSkill.beginComboTest + lastSkill.faultToleranceTime)
+                    lastSkill.LastTime * lastSkill.BeginComboTest + lastSkill.FaultToleranceTime)
                 {
                     this.comboNum = 0;
                     MainLoop.Instance.RemoveUpdateFunc(_DeUpdate);
@@ -461,20 +506,20 @@ namespace HighFive.Model.Person
                     //                    Debug.Log("初次攻击");
                     MainLoop.Instance.AddUpdateFunc(_DeUpdate);
 //                    Debug.Log("执行了技能" + index + " " + thisSkill.SkillName);
-                    thisSkill.RunSkill(this, (Controller as HighFiveCharacterController).comboSkillInfos[0].ignoreInput, this.timer);
+                    thisSkill.RunSkill(this, (Controller as HighFiveCharacterController).comboSkillInfos[0].IgnoreInput, this.timer);
 
                     this.comboNum++;
                 }
 
                 else if (this.timer - lastSkill.StartTime <
-                         lastSkill.LastTime * lastSkill.beginComboTest + lastSkill.faultToleranceTime)
+                         lastSkill.LastTime * lastSkill.BeginComboTest + lastSkill.FaultToleranceTime)
                 {
-                    if (this.timer - lastSkill.StartTime > lastSkill.LastTime * lastSkill.beginComboTest)
+                    if (this.timer - lastSkill.StartTime > lastSkill.LastTime * lastSkill.BeginComboTest)
                     {
                         if (this.comboNum < (Controller as HighFiveCharacterController).comboSkillInfos.Count)
                         {
 //                             Debug.Log("执行了技能" + index + " " + thisSkill.SkillName);
-                            thisSkill.RunSkill(this, lastSkill.ignoreInput, this.timer);
+                            thisSkill.RunSkill(this, lastSkill.IgnoreInput, this.timer);
                             this.comboNum++;
                         }
 //                        else

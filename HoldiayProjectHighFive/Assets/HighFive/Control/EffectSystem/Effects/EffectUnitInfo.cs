@@ -244,11 +244,11 @@ namespace HighFive.Control.EffectSystem.Effects
 
                     Assert.IsTrue(rp != null && dp != null);
 
-                    if (!rp.IgnoreHitback)
+                    if (!rp.IgnoreRepulse)
                     {
                         var trans = rp.gameObject.transform;
-//                        trans.position += new Vector3(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y, 0);
-                        var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y);
+//                        trans.position += new Vector3(dp.Dir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y, 0);
+                        var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y);
                         //TODO:需要更好接口
                         var actor = rp.Controller.GetComponent<Actor>();
                         actor?.ChangeVelBasedOnHitDir(hitBack,15);

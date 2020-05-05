@@ -130,26 +130,39 @@ namespace ReadyGamerOne.Rougelike.Person
         public event Action<AbstractPerson, int> onCauseDamage;
         public event Action<AbstractPerson, int> onTakeDamage;
 
-        public virtual void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+        public virtual float OnTakeDamage(AbstractPerson takeDamageFrom, float damage)
         {
+            Assert.IsTrue(damage >= 0);
 
-            onTakeDamage?.Invoke(takeDamageFrom, damage);
-            Hp -= damage;
-//            Debug.Log($"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{damage}伤害,当前血量：{Hp}");
+            var finalDamage = Mathf.RoundToInt(damage);
+            onTakeDamage?.Invoke(takeDamageFrom, finalDamage);
+            Hp -= finalDamage;
+//            Debug.Log($"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{finalDamage}伤害,当前血量：{Hp}");
 
+            var realDamage = 0f;
             if (Hp <= 0)
             {
+                realDamage = Hp;
 //                Debug.Log(CharacterName+"该死！");
                 Hp = 0;
                 Kill();
             }
+            else
+            {
+                realDamage = finalDamage;
+            }
+
+            return realDamage;
         }
 
-        public virtual void OnCauseDamage(AbstractPerson causeDamageTo, int damage)
+        public virtual float OnCauseDamage(AbstractPerson causeDamageTo, float damage)
         {
-            onCauseDamage?.Invoke(causeDamageTo, damage);
-//            Debug.Log($"{CharacterName}对{causeDamageTo.CharacterName}造成{damage}伤害");
-        }     
+            var realDamage = causeDamageTo.OnTakeDamage(this, damage);
+            if(realDamage>0)
+                onCauseDamage?.Invoke(causeDamageTo, Mathf.RoundToInt(realDamage));
+            return realDamage;
+//            Debug.Log($"{CharacterName}对{causeDamageTo.CharacterName}造成{realDamage}伤害");
+        } 
 
 
         #endregion
@@ -296,7 +309,7 @@ namespace ReadyGamerOne.Rougelike.Person
 
         public virtual int Hp { get; protected set; }
         public virtual int MaxHp { get; protected set; }
-        public virtual int Attack { get; protected set; }
+        public abstract int Attack { get; }
 
         /// <summary>
         /// 是否活着

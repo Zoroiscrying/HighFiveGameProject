@@ -1,6 +1,8 @@
 using HighFive.Control.EffectSystem;
 using HighFive.Control.SkillSystem;
+using HighFive.Data;
 using HighFive.View;
+using ReadyGamerOne.Data;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using UnityEngine;
@@ -10,16 +12,14 @@ namespace HighFive.Model.Person
 {
 	public interface IHighFivePerson:
 		IPoolDataPerson,
-		IEffector<AbstractPerson>
+		IEffector<AbstractPerson>,
+		IRichDamage
 	{
 		int ChangeHp(int change);
 		
 		int Dir { get; set; }
-		bool IsConst { get; set; }
-		bool IgnoreHitback { get; set; }
+		
 		float DefaultConstTime { get; set; }
-		float AttackSpeed { get; set; }
-		Vector2 HitBackSpeed { get; }
 
 		void RunSkill(SkillInfoAsset skillInfoAsset,params object[] args);
 		void LookAt(Transform target);
@@ -30,11 +30,7 @@ namespace HighFive.Model.Person
 		IHighFivePerson
 		where T : HighFivePerson<T>,new()
 	{
-		#region Fields
-		
-		protected Vector2 _hitBackSpeed;
 
-		#endregion
 
 		#region 血量
 
@@ -47,50 +43,75 @@ namespace HighFive.Model.Person
 
 		#endregion
 
-		public virtual int Dir
-		{
-			get
-			{
-				return (this.Controller as HighFivePersonController).Dir;
-			}
-			set { (this.Controller as HighFivePersonController).Dir = value; }
-		} 
-
-		public bool IsConst { get; set; }
-		public bool IgnoreHitback { get; set; }
-
-		public float DefaultConstTime { get; set; }
+		#region IRichDamage
 
 		public float AttackSpeed { get; set; } = 1;
+		public float AttackAdder { get; set; } = 0;
+		public float AttackScale { get; set; } = 1;
+		public float TakeDamageScale { get; set; } = 1;
+		public float TakeDamageBlock { get; set; } = 0;
+		public float DodgeRate { get; set; } = 0;
+		public float CritRate { get; set; } = 0;
+		public float CritScale { get; set; } = 2;
+		public bool IsInvincible { get; set; } = false;
+		public Vector2 Repulse { get; set; }=Vector2.zero;
+		public float RepulseScale { get; set; } = 1;
+		public bool IgnoreRepulse { get; set; } = false;
 
-		public Vector2 HitBackSpeed
-		{
-			get { return _hitBackSpeed; }
-		}
-
-
+		#endregion
+		
+		
 		#region ITakeDamageablePerson<T>
 
 
-		public override void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+		public override float OnTakeDamage(AbstractPerson takeDamageFrom, float damage)
 		{
-			if (damage == 0)
+			if (System.Math.Abs(damage) < 0.01f)
 				Debug.LogWarning("伤害是 0 ？？");
-			
-			//播放受击动画
-			PlayAcceptEffects(takeDamageFrom as IHighFivePerson);
 
+			#region 根据IRichDamage计算最终伤害
+
+			//如果无敌直接返回
+			if (this.IsInvincible)
+				return -1;
+
+			//增伤或减伤
+			var finalDamage = damage * this.TakeDamageScale;
+			
+			//闪避
+			if (Random.Range(0, 1f) > this.DodgeRate)
+			{// 闪避失败
+				
+				//计算格挡
+				finalDamage -= this.TakeDamageBlock;
+
+				if (finalDamage < 0)
+					finalDamage = 0;
+
+				//播放受击效果
+				PlayAcceptEffects(takeDamageFrom as IHighFivePerson);
+				
+			}
+			else
+			{// 闪避成功
+				finalDamage = 0;
+			}
+			
+			#endregion
+			
+			
 			var dir = (takeDamageFrom as IHighFivePerson).Dir;
-			
-			new DamageNumberUI(damage, 0, 30, Color.red, transform, dir);
-			
-			base.OnTakeDamage(takeDamageFrom,damage);
+			var realDamage = Mathf.RoundToInt(finalDamage);
+			new DamageNumberUI(realDamage, 0, 30, Color.red, transform, dir);
+			return base.OnTakeDamage(takeDamageFrom,realDamage);
 		}
 
-		public override void OnCauseDamage(AbstractPerson causeDamageTo, int damage)
+		public override float OnCauseDamage(AbstractPerson causeDamageTo, float damage)
 		{
-			base.OnCauseDamage(causeDamageTo, damage);
-			PlayAttackEffects(AttackEffects);
+			var realDamage = base.OnCauseDamage(causeDamageTo, damage);
+            if(realDamage >0)
+				PlayAttackEffects(AttackEffects);
+            return realDamage;
 		}
 		
 		#endregion
@@ -133,6 +154,23 @@ namespace HighFive.Model.Person
 
 		#endregion
 
+		#region IHighFivePerson
+
+		public virtual int Dir
+		{
+			get
+			{
+				return (this.Controller as HighFivePersonController).Dir;
+			}
+			set { (this.Controller as HighFivePersonController).Dir = value; }
+		}
+
+
+		public float DefaultConstTime { get; set; }
+
+
+
+
 		/// <summary>
 		/// 执行技能
 		/// </summary>
@@ -147,24 +185,8 @@ namespace HighFive.Model.Person
 		public void LookAt(Transform target)
 		{
 			(Controller as HighFivePersonController).LookAt(target);
-		}
-		
-		/// <summary>
-		/// 变为硬直状态
-		/// </summary>
-		public void ToConst(float time)
-		{
-			Assert.IsTrue(!IsConst);
-			IsConst = !IsConst;
-			//            Debug.Log(this.obj.GetInstanceID() + "硬直 "+this.IsConst);
-			MainLoop.Instance.ExecuteLater(_Reset, time);
-			//硬直动画
-		}
-		private void _Reset()
-		{
-			//            Debug.Log(this.obj.GetInstanceID() + "恢复");
-			Assert.IsTrue(IsConst);
-			IsConst = !IsConst;
-		}
+		}		
+
+		#endregion
 	}
 }

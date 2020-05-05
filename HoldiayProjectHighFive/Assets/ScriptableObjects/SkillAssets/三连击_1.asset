@@ -14,19 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 2
-  startTime: 2.050472
+  startTime: 0
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 11400000}
     id: 0
+    workTimes: 1
     startTime: 0
     lastTime: 1
     type: 0
     enable: 1
+    degree: 0
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
       rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
-      selectedIndex: 1
-      stringValue: Player@Attack2
+      selectedIndex: 0
+      stringValue: Player@Attack
     animationSpeed: 1
     audioName:
       values: []
@@ -35,7 +45,6 @@ MonoBehaviour:
       values: []
       selectedIndex: 0
     damageScale: 0
-    dir: {x: 0, y: 0, z: 0}
     speed: 0
     gravityScale: 0
     maxLife: 0
@@ -61,10 +70,25 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    anchorMode: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}
@@ -72,10 +96,20 @@ MonoBehaviour:
       path: 
   - skillAsset: {fileID: 11400000}
     id: 1
+    workTimes: 1
     startTime: 0
     lastTime: 1
     type: 6
     enable: 1
+    degree: 0
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
       rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
       selectedIndex: 1
@@ -88,7 +122,6 @@ MonoBehaviour:
       values: []
       selectedIndex: 0
     damageScale: 0
-    dir: {x: 0, y: 0, z: 0}
     speed: 0
     gravityScale: 0
     maxLife: 0
@@ -114,13 +147,27 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    anchorMode: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 1888196854289950, guid: 3a9e1cefcd2541946853b4c18dc9ffac, type: 3}
       selectedIndex: 3
       path: DamageTester
-  Vector3Cache: {x: 0, y: 0, z: 0}

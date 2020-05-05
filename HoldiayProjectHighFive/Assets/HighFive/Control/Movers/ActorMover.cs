@@ -300,7 +300,6 @@ namespace HighFive.Control.Movers
 
         #endregion
 
-
         #region Monobehavior
 
         protected override void Awake()

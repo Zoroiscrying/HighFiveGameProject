@@ -1,6 +1,7 @@
 using System;
 using HighFive.Control.SkillSystem;
 using System.Collections.Generic;
+using HighFive.Global;
 using UnityEngine;
 
 namespace HighFive.Model.Person
@@ -16,14 +17,19 @@ namespace HighFive.Model.Person
 	public class ComboSkillInfo
 	{
 		public SkillInfoAsset skillAsset;
-		[Range(0, 1)] public float beginComboTest;
-		public float canMoveTime;
-		public bool ignoreInput;
-		public float faultToleranceTime;
+		[Range(0, 1)] [SerializeField]private float beginComboTest;
+		[SerializeField]private float canMoveTime;
+		[SerializeField]private bool ignoreInput;
+		[SerializeField]private float faultToleranceTime;
 
 		public string SkillName => skillAsset.skillName.StringValue;
 		public float StartTime => skillAsset.startTime;
-		public float LastTime => skillAsset.LastTime;
+		public float LastTime => skillAsset.LastTime/GlobalVar.G_Player.AttackSpeed;
+		public float CanMoveTime => canMoveTime / GlobalVar.G_Player.AttackSpeed;
+		public float FaultToleranceTime => faultToleranceTime / GlobalVar.G_Player.AttackSpeed;
+		public float BeginComboTest => beginComboTest;
+		public bool IgnoreInput => ignoreInput;
+		
 
 		public void RunSkill(IHighFiveCharacter self, bool ignoreInput = false, float startTimer = 0f) =>
 			skillAsset.RunSkill(self, ignoreInput, startTimer);

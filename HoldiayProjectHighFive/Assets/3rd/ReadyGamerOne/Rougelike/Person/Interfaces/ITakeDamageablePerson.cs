@@ -10,10 +10,21 @@ namespace ReadyGamerOne.Rougelike.Person
     public interface ITakeDamageablePerson<PersonType>
         where PersonType:AbstractPerson
     {
+        /// <summary>
+        /// 触发事件会对damage进行四舍五入
+        /// </summary>
         event Action<AbstractPerson, int> onCauseDamage;
         event Action<AbstractPerson, int> onTakeDamage;
-        void OnTakeDamage(PersonType takeDamageFrom,int damage);
-        void OnCauseDamage(PersonType causeDamageTo,int damage);
+        
+
+        /// <summary>
+        /// 承受这么多伤害
+        /// </summary>
+        /// <param name="takeDamageFrom">谁打我的</param>
+        /// <param name="damage">外界带来的伤害</param>
+        /// <returns>实际造成的伤害</returns>
+        float OnTakeDamage(PersonType takeDamageFrom,float damage);
+        float OnCauseDamage(PersonType causeDamageTo,float damage);
 
     }
 }

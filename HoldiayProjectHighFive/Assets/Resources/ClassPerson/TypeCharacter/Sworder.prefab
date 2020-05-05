@@ -166,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614192338850748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.18200016, z: -20}
+  m_LocalPosition: {x: 0, y: -0.18200013, z: -20}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 1}
   m_Children:
   - {fileID: 4683683879801102}
@@ -605,17 +605,17 @@ MonoBehaviour:
   - key: 105
     skillAsset: {fileID: 11400000, guid: 1b64ec5520055a54d93071314404c875, type: 2}
   comboSkillInfos:
-  - skillAsset: {fileID: 11400000, guid: 895feb695b40c704284f07889085e005, type: 2}
-    beginComboTest: 0.854
+  - skillAsset: {fileID: 11400000, guid: d91e59acc49b26143bf0eca590f0faf5, type: 2}
+    beginComboTest: 0.57
     canMoveTime: 0.5
     ignoreInput: 0
     faultToleranceTime: 1.17
-  - skillAsset: {fileID: 11400000, guid: 0efe2ca08b85fdd4eb293679b571febf, type: 2}
-    beginComboTest: 0.092
+  - skillAsset: {fileID: 11400000, guid: 895feb695b40c704284f07889085e005, type: 2}
+    beginComboTest: 0.43
     canMoveTime: 0.5
     ignoreInput: 0
     faultToleranceTime: 1.16
-  - skillAsset: {fileID: 11400000, guid: d91e59acc49b26143bf0eca590f0faf5, type: 2}
+  - skillAsset: {fileID: 11400000, guid: 0efe2ca08b85fdd4eb293679b571febf, type: 2}
     beginComboTest: 0.055
     canMoveTime: 0.5
     ignoreInput: 0

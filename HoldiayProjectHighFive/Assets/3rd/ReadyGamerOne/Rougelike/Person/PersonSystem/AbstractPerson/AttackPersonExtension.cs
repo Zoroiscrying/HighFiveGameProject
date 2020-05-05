@@ -33,7 +33,7 @@ namespace ReadyGamerOne.Rougelike.Person
             if (null == selfAtk || null == otherAtk)
                 return false;
             
-            var damage = Mathf.RoundToInt(self.Attack * damageScale);
+            var damage = self.Attack * damageScale;
             if (damage <= 0)
             {
                 Debug.LogError($"伤害为零【{self.CharacterName}=>{other.CharacterName}, Attack:{self.Attack}, damageScale:{damageScale}");
@@ -41,7 +41,6 @@ namespace ReadyGamerOne.Rougelike.Person
             }
             
             selfAtk.OnCauseDamage(other, damage);
-            otherAtk.OnTakeDamage(self, damage);
 
             return true;
         }

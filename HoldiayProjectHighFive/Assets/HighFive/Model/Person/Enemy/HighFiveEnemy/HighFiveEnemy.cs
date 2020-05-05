@@ -35,6 +35,7 @@ namespace HighFive.Model.Person
 		/// </summary>
 		protected SuperBloodBar headBloodBar;
 
+
 		#endregion
 
 		#region IUseCsvData
@@ -50,13 +51,15 @@ namespace HighFive.Model.Person
 				throw new Exception("获取敌方Data为空");
 			}
 
-			this.Attack = enemyData.attack;
+			this._attack = enemyData.attack;
 			this.MaxHp = enemyData.maxHp;
 			this.Hp = this.MaxHp;
 		}		
 
 		#endregion
+
 		
+		private int _attack;
 		
 		public HeadUiCanvas HeadUi => (Controller as HighFiveEnemyController).HeadUi;
 		
@@ -75,13 +78,26 @@ namespace HighFive.Model.Person
 			headBloodBar.InitValue(MaxHp);
 		}
 
-		public override void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+		public override float OnTakeDamage(AbstractPerson takeDamageFrom, float damage)
 		{
-			base.OnTakeDamage(takeDamageFrom, damage);
-			headBloodBar.Value -= damage;
+			var realDamage = base.OnTakeDamage(takeDamageFrom, damage);
+			if(realDamage>0)
+				headBloodBar.Value -= realDamage;
+			return realDamage;
 		}
-		
-		
+
+
+		public override int Attack
+		{
+			get
+			{
+				var normalDamage =(_attack + AttackAdder) * AttackScale;
+				if (Random.Range(0, 1f) < this.CritRate)
+					normalDamage *= CritScale;
+				return Mathf.RoundToInt(normalDamage);
+			} 
+		}
+
 		public override void Kill()
 		{
 			DropItems(this.CharacterName);

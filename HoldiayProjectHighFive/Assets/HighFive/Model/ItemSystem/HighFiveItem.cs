@@ -1,5 +1,6 @@
 using System;
 using HighFive.Data;
+using HighFive.Global;
 using ReadyGamerOne.Data;
 using ReadyGamerOne.Rougelike.Item;
 using UnityEngine;
@@ -90,11 +91,13 @@ namespace HighFive.Model.ItemSystem
         protected virtual void AddEffects()
         {
             Debug.Log($"{ItemName}开启");
+            GlobalVar.G_Player.AttackAdder += 20;
         }
 
         protected virtual void RemoveEffects()
         {
             Debug.Log($"{ItemName}关闭");
+            GlobalVar.G_Player.AttackAdder -= 20;
         }
         
         #region Fields

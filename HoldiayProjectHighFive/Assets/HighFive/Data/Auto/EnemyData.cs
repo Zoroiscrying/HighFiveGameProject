@@ -9,7 +9,6 @@ namespace HighFive.Data
 
 		public override string ID => personName.ToString();
 
-		public float defaultConstTime;
 		public int maxHp;
 		public int attack;
 		public override string ToString()
@@ -18,7 +17,6 @@ namespace HighFive.Data
 					"personName" + "	" + personName+"\n" +
 					"hitback_x" + "	" + hitback_x+"\n" +
 					"hitback_y" + "	" + hitback_y+"\n" +
-					"defaultConstTime" + "	" + defaultConstTime+"\n" +
 					"maxHp" + "	" + maxHp+"\n" +
 					"attack" + "	" + attack;
 			return ans;
