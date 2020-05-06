@@ -48,7 +48,7 @@ namespace ReadyGamerOne.Utility
         public static Rect GetRectFromIndex(this Rect rect, int index)
         {
             return new Rect(rect.position+new Vector2(0,index*EditorGUIUtility.singleLineHeight),
-                new Vector2(EditorGUIUtility.singleLineHeight,rect.y-index*EditorGUIUtility.singleLineHeight));
+                new Vector2(rect.width,rect.height-index*EditorGUIUtility.singleLineHeight));
 
         }
 

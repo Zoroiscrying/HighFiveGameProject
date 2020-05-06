@@ -594,7 +594,7 @@ MonoBehaviour:
   actor: {fileID: 114655197628422110}
   comboKey: 106
   superKey: 122
-  bagKey: 9
+  bagKey: 113
   Maxdrag: 100
   money: 3980
   airXMove: 0

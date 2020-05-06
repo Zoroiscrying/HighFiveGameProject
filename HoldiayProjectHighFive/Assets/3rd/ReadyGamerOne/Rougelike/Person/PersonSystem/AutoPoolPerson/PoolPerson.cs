@@ -33,12 +33,13 @@ namespace ReadyGamerOne.Rougelike.Person
             obj => obj.OnRecycleToPool(),
             obj => obj.OnGetFromPool());
 
-        public static T GetInstance(Vector3 pos, Transform parent = null)
+        public static T GetInstance(Vector3? pos, Transform parent = null)
         {
             var person = objPoor.GetObj();
             if (parent)
                 parent.gameObject.transform.SetParent(parent);
-            person.gameObject.transform.position = pos;
+            if(pos!=null)
+                person.gameObject.transform.position = pos.Value;
             return person;
         }
         

@@ -54,14 +54,15 @@ namespace HighFive.Model.RankSystem
 			if (!BreakLimit())
 				return false;
 
-			if (Level + 1 > RankData.RankDataCount)
-			{
-				Debug.LogWarning("超过等级上限：" + RankData.RankDataCount);
-				return false;
-			}
+
 
 			while (extraExp >= 0)
-			{
+			{			
+				if (Level + 1 > RankData.RankDataCount)
+             	{
+             		Debug.LogWarning("超过等级上限：" + RankData.RankDataCount);
+             		return false;
+             	}
 				this._rankData=CsvMgr.GetData<RankData>((++Level).ToString());
 				
 				RefreshValues(extraExp);

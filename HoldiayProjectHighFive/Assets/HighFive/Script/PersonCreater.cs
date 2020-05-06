@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using HighFive.Const;
+using HighFive.Global;
 using HighFive.Model.Person;
 using ReadyGamerOne.Utility;
 using UnityEngine;
@@ -44,7 +46,15 @@ namespace HighFive.Script
                         Boner.GetInstance(VARIABLE.position);
                         break;
                     case PersonType.Player:
-                        Sworder.GetInstance(VARIABLE.position);
+                        if (GlobalVar.UsePlayerCachePos)
+                        {
+                            Sworder.GetInstance(DefaultData.PlayerPos);
+                        }
+                        else
+                        {
+                            Sworder.GetInstance(VARIABLE.position);
+                            GlobalVar.UsePlayerCachePos = true;
+                        }
                         break;
                     case PersonType.Spider:
                         Spider.GetInstance(VARIABLE.position);

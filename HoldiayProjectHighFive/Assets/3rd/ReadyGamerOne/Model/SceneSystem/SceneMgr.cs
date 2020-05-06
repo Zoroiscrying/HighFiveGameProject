@@ -97,6 +97,10 @@ namespace ReadyGamerOne.Model.SceneSystem
             //throw new Exception("SceneMgr_LoadScene");
             //开始加载下一个场景
             var async = SceneManager.LoadSceneAsync(newScene.sceneName);
+            if (null == async)
+            {
+                throw new Exception($"Scene【{newScene.sceneName}】还没有build把");
+            }
             
             //暂时不进入下一个产经
             async.allowSceneActivation = false;

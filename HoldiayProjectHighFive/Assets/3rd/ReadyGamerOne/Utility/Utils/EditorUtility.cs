@@ -176,8 +176,13 @@ namespace ReadyGamerOne.Utility
             AssetDatabase.Refresh();
 
             Selection.activeObject = AssetDatabase.LoadAssetAtPath<T>(name + ".asset");
-        }  
+        }
 
+
+        public static Type GetType(string fullTypeName)
+        {
+            return Type.GetType(fullTypeName);
+        }
     }    
 #endif
 

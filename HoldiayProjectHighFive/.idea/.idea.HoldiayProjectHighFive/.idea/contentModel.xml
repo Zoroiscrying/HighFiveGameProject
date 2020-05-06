@@ -791,11 +791,13 @@
                 <e p="ArgChooserDrawer.cs" t="Include" />
                 <e p="MessagetTriggerDrawer.cs" t="Include" />
                 <e p="ResourcesPathChooserDrawer.cs" t="Include" />
+                <e p="SceneReferencePropertyDrawer.cs" t="Include" />
                 <e p="StringChooseDrawer.cs" t="Include" />
                 <e p="TransformPathChooserDrawer.cs" t="Include" />
               </e>
               <e p="MessageTrigger.cs" t="Include" />
               <e p="ResourcesPathChooser.cs" t="Include" />
+              <e p="SceneField.cs" t="Include" />
               <e p="StringChooser.cs" t="Include" />
               <e p="Tools" t="Include">
                 <e p="ClassGeneraterTool.cs" t="Include" />
@@ -1180,9 +1182,11 @@
             </e>
             <e p="Editor" t="Include">
               <e p="CharacterCreateInfoDrawer.cs" t="Include" />
+              <e p="ComponentChooserDrawer.cs" t="Include" />
             </e>
             <e p="HighFiveMgr.cs" t="Include" />
             <e p="PersonCreater.cs" t="Include" />
+            <e p="SceneTriggerChooser.cs" t="Include" />
             <e p="TouchDamage.cs" t="Include" />
           </e>
           <e p="StateMachine" t="Include">

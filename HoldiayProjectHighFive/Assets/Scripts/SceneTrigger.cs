@@ -1,11 +1,13 @@
-﻿using HighFive.Const;
+﻿using System.IO;
+using HighFive.Const;
+using HighFive.Global;
 using HighFive.Model.Person;
-using ReadyGamerOne.EditorExtension;
+using HighFive.Script;
 using ReadyGamerOne.Model.SceneSystem;
 using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 
-namespace Game.Scripts
+namespace HighFive.Scripts
 {
     
     /// <summary>
@@ -14,20 +16,35 @@ namespace Game.Scripts
     [RequireComponent(typeof(ShowCollider2D))]
     public class SceneTrigger : MonoBehaviour
     {
-    
-        public StringChooser newSceneName = new StringChooser(typeof(SceneName));
-        public Vector3 newPosition;
-    
-        void OnTriggerExit2D(Collider2D col)
+        public SceneTriggerChooser targetChooser=new SceneTriggerChooser(typeof(SceneTrigger).FullName);
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if ( !(col.gameObject.GetPersonInfo() is IHighFiveCharacter))
+            if (!GameSettings.Instance.enableSceneTrigger)
                 return;
-            
-            DefaultData.PlayerPos = this.newPosition;
-    
-            SceneMgr.LoadScene(newSceneName.StringValue);
+
+            if (!(other.gameObject.GetPersonInfo() is IHighFiveCharacter))
+                return;
+
+            DefaultData.PlayerPos = this.targetChooser.TargetPosition;
+            GameSettings.Instance.enableSceneTrigger = false;
+            Debug.Log($"禁用场景触发器");
+            SceneMgr.LoadScene(targetChooser.SceneName);
+
         }
 
-    }
+        private void OnTriggerExit2D(Collider2D col)
+        {
+            Debug.Log($"启用场景触发器");
+            GameSettings.Instance.enableSceneTrigger = true;
+        }
 
+
+        [ContextMenu("ShowPath")]
+        private void Test()
+        {
+            Debug.Log(targetChooser.ScenePath);
+            Debug.Log(Path.GetFileNameWithoutExtension(targetChooser.ScenePath));
+        }
+    }
 }

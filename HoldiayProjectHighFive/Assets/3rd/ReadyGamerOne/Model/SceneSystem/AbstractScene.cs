@@ -28,7 +28,7 @@ namespace ReadyGamerOne.Model.SceneSystem
         {
             if (!sceneDis.ContainsKey(name))
             {
-                if (SceneManager.GetSceneByName(name).IsValid())
+//                if (SceneManager.Get(name).IsValid())
                 {
                     Debug.LogWarning("没有注册场景："+name+" 但是，SceneManager.GetSceneByName(name).IsValid");
                     return new DefaultSceneInfo()

@@ -26,10 +26,11 @@ namespace ReadyGamerOne.Scripts.Editor
 
 
         private SuperBloodBar bloodBar;
-
+        private RectTransform selfRect;
         private void OnEnable()
         {
             this.bloodBar=target as SuperBloodBar;
+            selfRect = bloodBar.GetComponent<RectTransform>();
 
             transitionTimeProp = serializedObject.FindProperty("transitionTimeScaler");
             transitionImageProp = serializedObject.FindProperty("transitionImage");
@@ -56,7 +57,26 @@ namespace ReadyGamerOne.Scripts.Editor
         {
             serializedObject.Update();
 
+            EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(fillImageProp);
+            if (EditorGUI.EndChangeCheck())
+            {
+                var image = fillImageProp.objectReferenceValue as Image;
+                var rect = image.GetComponent<RectTransform>();
+                rect.name = "Fill";
+                rect.SetParent(bloodBar.transform,false);
+                var size = selfRect.rect.size;
+                size.x *= selfRect.pivot.x-0.5f;
+                size.y *= selfRect.pivot.y-0.5f;
+                rect.localPosition=-size;
+                rect.anchorMin=Vector2.zero;
+                rect.anchorMax=Vector2.one;
+                rect.pivot = new Vector2(0, 0.5f);
+                rect.sizeDelta=Vector2.zero;
+                fillColorProp.colorValue=Color.green;
+                image.color = fillColorProp.colorValue;
+            }
+            
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(fillColorProp);
             if (EditorGUI.EndChangeCheck())
@@ -68,7 +88,28 @@ namespace ReadyGamerOne.Scripts.Editor
             EditorGUILayout.Separator();
             
             EditorGUILayout.PropertyField(transitionTimeProp);
+            
+            EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(transitionImageProp);
+            if (EditorGUI.EndChangeCheck())
+            {
+                var image = transitionImageProp.objectReferenceValue as Image;
+                var rect = image.GetComponent<RectTransform>();
+                rect.SetParent(bloodBar.transform,false);
+                rect.name = "Transition";
+                var size = selfRect.rect.size;
+                size.x *= selfRect.pivot.x-0.5f;
+                size.y *= selfRect.pivot.y-0.5f;
+                rect.localPosition=-size;
+                rect.anchorMin=Vector2.zero;
+                rect.anchorMax=Vector2.one;
+                rect.pivot = new Vector2(0, 0.5f);
+                rect.sizeDelta=Vector2.zero;
+                transitionColorProp.colorValue=Color.yellow;
+                image.color = transitionColorProp.colorValue;
+            }
+            
+            
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(transitionColorProp);
             if (EditorGUI.EndChangeCheck())
@@ -80,7 +121,28 @@ namespace ReadyGamerOne.Scripts.Editor
             }
             EditorGUILayout.Separator();
             
+
+            EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(backGroundImageProp);
+            if (EditorGUI.EndChangeCheck())
+            {
+                var image = backGroundImageProp.objectReferenceValue as Image;
+                var rect = image.GetComponent<RectTransform>();
+                rect.name = "BackGround";
+                rect.SetParent(bloodBar.transform,false);
+                
+                var size = selfRect.rect.size;
+                size.x *= selfRect.pivot.x-0.5f;
+                size.y *= selfRect.pivot.y-0.5f;
+                rect.localPosition=-size;
+                
+                rect.anchorMin=Vector2.zero;
+                rect.anchorMax=Vector2.one;
+                rect.sizeDelta=Vector2.zero;
+                backGroundColorProp.colorValue = Color.gray;
+                image.color = backGroundColorProp.colorValue;
+            }
+            
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(backGroundColorProp);
             if (EditorGUI.EndChangeCheck())

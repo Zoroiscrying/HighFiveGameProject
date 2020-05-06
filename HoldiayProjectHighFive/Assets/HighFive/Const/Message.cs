@@ -24,8 +24,9 @@
 
         public static readonly string M_OnTryBut="OnTryBuy";    // int itemID
 
-        public static readonly string M_PlayerBloodChange = "PlayerBloodChange";
-        public static readonly string M_PlayerExpChange = "PlayerExpChange";
+        public static readonly string M_PlayerBloodChange = "PlayerBloodChange";// int change
+        public static readonly string M_PlayerExpChange = "PlayerExpChange";// int change
+        public static readonly string M_PlayerDragChange = "PlayerDragChange";// int change
         
         
     }

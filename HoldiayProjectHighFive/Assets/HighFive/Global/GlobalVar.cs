@@ -13,6 +13,6 @@ namespace HighFive.Global
 
         public static bool isSuper { get; set; }
 
-        public static float superTime = 3;
+        public static bool UsePlayerCachePos = false;
     }
 }

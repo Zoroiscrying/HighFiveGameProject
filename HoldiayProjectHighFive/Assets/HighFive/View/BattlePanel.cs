@@ -4,6 +4,7 @@ using HighFive.Const;
 using ReadyGamerOne.Common;
 using HighFive.Global;
 using ReadyGamerOne.Script;
+using ReadyGamerOne.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -13,8 +14,10 @@ namespace HighFive.View
 {
     public partial class BattlePanel        
     {
-        private Slider bloodBar;
-        private Slider ExpBar;
+        private SuperBloodBar bloodBar;
+        private SuperBloodBar ExpBar;
+        private SuperBloodBar dragBar;
+        private Text dragText;
         private Text bloodText;
         private Text expText;
         private Text rankText;
@@ -30,14 +33,19 @@ namespace HighFive.View
         {
             //do any thing you want
             var trans_bloodBar = GetTransform("Image_PlayerStateBar/BloodBar");
-            this.bloodBar = trans_bloodBar.GetComponent<Slider>();
+            this.bloodBar = trans_bloodBar.GetComponent<SuperBloodBar>();
             this.bloodText = trans_bloodBar.Find("Number").GetComponent<Text>();
-            Assert.IsTrue(this.bloodBar != null);
+            Assert.IsTrue(this.bloodBar && bloodText);
 
             var trans_expBar = GetTransform("Image_PlayerStateBar/ExpBar");
-            this.ExpBar = trans_expBar.GetComponent<Slider>();
+            this.ExpBar = trans_expBar.GetComponent<SuperBloodBar>();
             this.expText = trans_expBar.Find("Number").GetComponent<Text>();
-            Assert.IsTrue(this.ExpBar != null);
+            Assert.IsTrue(this.ExpBar && expText);
+            
+            var trans_dragBar = GetTransform("Image_PlayerStateBar/DragBar");
+            this.dragBar = trans_dragBar.GetComponent<SuperBloodBar>();
+            this.dragText = trans_dragBar.Find("Number").GetComponent<Text>();
+            Assert.IsTrue(this.dragBar && dragText);
 
             this.moneyText = GetComponent<TextMeshProUGUI>("Image_MoneyBk/Tmp_Money");
             Assert.IsTrue(moneyText);
@@ -61,13 +69,18 @@ namespace HighFive.View
             CEventCenter.AddListener<int>(Message.M_MoneyChange, OnMoneyChange);
             CEventCenter.AddListener<int>(Message.M_PlayerExpChange,OnExpChange);
             CEventCenter.AddListener<int>(Message.M_PlayerBloodChange, OnPlayerBloodChanged);
+            CEventCenter.AddListener<int>(Message.M_PlayerDragChange,OnPlayerDragChanged);
             CEventCenter.AddListener(Message.M_LevelUp,OnLevelUp);
 
             rankText.text = GlobalVar.G_Player.Rank;
             OnPlayerBloodChanged(0);
             OnExpChange(0);
             OnMoneyChange(0);
+            OnPlayerDragChanged(0);
+            
         }
+
+
 
         private void OnLevelUp()
         {
@@ -84,15 +97,15 @@ namespace HighFive.View
             CEventCenter.RemoveListener<int>(Message.M_PlayerBloodChange, OnPlayerBloodChanged);
             CEventCenter.RemoveListener<int>(Message.M_PlayerExpChange,OnExpChange);
             CEventCenter.RemoveListener<int>(Message.M_MoneyChange, OnMoneyChange);
+            CEventCenter.RemoveListener<int>(Message.M_PlayerDragChange, OnPlayerDragChanged);
             CEventCenter.RemoveListener(Message.M_LevelUp, OnLevelUp);
         }
 
 
         #region 消息处理
-
-
+        
         /// <summary>
-        /// 控制金钱
+        /// 金钱变化
         /// </summary>
         /// <param name="change"></param>
         void OnMoneyChange(int change)
@@ -108,23 +121,38 @@ namespace HighFive.View
         {
             if (GlobalVar.G_Player == null)
                 throw new Exception($"GlobalVar.G_Player is null");
-            this.bloodBar.value = GlobalVar.G_Player.Hp / (float) GlobalVar.G_Player.MaxHp;
+            this.bloodBar.Value = GlobalVar.G_Player.Hp / (float) GlobalVar.G_Player.MaxHp;
             this.bloodText.text = GlobalVar.G_Player.Hp + "/" + GlobalVar.G_Player.MaxHp;
         }
-
+        
+        /// <summary>
+        /// 经验变化
+        /// </summary>
+        /// <param name="change"></param>
+        /// <exception cref="Exception"></exception>
+        void OnExpChange(int change)
+        {
+//            Debug.Log($"获取经验[{change}]");
+            if (GlobalVar.G_Player == null)
+                throw new Exception($"GlobalVar.G_Player is null");
+            var value = GlobalVar.G_Player.ChangeExp(change);
+            this.ExpBar.Value = value / (float) GlobalVar.G_Player.MaxExp;
+            this.expText.text = value + "/" + GlobalVar.G_Player.MaxExp;
+        }
+        
         /// <summary>
         /// 药引变化
         /// </summary>
         /// <param name="change"></param>
-        void OnExpChange(int change)
+        private void OnPlayerDragChanged(int change)
         {
-//            Debug.Log($"获取经验[{change}]");
+            if (GlobalVar.G_Player == null)
+                throw new Exception($"GlobalVar.G_Player is null");
             var value = GlobalVar.G_Player.ChangeDrag(change);
-            this.ExpBar.value = value / (float) GlobalVar.G_Player.MaxExp;
-            this.expText.text = value + "/" + GlobalVar.G_Player.MaxExp;
+            this.dragBar.Value = value / (float) GlobalVar.G_Player.MaxDrag;
+            this.dragText.text = value + "/" + GlobalVar.G_Player.MaxDrag;
         }
-
-
+        
         #endregion
     }
 }

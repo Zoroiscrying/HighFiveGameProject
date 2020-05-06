@@ -34,10 +34,13 @@ namespace HighFive.Model.Person
 		#region 药引
 
 		int Drag { get; }
-		int ChangeDrag(int change);
+		int ChangeExp(int change);
 		int MaxDrag { get; }		
 
 		#endregion
+
+		int ChangeDrag(int change);
+		
 
 		int BaseAttack { get; }
 		
@@ -83,8 +86,9 @@ namespace HighFive.Model.Person
 				player.TakeDamageBlock = GUILayoutUtil.Slider("固定格挡", player.TakeDamageBlock, 0, 50, style);
 				player.DodgeRate = GUILayoutUtil.Slider("闪避", player.DodgeRate, 0, 1, style);
 				player.RepulseScale = GUILayoutUtil.Slider("击退强度", player.RepulseScale, 0, 5, style);
-				GUILayout.Label($"是否无敌\t【{player.IsInvincible}】",style);
 				player.DefaultConstTime = GUILayoutUtil.Slider("无敌时间", player.DefaultConstTime, 0, 5, style);
+				GUILayout.Label($"无敌\t【{player.IsInvincible}】",style);
+				GUILayout.Label($"Z强化\t【{GlobalVar.isSuper}】",style);
 			});
 		}
 
@@ -176,6 +180,47 @@ namespace HighFive.Model.Person
 		#endregion
 
 		#region IHighFiveCharacter
+		public int ChangeExp(int change)
+		{
+			var levelUp = false;
+			var extraExp = Drag + change - this.MaxDrag;
+
+
+			if(extraExp >= 0)
+			{
+				levelUp =_rankMgr.TryLevelUp(extraExp,
+					rankData =>
+					{
+						
+					});
+			}
+
+
+			if (!levelUp)
+			{// 升级失败
+				Drag = Mathf.Clamp(Drag + change, 0, this.MaxDrag);
+//				Debug.Log($"升级失败：【{Drag}】");
+			}
+			else
+			{
+				CEventCenter.BroadMessage(Message.M_LevelUp);
+//				Debug.Log($"升级成功：【{Drag}】");
+			}
+			
+			
+			return Drag;
+		}
+		
+		public int BaseAttack => _rankMgr.BaseAttack;
+		
+		/// <summary>
+		/// 可承载最大灵器数量
+		/// </summary>
+		public int MaxSpiritNum
+		{
+			get { return (Controller as HighFiveCharacterController).MaxSpiritNum; }
+			set { (Controller as HighFiveCharacterController).MaxSpiritNum = value; }
+		}
 
 		#region IUseCsvData
 
@@ -206,6 +251,23 @@ namespace HighFive.Model.Person
             return realDamage;
         }
 
+		public override float OnCauseDamage(AbstractPerson causeDamageTo, float damage)
+		{
+			if (GlobalVar.isSuper)
+			{
+				damage *= GameSettings.Instance.superAttackScale;
+				CEventCenter.BroadMessage(Message.M_ExitSuper);
+			}
+			var realDamage= base.OnCauseDamage(causeDamageTo, damage);
+			if (realDamage > 0 && System.Math.Abs(realDamage) > 0.01f)
+			{
+				var change = Mathf.RoundToInt(realDamage * GameSettings.Instance.damageToDragScale);
+				CEventCenter.BroadMessage(Message.M_PlayerDragChange,change);
+			}
+
+//			Debug.Log($"FinalDamage:[{realDamage}]");
+			return realDamage;
+		}
 
 		#endregion
 		
@@ -257,53 +319,43 @@ namespace HighFive.Model.Person
 			return this.Money;
 		}		
 
-		#endregion
+		#endregion		
 		
 		#region Drag
 
+		private int _drag;
+		
+		/// <summary>
+		/// 当前药引
+		/// </summary>
 		public int Drag
 		{
-			get { return Exp; }
-			private set { Exp = value; }
+			get { return _drag; }
+			private set { _drag = value; }
 		}
-
-		public int ChangeDrag(int change)
-		{
-			var levelUp = false;
-			var extraExp = Drag + change - this.MaxDrag;
-
-
-			if(extraExp >= 0)
-			{
-				levelUp =_rankMgr.TryLevelUp(extraExp,
-					rankData =>
-					{
-						
-					});
-			}
-
-
-			if (!levelUp)
-			{// 升级失败
-				Drag = Mathf.Clamp(Drag + change, 0, this.MaxDrag);
-//				Debug.Log($"升级失败：【{Drag}】");
-			}
-			else
-			{
-				CEventCenter.BroadMessage(Message.M_LevelUp);
-//				Debug.Log($"升级成功：【{Drag}】");
-			}
-			
-			
-			return Drag;
-		}
-
+		
 		/// <summary>
 		/// 最大药引上限
 		/// </summary>
-		public int MaxDrag => MaxExp;
+		public int MaxDrag => 100;
 
-		public int BaseAttack => _rankMgr.BaseAttack;
+		/// <summary>
+		/// 改变药引
+		/// </summary>
+		/// <param name="change"></param>
+		/// <returns>返回-1表示无法使用</returns>
+		public int ChangeDrag(int change)
+		{
+			if (change < 0 && Drag < -change)
+			{
+				//表示无法使用
+				return -1;
+			}
+
+			Drag = Mathf.Clamp(Drag + change, 0, MaxDrag);
+			return Drag;
+		}
+
 
 		#endregion
 		
@@ -336,9 +388,8 @@ namespace HighFive.Model.Person
 		{
 			base.OnGetFromPool();	
 			GlobalVar.G_Player = this;
-                                 			
-            CEventCenter.AddListener(Message.M_InitSuper, InitSuper);
-            CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
+			position = DefaultData.PlayerPos;
+			CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
             CEventCenter.AddListener<string>(Message.M_OnTryBut, OnTryBuy);
             CEventCenter.AddListener<string, int>(Message.M_AddItem, (id,count)=>AddItem(id,count));
             CEventCenter.AddListener<string, int>(Message.M_RemoveItem, (id,count)=>RemoveItem(id,count));
@@ -347,7 +398,6 @@ namespace HighFive.Model.Person
 		public override void OnRecycleToPool()
 		{
 			base.OnRecycleToPool();
-			CEventCenter.RemoveListener(Message.M_InitSuper, InitSuper);
 			CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
 			CEventCenter.RemoveListener<string>(Message.M_OnTryBut, OnTryBuy);
 
@@ -356,7 +406,6 @@ namespace HighFive.Model.Person
 		}
 
 		#endregion
-		
 		
 		#region 技能与控制
 
@@ -392,32 +441,28 @@ namespace HighFive.Model.Person
 		#endregion
 		
 
-		/// <summary>
-		/// 可承载最大灵器数量
-		/// </summary>
-		public int MaxSpiritNum
-		{
-			get { return (Controller as HighFiveCharacterController).MaxSpiritNum; }
-			set { (Controller as HighFiveCharacterController).MaxSpiritNum = value; }
-		} 		
 
 		
 		#endregion
 
 		#region 消耗灵力的强化系统
 
-		private void TrySuper()
+		private bool TrySuper()
 		{
-			// if (Convert.ToSingle(this.Exp) / Convert.ToSingle(this.MaxExp) >= 1 / 3.0f && !isSuper)
+			if (!InitSuper()) 
+				return false; 
+			
+			// 进入强化状态
+				
+			//通知UI，动画，特效，移动，各个领域配合
+			CEventCenter.BroadMessage(Message.M_InitSuper);
+			MainLoop.Instance.ExecuteLater(() =>
 			{
-				//进入强化状态
-				//可能要UI，动画，特效，移动，各个领域配合
-				Debug.Log("Super");
-				CEventCenter.BroadMessage(Message.M_InitSuper);
-				MainLoop.Instance.ExecuteLater(() => { CEventCenter.BroadMessage(Message.M_ExitSuper); }, GlobalVar.superTime);
-			}
-		}
+				CEventCenter.BroadMessage(Message.M_ExitSuper);
+			}, GameSettings.Instance.superTime);
+			return true;
 
+		}
 		#endregion
 		
 		#region 更新与事件
@@ -546,8 +591,6 @@ namespace HighFive.Model.Person
         }
 		
 
-		#endregion
-		
 		#region Message_Handles
 		private void OnTryBuy(string id)
 		{
@@ -569,19 +612,39 @@ namespace HighFive.Model.Person
 			CEventCenter.BroadMessage(Message.M_AddItem, itemData.ID, 1);
 		}
 
-		void InitSuper()
+		/// <summary>
+		/// 如果可以强化，就进入强化状态
+		/// </summary>
+		/// <returns></returns>
+		private bool InitSuper()
 		{
-			GlobalVar.isSuper = true;
+			var dragConsume = Mathf.RoundToInt(GameSettings.Instance.superDragConsumeRate * this.MaxDrag);
+			if (Drag > dragConsume && !GlobalVar.isSuper)
+			{
+				GlobalVar.isSuper = true;
+				return true;
+			}
+
+			return false;
 		}
 
+		/// <summary>
+		/// 退出强化状态
+		/// </summary>
 		void ExitSuper()
 		{
-			GlobalVar.isSuper = false;
+			if (GlobalVar.isSuper)
+			{
+				GlobalVar.isSuper = false;
+				CEventCenter.BroadMessage(Message.M_PlayerDragChange,
+					-GameSettings.Instance.superDragConsumeRate*MaxDrag);
+			}
 		}
         
 
 		#endregion
-
+		#endregion
+		
 		#region 内部调用
 
 		private void _DeUpdate()
