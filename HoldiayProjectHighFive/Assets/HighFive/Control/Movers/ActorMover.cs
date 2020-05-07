@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using BehaviorDesigner.Runtime.Tasks;
+using HighFive.Control.Movers.Interfaces;
 using HighFive.Others;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,7 +16,7 @@ namespace HighFive.Control.Movers
     /// 添加角色的动画控制
     /// </summary>
     [RequireComponent(typeof(Animator))]
-    public class ActorMover : BaseMover
+    public class ActorMover : BaseMover,IActorBaseControl
     {
         #region IMover2D
 
@@ -285,9 +286,19 @@ namespace HighFive.Control.Movers
         {
             this.velocity.x = vel;
         }
+        
+        /// <summary>
+        /// 给actor一个突然的速度变化，用于瞬移、打击位移等突然的移动。
+        /// </summary>
+        /// <param name="vel"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void ChangeVerticalVelocityInstantly(float vel)
+        {
+            this.velocity.y = vel;
+        }
 
         /// <summary>
-        /// 根据传入的击退方向，进行方向上的位移
+        /// 根据传入的击退方向，进行方向上的速度变化
         /// </summary>
         /// <param name="hitDir">带有Actor接受到的打击的方向信息和大小信息的向量</param>
         /// <param name="multiplier">用于影响击退效果的multiplier</param>
