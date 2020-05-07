@@ -17,12 +17,14 @@ namespace HighFive.Script
         private Vector3[] positions;
         private string scenePath;
 
+        private Object scene;
+
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var height = 0f;
             height += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("scene"));
-            height += 2 * EditorGUIUtility.singleLineHeight;
+            height += EditorGUIUtility.singleLineHeight;
             return height;
         }
 
@@ -30,6 +32,7 @@ namespace HighFive.Script
         {
             var sceneProp = property.FindPropertyRelative("scene");
             var scenePathProp = sceneProp.FindPropertyRelative("scenePath");
+            var sceneAssetProp = sceneProp.FindPropertyRelative("sceneAsset");
             var positionProp = property.FindPropertyRelative("targetPosition");
             var index = 0;
 //            var guidProp = property.FindPropertyRelative("guid");
@@ -83,10 +86,19 @@ namespace HighFive.Script
             EditorGUI.BeginChangeCheck();
             EditorGUI.PropertyField(
                 position.GetRectFromIndexWithHeight(ref index, EditorGUI.GetPropertyHeight(sceneProp)), sceneProp);
-
+            
+            index = string.IsNullOrEmpty(scenePathProp.stringValue) ? 2 : 3;
+            
             var refresh = false;
             if (EditorGUI.EndChangeCheck())
             {
+                if (scene != sceneAssetProp.objectReferenceValue)
+                {
+                    scene = sceneAssetProp.objectReferenceValue;
+                    if (scene)
+                        scenePathProp.stringValue = AssetDatabase.GetAssetPath(scene);
+                }
+                
                 if (string.IsNullOrEmpty(scenePathProp.stringValue))
                 {// scene is none
                     positionProp.vector3Value=Vector3.zero;
@@ -96,8 +108,11 @@ namespace HighFive.Script
                     return;
                 }
                 
+                Debug.Log($"scenePath:{scenePath}, scenePathProp.stringValue:{scenePathProp.stringValue}");
+                
                 if(scenePath!=scenePathProp.stringValue)
                 {
+                    Debug.Log("Refresh");
                     refresh = true;
                 }
                 
@@ -117,6 +132,8 @@ namespace HighFive.Script
 //                    sceneNameProp.stringValue = null;
 //                }      
             }
+
+            
             
             if (string.IsNullOrEmpty(scenePathProp.stringValue))
             {// scene is none

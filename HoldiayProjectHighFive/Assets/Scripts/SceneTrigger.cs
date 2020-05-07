@@ -28,14 +28,14 @@ namespace HighFive.Scripts
 
             DefaultData.PlayerPos = this.targetChooser.TargetPosition;
             GameSettings.Instance.enableSceneTrigger = false;
-            Debug.Log($"禁用场景触发器");
+//            Debug.Log($"禁用场景触发器");
             SceneMgr.LoadScene(targetChooser.SceneName);
 
         }
 
         private void OnTriggerExit2D(Collider2D col)
         {
-            Debug.Log($"启用场景触发器");
+//            Debug.Log($"启用场景触发器");
             GameSettings.Instance.enableSceneTrigger = true;
         }
 
