@@ -50,13 +50,5 @@ namespace HighFive.Model.Person
 		
 		public List<CommonSkillInfo> commonSkillInfos=new List<CommonSkillInfo>();
 		public List<ComboSkillInfo> comboSkillInfos=new List<ComboSkillInfo>();
-		
-
-		public override void SetMoveable(bool state)
-		{
-			var mainc=actor as MainCharacter;
-			mainc._inControl = state;
-		}
-
 	}
 }

@@ -1,13 +1,8 @@
-using System;
 using HighFive.Control.EffectSystem;
 using HighFive.Control.Movers.Interfaces;
 using HighFive.Control.SkillSystem;
-using HighFive.Data;
 using HighFive.View;
-using ReadyGamerOne.Data;
-using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.Rougelike.Person;
-using ReadyGamerOne.Script;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Random = UnityEngine.Random;
@@ -48,14 +43,7 @@ namespace HighFive.Model.Person
 
 		#endregion
 
-		private IActorBaseControl _actorBaseControl;
-
-		public override void OnInstanciateObject()
-		{
-			base.OnInstanciateObject();
-			_actorBaseControl = gameObject.GetComponent<IActorBaseControl>();
-			Assert.IsNotNull(_actorBaseControl);
-		}
+		
 
 		#region IRichDamage
 
@@ -178,7 +166,21 @@ namespace HighFive.Model.Person
 			set { (this.Controller as HighFivePersonController).Dir = value; }
 		}
 
-		public IActorBaseControl ActorMover => _actorBaseControl;
+		private IActorBaseControl _actorBaseControl;
+
+		public IActorBaseControl ActorMover
+		{
+			get
+			{
+				if (null == _actorBaseControl)
+				{
+					_actorBaseControl = gameObject.GetComponent<IActorBaseControl>();
+					Assert.IsNotNull(_actorBaseControl);
+				}
+
+				return _actorBaseControl;
+			}
+		}
 		
 		public override Vector3 position
 		{

@@ -103,6 +103,8 @@ namespace HighFive.Model.Person
 		
 		#endregion
 
+		protected HighFiveCharacterController CharacterController => Controller as HighFiveCharacterController;
+		
 		#region 背包
 		
 		protected Dictionary<string,HighFiveItem> itemDic = new Dictionary<string, HighFiveItem>();
@@ -218,8 +220,8 @@ namespace HighFive.Model.Person
 		/// </summary>
 		public int MaxSpiritNum
 		{
-			get { return (Controller as HighFiveCharacterController).MaxSpiritNum; }
-			set { (Controller as HighFiveCharacterController).MaxSpiritNum = value; }
+			get { return CharacterController.MaxSpiritNum; }
+			set { CharacterController.MaxSpiritNum = value; }
 		}
 
 		#region IUseCsvData
@@ -309,8 +311,8 @@ namespace HighFive.Model.Person
 		/// </summary>
 		public int Money
 		{
-			get { return (Controller as HighFiveCharacterController).money; }
-			set { (Controller as HighFiveCharacterController).money = value; }
+			get { return CharacterController.money; }
+			set { CharacterController.money = value; }
 		}
 
 		public int ChangeMoney(int change)
@@ -434,8 +436,8 @@ namespace HighFive.Model.Person
 		/// </summary>
 		public float AirXMove
 		{
-			get { return (Controller as HighFiveCharacterController).airXMove; }
-			set { (Controller as HighFiveCharacterController).airXMove = value; }
+			get { return CharacterController.airXMove; }
+			set { CharacterController.airXMove = value; }
 		}		
 
 		#endregion
@@ -469,25 +471,25 @@ namespace HighFive.Model.Person
 
 		protected override void Update()
         {
-            foreach (var VARIABLE in (Controller as HighFiveCharacterController).commonSkillInfos)
+            foreach (var VARIABLE in CharacterController.commonSkillInfos)
             {
                 if (Input.GetKeyDown(VARIABLE.key))
                     VARIABLE.skillAsset.RunSkill(this);
             }
 
             //Z强化
-            if (Input.GetKeyDown((Controller as HighFiveCharacterController).superKey))
+            if (Input.GetKeyDown(CharacterController.superKey))
             {
                 TrySuper();
             }
 
             //背包
-            if (Input.GetKeyDown((Controller as HighFiveCharacterController).bagKey))
+            if (Input.GetKeyDown(CharacterController.bagKey))
             {
                 PanelMgr.PushPanel(PanelName.PackagePanel);
             }
 
-            if (Input.GetKeyUp((Controller as HighFiveCharacterController).bagKey))
+            if (Input.GetKeyUp(CharacterController.bagKey))
             {
                 PanelMgr.PopPanel();
             }
@@ -499,7 +501,7 @@ namespace HighFive.Model.Person
 
             if (this.comboNum > 0)
             {
-                lastSkill = (Controller as HighFiveCharacterController).comboSkillInfos[this.comboNum - 1];
+                lastSkill = CharacterController.comboSkillInfos[this.comboNum - 1];
 
                 Assert.IsTrue(this.comboNum > 0 && this.comboNum < 4);
 
@@ -520,12 +522,12 @@ namespace HighFive.Model.Person
                 }
             }
 
-            if (Input.GetKeyDown((Controller as HighFiveCharacterController).comboKey))
+            if (Input.GetKeyDown(CharacterController.comboKey))
             {
 //                Debug.Log("按键");
-                if (!(Controller as HighFiveCharacterController).characterController.isGrounded)
+                if (!ActorMover.IsGrounded)
                 {
-	                ((Controller as HighFiveCharacterController).actor as MainCharacter)._playerVelocityY = 0;
+	                ActorMover.VelocityY = 0;
 //                    this.TakeBattleEffect(new HitbackEffect(new Vector2(this.FaceDir * Mathf.Abs(this.AirXMove), 0)));
                 }
 
@@ -534,14 +536,14 @@ namespace HighFive.Model.Person
 
 
                 index++;
-                if (index >= (Controller as HighFiveCharacterController).comboSkillInfos.Count)
+                if (index >= CharacterController.comboSkillInfos.Count)
                 {
-//	                Debug.Log($"Index : {index} Count: {(Controller as HighFiveCharacterController).comboSkillInfos.Count}");
+//	                Debug.Log($"Index : {index} Count: {CharacterController.comboSkillInfos.Count}");
 	                return;
                 }
 
 
-                var thisSkill = (Controller as HighFiveCharacterController).comboSkillInfos[index];
+                var thisSkill = CharacterController.comboSkillInfos[index];
 
 
                 if (this.comboNum == 0) //初次攻击
@@ -551,7 +553,7 @@ namespace HighFive.Model.Person
                     //                    Debug.Log("初次攻击");
                     MainLoop.Instance.AddUpdateFunc(_DeUpdate);
 //                    Debug.Log("执行了技能" + index + " " + thisSkill.SkillName);
-                    thisSkill.RunSkill(this, (Controller as HighFiveCharacterController).comboSkillInfos[0].IgnoreInput, this.timer);
+                    thisSkill.RunSkill(this, CharacterController.comboSkillInfos[0].IgnoreInput, this.timer);
 
                     this.comboNum++;
                 }
@@ -561,7 +563,7 @@ namespace HighFive.Model.Person
                 {
                     if (this.timer - lastSkill.StartTime > lastSkill.LastTime * lastSkill.BeginComboTest)
                     {
-                        if (this.comboNum < (Controller as HighFiveCharacterController).comboSkillInfos.Count)
+                        if (this.comboNum < CharacterController.comboSkillInfos.Count)
                         {
 //                             Debug.Log("执行了技能" + index + " " + thisSkill.SkillName);
                             thisSkill.RunSkill(this, lastSkill.IgnoreInput, this.timer);
@@ -569,21 +571,21 @@ namespace HighFive.Model.Person
                         }
 //                        else
 //                        {
-//                             Debug.Log($"连击数大于攻击次数：this.comboNum:{comboNum}, 技能数量：{(Controller as HighFiveCharacterController).comboSkillInfos.Count}");
+//                             Debug.Log($"连击数大于攻击次数：this.comboNum:{comboNum}, 技能数量：{CharacterController.comboSkillInfos.Count}");
 //                        }                       
                     }
 //
 //                    else
 //                    {
 //	                    Debug.Log("lastSkill.Name: "+lastSkill.SkillName+"  lastSkill.lastTime: "+lastSkill.LastTime);
-//                        Debug.Log($"还没有开始连击检测！ 距离上次攻击间隔：{this.timer-lastSkill.StartTime}, lastSkill.StartTime: {lastSkill.StartTime}，开始连击检测的间隔：{(Controller as HighFiveCharacterController).comboSkillInfos[this.comboNum-1].beginComboTest*lastSkill.LastTime}");
+//                        Debug.Log($"还没有开始连击检测！ 距离上次攻击间隔：{this.timer-lastSkill.StartTime}, lastSkill.StartTime: {lastSkill.StartTime}，开始连击检测的间隔：{CharacterController.comboSkillInfos[this.comboNum-1].beginComboTest*lastSkill.LastTime}");
 //                    }
                 }
 //                else
 //                {
-//                    var skill = (Controller as HighFiveCharacterController).comboSkillInfos[comboNum - 1];
+//                    var skill = CharacterController.comboSkillInfos[comboNum - 1];
 //                    Debug.Log($"技能开始时间：{skill.StartTime}, 技能持续时间：{skill.LastTime} 连击中止时间："+(skill.faultToleranceTime+skill.LastTime*skill.beginComboTest));
-//                    Debug.Log($"已经超过连击检测容错时间： 上次释放技能到现在间隔：{this.timer-lastSkill.StartTime}, 容错时间：{ lastSkill.LastTime * (Controller as HighFiveCharacterController).comboSkillInfos[this.comboNum - 1].beginComboTest + (Controller as HighFiveCharacterController).comboSkillInfos[this.comboNum - 1].faultToleranceTime}");
+//                    Debug.Log($"已经超过连击检测容错时间： 上次释放技能到现在间隔：{this.timer-lastSkill.StartTime}, 容错时间：{ lastSkill.LastTime * CharacterController.comboSkillInfos[this.comboNum - 1].beginComboTest + CharacterController.comboSkillInfos[this.comboNum - 1].faultToleranceTime}");
 //                }
             }
 

@@ -10,7 +10,7 @@ namespace HighFive.Control.Movers
     /// <summary>
     /// 玩家角色移动器
     /// </summary>
-    public class CharacterMover:AIActorMover,ICharacterMoverControl
+    public class CharacterMover:ActorMover,ICharacterMoverControl
     {
         #region MoverOverride
         protected override void CalculateGravityNVelocity()
@@ -36,10 +36,6 @@ namespace HighFive.Control.Movers
 	    
         //最低跳跃高度（短按跳跃键）
         [SerializeField] protected float minJumpHeight = .25f;
-        //是否可以高跳（超级跳）
-        [SerializeField] protected bool canHighJump;
-        //是否可以加速（技能）
-        [SerializeField] protected bool canAcceleration;
 	
         public float PlayerVelocityX
         {
@@ -60,9 +56,13 @@ namespace HighFive.Control.Movers
 	
 	
         [Header("HighJump")]
+        //是否可以高跳（超级跳）
+        [SerializeField] protected bool canHighJump;
         [SerializeField] protected float highJumpHeight = 6.0f;
         //原有基础上增加的速度
         [Header("Acceleration")]
+        //是否可以加速（技能）
+        [SerializeField] protected bool canAcceleration;
         [SerializeField] protected float accelerationSpeed = 2.0f;
         [SerializeField] protected float accelerationTime = 3.0f;
 	
@@ -87,7 +87,7 @@ namespace HighFive.Control.Movers
 
         [Header("动画名字")] 
         public AnimationNameChooser idleAniName;
-    //	public AnimationNameChooser walkAniName;
+    	public AnimationNameChooser walkAniName;
         public AnimationNameChooser jumpAniName;
         public AnimationNameChooser runAniName;
         public AnimationNameChooser dashAniName;
@@ -381,7 +381,8 @@ namespace HighFive.Control.Movers
 		private void Idle_Enter()
 		{
 			_positionYLastFrame = this.Position.y;
-			animator.Play(Animator.StringToHash(idleAniName.StringValue));
+			if(!string.IsNullOrEmpty(idleAniName.StringValue))
+				animator.Play(Animator.StringToHash(idleAniName.StringValue));
 		}
 	
 		private void Idle_Update()
@@ -405,7 +406,8 @@ namespace HighFive.Control.Movers
 		private void InAir_Enter()
 		{
 			//如果在空中，则自动认为主角已经失去一次跳跃机会
-			animator.Play(Animator.StringToHash(jumpAniName.StringValue));
+			if(!string.IsNullOrEmpty(jumpAniName.StringValue))
+				animator.Play(Animator.StringToHash(jumpAniName.StringValue));
 			//_canJump = _jumpPoint - 1;
 		}
 			
@@ -442,7 +444,8 @@ namespace HighFive.Control.Movers
 	
 		private void Run_Enter()
 		{
-			animator.Play(Animator.StringToHash(runAniName.StringValue));
+			if(!string.IsNullOrEmpty(runAniName.StringValue))
+				animator.Play(Animator.StringToHash(runAniName.StringValue));
 		}
 	
 		private void Run_Update()
@@ -466,7 +469,8 @@ namespace HighFive.Control.Movers
 		private int _dashDirX;
 		private void Dashing_Enter()
 		{
-			animator.Play(Animator.StringToHash(dashAniName.StringValue));
+			if(!string.IsNullOrEmpty(dashAniName.StringValue))
+				animator.Play(Animator.StringToHash(dashAniName.StringValue));
 			_dashTimer = dashTime;
 			inControl = false;
 			_dashVelocity = dashDistance / dashTime;
@@ -509,7 +513,8 @@ namespace HighFive.Control.Movers
 		private void DoubleJump_Enter()
 		{
 			//Debug.Log("DoubleJump Enter");
-			animator.Play(Animator.StringToHash(jumpAniName.StringValue));
+			if(!string.IsNullOrEmpty(jumpAniName.StringValue))
+				animator.Play(Animator.StringToHash(jumpAniName.StringValue));
 		}
 	
 		private void DoubleJump_Update()
@@ -600,7 +605,8 @@ namespace HighFive.Control.Movers
 		private void WallJump_Enter()
 		{
 //			Debug.Log("Wall Jump");
-			animator.Play(Animator.StringToHash(jumpAniName.StringValue));
+			if(!string.IsNullOrEmpty(jumpAniName.StringValue))
+				animator.Play(Animator.StringToHash(jumpAniName.StringValue));
 			_wallJumpTimer = wallJumpTime;
 			inControl = false;
 		}

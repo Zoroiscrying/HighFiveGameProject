@@ -11,6 +11,9 @@ namespace HighFive.Model.Person
 	/// </summary>
 	public abstract class HighFivePersonController : AbstractPersonController
 	{
+		public IHighFivePerson HighFivePerson=>selfPerson as IHighFivePerson;
+		
+		
 		/// <summary>
 		/// 看向某个物体，【当然，只是左右】
 		/// </summary>
@@ -18,38 +21,22 @@ namespace HighFive.Model.Person
 		private SpriteRenderer sr;
 		public void LookAt(Transform target)
 		{
-			if (!sr)
-			{
-				sr = GetComponent<SpriteRenderer>();
-				Assert.IsTrue(sr);
-			}
-
-			var dir = target.transform.position.x - selfPerson.position.x > 0;
-			Dir = dir ? 1 : -1;
+			HighFivePerson.Dir = target.position.x > selfPerson.position.x ? 1 : -1;
 		}
 		public EffectInfoAsset attackEffects;
 		public EffectInfoAsset hitEffects;
 		public EffectInfoAsset acceptEffects;
-		public CharacterController2D characterController;
-		public Actor actor;
+//		public CharacterController2D characterController;
+//		public Actor actor;
 		public virtual int Dir
 		{
-			get { return selfPerson.transform.localScale.x > 0 ? 1 : -1; }
-			set
-			{
-				var scale = selfPerson.transform.localScale;
-				var dir = value > 0 ? 1 : -1;
-				selfPerson.transform.localScale = new Vector3(
-					dir * Mathf.Abs(scale.x), scale.y, scale.z);
-			}
+			get => HighFivePerson.ActorMover.FaceDir;
+			set => HighFivePerson.ActorMover.FaceDir = value;
 		}
 
 		public override void SetMoveable(bool state)
 		{
-			if(actor)
-				actor.enabled = state;
-			if(characterController)
-				characterController.enabled = state;
+			HighFivePerson.ActorMover.SetMovable(state);
 		}
 	}
 }

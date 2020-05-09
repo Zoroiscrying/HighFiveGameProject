@@ -257,6 +257,7 @@ namespace HighFive.Control.Movers
         /// <summary>
         /// Mover的碰撞状态
         /// </summary>
+        [Serializable]
         public class MoverCollisionState2D 
         {
             public bool right;

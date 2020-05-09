@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICharacterMoverControl
+namespace HighFive.Control.Movers
 {
-    
+    public interface ICharacterMoverControl
+    {
+        
+    }
 }
+
