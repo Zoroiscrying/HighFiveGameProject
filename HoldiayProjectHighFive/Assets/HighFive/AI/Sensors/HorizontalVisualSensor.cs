@@ -11,9 +11,10 @@ namespace HighFive.AI
     {
         [HideInInspector]public float viewDistance;
         
+
         public override IHighFivePerson Detect()
         {
-            var hit = Physics2D.Raycast(transform.position, SelfPerson.Dir*Vector2.right, viewDistance, detectLayers|terrainLayers);
+            var hit = Physics2D.Raycast(SelfPerson.position, SelfPerson.Dir*Vector2.right, viewDistance, detectLayers|terrainLayers);
             if (!hit) 
                 return null;
             if (1 != detectLayers.value.GetNumAtBinary(hit.collider.gameObject.layer)) 
@@ -32,7 +33,7 @@ namespace HighFive.AI
                 return;
             base.OnDrawGizmos();
             Gizmos.color=Color.cyan;
-            var position = transform.position;
+            var position = SelfPerson.position;
             Gizmos.DrawLine(position,position+viewDistance*SelfPerson.Dir*Vector3.right);
         }
     }

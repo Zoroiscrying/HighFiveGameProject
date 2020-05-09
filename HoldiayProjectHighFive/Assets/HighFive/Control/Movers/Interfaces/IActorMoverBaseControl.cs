@@ -6,8 +6,22 @@ namespace HighFive.Control.Movers.Interfaces
     /// <summary>
     /// 方便控制Actor的接口
     /// </summary>
-    public interface IActorBaseControl:IMover2D
+    public interface IActorBaseControl:IBaseControl
     {
+        /// <summary>
+        /// 控制能否移动的总开关
+        /// </summary>
+        /// <param name="enableMove"></param>
+        void SetMovable(bool enableMove);
+        /// <summary>
+        /// 获取角色面朝方向
+        /// </summary>
+        int FaceDir { get; set; }
+        /// <summary>
+        /// 角色是否站在地上
+        /// </summary>
+        bool IsGrounded { get; }
+        
         /// <summary>
         /// 反转ActorMover的输入
         /// </summary>
@@ -25,11 +39,10 @@ namespace HighFive.Control.Movers.Interfaces
         void StopVerticallyInput();
         void StopMoverInput();
         /// <summary>
-        /// 瞬时改变ActorMover的速度
+        /// 单独方向速度控制
         /// </summary>
-        /// <param name="vel"></param>
-        void ChangeHorizontalVelocityInstantly(float vel);
-        void ChangeVerticalVelocityInstantly(float vel);
+        float VelocityX { get; set; }
+        float VelocityY { get; set; }
         /// <summary>
         /// 根据传来打击的向量（带有大小）和Multiplier瞬时改变Mover的速度
         /// </summary>

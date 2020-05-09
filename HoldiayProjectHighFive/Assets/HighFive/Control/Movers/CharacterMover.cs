@@ -158,7 +158,7 @@ namespace HighFive.Control.Movers
         private void CheckIsInAirState()
         {
             //在空中玩家只能施展二段跳
-            if (!this.isGrounded && _stateMachine.State != PlayerState.DoubleJump
+            if (!this.IsGrounded && _stateMachine.State != PlayerState.DoubleJump
                                         && _stateMachine.State != PlayerState.WallSliding&& _stateMachine.State != PlayerState.WallJump)
             {
                 _stateMachine.ChangeState(PlayerState.InAir);
@@ -167,7 +167,7 @@ namespace HighFive.Control.Movers
         
         private void ResetJumpPoint()
         {
-            if (this.isGrounded)
+            if (this.IsGrounded)
             {
                 airJumpTime = AirJumpPoint;
             }
@@ -175,8 +175,8 @@ namespace HighFive.Control.Movers
         
         private void BasicStateCheck()
         {
-            //IdleState & run
-            if (this.isGrounded  && (_stateMachine.State != PlayerState.Dashing))//注意，是玩家没有输入左右键判断不是通过速度判断
+            //AiIdle & run
+            if (this.IsGrounded  && (_stateMachine.State != PlayerState.Dashing))//注意，是玩家没有输入左右键判断不是通过速度判断
             {
                 //idle
                 if (System.Math.Abs(moverInput.x) < 0.0001f)
@@ -297,7 +297,7 @@ namespace HighFive.Control.Movers
                         WallJump();
                     }
                     //如果没有滑墙，就是基本的跳跃
-                    else if (this.isGrounded)
+                    else if (this.IsGrounded)
                     {
 	                    Debug.Log("Jumped!");
 	                    Jump();
@@ -373,7 +373,7 @@ namespace HighFive.Control.Movers
         
         #region StateCallBacks
 
-		#region IdleState
+		#region AiIdle
 
 		private float _positionYLastFrame;
 	
@@ -394,7 +394,7 @@ namespace HighFive.Control.Movers
 	
 		private void Idle_Exit()
 		{
-			//Debug.Log("IdleState State Exit.");
+			//Debug.Log("AiIdle State Exit.");
 		}
 
 		#endregion
@@ -415,7 +415,7 @@ namespace HighFive.Control.Movers
 				PlayerVelocityY = -maxDownYSpeed;
 			}
 			
-			if (this.isGrounded)
+			if (this.IsGrounded)
 			{
 				ResetJumpPoint();
 			}
@@ -518,7 +518,7 @@ namespace HighFive.Control.Movers
 				PlayerVelocityY = -maxDownYSpeed;
 			}
 			
-			if (this.isGrounded)
+			if (this.IsGrounded)
 			{
 				ResetJumpPoint();
 			}
@@ -577,7 +577,7 @@ namespace HighFive.Control.Movers
 				moverInput.x = 0;
 			}
 			
-			if (this.isGrounded)
+			if (this.IsGrounded)
 			{
 				ResetJumpPoint();
 			}
@@ -616,7 +616,7 @@ namespace HighFive.Control.Movers
 				_stateMachine.ChangeState(PlayerState.InAir);
 			}
 			
-			if (this.isGrounded)
+			if (this.IsGrounded)
 			{
 				ResetJumpPoint();
 			}

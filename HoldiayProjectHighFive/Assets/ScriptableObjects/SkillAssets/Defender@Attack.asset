@@ -10,62 +10,56 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22361e5d5dd2d5645b5e64567947e354, type: 3}
-  m_Name: Enemy1@Attack1
+  m_Name: Defender@Attack
   m_EditorClassIdentifier: 
   skillName:
-    selectedIndex: 0
+    selectedIndex: 12
   startTime: 0
   isUsed: 0
   triggers:
-  - skillAsset: {fileID: 0}
+  - skillAsset: {fileID: 11400000}
     id: 0
+    workTimes: 1
     startTime: 0
-    lastTime: 0.667
+    lastTime: 0.8
     type: 0
     enable: 1
+    degree: 0
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
-      rac: {fileID: 9100000, guid: af182e61e6f222048b3a5e12ac733cd0, type: 2}
-      selectedIndex: 0
-      stringValue: Enemy1@Attack1
+      rac: {fileID: 9100000, guid: 7d1eafca9ef8f9642bcf51d65f4bc6f1, type: 2}
+      selectedIndex: 1
+      stringValue: Attack2
     animationSpeed: 1
     audioName:
-      values:
-      - Au1
-      - Au2
-      - Au3
-      - Au4
-      - Au5
-      - beiji
-      - Bg
-      - Fuck
+      values: []
       selectedIndex: 0
     bulletName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
+      values: []
       selectedIndex: 0
     damageScale: 0
-    dir: {x: 0, y: 0, z: 0}
     speed: 0
     gravityScale: 0
     maxLife: 0
     aniX:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     aniY:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     reverseX: 0
     reverseY: 0
     rayDir: {x: 0, y: 0}
@@ -76,10 +70,16 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values: []
+      selectedIndex: 0
+    anchorMode: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}
@@ -87,53 +87,47 @@ MonoBehaviour:
       path: 
   - skillAsset: {fileID: 11400000}
     id: 1
+    workTimes: 1
     startTime: 0
-    lastTime: 0
+    lastTime: 0.8
     type: 6
     enable: 1
+    degree: 0
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
-      rac: {fileID: 9100000, guid: af182e61e6f222048b3a5e12ac733cd0, type: 2}
-      selectedIndex: 0
-      stringValue: Enemy1@Attack1
+      rac: {fileID: 9100000, guid: 7d1eafca9ef8f9642bcf51d65f4bc6f1, type: 2}
+      selectedIndex: 1
+      stringValue: Attack2
     animationSpeed: 1
     audioName:
-      values:
-      - Au1
-      - Au2
-      - Au3
-      - Au4
-      - Au5
-      - beiji
-      - Bg
-      - Fuck
+      values: []
       selectedIndex: 0
     bulletName:
-      values:
-      - bullet_1
-      - CurvedBullet
-      - SingleBullet
-      - DropItem
-      - ImpuseGenerator
-      - OnHitParticle
-      - SwordLight
+      values: []
       selectedIndex: 0
     damageScale: 0
-    dir: {x: 0, y: 0, z: 0}
     speed: 0
     gravityScale: 0
     maxLife: 0
     aniX:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     aniY:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     reverseX: 0
     reverseY: 0
     rayDir: {x: 0, y: 0}
@@ -144,13 +138,18 @@ MonoBehaviour:
       m_Bits: 0
     shineLastTime: 0
     shineDurTime: 0
-    targetType: 0
-    timeToTarget: 0
-    offset: {x: 0, y: 0, z: 0}
     attackEffects: {fileID: 0}
+    swordPrefabName:
+      values: []
+      selectedIndex: 0
+    anchorMode: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
     damageType: 1
     triggerPath:
-      go: {fileID: 1873563441033562, guid: 70e9af49a3ec54f47ad21a58009a38cf, type: 3}
-      selectedIndex: 0
+      go: {fileID: 3847573871002922111, guid: 7917987892886d845a0ab9c449989f05, type: 3}
+      selectedIndex: 5
       path: Sword
-  Vector3Cache: {x: -2.3752115, y: -4.5200005, z: 0}

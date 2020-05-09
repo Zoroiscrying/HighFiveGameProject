@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HighFive.Control.Movers.Interfaces;
 using ReadyGamerOne.Rougelike.Mover;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace HighFive.Control.Movers
     /// 需要注意的是这个移动器基类不带有物理世界的摩擦、弹力等属性（也许是未来改进的方向）
     /// </summary>
     [RequireComponent(typeof(BoxCollider2D))][RequireComponent(typeof(Rigidbody2D))]
-    public class BaseMover:MonoBehaviour,IMover2D
+    public class BaseMover:MonoBehaviour,IBaseControl
     {
         #region Internal_Data_Structures
 
@@ -151,6 +152,8 @@ namespace HighFive.Control.Movers
 
         #endregion
         
+        #region IBaseControl
+
         #region IMover2D
         
         /// <summary>
@@ -228,6 +231,8 @@ namespace HighFive.Control.Movers
         
         #endregion
 
+        #endregion
+
         #region Movement Relevant Attributes and Functions
 
         [SerializeField] protected Vector2 moverInput;
@@ -297,10 +302,6 @@ namespace HighFive.Control.Movers
         private new Transform transform;
         private Rigidbody2D rigidBody2D;
         [SerializeField] protected MoverCollisionState2D collisionState = new MoverCollisionState2D();
-        public bool isGrounded
-        {
-            get { return collisionState.below; }
-        }
 
         const float SkinWidthFloatFudgeFactor = 0.001f;
         
@@ -461,7 +462,7 @@ namespace HighFive.Control.Movers
         /// </summary>
         /// <param name="deltaMovement"></param>
         /// <returns></returns>
-        public int IfNearWall(Vector2 deltaMovement)
+        protected int IfNearWall(Vector2 deltaMovement)
         {
             //var rayDistance = Mathf.Abs( deltaMovement.x ) + skinWidth;
             //TODO::这里如果出现问题可以改回去为2*skinwidth
@@ -812,6 +813,9 @@ namespace HighFive.Control.Movers
         }
 
         #endregion
+
         
+        
+
     }
 }

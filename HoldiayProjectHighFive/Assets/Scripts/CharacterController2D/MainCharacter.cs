@@ -223,7 +223,7 @@ public class MainCharacter : Actor
 
 	private void BasicStateCheck()
 	{
-		//IdleState & run
+		//AiIdle & run
 		if (_controller.isGrounded  && (_stateMachine.State == PlayerStates.Run ||
 		   //_stateMachine.State == PlayerStates.Jump || 
 		                                _stateMachine.State == PlayerStates.DoubleJump||
@@ -243,7 +243,7 @@ public class MainCharacter : Actor
 		}
 		
 		//Jump
-		// if (!_controller.isGrounded &&
+		// if (!_controller.IsGrounded &&
 		//     (_stateMachine.State == PlayerStates.Idle || _stateMachine.State == PlayerStates.Run))
 		// {
 		// 	_stateMachine.ChangeState(PlayerStates.InAir);
@@ -400,7 +400,7 @@ public class MainCharacter : Actor
 
 	#region StateCallBacks
 
-		#region IdleState
+		#region AiIdle
 
 		private float _positionYLastFrame;
 	
@@ -421,7 +421,7 @@ public class MainCharacter : Actor
 	
 		private void Idle_Exit()
 		{
-			//Debug.Log("IdleState State Exit.");
+			//Debug.Log("AiIdle State Exit.");
 		}
 
 		#endregion
@@ -442,7 +442,7 @@ public class MainCharacter : Actor
 //				_playerVelocityY = -_maxDownYSpeed;
 //			}
 //			
-//			if (_controller.isGrounded)
+//			if (_controller.IsGrounded)
 //			{
 //				ResetJumpPoint();
 //			}

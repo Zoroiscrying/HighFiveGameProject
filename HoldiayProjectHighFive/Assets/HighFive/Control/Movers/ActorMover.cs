@@ -34,7 +34,7 @@ namespace HighFive.Control.Movers
         }
 
         #endregion
-
+        
         #region Actor_特有接口和属性
 
         [Header("PreciseMovementControl")] [SerializeField]
@@ -169,7 +169,7 @@ namespace HighFive.Control.Movers
         {
             var targetVelocityX = moverInput.x * runSpeed * horizontalSpeedMultiplier;
             // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
-            //var smoothedMovementFactor = _controller.isGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
+            //var smoothedMovementFactor = _controller.IsGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref _movementDampingHorizontal,
                 (collisionState.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
             // apply gravity before moving
@@ -278,24 +278,19 @@ namespace HighFive.Control.Movers
             StopVerticallyInput();
         }
 
-        /// <summary>
-        /// 给actor一个突然的速度变化，用于瞬移、打击位移等突然的移动。
-        /// </summary>
-        /// <param name="vel"></param>
-        public void ChangeHorizontalVelocityInstantly(float vel)
+        public float VelocityX
         {
-            this.velocity.x = vel;
+            get => this.velocity.x;
+            set => this.velocity.x = value;
+        }
+        public float VelocityY 
+        {
+            get => this.velocity.y;
+            set => this.velocity.y = value;
         }
         
-        /// <summary>
-        /// 给actor一个突然的速度变化，用于瞬移、打击位移等突然的移动。
-        /// </summary>
-        /// <param name="vel"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void ChangeVerticalVelocityInstantly(float vel)
-        {
-            this.velocity.y = vel;
-        }
+        
+        public virtual bool IsGrounded=>collisionState.below;   
 
         /// <summary>
         /// 根据传入的击退方向，进行方向上的速度变化

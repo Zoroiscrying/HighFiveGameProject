@@ -20,6 +20,8 @@ namespace HighFive.AI.Actions
         [BehaviorDesigner.Runtime.Tasks.Tooltip("使用的跳跃曲线资源")]
         public AnimationCurveAsset aniY;
 
+        public SharedString jumpAniName;
+
         private float playSpeed;
         private float xSpeed = 1.0f;
         private float animationTime;
@@ -40,7 +42,7 @@ namespace HighFive.AI.Actions
             base.OnStart();
 
             var targetPosition = inTargetPosition.Value;
-            var selfPosition = transform.position;
+            var selfPosition = selfMover.Position;
             var xDis = Mathf.Abs(targetPosition.x - selfPosition.x);
             
             xSpeed = xDis / expectedTime.Value;
@@ -49,6 +51,11 @@ namespace HighFive.AI.Actions
             
             timer = 0;
             dir = targetPosition.x > selfPosition.x ? 1 : -1;
+
+            if(!string.IsNullOrEmpty(jumpAniName.Value))
+            {
+                GetComponent<Animator>()?.Play(Animator.StringToHash(jumpAniName.Value));
+            }
         }
 
         public override void OnFixedUpdate()

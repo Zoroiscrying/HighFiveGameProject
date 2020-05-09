@@ -3,14 +3,6 @@ using UnityEngine;
 
 namespace ReadyGamerOne.Rougelike.Mover
 {
-    public enum TouchDir
-    {
-        Top,
-        Bottom,
-        Left,
-        Right,
-    }
-   
     public interface IMover2D
     {
         /// <summary>

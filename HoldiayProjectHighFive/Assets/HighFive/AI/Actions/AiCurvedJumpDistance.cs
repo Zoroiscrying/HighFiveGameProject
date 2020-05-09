@@ -40,7 +40,7 @@ namespace HighFive.AI.Actions
         public override void OnStart()
         {
             base.OnStart();
-            var selfPosition = transform.position;
+            var selfPosition = selfMover.Position;
             var targetPosition = selfPosition + inTargetDir.Value * exceptedDistance.Value * Vector3.right;
 
             var xDis = Mathf.Abs(targetPosition.x - selfPosition.x);

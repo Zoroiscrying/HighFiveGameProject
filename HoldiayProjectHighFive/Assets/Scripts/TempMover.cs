@@ -22,10 +22,29 @@ namespace Game.Scripts
 
         #endregion
 
+        public virtual int Dir
+        {
+            get { return transform.localScale.x > 0 ? 1 : -1; }
+            set
+            {
+                var scale = transform.localScale;
+                var dir = value > 0 ? 1 : -1;
+                transform.localScale = new Vector3(
+                    dir * Mathf.Abs(scale.x), scale.y, scale.z);
+            }
+        }
+        private Vector2 RealOffset =>
+            new Vector2(
+                Dir * centerOffset.x, centerOffset.y);
+
         public Vector3 Position
         {
-            get => Rig.position;
-            set => Rig.position = value;
+            get => Rig.position + RealOffset;
+            set
+            {
+                var offset = RealOffset;
+                Rig.position = value-new Vector3(offset.x,offset.y);
+            } 
         }
         public Vector2 Velocity
         {
@@ -40,7 +59,8 @@ namespace Game.Scripts
             get => Rig.gravityScale;
             set => Rig.gravityScale = value;
         }
-        
+
+        [SerializeField] private Vector2 centerOffset;
         [SerializeField] private LayerMask colliderLayers;
         public LayerMask ColliderLayers
         {
@@ -106,6 +126,13 @@ namespace Game.Scripts
             {
                 eventOnTriggerEnter?.Invoke(other.gameObject);
             }
+        }
+
+        private void OnDrawGizmos()
+        
+        {
+            Gizmos.color=new Color(0.95f, 1f, 0.44f);
+            Gizmos.DrawWireSphere(Position, 0.5f);
         }
     }
 }

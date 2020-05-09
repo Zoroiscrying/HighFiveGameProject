@@ -562,7 +562,7 @@ public class Actor : MonoBehaviour
     {
         float targetVelocityX = _directionalInput.x * _runSpeed * _horizontalSpeedMultiplier;
         // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
-        //var smoothedMovementFactor = _controller.isGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
+        //var smoothedMovementFactor = _controller.IsGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
         _velocity.x = Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _movementDamping,
             (_controller.collisionState.below) ? _accelerationTimeGrounded : _accelerationTimeAirborne);
         // apply gravity before moving
@@ -573,7 +573,7 @@ public class Actor : MonoBehaviour
         {
             float targetVelocityY = _directionalInput.y * _runSpeed * _verticalSpeedMultiplier;
             // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
-            //var smoothedMovementFactor = _controller.isGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
+            //var smoothedMovementFactor = _controller.IsGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
             _velocity.y = Mathf.SmoothDamp(_velocity.y, targetVelocityY, ref _movementDamping,
                 _accelerationTimeAirborne);
         }

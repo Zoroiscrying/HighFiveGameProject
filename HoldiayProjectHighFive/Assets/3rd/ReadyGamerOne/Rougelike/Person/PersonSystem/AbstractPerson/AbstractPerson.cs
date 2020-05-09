@@ -192,17 +192,17 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 本类对应GameObject的索引
         /// </summary>
-        public GameObject gameObject => _gameObject;
+        public virtual GameObject gameObject => _gameObject;
         
         /// <summary>
         /// 获取物体Transform
         /// </summary>
-        public Transform transform => gameObject.transform;
+        public virtual Transform transform => gameObject.transform;
         
         /// <summary>
         /// 获取和设置物体坐标
         /// </summary>
-        public Vector3 position
+        public virtual Vector3 position
         {
             get
             {
@@ -215,8 +215,7 @@ namespace ReadyGamerOne.Rougelike.Person
                 transform.position = value;
             }
         }
-
-
+        
         public Vector3 localPosition 
         {
             get

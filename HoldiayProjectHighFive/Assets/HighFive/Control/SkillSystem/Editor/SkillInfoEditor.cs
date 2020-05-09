@@ -77,6 +77,7 @@ namespace HighFive.Control.SkillSystem.Editor
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
+
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(skillNameProp);
             if (EditorGUI.EndChangeCheck())

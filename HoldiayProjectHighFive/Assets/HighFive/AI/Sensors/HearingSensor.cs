@@ -17,7 +17,7 @@ namespace HighFive.AI
 
         public override IHighFivePerson Detect()
         {
-            var size = Physics2D.CircleCastNonAlloc(transform.position, hearingRadius, Vector2.zero, hitInfos, 0, detectLayers);
+            var size = Physics2D.CircleCastNonAlloc(SelfPerson.position, hearingRadius, Vector2.zero, hitInfos, 0, detectLayers);
             if (size == 0)
                 return null;
             foreach (var hit in hitInfos)
@@ -28,7 +28,7 @@ namespace HighFive.AI
                     continue; 
                 if (hit.collider.gameObject.GetPersonInfo() is IHighFivePerson person && person.IsAlive)
                 {
-                    Debug.Log($"hearing: {person.CharacterName}");
+//                    Debug.Log($"hearing: {person.CharacterName}");
                     return person;
                 }             
             }
@@ -44,7 +44,7 @@ namespace HighFive.AI
             
             base.OnDrawGizmos();
             Gizmos.color=Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, hearingRadius);
+            Gizmos.DrawWireSphere(SelfPerson.position, hearingRadius);
         }
     }
 }
