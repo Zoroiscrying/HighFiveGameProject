@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using ReadyGamerOne.Rougelike.Mover;
+using UnityEngine;
 
 namespace HighFive.Control.Movers.Interfaces
 {
     /// <summary>
-    /// 方便控制Actor的接口，测试中...
+    /// 方便控制Actor的接口
     /// </summary>
-    public interface IActorBaseControl
+    public interface IActorBaseControl:IMover2D
     {
         /// <summary>
         /// 反转ActorMover的输入

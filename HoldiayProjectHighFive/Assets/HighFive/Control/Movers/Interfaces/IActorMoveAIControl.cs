@@ -2,7 +2,7 @@
 
 namespace HighFive.Control.Movers.Interfaces
 {
-    public interface IActorMoveAIControl
+    public interface IActorMoveAIControl:IActorBaseControl
     {
         //Jump
         float JumpStopTime { get; set; }
