@@ -1061,6 +1061,7 @@
                 <e p="IActorMoveAIControl.cs" t="Include" />
                 <e p="IActorMoverBaseControl.cs" t="Include" />
                 <e p="IBaseControl.cs" t="Include" />
+                <e p="IFlyMover.cs" t="Include" />
               </e>
             </e>
             <e p="SkillSystem" t="Include">
@@ -1249,6 +1250,8 @@
           <e p="SceneUtil.cs" t="Include" />
           <e p="ShopNpc.cs" t="Include" />
           <e p="ShowCollider2D.cs" t="Include" />
+          <e p="TempActorMover.cs" t="Include" />
+          <e p="TempFlyMover.cs" t="Include" />
           <e p="TempMover.cs" t="Include" />
           <e p="TestScripts" t="Include">
             <e p="TestImpulse.cs" t="Include" />

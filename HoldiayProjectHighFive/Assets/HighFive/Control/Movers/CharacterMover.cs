@@ -379,7 +379,7 @@ namespace HighFive.Control.Movers
 	
 		private void Idle_Enter()
 		{
-			_positionYLastFrame = this.transform.position.y;
+			_positionYLastFrame = this.Position.y;
 			animator.Play(Animator.StringToHash(idleAniName.StringValue));
 		}
 	

@@ -247,7 +247,7 @@ namespace HighFive.Control.EffectSystem.Effects
                     if (!rp.IgnoreRepulse)
                     {
                         var trans = rp.gameObject.transform;
-//                        trans.position += new Vector3(dp.Dir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y, 0);
+//                        trans.position += new Vector3(dp.FaceDir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y, 0);
                         var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y);
                         //TODO:需要更好接口
                         var actor = rp.Controller.GetComponent<Actor>();

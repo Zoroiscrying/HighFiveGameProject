@@ -78,7 +78,7 @@ namespace HighFive.Control.Movers
         public virtual int FaceDir
         {
             get => faceDir;
-            set=>throw new Exception("Face Dir Cannot be changed by other code.");
+            set=>throw new Exception("Face FaceDir Cannot be changed by other code.");
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace HighFive.Control.Movers
         /// <param name="target">Target的世界2维xy坐标</param>
         public void MoveToward(Vector2 target)
         {
-            var posVe2 = new Vector2(this.transform.position.x, this.transform.position.y);
+            var posVe2 = new Vector2(this.Position.x, this.Position.y);
             var dir = target - posVe2;
             moverInput = dir.normalized;
         }
@@ -299,7 +299,7 @@ namespace HighFive.Control.Movers
         /// <param name="multiplier">用于影响击退效果的multiplier</param>
         public void ChangeVelBasedOnHitDir(Vector2 hitDir, float multiplier = 1)
         {
-            this.velocity = hitDir * multiplier;
+            this.velocity = hitDir.normalized * multiplier;
         }
 
         #endregion

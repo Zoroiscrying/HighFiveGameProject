@@ -1,5 +1,6 @@
 using System;
 using HighFive.Control.EffectSystem;
+using HighFive.Control.Movers.Interfaces;
 using HighFive.Control.SkillSystem;
 using HighFive.Data;
 using HighFive.View;
@@ -24,6 +25,8 @@ namespace HighFive.Model.Person
 		
 		float DefaultConstTime { get; set; }
 
+		IActorBaseControl ActorMover { get; }
+
 		void RunSkill(SkillInfoAsset skillInfoAsset,params object[] args);
 		void LookAt(Transform target);
 	}
@@ -45,6 +48,15 @@ namespace HighFive.Model.Person
 
 		#endregion
 
+		private IActorBaseControl _actorBaseControl;
+
+		public override void OnInstanciateObject()
+		{
+			base.OnInstanciateObject();
+			_actorBaseControl = gameObject.GetComponent<IActorBaseControl>();
+			Assert.IsNotNull(_actorBaseControl);
+		}
+
 		#region IRichDamage
 
 		public float AttackSpeed { get; set; } = 1;
@@ -61,8 +73,7 @@ namespace HighFive.Model.Person
 		public bool IgnoreRepulse { get; set; } = false;
 
 		#endregion
-		
-		
+
 		#region ITakeDamageablePerson<T>
 
 
@@ -167,24 +178,12 @@ namespace HighFive.Model.Person
 			set { (this.Controller as HighFivePersonController).Dir = value; }
 		}
 
-		private IMover2D selfMover;
-
-		private IMover2D SelfMover
-		{
-			get
-			{
-				if (null == selfMover)
-					selfMover = gameObject.GetComponent<IMover2D>();
-				if (null == selfMover)
-					throw new Exception($"{CharacterName} 身上没有IMover2D");
-				return selfMover;
-			}
-		}
+		public IActorBaseControl ActorMover => _actorBaseControl;
 		
 		public override Vector3 position
 		{
-			get => SelfMover.Position;
-			set => SelfMover.Position = value;
+			get => ActorMover.Position;
+			set => ActorMover.Position = value;
 		}
 
 		public float DefaultConstTime { get; set; }

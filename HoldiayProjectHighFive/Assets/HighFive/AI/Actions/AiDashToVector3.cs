@@ -1,7 +1,9 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
+using HighFive.Model.Person;
 using ReadyGamerOne.Rougelike.Mover;
+using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -28,12 +30,12 @@ namespace HighFive.AI.Actions
         private bool finished = false;
         private Vector3 targetPos;
 
-        private IMover2D selfMover;
+        private IHighFivePerson selfPerson;
         public override void OnAwake()
         {
             base.OnAwake();
-            selfMover = gameObject.GetComponent<IMover2D>();
-            Assert.IsNotNull(selfMover);
+            selfPerson = gameObject.GetPersonInfo() as IHighFivePerson;
+            Assert.IsNotNull(selfPerson);
         }
 
         public override void OnStart()
@@ -42,10 +44,10 @@ namespace HighFive.AI.Actions
             finished = false; 
             targetPos = inTarget.Value+inOffset.Value;
             if (ignoreYAxis.Value)
-                targetPos.y = selfMover.Position.y;
+                targetPos.y = selfPerson.position.y;
             DOTween.To(
-                    () => selfMover.Position,
-                    value => selfMover.Position = value,
+                    () => selfPerson.position,
+                    value => selfPerson.position = value,
                     targetPos,
                     inTime.Value)
                 .SetEase(easeType)

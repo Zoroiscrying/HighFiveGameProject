@@ -526,7 +526,7 @@ namespace HighFive.Model.Person
                 if (!(Controller as HighFiveCharacterController).characterController.isGrounded)
                 {
 	                ((Controller as HighFiveCharacterController).actor as MainCharacter)._playerVelocityY = 0;
-//                    this.TakeBattleEffect(new HitbackEffect(new Vector2(this.Dir * Mathf.Abs(this.AirXMove), 0)));
+//                    this.TakeBattleEffect(new HitbackEffect(new Vector2(this.FaceDir * Mathf.Abs(this.AirXMove), 0)));
                 }
 
 //                Debug.Log("按下攻击键，无论如何，锁定人物");

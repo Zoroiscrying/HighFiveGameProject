@@ -12,7 +12,7 @@ namespace HighFive.AI
         [HideInInspector]public LayerMask terrainLayers;
 
         protected IHighFivePerson SelfPerson { get; private set; }
-//        protected IMover2D SelfMover { get; private set; }
+//        protected IMover2D ActorMover { get; private set; }
 
         public abstract IHighFivePerson Detect();
 
@@ -20,8 +20,8 @@ namespace HighFive.AI
         {
             SelfPerson=gameObject.GetPersonInfo() as IHighFivePerson;
             Assert.IsNotNull(SelfPerson);
-//            SelfMover = gameObject.GetComponent<IMover2D>();
-//            Assert.IsNotNull(SelfMover);
+//            ActorMover = gameObject.GetComponent<IMover2D>();
+//            Assert.IsNotNull(ActorMover);
         }
 
         protected virtual void Update()

@@ -1,16 +1,17 @@
 using System;
+using HighFive.Control.Movers.Interfaces;
 using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.Utility;
 using UnityEngine;
 
 namespace Game.Scripts
 {
-    public class TempMover:MonoBehaviour,IMover2D
+    public class TempMover:MonoBehaviour,IBaseControl
     {
         #region Rigidbody
 
         private Rigidbody2D rig;
-        private Rigidbody2D Rig
+        protected Rigidbody2D Rig
         {
             get
             {
@@ -22,7 +23,7 @@ namespace Game.Scripts
 
         #endregion
 
-        public virtual int Dir
+        public virtual int FaceDir
         {
             get { return transform.localScale.x > 0 ? 1 : -1; }
             set
@@ -33,9 +34,9 @@ namespace Game.Scripts
                     dir * Mathf.Abs(scale.x), scale.y, scale.z);
             }
         }
-        private Vector2 RealOffset =>
+        protected Vector2 RealOffset =>
             new Vector2(
-                Dir * centerOffset.x, centerOffset.y);
+                FaceDir * centerOffset.x, centerOffset.y);
 
         public Vector3 Position
         {
@@ -60,14 +61,14 @@ namespace Game.Scripts
             set => Rig.gravityScale = value;
         }
 
-        [SerializeField] private Vector2 centerOffset;
-        [SerializeField] private LayerMask colliderLayers;
+        [SerializeField] protected Vector2 centerOffset;
+        [SerializeField] protected LayerMask colliderLayers;
         public LayerMask ColliderLayers
         {
             get => colliderLayers;
             set => colliderLayers = value;
         }
-        [SerializeField] private LayerMask triggerLayers;
+        [SerializeField] protected LayerMask triggerLayers;
         public LayerMask TriggerLayers
         {
             get => triggerLayers; 

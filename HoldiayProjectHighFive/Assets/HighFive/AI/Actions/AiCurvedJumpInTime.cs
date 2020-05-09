@@ -1,7 +1,9 @@
 using System.Linq;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
+using HighFive.Model.Person;
 using ReadyGamerOne.Rougelike.Mover;
+using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -25,13 +27,13 @@ namespace HighFive.AI.Actions
         private float playSpeed;
         private float xSpeed = 1.0f;
         private float animationTime;
-        private IMover2D selfMover;
+        private IHighFivePerson selfPerson;
 
         public override void OnAwake()
         {
             base.OnAwake();
-            selfMover = gameObject.GetComponent<IMover2D>();
-            Assert.IsNotNull(selfMover);
+            selfPerson = gameObject.GetPersonInfo() as IHighFivePerson;
+            Assert.IsNotNull(selfPerson);
             this.animationTime = aniY.curve.keys.Last().time;
         }
 
@@ -42,7 +44,7 @@ namespace HighFive.AI.Actions
             base.OnStart();
 
             var targetPosition = inTargetPosition.Value;
-            var selfPosition = selfMover.Position;
+            var selfPosition = selfPerson.position;
             var xDis = Mathf.Abs(targetPosition.x - selfPosition.x);
             
             xSpeed = xDis / expectedTime.Value;
@@ -61,7 +63,7 @@ namespace HighFive.AI.Actions
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
-            selfMover.Velocity=new Vector2(
+            selfPerson.ActorMover.Velocity=new Vector2(
                 dir * xSpeed,
                 yScale.Value * aniY.curve.Evaluate(timer*playSpeed));
             timer += Time.fixedDeltaTime;
@@ -75,7 +77,7 @@ namespace HighFive.AI.Actions
                 return TaskStatus.Running;
             }
 
-            selfMover.Velocity=Vector2.zero;
+            selfPerson.ActorMover.Velocity=Vector2.zero;
 //            Debug.Log($"Success: Timer:{timer},expectedTime:{expectedTime.Value}");
             return TaskStatus.Success;
         }

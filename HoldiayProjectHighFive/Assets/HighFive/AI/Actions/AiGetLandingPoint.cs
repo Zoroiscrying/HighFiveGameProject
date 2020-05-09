@@ -1,7 +1,9 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
+using HighFive.Model.Person;
 using ReadyGamerOne.Rougelike.Mover;
+using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -16,22 +18,22 @@ namespace HighFive.AI.Actions
         [BehaviorDesigner.Runtime.Tasks.Tooltip("接触点偏移")]
         public SharedVector3 inOffset;
 
-        private IMover2D selfMover;
+        private IHighFivePerson selfPerson;
 
         public override void OnAwake()
         {
             base.OnAwake();
-            selfMover = gameObject.GetComponent<IMover2D>();
-            Assert.IsNotNull(selfMover);
+            selfPerson = gameObject.GetPersonInfo() as IHighFivePerson;
+            Assert.IsNotNull(selfPerson);
         }
         
         public override TaskStatus OnUpdate()
         {
             var hitInfo = Physics2D.Raycast(
-                selfMover.Position,
+                selfPerson.position,
                 Vector2.down,
                 100,
-                selfMover.ColliderLayers);
+                selfPerson.ActorMover.ColliderLayers);
             if (hitInfo.collider == null)
                 return TaskStatus.Failure;
 

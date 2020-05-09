@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 114927749699945684}
   - component: {fileID: 114655197628422110}
   - component: {fileID: 114213103209524322}
-  - component: {fileID: 3062480855581037618}
+  - component: {fileID: 7441832032068865767}
   m_Layer: 10
   m_Name: Sworder
   m_TagString: Player
@@ -621,7 +621,7 @@ MonoBehaviour:
     canMoveTime: 0.5
     ignoreInput: 0
     faultToleranceTime: 0.24
---- !u!114 &3062480855581037618
+--- !u!114 &7441832032068865767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -630,7 +630,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1888196854289950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa7b81bfd254c4f8fb25d3e890058d1, type: 3}
+  m_Script: {fileID: 11500000, guid: e1bfb5c027ba437ab5b93c912ac0cee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   centerOffset: {x: -0.3, y: 0}
@@ -639,4 +639,4 @@ MonoBehaviour:
     m_Bits: 2304
   triggerLayers:
     serializedVersion: 2
-    m_Bits: 70144
+    m_Bits: 4608

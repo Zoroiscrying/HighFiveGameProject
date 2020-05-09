@@ -21,6 +21,17 @@ namespace HighFive.Control.Movers.Interfaces
         /// 角色是否站在地上
         /// </summary>
         bool IsGrounded { get; }
+        /// <summary>
+        /// 单独方向速度控制
+        /// </summary>
+        float VelocityX { get; set; }
+        float VelocityY { get; set; }
+        /// <summary>
+        /// 根据传来打击的向量（带有大小）和Multiplier瞬时改变Mover的速度
+        /// </summary>
+        /// <param name="hitDir"></param>
+        /// <param name="multiplier"></param>
+        void ChangeVelBasedOnHitDir(Vector2 hitDir, float multiplier = 1);  
         
         /// <summary>
         /// 反转ActorMover的输入
@@ -38,16 +49,5 @@ namespace HighFive.Control.Movers.Interfaces
         void StopHorizontallyInput();
         void StopVerticallyInput();
         void StopMoverInput();
-        /// <summary>
-        /// 单独方向速度控制
-        /// </summary>
-        float VelocityX { get; set; }
-        float VelocityY { get; set; }
-        /// <summary>
-        /// 根据传来打击的向量（带有大小）和Multiplier瞬时改变Mover的速度
-        /// </summary>
-        /// <param name="hitDir"></param>
-        /// <param name="multiplier"></param>
-        void ChangeVelBasedOnHitDir(Vector2 hitDir, float multiplier = 1);
     }
 }
