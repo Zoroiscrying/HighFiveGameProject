@@ -10,7 +10,7 @@ namespace HighFive.Control.Movers
     /// <summary>
     /// 玩家角色移动器
     /// </summary>
-    public class CharacterMover:AIActorMover
+    public class CharacterMover:AIActorMover,ICharacterMoverControl
     {
         #region MoverOverride
         protected override void CalculateGravityNVelocity()
@@ -137,8 +137,9 @@ namespace HighFive.Control.Movers
 
         #endregion
         
-        public virtual float VelocityX { get; set; }
-        public virtual float VelocityY { get; set; }        
+        // 角色的XY方向速度已经在ActorMover中实现
+        // public virtual float VelocityX { get; set; }
+        // public virtual float VelocityY { get; set; }        
         
         public void SetDirectionalInput(Vector2 input)
         {

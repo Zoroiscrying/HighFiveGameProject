@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\config\scratches" t="IncludeRecursive" />
-    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_HoldiayProjectHighFive.1796178446.00" t="ExcludeRecursive" />
-    <e p="F:\Projects\unity\HiFive\HoldiayProjectHighFive" t="IncludeRecursive">
+    <e p="C:\Users\a\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\a\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_HoldiayProjectHighFive.1754759029.00" t="ExcludeRecursive" />
+    <e p="D:\unreal pro\HighFiveGameProject\HoldiayProjectHighFive" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -1062,6 +1061,7 @@
                 <e p="IActorMoverBaseControl.cs" t="Include" />
                 <e p="IBaseControl.cs" t="Include" />
                 <e p="IFlyMover.cs" t="Include" />
+                <e p="ICharacterMoverControl.cs" t="Include" />
               </e>
             </e>
             <e p="SkillSystem" t="Include">
@@ -1216,6 +1216,9 @@
           <e p="Utility" t="Include">
             <e p="Auto" t="Include">
               <e p="AssetConstUtil.cs" t="Include" />
+            </e>
+            <e p="AutoTextureProcessor" t="Include">
+              <e p="SpriteSet.cs" t="Include" />
             </e>
           </e>
           <e p="View" t="Include">
