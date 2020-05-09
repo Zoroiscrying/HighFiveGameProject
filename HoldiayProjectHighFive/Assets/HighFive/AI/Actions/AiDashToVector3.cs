@@ -1,49 +1,52 @@
-using System;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
-using HighFive.Control.SkillSystem;
 using ReadyGamerOne.Rougelike.Mover;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Action = BehaviorDesigner.Runtime.Tasks.Action;
 
 namespace HighFive.AI.Actions
-{
-    public class AiJumToGameObject:Action
+{    
+    [TaskDescription("冲锋到一个【Vector3+offset】")]
+    public class AiDashToVector3:Action
     {
-        public SharedGameObject inTarget;
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("瞬移到什么位置")]
+        public SharedVector3 inTarget;
+        
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("瞬移时间")]
         public SharedFloat inTime;
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("偏移")]
         public SharedVector3 inOffset;
-
-        public SharedVector3 outTargetVector3;
+        
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("缓动类型")]
         public Ease easeType;
+        
+        
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("是否不进行Y向移动")]
+        public SharedBool ignoreYAxis = false;
 
         private bool finished = false;
+        private Vector3 targetPos;
 
         private IMover2D selfMover;
         public override void OnAwake()
         {
             base.OnAwake();
             selfMover = gameObject.GetComponent<IMover2D>();
-//            if (null == outTargetVector3)
-//                throw new Exception("outTargetVector3 is null");
-//            if (null == inTarget)
-//                throw new Exception("inTarget is null");
-//            if (null == inTarget.Value)
-//                throw new Exception("inTarget.Value is null");
             Assert.IsNotNull(selfMover);
         }
 
         public override void OnStart()
         {
             base.OnStart();
-            finished = false;
-            outTargetVector3.Value = inTarget.Value.transform.position;
+            finished = false; 
+            targetPos = inTarget.Value+inOffset.Value;
+            if (ignoreYAxis.Value)
+                targetPos.y = selfMover.Position.y;
             DOTween.To(
                     () => selfMover.Position,
                     value => selfMover.Position = value,
-                    outTargetVector3.Value+inOffset.Value,
+                    targetPos,
                     inTime.Value)
                 .SetEase(easeType)
                 .onComplete = () => { finished = true; };

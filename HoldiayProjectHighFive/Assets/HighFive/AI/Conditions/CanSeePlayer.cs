@@ -7,42 +7,16 @@ using UnityEngine;
 
 namespace HighFive.AI.Conditions
 {
-    public class CanSeePlayer:Conditional
+    public class CanSeePlayer:Detector
     {
-        public SharedFloat detectDistance;
-        public LayerMask LayerMask;
+        public SharedFloat viewDistance;
 
-        private IHighFivePerson self;
-        public override void OnStart()
+        protected override void InitSensor(AbstractSensor sensor)
         {
-            base.OnStart();
-            self = gameObject.GetPersonInfo() as IHighFivePerson;
-        }
-
-        public override TaskStatus OnUpdate()
-        {
-            
-            var hit= Physics2D.Linecast(gameObject.transform.position,
-                gameObject.transform.position + new Vector3(self.Dir * detectDistance.Value, 0,0), LayerMask);
-            
-            
-            if (hit && hit.transform.gameObject.GetPersonInfo() is IHighFiveCharacter)
+            if (sensor is HorizontalVisualSensor visualSensor)
             {
-                
-//                Debug.Log("在检测范围内，开始追击");
-                return TaskStatus.Success;
-            }
-
-            return TaskStatus.Failure;
-        }
-
-        public override void OnDrawGizmos()
-        {
-            if (null == transform)
-                return;
-            if (detectDistance == null)
-                throw new Exception("detectDistance[SharedFloat] is null");
-            Gizmos.DrawLine(transform.position,transform.position + new Vector3(self.Dir * detectDistance.Value, 0,0));
+                visualSensor.viewDistance = viewDistance.Value;
+            }        
         }
     }
 }

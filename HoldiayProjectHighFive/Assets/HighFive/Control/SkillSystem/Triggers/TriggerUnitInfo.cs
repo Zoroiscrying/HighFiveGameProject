@@ -286,6 +286,9 @@ namespace HighFive.Control.SkillSystem.Triggers
             if (!enable)
                 return;
             this.self = self;
+            if (self == null || !self.IsAlive)
+                return;
+            
             var tempDegree = GetSuitableDegree(self);
             var dir = new Vector2(Mathf.Cos(Mathf.Deg2Rad * tempDegree), Mathf.Sin(Mathf.Deg2Rad * tempDegree));
             MainLoop.Instance.ExecuteLater(() =>

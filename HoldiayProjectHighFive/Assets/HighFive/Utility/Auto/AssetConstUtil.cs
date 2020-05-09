@@ -52,6 +52,7 @@ namespace HighFive.Utility
 					{ @"WelcomePanel" , @"ClassPanel\WelcomePanel" },
 					{ @"Sworder" , @"ClassPerson\TypeCharacter\Sworder" },
 					{ @"Boner" , @"ClassPerson\TypeEnemy\Boner" },
+					{ @"Defender" , @"ClassPerson\TypeEnemy\Defender" },
 					{ @"Spider" , @"ClassPerson\TypeEnemy\Spider" },
 					{ @"AngryBall" , @"ClassPerson\TypeEnemy\TypeBoss\AngryBall" },
 					{ @"bullet_1" , @"ClassPrefab\Bullet\bullet_1" },

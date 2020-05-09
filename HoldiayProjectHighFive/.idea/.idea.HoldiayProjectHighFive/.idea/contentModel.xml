@@ -989,10 +989,14 @@
         <e p="HighFive" t="Include">
           <e p="AI" t="Include">
             <e p="Actions" t="Include">
-              <e p="AiCurvedVelocity.cs" t="Include" />
+              <e p="AiConstState.cs" t="Include" />
+              <e p="AiCurvedJumpDistance.cs" t="Include" />
+              <e p="AiCurvedJumpInTime.cs" t="Include" />
+              <e p="AiDashToVector3.cs" t="Include" />
+              <e p="AiGetDirToPlayer.cs" t="Include" />
+              <e p="AiGetHorizontalDistanceToPlayer.cs" t="Include" />
               <e p="AiGetLandingPoint.cs" t="Include" />
-              <e p="AiJumpToVector3.cs" t="Include" />
-              <e p="AiJumToGameObject.cs" t="Include" />
+              <e p="AiGetPlayerPosition.cs" t="Include" />
               <e p="IdleState.cs" t="Include" />
               <e p="Patrol.cs" t="Include" />
               <e p="RunSkill.cs" t="Include" />
@@ -1003,6 +1007,12 @@
               <e p="Attacked.cs" t="Include" />
               <e p="CanHearPlayer.cs" t="Include" />
               <e p="CanSeePlayer.cs" t="Include" />
+              <e p="Detector.cs" t="Include" />
+            </e>
+            <e p="Sensors" t="Include">
+              <e p="AbstractSensor.cs" t="Include" />
+              <e p="HearingSensor.cs" t="Include" />
+              <e p="HorizontalVisualSensor.cs" t="Include" />
             </e>
           </e>
           <e p="Const" t="Include">
@@ -1142,6 +1152,10 @@
                     <e p="HighFiveBossController.cs" t="Include" />
                   </e>
                 </e>
+                <e p="Defender" t="Include">
+                  <e p="Defender.cs" t="Include" />
+                  <e p="DefenderController.cs" t="Include" />
+                </e>
                 <e p="HighFiveEnemy" t="Include">
                   <e p="HighFiveEnemy.cs" t="Include" />
                   <e p="HighFiveEnemyController.cs" t="Include" />
@@ -1183,9 +1197,10 @@
             <e p="Editor" t="Include">
               <e p="CharacterCreateInfoDrawer.cs" t="Include" />
               <e p="ComponentChooserDrawer.cs" t="Include" />
+              <e p="PersonCreatorEditor.cs" t="Include" />
             </e>
             <e p="HighFiveMgr.cs" t="Include" />
-            <e p="PersonCreater.cs" t="Include" />
+            <e p="PersonCreator.cs" t="Include" />
             <e p="SceneTriggerChooser.cs" t="Include" />
             <e p="TouchDamage.cs" t="Include" />
           </e>

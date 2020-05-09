@@ -34,8 +34,14 @@ namespace HighFive.Model.Person
 		public Actor actor;
 		public virtual int Dir
 		{
-			get { return actor._faceDir; }
-			set { actor._faceDir = value; }
+			get { return selfPerson.transform.localScale.x > 0 ? 1 : -1; }
+			set
+			{
+				var scale = selfPerson.transform.localScale;
+				var dir = value > 0 ? 1 : -1;
+				selfPerson.transform.localScale = new Vector3(
+					dir * Mathf.Abs(scale.x), scale.y, scale.z);
+			}
 		}
 
 		public override void SetMoveable(bool state)

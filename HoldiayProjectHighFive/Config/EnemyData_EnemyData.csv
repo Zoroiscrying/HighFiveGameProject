@@ -2,3 +2,4 @@ personName,hitback_x,hitback_y,maxHp,attack
 string,float,float,int,int
 Boner,1,0,200,20
 Spider,1,0,200,40
+Defender,1,0,300,30

@@ -7,9 +7,13 @@ using UnityEngine.Assertions;
 
 namespace HighFive.AI.Actions
 {
+    
+    [TaskDescription("从当前位置向下发射一条射线，获取【落地点+offset】")]
     public class AiGetLandingPoint:Action
     {
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("当前位置落地点")]
         public SharedVector3 outLandingPoint;
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("接触点偏移")]
         public SharedVector3 inOffset;
 
         private IMover2D selfMover;
