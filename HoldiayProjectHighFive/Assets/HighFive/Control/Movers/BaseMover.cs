@@ -6,22 +6,7 @@ using UnityEngine;
 
 namespace HighFive.Control.Movers
 {
-    public enum InteractState
-    {
-        UnActivated,
-        Enter,
-        Stay,
-        Exit
-    }
-    public class InteractStateAndDirection
-    {
-        public InteractState interactState;
-        public InteractStateAndDirection(InteractState interactState)
-        {
-            this.interactState = interactState;
-        }
-    }
-    
+
     /// <summary>
     /// 移动器基类
     /// 负责每帧通过velocity进行移动
@@ -32,6 +17,25 @@ namespace HighFive.Control.Movers
     [RequireComponent(typeof(BoxCollider2D))][RequireComponent(typeof(Rigidbody2D))]
     public class BaseMover:MonoBehaviour,IMover2D
     {
+        #region Internal_Data_Structures
+
+        private enum InteractState
+        {
+            UnActivated,
+            Enter,
+            Stay,
+            Exit
+        }
+        private class InteractStateAndDirection
+        {
+            public InteractState interactState;
+            public InteractStateAndDirection(InteractState interactState)
+            {
+                this.interactState = interactState;
+            }
+        }             
+
+        #endregion
         
         #region Raycast Relevant Attributes and Functions
         /// <summary>

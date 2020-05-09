@@ -1,11 +1,10 @@
-using HighFive.Const;
-using HighFive.Global;
-using ReadyGamerOne.EditorExtension;
 using UnityEngine;
-using HighFive.StateMachine;
+using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Script;
-
+using HighFive.Const;
+using HighFive.Global;
+using HighFive.StateMachine;
 namespace HighFive.Control.Movers
 {
     /// <summary>
@@ -24,7 +23,6 @@ namespace HighFive.Control.Movers
         }
 
         #endregion
-        
         
         #region Character_特有接口、函数和属性
 
@@ -94,7 +92,7 @@ namespace HighFive.Control.Movers
         public AnimationNameChooser runAniName;
         public AnimationNameChooser dashAniName;
 
-        public PlayerState DebugStateChecker;
+        [SerializeField]private PlayerState DebugStateChecker;
         
         #endregion
         
@@ -123,7 +121,7 @@ namespace HighFive.Control.Movers
         
         #region Struct, Class, Enums
 
-        public enum PlayerState
+        private enum PlayerState
         {
             Idle,
             Run,
@@ -147,12 +145,12 @@ namespace HighFive.Control.Movers
             moverInput = input;
         }
         
-        public void OnJumpKeyDown()
+        private void OnJumpKeyDown()
         {
 		
         }
 
-        public void OnJumpKeyUp()
+        private void OnJumpKeyUp()
         {
 		
         }

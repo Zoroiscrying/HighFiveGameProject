@@ -33,7 +33,6 @@ namespace ReadyGamerOne.Rougelike.Mover
         /// </summary>
         float GravityScale { get; set; }
         
-        
         /// <summary>
         /// 会和什么层发生碰撞碰撞
         /// </summary>

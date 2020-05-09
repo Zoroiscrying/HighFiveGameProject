@@ -33,7 +33,7 @@ namespace Game.Scripts
             set => Rig.velocity = value;
         }
 
-        public float Gravity { get=>Physics.gravity.y; set=>Physics.gravity=new Vector3(0,value,0); }
+        public float Gravity { get=>Physics2D.gravity.y; set=>Physics2D.gravity=new Vector3(0,value); }
 
         public float GravityScale
         {
