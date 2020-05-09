@@ -3,6 +3,7 @@ using System.ComponentModel;
 using BehaviorDesigner.Runtime.Tasks;
 using HighFive.Control.Movers.Interfaces;
 using HighFive.Others;
+using ReadyGamerOne.Utility;
 using UnityEngine;
 using UnityEngine.Serialization;
 using zoroiscrying;
@@ -15,9 +16,18 @@ namespace HighFive.Control.Movers
     /// 添加角色的移动速度；角色的输入（MoverInput）会影响角色实际移动速度
     /// 添加角色的动画控制
     /// </summary>
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Animator))][RequireComponent(typeof(SpriteRenderer))]
     public class ActorMover : BaseMover,IActorBaseControl
     {
+        //暂时不知道放到哪里
+
+        #region Rendering Relevant
+
+        private SpriteRenderer _spriteRenderer;
+
+        #endregion
+        
+        
         #region IMover2D
 
         public override float GravityScale
@@ -191,16 +201,21 @@ namespace HighFive.Control.Movers
             if (NormalizedInputDirX == 1) //向右
             {
                 faceDir = 1;
-                if (transform.localScale.x < 0f)
-                    transform.localScale =
-                        new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
+                _spriteRenderer.flipX = false;
+                // if (transform.localScale.x < 0f)
+                // {       
+                //     _spriteRenderer.flipX = false;
+                //     transform.localScale =
+                //     new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
+                // }
             }
             else if (NormalizedInputDirX == -1) //向左
             {
                 faceDir = -1;
-                if (transform.localScale.x > 0f)
-                    transform.localScale =
-                        new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
+                _spriteRenderer.flipX = true;
+                // if (transform.localScale.x > 0f)
+                //     transform.localScale =
+                //         new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
             }
         }
 
@@ -251,6 +266,8 @@ namespace HighFive.Control.Movers
             var posVe2 = new Vector2(this.transform.position.x, this.transform.position.y);
             var dir = target - posVe2;
             moverInput = dir.normalized;
+            moverInput.x = Mathf.Sign(moverInput.x);
+            moverInput.y = Mathf.Sign(moverInput.y);
         }
 
         /// <summary>
@@ -311,6 +328,7 @@ namespace HighFive.Control.Movers
         protected override void Awake()
         {
             base.Awake();
+            _spriteRenderer = this.GetComponent<SpriteRenderer>();
             animator = GameAnimator.GetInstance(GetComponent<Animator>());
             CalculateGravityNVelocity();
             MoveHorizontally(true);
@@ -319,7 +337,7 @@ namespace HighFive.Control.Movers
         protected override void Update()
         {
             base.Update();
-            //AnimFaceDirControl();
+            AnimFaceDirControl();
         }
 
         protected override void FixedUpdate()
