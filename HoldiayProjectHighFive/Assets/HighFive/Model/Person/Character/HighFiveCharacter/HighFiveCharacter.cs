@@ -60,38 +60,6 @@ namespace HighFive.Model.Person
 
 		public GUIStyle style;
 		
-		public HighFiveCharacter()
-		{
-			style = new GUIStyle
-			{
-				fontSize = 50
-			};
-			style.normal.textColor = Color.cyan;
-			style.alignment = TextAnchor.MiddleCenter;
-			
-			MainLoop.Instance.AddGUIFunc(() =>
-			{
-				var player = GlobalVar.G_Player;
-				if (null == player)
-					return;
-				GUILayout.Space(40);
-				style.fontSize = (int)GUILayoutUtil.Slider("字体大小", style.fontSize, 0, 100, style);
-				GUILayout.Label($"基础攻击\t【{player.BaseAttack}】",style);
-				player.AttackAdder = GUILayoutUtil.Slider("攻击加成", player.AttackAdder, 0, 100, style);
-				player.AttackScale = GUILayoutUtil.Slider("攻击倍率", player.AttackScale, 0, 5, style);
-				player.AttackSpeed = GUILayoutUtil.Slider("攻速", player.AttackSpeed, 0, 5, style);
-				player.CritRate = GUILayoutUtil.Slider("暴击率", player.CritRate, 0, 1, style);
-				player.CritScale = GUILayoutUtil.Slider("暴击倍率", player.CritScale, 0, 5, style);
-				player.TakeDamageScale = GUILayoutUtil.Slider("承伤倍率", player.TakeDamageScale, 0, 2, style);
-				player.TakeDamageBlock = GUILayoutUtil.Slider("固定格挡", player.TakeDamageBlock, 0, 50, style);
-				player.DodgeRate = GUILayoutUtil.Slider("闪避", player.DodgeRate, 0, 1, style);
-				player.RepulseScale = GUILayoutUtil.Slider("击退强度", player.RepulseScale, 0, 5, style);
-				player.DefaultConstTime = GUILayoutUtil.Slider("无敌时间", player.DefaultConstTime, 0, 5, style);
-				GUILayout.Label($"无敌\t【{player.IsInvincible}】",style);
-				GUILayout.Label($"Z强化\t【{GlobalVar.isSuper}】",style);
-			});
-		}
-
 		#endregion
 		
 		#region Fields
@@ -382,30 +350,55 @@ namespace HighFive.Model.Person
 				});
 		}		
 
-		#endregion		
-		
+		#endregion
+
+
+		public override void OnInstanciateObject()
+		{
+			base.OnInstanciateObject();           
+			style = new GUIStyle
+			{
+				fontSize = 50
+			};
+			style.normal.textColor = Color.cyan;
+			style.alignment = TextAnchor.MiddleCenter;
+		}
+
 		#region IPoolable<PoolPerson<T>>
 
 		public override void OnGetFromPool()
 		{
-			base.OnGetFromPool();	
-			GlobalVar.G_Player = this;
+			base.OnGetFromPool();
+			Debug.Log($"{CharacterName} GetFromPool");
+
+			// 设置全局变量
+			if(GlobalVar.G_Player==null)
+				GlobalVar.SetPlayer(this);
+			
+			//根据缓存回复位置
 			position = DefaultData.PlayerPos;
+			
 			CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
             CEventCenter.AddListener<string>(Message.M_OnTryBut, OnTryBuy);
             CEventCenter.AddListener<string, int>(Message.M_AddItem, AddItemFromMessage);
             CEventCenter.AddListener<string, int>(Message.M_RemoveItem, RemoveItemFromMessage);
+            
+            // OnGUI
+            MainLoop.Instance.AddGUIFunc(OnGUI);
 		}
 
 		public override void OnRecycleToPool()
 		{
 			base.OnRecycleToPool();
+			Debug.Log($"{CharacterName} RecycleToPool");
+			
 			CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
 			CEventCenter.RemoveListener<string>(Message.M_OnTryBut, OnTryBuy);
 			CEventCenter.RemoveListener<string, int>(Message.M_AddItem, AddItemFromMessage);
 			CEventCenter.RemoveListener<string, int>(Message.M_RemoveItem, RemoveItemFromMessage);
-//			if(GlobalVar.G_Player==this)
-//				GlobalVar.G_Player = null;			
+			
+			// OnGUI
+			MainLoop.Instance.RemoveGUIFunc(OnGUI);
 		}
 
 		#endregion
@@ -443,8 +436,6 @@ namespace HighFive.Model.Person
 
 		#endregion
 		
-
-
 		
 		#endregion
 
@@ -598,7 +589,7 @@ namespace HighFive.Model.Person
 
 		private void AddItemFromMessage(string id, int count)
 		{
-//			Debug.Log($"GetItem{id}:[{count}]");
+			Debug.Log($"GetItem{id}:[{count}]");
 			AddItem(id, count);
 		}
 
@@ -669,6 +660,28 @@ namespace HighFive.Model.Person
 		{
 			this.InputOk = true;
 		}
+
+		private void OnGUI()
+		{
+			if (!IsAlive)
+				return;
+			GUILayout.Space(40);
+			style.fontSize = (int)GUILayoutUtil.Slider("字体大小", style.fontSize, 0, 100, style);
+			GUILayout.Label($"基础攻击\t【{this.BaseAttack}】",style);
+			this.AttackAdder = GUILayoutUtil.Slider("攻击加成", this.AttackAdder, 0, 100, style);
+			this.AttackScale = GUILayoutUtil.Slider("攻击倍率", this.AttackScale, 0, 5, style);
+			this.AttackSpeed = GUILayoutUtil.Slider("攻速", this.AttackSpeed, 0, 5, style);
+			this.CritRate = GUILayoutUtil.Slider("暴击率", this.CritRate, 0, 1, style);
+			this.CritScale = GUILayoutUtil.Slider("暴击倍率", this.CritScale, 0, 5, style);
+			this.TakeDamageScale = GUILayoutUtil.Slider("承伤倍率", this.TakeDamageScale, 0, 2, style);
+			this.TakeDamageBlock = GUILayoutUtil.Slider("固定格挡", this.TakeDamageBlock, 0, 50, style);
+			this.DodgeRate = GUILayoutUtil.Slider("闪避", this.DodgeRate, 0, 1, style);
+			this.RepulseScale = GUILayoutUtil.Slider("击退强度", this.RepulseScale, 0, 5, style);
+			this.DefaultConstTime = GUILayoutUtil.Slider("无敌时间", this.DefaultConstTime, 0, 5, style);
+			GUILayout.Label($"无敌\t【{this.IsInvincible}】",style);
+			GUILayout.Label($"Z强化\t【{GlobalVar.isSuper}】",style);
+		}
+		
 		#endregion
 	}
 }

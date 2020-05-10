@@ -48,10 +48,19 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 重写死亡操作，对象池控制的话就不会销毁，而是回收
         /// </summary>
-        public override void Kill()
+        public override void LogicKill()
         {
             Release();
         }
+
+        /// <summary>
+        /// 重写快速终结操作
+        /// </summary>
+        public override void Destroy()
+        {
+            Release();
+        }
+
 
         public override bool IsAlive
         {

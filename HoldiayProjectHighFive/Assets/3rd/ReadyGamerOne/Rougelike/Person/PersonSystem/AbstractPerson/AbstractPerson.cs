@@ -18,7 +18,7 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 角色名
         /// </summary>
-        string CharacterName { get; }
+        string CharacterName { get; set; }
         
         AbstractPersonController Controller { get; }
 
@@ -47,7 +47,7 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 杀死当前角色
         /// </summary>
-        void Kill();        
+        void LogicKill();        
 
         #endregion
         
@@ -145,7 +145,7 @@ namespace ReadyGamerOne.Rougelike.Person
                 realDamage = Hp;
 //                Debug.Log(CharacterName+"该死！");
                 Hp = 0;
-                Kill();
+                LogicKill();
             }
             else
             {
@@ -172,13 +172,18 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 角色名字
         /// </summary>
-        public string CharacterName
+        public virtual string CharacterName
         {
             get
             {
                 if (!_gameObject)
                     return "物体被销毁";
                 return _gameObject.name;
+            }
+            set
+            {
+                if (_gameObject)
+                    _gameObject.name = value;
             }
         }
 
@@ -262,17 +267,19 @@ namespace ReadyGamerOne.Rougelike.Person
 //                Debug.Log(controllerTypeAttribute.controllerType);
 
                 _controller.InitController(this);
+
+                _controller.eventOnDestory += Destroy;
             }
 
 //            Debug.Log(CharacterName + " Init");
 
             Assert.IsTrue(_controller);
-        }             
-        
+        }
+
         /// <summary>
-        /// 真正销毁物体
+        /// 真正直接销毁物体，用于场景切换等硬性要求
         /// </summary>
-        public void DestroyObject()
+        public virtual void Destroy()
         {
             Object.Destroy(gameObject);
         }
@@ -316,15 +323,16 @@ namespace ReadyGamerOne.Rougelike.Person
         public virtual bool IsAlive => gameObject != null && Hp > 0;
         
         /// <summary>
-        /// 调用此函数杀死角色
+        /// 调用此函数逻辑上杀死角色，可能还会有动画特效的调用，此函数调用后IsAlive为false
         /// </summary>
-        public virtual void Kill()
+        public virtual void LogicKill()
         {
             //处理消息
             TickOnKillEventAndClearEvent();
             //这里就直接销毁物体
-            DestroyObject();
+            Destroy();
         }            
+        
 
         #endregion
         

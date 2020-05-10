@@ -1,7 +1,10 @@
+using System;
 using HighFive.Control.EffectSystem;
 using HighFive.Control.Movers.Interfaces;
 using HighFive.Control.SkillSystem;
+using HighFive.Data;
 using HighFive.View;
+using ReadyGamerOne.Data;
 using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -43,8 +46,43 @@ namespace HighFive.Model.Person
 
 		#endregion
 
+		private string _personName="未设置名字";
+		public override string CharacterName
+		{
+			get => _personName;
+			set => _personName = value;
+		}
+
+		public override void LoadData(CsvMgr data)
+		{
+			base.LoadData(data);
+			var personData = CsvData as PersonData;
+			this.Repulse = new Vector2(personData.hitback_x, personData.hitback_y);
+			this.CharacterName = personData.personName;
+		}
+
+		#region IPoolablePerson
+
+		public override void OnGetFromPool()
+		{
+			base.OnGetFromPool();
+			_actorBaseControl = gameObject.GetComponent<IActorBaseControl>();
+			if (null == _actorBaseControl)
+			{
+				throw new Exception($"{CharacterName}的actorBaseControl is null");
+			}else 
+				Debug.Log($"{CharacterName}加载_actorBaseControl");
+		}
+
+		public override void OnRecycleToPool()
+		{
+			base.OnRecycleToPool();
+			_actorBaseControl = null;
+		}
 		
 
+		#endregion
+		
 		#region IRichDamage
 
 		public float AttackSpeed { get; set; } = 1;
@@ -99,12 +137,20 @@ namespace HighFive.Model.Person
 			}
 			
 			#endregion
+
+
+			var attackPerson = takeDamageFrom as IHighFivePerson;
+			var dir = takeDamageFrom.position.x > position.x ? 1 : -1;
+			var finalDamageInt = Mathf.RoundToInt(finalDamage);
 			
+			//伤害数字
+			new DamageNumberUI(finalDamageInt, 0, 30, Color.red, transform, dir);
+			//击退
+			var attackerRepulse = attackPerson.Repulse;
+			attackerRepulse.x *= -dir;
+			ActorMover.ChangeVelBasedOnHitDir(attackerRepulse,attackPerson.RepulseScale);
 			
-			var dir = (takeDamageFrom as IHighFivePerson).Dir;
-			var realDamage = Mathf.RoundToInt(finalDamage);
-			new DamageNumberUI(realDamage, 0, 30, Color.red, transform, dir);
-			return base.OnTakeDamage(takeDamageFrom,realDamage);
+			return base.OnTakeDamage(takeDamageFrom,finalDamageInt);
 		}
 
 		public override float OnCauseDamage(AbstractPerson causeDamageTo, float damage)
@@ -174,10 +220,8 @@ namespace HighFive.Model.Person
 			{
 				if (null == _actorBaseControl)
 				{
-					_actorBaseControl = gameObject.GetComponent<IActorBaseControl>();
-					Assert.IsNotNull(_actorBaseControl);
+					throw new Exception($"{CharacterName}的actorBaseControl is null");
 				}
-
 				return _actorBaseControl;
 			}
 		}
@@ -189,9 +233,7 @@ namespace HighFive.Model.Person
 		}
 
 		public float DefaultConstTime { get; set; }
-
-
-
+		
 
 		/// <summary>
 		/// 执行技能
@@ -207,7 +249,7 @@ namespace HighFive.Model.Person
 		public void LookAt(Transform target)
 		{
 			(Controller as HighFivePersonController).LookAt(target);
-		}		
+		}
 
 		#endregion
 	}

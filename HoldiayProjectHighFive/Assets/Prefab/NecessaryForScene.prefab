@@ -247,7 +247,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 106263
+    m_Bits: 2147589911
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -306,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4868050087208544}
   - component: {fileID: 114802899564879196}
-  - component: {fileID: 114093315481540448}
+  - component: {fileID: 1974203741648492315}
   m_Layer: 0
   m_Name: SceneUtil
   m_TagString: Untagged
@@ -372,7 +372,7 @@ MonoBehaviour:
   bossRT: {fileID: 0}
   bossLB: {fileID: 0}
   bossRB: {fileID: 0}
---- !u!114 &114093315481540448
+--- !u!114 &1974203741648492315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -381,14 +381,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1611617283708418}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 509f43a33eb7e37479f74825796c0099, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d039c569b0526444b697fcb2a52127f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signalSize: 3.13
-  CharacterInfos:
-  - _personType: 0
+  signalSize: 1
+  createInfos:
+  - enable: 1
+    _personType: 0
     position: {x: 0, y: 0, z: 0}
-    color: {r: 0, g: 1, b: 0.14819956, a: 1}
+    color: {r: 0.22258809, g: 0.7735849, b: 0.35090876, a: 1}
 --- !u!1 &1733121649965414
 GameObject:
   m_ObjectHideFlags: 0

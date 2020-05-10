@@ -1,12 +1,7 @@
 using System;
-using System.ComponentModel;
-using BehaviorDesigner.Runtime.Tasks;
 using HighFive.Control.Movers.Interfaces;
 using HighFive.Others;
-using ReadyGamerOne.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
-using zoroiscrying;
 
 namespace HighFive.Control.Movers
 {
@@ -316,7 +311,7 @@ namespace HighFive.Control.Movers
         /// <param name="multiplier">用于影响击退效果的multiplier</param>
         public void ChangeVelBasedOnHitDir(Vector2 hitDir, float multiplier = 1)
         {
-            this.velocity = hitDir.normalized * multiplier;
+            this.velocity = hitDir * multiplier;
         }
 
         #endregion

@@ -2,7 +2,6 @@ using HighFive.Control.EffectSystem;
 using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 using UnityEngine.Assertions;
-using zoroiscrying;
 
 namespace HighFive.Model.Person
 {

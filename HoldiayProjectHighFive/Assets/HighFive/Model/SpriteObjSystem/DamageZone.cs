@@ -35,6 +35,7 @@ namespace HighFive.Model.SpriteObjSystem
             Assert.IsNotNull(self);
             selfPerson = self;
             mover = GetComponent<IMover2D>();
+            Assert.IsNotNull(mover);
             mover.eventOnTriggerEnter += OnEnemyEnter;
             mover.eventOnTriggerExit += OnEnemyExit;
             mover.eventOnTriggerStay += OnEnemyStay;
@@ -78,7 +79,7 @@ namespace HighFive.Model.SpriteObjSystem
             
             if (!selfPerson.gameObject.TryAttack(enemy, damageScale))
             {
-                Debug.LogWarning($"无效攻击【{selfPerson?.CharacterName}=>{enemy.name}】");
+//                Debug.LogWarning($"无效攻击【{selfPerson?.CharacterName}=>{enemy.name}】");
             }
         }
     }

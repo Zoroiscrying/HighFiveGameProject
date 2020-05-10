@@ -88,13 +88,13 @@ namespace HighFive.Model.ItemSystem
         }
 
 
-        protected virtual void AddEffects()
+        public virtual void AddEffects()
         {
             Debug.Log($"{ItemName}开启");
             GlobalVar.G_Player.AttackAdder += 20;
         }
 
-        protected virtual void RemoveEffects()
+        public virtual void RemoveEffects()
         {
             Debug.Log($"{ItemName}关闭");
             GlobalVar.G_Player.AttackAdder -= 20;

@@ -250,8 +250,7 @@ namespace HighFive.Control.EffectSystem.Effects
 //                        trans.position += new Vector3(dp.FaceDir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y, 0);
                         var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y);
                         //TODO:需要更好接口
-                        var actor = rp.Controller.GetComponent<Actor>();
-                        actor?.ChangeVelBasedOnHitDir(hitBack,15);
+                        rp.ActorMover.ChangeVelBasedOnHitDir(hitBack, dp.RepulseScale);
                     }
 
                     break;

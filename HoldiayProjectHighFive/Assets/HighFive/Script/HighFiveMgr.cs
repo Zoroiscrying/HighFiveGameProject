@@ -16,13 +16,6 @@ namespace HighFive.Script
 		{
 			
 		}
-		private void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.T))
-			{
-				CEventCenter.BroadMessage(Message.M_AddItem, ItemName.Bear, 1);
-			}
-		}
 
 		protected override void OnAnySceneUnload()
 		{

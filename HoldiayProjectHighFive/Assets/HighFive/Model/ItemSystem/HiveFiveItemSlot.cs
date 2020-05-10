@@ -88,7 +88,7 @@ namespace HighFive.Model.ItemSystem
                         gemBoxObj =>
                         {
                             item.gemBoxIndex = gemBoxObj.transform.GetSiblingIndex();
-                            Debug.Log($"setindex_itemId:{item.GetHashCode()},itemIndex:{item.gemBoxIndex}");
+//                            Debug.Log($"setindex_itemId:{item.GetHashCode()},itemIndex:{item.gemBoxIndex}");
                             SwitchDragType(DragType.Gembox, gemBoxObj);
                             onDragStateChanged?.Invoke();
                         };                        

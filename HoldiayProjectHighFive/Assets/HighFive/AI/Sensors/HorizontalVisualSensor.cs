@@ -35,7 +35,7 @@ namespace HighFive.AI
 
         protected override void OnDrawGizmos()
         {
-            if (SelfPerson == null)
+            if (SelfPerson == null||!SelfPerson.IsAlive)
                 return;
             base.OnDrawGizmos();
             Gizmos.color=Color.cyan;

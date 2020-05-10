@@ -99,10 +99,10 @@ namespace HighFive.Model.Person
 			} 
 		}
 
-		public override void Kill()
+		public override void LogicKill()
 		{
 			DropItems(this.CharacterName);
-			base.Kill();
+			base.LogicKill();
 			HeadUi.GetComponent<Canvas>().enabled = false;
 		}
 
@@ -170,6 +170,7 @@ namespace HighFive.Model.Person
 				{
 					if (col.gameObject.GetPersonInfo() is IHighFiveCharacter)
 					{
+//						Debug.Log($"GetItem:{itemData.ID}");
 						CEventCenter.BroadMessage(Message.M_AddItem, itemData.ID, 1);
 						GameObject.Destroy(obj);
 					}

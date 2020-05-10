@@ -4,6 +4,9 @@ using HighFive.Const;
 using HighFive.Global;
 using HighFive.Model.Person;
 using ReadyGamerOne.Utility;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace HighFive.Script
@@ -25,6 +28,8 @@ namespace HighFive.Script
         public Vector3 position;
         public Color color;
     }
+    
+
     /// <summary>
     /// 用于调试控制角色生成脚本
     /// </summary>
@@ -33,15 +38,32 @@ namespace HighFive.Script
         public float signalSize = 1.0f;
         public List<CharacterCreateInfo> createInfos=new List<CharacterCreateInfo>();
 
-        private void Start()
+#if UNITY_EDITOR
+        private GUIStyle style;
+        private GUIStyle Style
         {
+            get
+            {
+                if (null == style)
+                {
+                    style = new GUIStyle();
+                    style.alignment = TextAnchor.MiddleCenter;
+                    style.normal.textColor=Color.white;
+                }
 
+                return style;
+            }
+        }
+#endif
+        
+        protected void Create()
+        {
             if (!gameObject.activeSelf || !enabled)
                 return;
-            
+
             foreach (var createInfo in createInfos)
             {
-                if(!createInfo.enable)
+                if (!createInfo.enable)
                     continue;
                 switch (createInfo._personType)
                 {
@@ -58,6 +80,7 @@ namespace HighFive.Script
                             Sworder.GetInstance(createInfo.position);
                             GlobalVar.UsePlayerCachePos = true;
                         }
+
                         break;
                     case PersonType.Spider:
                         Spider.GetInstance(createInfo.position);
@@ -72,7 +95,11 @@ namespace HighFive.Script
             }
         }
 
-        private void OnDrawGizmos()
+        protected virtual void Start()
+        {
+        }
+
+        protected virtual void OnDrawGizmos()
         {
             if (!gameObject.activeSelf || !enabled)
                 return;
@@ -82,6 +109,9 @@ namespace HighFive.Script
                     continue;
                 Gizmos.color = VARIABLE.color;
                 GizmosUtil.DrawSign(VARIABLE.position, signalSize);
+#if UNITY_EDITOR
+                Handles.Label(VARIABLE.position,$"【{name}:{VARIABLE._personType}】",Style);
+#endif
             }
         }
     }

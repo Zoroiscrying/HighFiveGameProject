@@ -33,7 +33,10 @@ namespace HighFive.AI
 
         protected virtual void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(CenterPosition, 0.1f);
+            if (SelfPerson.IsAlive)
+            {
+                Gizmos.DrawWireSphere(CenterPosition, 0.1f);
+            }
         }
     }
 }

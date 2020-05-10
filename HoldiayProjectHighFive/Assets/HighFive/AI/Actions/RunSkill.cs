@@ -25,9 +25,6 @@ namespace HighFive.AI.Actions
 			self = gameObject.GetPersonInfo() as IHighFivePerson;
 			self.RunSkill(SkillInfoAsset);
 			timer = 0;
-			var actor=gameObject.GetComponent<Actor>();
-			if(actor)
-				actor._velocity = Vector3.zero;
 		}
 
 		public override TaskStatus OnUpdate()
