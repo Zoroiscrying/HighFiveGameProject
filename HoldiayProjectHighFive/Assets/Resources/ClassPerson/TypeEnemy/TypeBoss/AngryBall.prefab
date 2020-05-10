@@ -5120,7 +5120,7 @@ MonoBehaviour:
   canMove: 1
   platformMask:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 256
   triggerMask:
     serializedVersion: 2
     m_Bits: 37888
@@ -5129,7 +5129,7 @@ MonoBehaviour:
   ignoreOneWayPlatformsThisFrame: 0
   oneWayPlatformMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   collisionState:
     right: 0
     left: 0

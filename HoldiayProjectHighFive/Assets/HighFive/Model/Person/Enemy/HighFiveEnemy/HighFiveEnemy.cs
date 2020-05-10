@@ -7,6 +7,7 @@ using HighFive.Global;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Data;
 using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Scripts;
 using UnityEngine;
@@ -146,27 +147,35 @@ namespace HighFive.Model.Person
 				itemData = CsvMgr.GetRandomData<DragData>(FileName.DragData_1);
 			}			
 
+			Assert.IsNotNull(itemData);
 			#endregion
 
-			Assert.IsNotNull(itemData);
-			
+			#region 实力化Item
+
 			var obj = ResourceMgr.InstantiateGameObject(PrefabName.DropItem, this.position);
 			
 			Assert.IsTrue(obj);
 			
 			obj.GetComponent<SpriteRenderer>().sprite =
-				ResourceMgr.GetAsset<Sprite>(itemData.spriteName);
+				ResourceMgr.GetAsset<Sprite>(itemData.spriteName);			
 
-			var ti = obj.GetOrAddComponent<TriggerInputer>();
-			ti.onCollisionEnterEvent2D +=
+			#endregion
+			
+			#region 给Item添加捡起得逻辑
+
+			var mover = obj.GetComponent<IMover2D>();
+			Assert.IsNotNull(mover);
+			mover.eventOnTriggerEnter +=
 				col =>
 				{
 					if (col.gameObject.GetPersonInfo() is IHighFiveCharacter)
 					{
 						CEventCenter.BroadMessage(Message.M_AddItem, itemData.ID, 1);
-						GameObject.Destroy(ti.gameObject);
+						GameObject.Destroy(obj);
 					}
-				};
+				};			
+
+			#endregion
 		}
 	}
 }

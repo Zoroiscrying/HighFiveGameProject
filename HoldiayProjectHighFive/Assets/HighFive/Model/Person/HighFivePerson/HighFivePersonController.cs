@@ -26,12 +26,16 @@ namespace HighFive.Model.Person
 		public EffectInfoAsset attackEffects;
 		public EffectInfoAsset hitEffects;
 		public EffectInfoAsset acceptEffects;
-//		public CharacterController2D characterController;
-//		public Actor actor;
 		public virtual int Dir
 		{
 			get => HighFivePerson.ActorMover.FaceDir;
-			set => HighFivePerson.ActorMover.FaceDir = value;
+			set
+			{
+				Assert.IsTrue(value == 1 || value == -1);
+				var revert = HighFivePerson.ActorMover.FaceDir != value;
+				if(revert)
+					HighFivePerson.ActorMover.ReverseMovementInputX();
+			}
 		}
 
 		public override void SetMoveable(bool state)

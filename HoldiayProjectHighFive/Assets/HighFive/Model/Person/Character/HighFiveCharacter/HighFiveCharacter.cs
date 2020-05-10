@@ -393,8 +393,8 @@ namespace HighFive.Model.Person
 			position = DefaultData.PlayerPos;
 			CEventCenter.AddListener(Message.M_ExitSuper, ExitSuper);
             CEventCenter.AddListener<string>(Message.M_OnTryBut, OnTryBuy);
-            CEventCenter.AddListener<string, int>(Message.M_AddItem, (id,count)=>AddItem(id,count));
-            CEventCenter.AddListener<string, int>(Message.M_RemoveItem, (id,count)=>RemoveItem(id,count));
+            CEventCenter.AddListener<string, int>(Message.M_AddItem, AddItemFromMessage);
+            CEventCenter.AddListener<string, int>(Message.M_RemoveItem, RemoveItemFromMessage);
 		}
 
 		public override void OnRecycleToPool()
@@ -402,7 +402,8 @@ namespace HighFive.Model.Person
 			base.OnRecycleToPool();
 			CEventCenter.RemoveListener(Message.M_ExitSuper, ExitSuper);
 			CEventCenter.RemoveListener<string>(Message.M_OnTryBut, OnTryBuy);
-
+			CEventCenter.RemoveListener<string, int>(Message.M_AddItem, AddItemFromMessage);
+			CEventCenter.RemoveListener<string, int>(Message.M_RemoveItem, RemoveItemFromMessage);
 //			if(GlobalVar.G_Player==this)
 //				GlobalVar.G_Player = null;			
 		}
@@ -594,6 +595,16 @@ namespace HighFive.Model.Person
 		
 
 		#region Message_Handles
+
+		private void AddItemFromMessage(string id, int count)
+		{
+//			Debug.Log($"GetItem{id}:[{count}]");
+			AddItem(id, count);
+		}
+
+		private void RemoveItemFromMessage(string id, int count) => RemoveItem(id, count);
+		
+		
 		private void OnTryBuy(string id)
 		{
 			var itemData = CsvMgr.GetData<ItemData>(id);

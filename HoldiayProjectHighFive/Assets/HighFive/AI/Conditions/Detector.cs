@@ -14,7 +14,6 @@ namespace HighFive.AI.Conditions
     {
         public SharedGameObject outDetectedPerson;
         public LayerMask inDetectLayers;
-        private LayerMask inTerrainLayers;
         protected IHighFivePerson selfPerson { get; private set; }
         protected List<AbstractSensor> Sensors { get; private set; }
 
@@ -23,22 +22,21 @@ namespace HighFive.AI.Conditions
             base.OnAwake();
             selfPerson=gameObject.GetPersonInfo() as IHighFivePerson;
             Assert.IsNotNull(selfPerson);
-            var mover = gameObject.GetComponent<IMover2D>();
-            Assert.IsNotNull(mover);
-            inTerrainLayers = mover.ColliderLayers;
             Sensors = new List<AbstractSensor>();
-            Sensors.AddRange(gameObject.GetComponents<AbstractSensor>());
-            foreach (var sensor in Sensors)
+            foreach (var sensor in gameObject.GetComponents<AbstractSensor>())
             {
+                if(!InitSensor(sensor))
+                    continue;
                 sensor.detectLayers = inDetectLayers;
-                sensor.terrainLayers = inTerrainLayers;
-                InitSensor(sensor);
+                sensor.terrainLayers = selfPerson.ActorMover.ColliderLayers;
+                Sensors.Add(sensor);
             }
         }
 
-        protected abstract void InitSensor(AbstractSensor sensor);
+        protected abstract bool InitSensor(AbstractSensor sensor);
 
-
+        protected virtual bool OnFindTarget(IHighFivePerson target) => true;
+        
         public override TaskStatus OnUpdate()
         {
             if(Sensors.Count==0)
@@ -47,10 +45,9 @@ namespace HighFive.AI.Conditions
             foreach (var sensor in Sensors)
             {
                 var target = sensor.Detect();
-                if (target != null)
+                if (target != null && OnFindTarget(target))
                 {
                     outDetectedPerson.Value = target.gameObject;
-//                    Debug.Log($"发现：{target.CharacterName}");
                     return TaskStatus.Success;
                 }
             }

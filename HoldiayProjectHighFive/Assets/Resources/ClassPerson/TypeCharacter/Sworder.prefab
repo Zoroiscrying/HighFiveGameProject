@@ -203,7 +203,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.02, y: -0.06}
@@ -303,10 +303,10 @@ MonoBehaviour:
   canMove: 1
   platformMask:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 256
   triggerMask:
     serializedVersion: 2
-    m_Bits: 69632
+    m_Bits: 2147569664
   moverInput: {x: 0, y: 0}
   canMoveVertically: 0
   ignoreOneWayPlatformsThisFrame: 0

@@ -11,13 +11,15 @@ namespace HighFive.AI.Conditions
     {
         public SharedFloat hearRadius;
 
-
-        protected override void InitSensor(AbstractSensor sensor)
+        protected override bool InitSensor(AbstractSensor sensor)
         {
             if (sensor is HearingSensor hearingSensor)
             {
                 hearingSensor.hearingRadius = hearRadius.Value;
+                return true;
             }
+
+            return false;
         }
     }
 }

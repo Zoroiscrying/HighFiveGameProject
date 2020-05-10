@@ -17,7 +17,7 @@ namespace HighFive.AI
 
         public override IHighFivePerson Detect()
         {
-            var size = Physics2D.CircleCastNonAlloc(SelfPerson.position, hearingRadius, Vector2.zero, hitInfos, 0, detectLayers);
+            var size = Physics2D.CircleCastNonAlloc(CenterPosition, hearingRadius, Vector2.zero, hitInfos, 0, detectLayers);
             if (size == 0)
                 return null;
             foreach (var hit in hitInfos)
@@ -44,7 +44,7 @@ namespace HighFive.AI
             
             base.OnDrawGizmos();
             Gizmos.color=Color.yellow;
-            Gizmos.DrawWireSphere(SelfPerson.position, hearingRadius);
+            Gizmos.DrawWireSphere(CenterPosition, hearingRadius);
         }
     }
 }

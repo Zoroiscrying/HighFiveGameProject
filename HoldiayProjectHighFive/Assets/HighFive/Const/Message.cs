@@ -3,7 +3,6 @@
     public static class Message
     {
         #region 背包
-        //TODO:添加和移除物体的消息有问题
         public static readonly string M_AddItem = "at";       //    string (id) int (count)
         public static readonly string M_RemoveItem = "rt";    //    string (id) int (count)
         #endregion

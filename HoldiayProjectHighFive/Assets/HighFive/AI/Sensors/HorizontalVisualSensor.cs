@@ -14,13 +14,19 @@ namespace HighFive.AI
 
         public override IHighFivePerson Detect()
         {
-            var hit = Physics2D.Raycast(SelfPerson.position, SelfPerson.Dir*Vector2.right, viewDistance, detectLayers|terrainLayers);
+            if (!SelfPerson.IsAlive)
+                return null;
+            
+            var hit = Physics2D.Raycast(CenterPosition, SelfPerson.Dir*Vector2.right, viewDistance, detectLayers|terrainLayers);
             if (!hit) 
                 return null;
+//            print($"碰到：{hit.transform.name} _1");
             if (1 != detectLayers.value.GetNumAtBinary(hit.collider.gameObject.layer)) 
                 return null; 
+//            print($"碰到：{hit.transform.name} _2");
             if (hit.collider.gameObject.GetPersonInfo() is IHighFivePerson person && person.IsAlive)
             {
+//                print($"碰到：{hit.transform.name} _3");
                 return person;
             }
 
@@ -33,7 +39,7 @@ namespace HighFive.AI
                 return;
             base.OnDrawGizmos();
             Gizmos.color=Color.cyan;
-            var position = SelfPerson.position;
+            var position = CenterPosition;
             Gizmos.DrawLine(position,position+viewDistance*SelfPerson.Dir*Vector3.right);
         }
     }

@@ -8,6 +8,9 @@ namespace HighFive.AI
 {
     public abstract class AbstractSensor:MonoBehaviour
     {
+        public Vector3 centerOffset;
+        public Vector3 CenterPosition => centerOffset + SelfPerson.position;
+        
         [HideInInspector]public LayerMask detectLayers;
         [HideInInspector]public LayerMask terrainLayers;
 
@@ -30,6 +33,7 @@ namespace HighFive.AI
 
         protected virtual void OnDrawGizmos()
         {
+            Gizmos.DrawWireSphere(CenterPosition, 0.1f);
         }
     }
 }
