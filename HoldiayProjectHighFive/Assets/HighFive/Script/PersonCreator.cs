@@ -39,8 +39,8 @@ namespace HighFive.Script
         public List<CharacterCreateInfo> createInfos=new List<CharacterCreateInfo>();
 
 #if UNITY_EDITOR
-        private GUIStyle style;
-        private GUIStyle Style
+        protected GUIStyle style;
+        protected virtual GUIStyle Style
         {
             get
             {

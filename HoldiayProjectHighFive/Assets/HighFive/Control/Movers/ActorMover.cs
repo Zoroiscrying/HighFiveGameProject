@@ -150,6 +150,11 @@ namespace HighFive.Control.Movers
         // 属性名为VelocityMultiplier
 
         /// <summary>
+        /// TODO:是否忽略主观移动
+        /// </summary>
+        public bool IgnoreMoverInput { get; set; } = false;
+
+        /// <summary>
         /// 控制是否可以移动的开关
         /// </summary>
         /// <param name="arg"></param>

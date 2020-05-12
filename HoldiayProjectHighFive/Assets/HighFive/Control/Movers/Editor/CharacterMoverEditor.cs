@@ -5,9 +5,8 @@ using UnityEngine;
 namespace HighFive.Control.Movers.Editor
 {
     [CustomEditor(typeof(CharacterMover))]
-    public class CharacterMoverEditor:UnityEditor.Editor
+    public class CharacterMoverEditor:ActorMoverEditor
     {
-        private UnityEditor.Editor baseEditor;
         private string[] titles = {"ActorMover","Character", "Others"};
         private int titleIndex = 0;
 
@@ -55,40 +54,34 @@ namespace HighFive.Control.Movers.Editor
         private SerializedProperty debugStateCheckerProp;
 
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            try
-            {
-                baseEditor = CreateEditor(target, typeof(ActorMoverEditor));
-                minJumpHeightProp = serializedObject.FindProperty("minJumpHeight");
-                canHighJumpProp = serializedObject.FindProperty("canHighJump");
-                canAccelerationProp = serializedObject.FindProperty("canAcceleration");
-                maxUpSpeedProp = serializedObject.FindProperty("maxUpYSpeed");
-                maxDownSpeedProp = serializedObject.FindProperty("maxDownYSpeed");
-                highJumpHeightProp = serializedObject.FindProperty("highJumpHeight");
-                accelerationSpeedProp = serializedObject.FindProperty("accelerationSpeed");
-                accelerationTimeProp = serializedObject.FindProperty("accelerationTime");
-                canDashProp = serializedObject.FindProperty("canDash");
-                dashTimeProp = serializedObject.FindProperty("dashTime");
-                dashDistanceProp = serializedObject.FindProperty("dashDistance");
-                wallSlideVelocityProp = serializedObject.FindProperty("wallSlideVelocity");
-                wallJumpTimeProp = serializedObject.FindProperty("wallJumpTime");
-                wallJumpClimbProp = serializedObject.FindProperty("wallJumpClimb");
-                wallJumpNormalProp = serializedObject.FindProperty("wallJumpNormal");
-                canAirJumpProp = serializedObject.FindProperty("canAirJump");
-                airJumpTimeProp = serializedObject.FindProperty("airJumpTime");
-                inControlProp = serializedObject.FindProperty("inControl");
-                idleAniNameProp = serializedObject.FindProperty("idleAniName");
-                walkAniNameProp = serializedObject.FindProperty("walkAniName");
-                jumpAniNameProp = serializedObject.FindProperty("jumpAniName");
-                runAniNameProp = serializedObject.FindProperty("runAniName");
-                dashAniNameProp = serializedObject.FindProperty("dashAniName");
-                debugStateCheckerProp = serializedObject.FindProperty("DebugStateChecker");
-            }
-            catch (ArgumentException e)
-            {
-            }
-            
+            base.OnEnable();
+            minJumpHeightProp = serializedObject.FindProperty("minJumpHeight");
+            canHighJumpProp = serializedObject.FindProperty("canHighJump");
+            canAccelerationProp = serializedObject.FindProperty("canAcceleration");
+            maxUpSpeedProp = serializedObject.FindProperty("maxUpYSpeed");
+            maxDownSpeedProp = serializedObject.FindProperty("maxDownYSpeed");
+            highJumpHeightProp = serializedObject.FindProperty("highJumpHeight");
+            accelerationSpeedProp = serializedObject.FindProperty("accelerationSpeed");
+            accelerationTimeProp = serializedObject.FindProperty("accelerationTime");
+            canDashProp = serializedObject.FindProperty("canDash");
+            dashTimeProp = serializedObject.FindProperty("dashTime");
+            dashDistanceProp = serializedObject.FindProperty("dashDistance");
+            wallSlideVelocityProp = serializedObject.FindProperty("wallSlideVelocity");
+            wallJumpTimeProp = serializedObject.FindProperty("wallJumpTime");
+            wallJumpClimbProp = serializedObject.FindProperty("wallJumpClimb");
+            wallJumpNormalProp = serializedObject.FindProperty("wallJumpNormal");
+            canAirJumpProp = serializedObject.FindProperty("canAirJump");
+            airJumpTimeProp = serializedObject.FindProperty("airJumpTime");
+            inControlProp = serializedObject.FindProperty("inControl");
+            idleAniNameProp = serializedObject.FindProperty("idleAniName");
+            walkAniNameProp = serializedObject.FindProperty("walkAniName");
+            jumpAniNameProp = serializedObject.FindProperty("jumpAniName");
+            runAniNameProp = serializedObject.FindProperty("runAniName");
+            dashAniNameProp = serializedObject.FindProperty("dashAniName");
+            debugStateCheckerProp = serializedObject.FindProperty("DebugStateChecker");
+
         }
 
 
@@ -100,7 +93,7 @@ namespace HighFive.Control.Movers.Editor
             switch (titleIndex)
             {
                 case 0:// ActorMover
-                    baseEditor.OnInspectorGUI();
+                    base.OnInspectorGUI();
                     break;
                 case 1:// character
 

@@ -5,10 +5,8 @@ using UnityEngine;
 namespace HighFive.Control.Movers.Editor
 {
     [CustomEditor(typeof(AIActorMover))]
-    public class AiActorMoverEditor:UnityEditor.Editor
+    public class AiActorMoverEditor:ActorMoverEditor
     {
-        private UnityEditor.Editor baseEditor;
-
         private string[] titles = {"ActorMover", "States", "Others"};
         private string[] states = {"AiPatrol", "Jump"};
         private int titleIndex = 0;
@@ -24,23 +22,18 @@ namespace HighFive.Control.Movers.Editor
         private SerializedProperty jumpStopTimeProp;
         private SerializedProperty jumpCountMaxProp;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            try
-            {
-                baseEditor = CreateEditor(target, typeof(ActorMoverEditor));
-                actorPatrolTypeProp = serializedObject.FindProperty("actorPatrolType");
-                isPatrollingProp = serializedObject.FindProperty("isPatrolling");
-                patrolStopTimeProp = serializedObject.FindProperty("patrolStopTime");
-                isJumpProp = serializedObject.FindProperty("isJumping");
-                jumpForceProp = serializedObject.FindProperty("jumpForce");
-                autoJumpProp = serializedObject.FindProperty("autoJump");
-                jumpStopTimeProp=serializedObject.FindProperty("jumpStopTime");
-                jumpCountMaxProp = serializedObject.FindProperty("jumpsCountMax");
-            }
-            catch (ArgumentException e)
-            {
-            }
+            base.OnEnable();
+            actorPatrolTypeProp = serializedObject.FindProperty("actorPatrolType");
+            isPatrollingProp = serializedObject.FindProperty("isPatrolling");
+            patrolStopTimeProp = serializedObject.FindProperty("patrolStopTime");
+            isJumpProp = serializedObject.FindProperty("isJumping");
+            jumpForceProp = serializedObject.FindProperty("jumpForce");
+            autoJumpProp = serializedObject.FindProperty("autoJump");
+            jumpStopTimeProp=serializedObject.FindProperty("jumpStopTime");
+            jumpCountMaxProp = serializedObject.FindProperty("jumpsCountMax");
+
         }
 
 
@@ -52,7 +45,7 @@ namespace HighFive.Control.Movers.Editor
             switch (titleIndex)
             {
                 case 0:// ActorMover
-                    baseEditor.OnInspectorGUI();
+                    base.OnInspectorGUI();
                     break;
                 case 1:// states
                     stateIndex = GUILayout.Toolbar(stateIndex, states);

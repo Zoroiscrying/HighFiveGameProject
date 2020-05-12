@@ -34,31 +34,24 @@ namespace HighFive.Control.Movers.Editor
         private string[] titles = {"Raycast", "IBaseControl", "MoverInput", "Others"};
         
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
-            try
-            {
-                skinWidthProp = serializedObject.FindProperty("_skinWidth");
-                totalVerticalRaysProp = serializedObject.FindProperty("totalVerticalRays");
-                totalHorizontalRaysProp = serializedObject.FindProperty("totalHorizontalRays");
+            skinWidthProp = serializedObject.FindProperty("_skinWidth");
+            totalVerticalRaysProp = serializedObject.FindProperty("totalVerticalRays");
+            totalHorizontalRaysProp = serializedObject.FindProperty("totalHorizontalRays");
 
-                gravityProp = serializedObject.FindProperty("gravity");
-                gravityScaleProp = serializedObject.FindProperty("gravityScale");
-                velocityProp = serializedObject.FindProperty("velocity");
-                velocityMultiplierProp = serializedObject.FindProperty("velocityMultiplier");
-                canMoveProp = serializedObject.FindProperty("canMove");
-                platformMaskProp = serializedObject.FindProperty("platformMask");
-                triggerMaskProp = serializedObject.FindProperty("triggerMask");
-                moverInputProp = serializedObject.FindProperty("moverInput");
-                canMoveVerticallyProp = serializedObject.FindProperty("canMoveVertically");
-                onWayPlatformMaskProp = serializedObject.FindProperty("oneWayPlatformMask");
-                collisionStateProp = serializedObject.FindProperty("collisionState");
-                
-            }
-            catch (ArgumentException e)
-            {
-                
-            }
+            gravityProp = serializedObject.FindProperty("gravity");
+            gravityScaleProp = serializedObject.FindProperty("gravityScale");
+            velocityProp = serializedObject.FindProperty("velocity");
+            velocityMultiplierProp = serializedObject.FindProperty("velocityMultiplier");
+            canMoveProp = serializedObject.FindProperty("canMove");
+            platformMaskProp = serializedObject.FindProperty("platformMask");
+            triggerMaskProp = serializedObject.FindProperty("triggerMask");
+            moverInputProp = serializedObject.FindProperty("moverInput");
+            canMoveVerticallyProp = serializedObject.FindProperty("canMoveVertically");
+            onWayPlatformMaskProp = serializedObject.FindProperty("oneWayPlatformMask");
+            collisionStateProp = serializedObject.FindProperty("collisionState");
+
         }
 
         public override void OnInspectorGUI()

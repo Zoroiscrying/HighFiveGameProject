@@ -229,8 +229,22 @@ namespace HighFive.Control.Movers
         public event Action<GameObject> eventOnTriggerStay;
         public event Action<GameObject> eventOnTriggerExit;
         
+
         #endregion
 
+        public IEnumerable<GameObject> Raycast(Vector2 dir, float? distance, LayerMask? layers)
+        {
+            distance = distance ?? float.MaxValue;
+            layers = layers ?? ColliderLayers;
+            return Physics2D.RaycastAll(
+                    Position,
+                    dir,
+                    distance.Value,
+                    layers.Value)
+                ?.Select(hitInfo => hitInfo.transform.gameObject);
+        }
+        
+        
         #endregion
 
         #region Movement Relevant Attributes and Functions

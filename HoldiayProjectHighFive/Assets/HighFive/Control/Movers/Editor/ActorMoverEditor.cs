@@ -5,14 +5,12 @@ using UnityEngine;
 namespace HighFive.Control.Movers.Editor
 {
     [CustomEditor(typeof(ActorMover))]
-    public class ActorMoverEditor:UnityEditor.Editor
+    public class ActorMoverEditor:BaseMoverEditor
     {
 
         private string[] titles = {"BaseActor", "PreciseMovementControl", "Others"};
         private int selectedIndex = 0;
-        
-        private UnityEditor.Editor baseEditor;
-        
+
         // PreciseMovementControl
         private SerializedProperty accelerationTimeAirborneProp;
         private SerializedProperty accelerationTimeGroundedProp;
@@ -26,25 +24,18 @@ namespace HighFive.Control.Movers.Editor
         // Others
         private SerializedProperty rayCastDebugProp;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            try
-            {
-                accelerationTimeAirborneProp = serializedObject.FindProperty("accelerationTimeAirborne");
-                accelerationTimeGroundedProp = serializedObject.FindProperty("accelerationTimeGrounded");
-                timeToJumpApexProp = serializedObject.FindProperty("timeToJumpApex");
-                maxJumpHeightProp = serializedObject.FindProperty("maxJumpHeight");
-                runSpeedProp = serializedObject.FindProperty("runSpeed");
-                horizontalSpeedMultiplierProp = serializedObject.FindProperty("horizontalSpeedMultiplier");
-                verticalSpeedMultiplierProp = serializedObject.FindProperty("verticalSpeedMultiplier");
-                faceDirProp = serializedObject.FindProperty("faceDir");
-                rayCastDebugProp = serializedObject.FindProperty("rayCastDebug");
-
-                baseEditor = CreateEditor(target, typeof(BaseMoverEditor));
-            }
-            catch (ArgumentException e)
-            {
-            }
+            base.OnEnable();
+            accelerationTimeAirborneProp = serializedObject.FindProperty("accelerationTimeAirborne");
+            accelerationTimeGroundedProp = serializedObject.FindProperty("accelerationTimeGrounded");
+            timeToJumpApexProp = serializedObject.FindProperty("timeToJumpApex");
+            maxJumpHeightProp = serializedObject.FindProperty("maxJumpHeight");
+            runSpeedProp = serializedObject.FindProperty("runSpeed");
+            horizontalSpeedMultiplierProp = serializedObject.FindProperty("horizontalSpeedMultiplier");
+            verticalSpeedMultiplierProp = serializedObject.FindProperty("verticalSpeedMultiplier");
+            faceDirProp = serializedObject.FindProperty("faceDir");
+            rayCastDebugProp = serializedObject.FindProperty("rayCastDebug");
         }
 
         public override void OnInspectorGUI()
@@ -55,7 +46,7 @@ namespace HighFive.Control.Movers.Editor
             switch (selectedIndex)
             {
                 case 0:// BaseActor
-                    baseEditor.OnInspectorGUI();
+                    base.OnInspectorGUI();
                     break;
                 case 1:// PreciseMovementControl
                     EditorGUILayout.PropertyField(accelerationTimeAirborneProp);

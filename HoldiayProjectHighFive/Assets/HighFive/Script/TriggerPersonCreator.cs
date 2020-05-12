@@ -25,9 +25,9 @@ namespace HighFive.Script
         private bool worked = false;
 
 #if UNITY_EDITOR
-        private GUIStyle style;
-        private GUIStyle Style
+        protected override GUIStyle Style
         {
+            
             get
             {
                 if (null == style)

@@ -9,6 +9,12 @@ namespace HighFive.Control.Movers.Interfaces
     public interface IActorBaseControl:IBaseControl
     {
         /// <summary>
+        /// 是否忽略主观移动，默认不忽略（为false)
+        /// 不接收表示ai和控制不起作用，但还是可以被击退，还受重力作用
+        /// </summary>
+        bool IgnoreMoverInput { get; set; }
+        
+        /// <summary>
         /// 控制能否移动的总开关
         /// </summary>
         /// <param name="enableMove"></param>
@@ -49,5 +55,6 @@ namespace HighFive.Control.Movers.Interfaces
         void StopHorizontallyInput();
         void StopVerticallyInput();
         void StopMoverInput();
+        
     }
 }
