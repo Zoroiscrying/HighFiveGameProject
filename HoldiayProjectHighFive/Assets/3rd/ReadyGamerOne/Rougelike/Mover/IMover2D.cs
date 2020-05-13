@@ -34,10 +34,27 @@ namespace ReadyGamerOne.Rougelike.Mover
         /// 会和那些层触发Trigger但不碰撞
         /// </summary>
         LayerMask TriggerLayers { get; set; }
+        
+        /// <summary>
+        /// 上方是否有碰撞
+        /// </summary>
+        bool CollidedUp { get; }
+        /// <summary>
+        /// 下方是否有碰撞
+        /// </summary>
+        bool CollidedDown { get; }
+        /// <summary>
+        /// 左方是否有碰撞
+        /// </summary>
+        bool CollidedLeft { get; }
+        /// <summary>
+        /// 右方是否有碰撞
+        /// </summary>
+        bool CollidedRight { get; }
 
-        event Action<GameObject> eventOnColliderEnter;
-        event Action<GameObject> eventOnColliderStay;
-        event Action<GameObject> eventOnColliderExit;
+        event Action<RaycastHit2D> eventOnColliderEnter;
+        event Action<RaycastHit2D> eventOnColliderStay;
+        event Action<RaycastHit2D> eventOnColliderExit;
         event Action<GameObject> eventOnTriggerEnter;
         event Action<GameObject> eventOnTriggerStay;
         event Action<GameObject> eventOnTriggerExit;

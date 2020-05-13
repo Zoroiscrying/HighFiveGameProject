@@ -222,9 +222,14 @@ namespace HighFive.Control.Movers
             get => triggerMask;
             set => triggerMask = value;
         }
-        public event Action<GameObject> eventOnColliderEnter;
-        public event Action<GameObject> eventOnColliderStay;
-        public event Action<GameObject> eventOnColliderExit;
+
+        public bool CollidedUp => collisionState.above;
+        public bool CollidedDown => collisionState.below;
+        public bool CollidedLeft => collisionState.left;
+        public bool CollidedRight => collisionState.right;
+        public event Action<RaycastHit2D> eventOnColliderEnter;
+        public event Action<RaycastHit2D> eventOnColliderStay;
+        public event Action<RaycastHit2D> eventOnColliderExit;
         public event Action<GameObject> eventOnTriggerEnter;
         public event Action<GameObject> eventOnTriggerStay;
         public event Action<GameObject> eventOnTriggerExit;
@@ -300,8 +305,8 @@ namespace HighFive.Control.Movers
             }
         }
         //Events
-        private Dictionary<GameObject, InteractStateAndDirection> _rayCastedHits = new Dictionary<GameObject, InteractStateAndDirection>();
-        private Dictionary<GameObject, InteractStateAndDirection> _activatedRayCastedHits = new Dictionary<GameObject, InteractStateAndDirection>();
+        private Dictionary<RaycastHit2D, InteractStateAndDirection> _rayCastedHits = new Dictionary<RaycastHit2D, InteractStateAndDirection>();
+        private Dictionary<RaycastHit2D, InteractStateAndDirection> _activatedRayCastedHits = new Dictionary<RaycastHit2D, InteractStateAndDirection>();
 
         /// <summary>
         /// when true, one way platforms will be ignored when moving vertically for a single frame
@@ -413,7 +418,7 @@ namespace HighFive.Control.Movers
             foreach (var objAndState in _activatedRayCastedHits.ToList())
             {
                 //unusable
-                if (objAndState.Key == null || !objAndState.Key.activeSelf)
+                if (objAndState.Key == null || !objAndState.Key.transform.gameObject.activeSelf)
                 {
                     _activatedRayCastedHits.Remove(objAndState.Key);
                 }
@@ -440,7 +445,7 @@ namespace HighFive.Control.Movers
             foreach (var objAndState in _rayCastedHits.ToList())
             {
                 //unusable
-                if (objAndState.Key == null || !objAndState.Key.activeSelf)
+                if (objAndState.Key == null || !objAndState.Key.transform.gameObject.activeSelf)
                 {
                     _rayCastedHits.Remove(objAndState.Key);
                 }
@@ -616,9 +621,9 @@ namespace HighFive.Control.Movers
                     if (!_raycastHitsThisFrame.Contains(_raycastHit))
                     {
                         _raycastHitsThisFrame.Add(_raycastHit);
-                        if (!_rayCastedHits.ContainsKey(_raycastHit.transform.gameObject))
+                        if (!_rayCastedHits.ContainsKey(_raycastHit))
                         {
-                            _rayCastedHits.Add(_raycastHit.transform.gameObject, new InteractStateAndDirection(InteractState.UnActivated));
+                            _rayCastedHits.Add(_raycastHit, new InteractStateAndDirection(InteractState.UnActivated));
                             // eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Left);
                         
                         }
@@ -697,10 +702,10 @@ namespace HighFive.Control.Movers
                     if (!_raycastHitsThisFrame.Contains(_raycastHit))
                     {
                         _raycastHitsThisFrame.Add(_raycastHit); //stores all the hits this frame.
-                        if (!_rayCastedHits.ContainsKey(_raycastHit.transform.gameObject))
+                        if (!_rayCastedHits.ContainsKey(_raycastHit))
                         {
 
-                            _rayCastedHits.Add(_raycastHit.transform.gameObject,
+                            _rayCastedHits.Add(_raycastHit,
                                 new InteractStateAndDirection(InteractState.UnActivated));
                             // eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Bottom);
                         

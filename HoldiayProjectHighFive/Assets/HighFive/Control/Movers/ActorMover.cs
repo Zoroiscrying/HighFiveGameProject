@@ -51,7 +51,7 @@ namespace HighFive.Control.Movers
         [Space(5)] [SerializeField] protected float runSpeed = 8f;
         [Space(5)] [SerializeField] protected float horizontalSpeedMultiplier = 1f;
         [SerializeField] protected float verticalSpeedMultiplier = 1f;
-        [SerializeField] protected int faceDir = 1;
+        [SerializeField] protected int faceDir = 1;//弃用（改用CollisionState.faceDir）
         [Header("Animation Control")] 
         public GameAnimator animator;
         [Header("Other")] public bool rayCastDebug = false;
@@ -82,7 +82,7 @@ namespace HighFive.Control.Movers
         /// </summary>
         public virtual int FaceDir
         {
-            get => faceDir;
+            get => collisionState.faceDir;
             set=>throw new Exception("Face FaceDir Cannot be changed by other code.");
         }
 
@@ -177,17 +177,20 @@ namespace HighFive.Control.Movers
         /// </summary>
         protected override void CalculateVelocity()
         {
-            var targetVelocityX = moverInput.x * runSpeed * horizontalSpeedMultiplier;
-            // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
-            //var smoothedMovementFactor = _controller.IsGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref _movementDampingHorizontal,
-                (collisionState.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-            // apply gravity before moving
-            if (canMoveVertically)
+            if (IgnoreMoverInput)
             {
-                var targetVelocityY = moverInput.y * runSpeed * verticalSpeedMultiplier;
-                velocity.y = Mathf.SmoothDamp(velocity.y, targetVelocityY, ref _movementDampingVertical,
-                    accelerationTimeAirborne);
+                var targetVelocityX = moverInput.x * runSpeed * horizontalSpeedMultiplier;
+                // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
+                //var smoothedMovementFactor = _controller.IsGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref _movementDampingHorizontal,
+                    (collisionState.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+                // apply gravity before moving
+                if (canMoveVertically)
+                {
+                    var targetVelocityY = moverInput.y * runSpeed * verticalSpeedMultiplier;
+                    velocity.y = Mathf.SmoothDamp(velocity.y, targetVelocityY, ref _movementDampingVertical,
+                        accelerationTimeAirborne);
+                }
             }
             velocity.y -= gravity * gravityScale * Time.fixedDeltaTime;
         }
@@ -200,7 +203,6 @@ namespace HighFive.Control.Movers
             var localScaleThisFrame = transform.localScale;
             if (NormalizedInputDirX == 1) //向右
             {
-                faceDir = 1;
                 _spriteRenderer.flipX = false;
                 // if (transform.localScale.x < 0f)
                 // {       
@@ -211,7 +213,6 @@ namespace HighFive.Control.Movers
             }
             else if (NormalizedInputDirX == -1) //向左
             {
-                faceDir = -1;
                 _spriteRenderer.flipX = true;
                 // if (transform.localScale.x > 0f)
                 //     transform.localScale =
