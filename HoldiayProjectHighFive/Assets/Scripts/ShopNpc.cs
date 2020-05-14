@@ -3,7 +3,7 @@ using ReadyGamerOne.Script;
 using ReadyGamerOne.View;
 using UnityEngine;
 
-namespace Game.Scripts
+namespace HighFive.Script
 {
 	/// <summary>
 	/// 商店NPC脚本

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace HighFive.Scripts
+namespace HighFive.Script
 {
 	[RequireComponent(typeof(BoxCollider2D))]
     public class ShowCollider2D : MonoBehaviour

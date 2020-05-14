@@ -7,10 +7,10 @@ namespace HighFive.Control.Movers.Editor
     [CustomEditor(typeof(AIActorMover))]
     public class AiActorMoverEditor:ActorMoverEditor
     {
-        private string[] titles = {"ActorMover", "States", "Others"};
-        private string[] states = {"AiPatrol", "Jump"};
-        private int titleIndex = 0;
-        private int stateIndex = 0;
+        private string[] aiActorTitles = {"ActorMover", "States", "Others"};
+        private string[] aiActorStates = {"AiPatrol", "Jump"};
+        private int aiActorIndex = 0;
+        private int aiActorStateIndex = 0;
 
         private SerializedProperty actorPatrolTypeProp;
         private SerializedProperty isPatrollingProp;
@@ -41,15 +41,15 @@ namespace HighFive.Control.Movers.Editor
         {
             serializedObject.Update();
 
-            titleIndex = GUILayout.Toolbar(titleIndex, titles);
-            switch (titleIndex)
+            aiActorIndex = GUILayout.Toolbar(aiActorIndex, aiActorTitles);
+            switch (aiActorIndex)
             {
                 case 0:// ActorMover
                     base.OnInspectorGUI();
                     break;
-                case 1:// states
-                    stateIndex = GUILayout.Toolbar(stateIndex, states);
-                    switch (stateIndex)
+                case 1:// aiActorStates
+                    aiActorStateIndex = GUILayout.Toolbar(aiActorStateIndex, aiActorStates);
+                    switch (aiActorStateIndex)
                     {
                         case 0:// AiPatrol
                             EditorGUILayout.PropertyField(actorPatrolTypeProp);

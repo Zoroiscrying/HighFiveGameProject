@@ -5,6 +5,9 @@ using ReadyGamerOne.Common;
 using UnityEngine;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Script;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace DialogSystem.Scripts
 {
@@ -237,16 +240,43 @@ namespace DialogSystem.Scripts
 
         private void OnDestroy()
         {
-            
             if(workType==WorkType.WorkAfterMessage)
                 CEventCenter.RemoveListener(messageToEnableThis.StringValue,OnEnableTrigger);
             if (startType == StartType.MessageStart)
                 CEventCenter.RemoveListener(messageToStart.StringValue,TriggerDialog);
         }
+        
+#if UNITY_EDITOR
+        private GUIStyle style;
+        private GUIStyle Style
+        {
+            get
+            {
+                if (null == style)
+                {
+                    style = new GUIStyle();
+                    style.alignment = TextAnchor.MiddleCenter;
+                    style.fontStyle = FontStyle.BoldAndItalic;
+                    style.normal.textColor=new Color(1f, 0.42f, 0.81f);
+                }
 
+                return style;
+            }
+        }
+#endif
+
+        private void OnDrawGizmos()
+        {
+            if (!gameObject.activeSelf || !enabled)
+                return;
+            if (startType != StartType.AutoStart && startType != StartType.InteractStart)
+                return;
+#if UNITY_EDITOR
+            Handles.Label(transform.position,$"[DialogTrigger:{name}]",Style);
+#endif
+        }
         #endregion
-
-
+        
         #region Unity_Trigger
 
         private void OnTriggerExit2D(Collider2D collider){
@@ -317,7 +347,8 @@ namespace DialogSystem.Scripts
 
             throw new Exception("没有处理这种StartTrigger的逻辑：" + triggerType);
         }
-        
+
+
 
         #endregion
 

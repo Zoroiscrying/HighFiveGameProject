@@ -30,8 +30,8 @@ namespace HighFive.Control.Movers.Editor
 
         #endregion
 
-        private int selectedIndex = 1;
-        private string[] titles = {"Raycast", "IBaseControl", "MoverInput", "Others"};
+        private int baseIndex = 1;
+        private string[] baseMoverTitles = {"Raycast", "IBaseControl", "MoverInput", "Others"};
         
 
         protected virtual void OnEnable()
@@ -58,8 +58,8 @@ namespace HighFive.Control.Movers.Editor
         {
             serializedObject.Update();
 
-            selectedIndex = GUILayout.Toolbar(selectedIndex, titles);
-            switch (selectedIndex)
+            baseIndex = GUILayout.Toolbar(baseIndex, baseMoverTitles);
+            switch (baseIndex)
             {
                 case 0:// Raycast
                     EditorGUILayout.PropertyField(skinWidthProp);

@@ -10,7 +10,7 @@ namespace HighFive.Script
     {
         private SerializedProperty timeDelayProp;
         private SerializedProperty workOnceProp;
-        private void OnEnable()
+        protected override void OnEnable()
         {
             base.OnEnable();
             timeDelayProp = serializedObject.FindProperty("timeDelay");

@@ -151,10 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   signalSize: 2.54
-  createInfos:
-  - enable: 1
-    _personType: 1
-    position: {x: -15.16, y: 0, z: 0}
-    color: {r: 1, g: 0, b: 0.9569354, a: 1}
+  createInfos: []
   timeDelay: 0
   workOnce: 1

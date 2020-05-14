@@ -1,7 +1,7 @@
 ﻿ItemData,,itemName,uitext,spriteName,prefabName,statement,maxSlotCount,price,outPrice
 className,parentClassName,string,string,string,string,string,int,int,int
-GemData,ItemData,attack,attackSpeed,1_2,,,,,
-className,parentClassName,int,float,fileKeys,,,,,
+GemData,ItemData,attackAdder,attackSpeedAdder,1_2,repluseScaleAdder,zattackAdder,zrepluseScaleAdder,,
+className,parentClassName,float,float,fileKeys,float,float,float,,
 DragData,ItemData,1_2,,,,,,,
 className,parentClassName,fileKeys,,,,,,,
 PersonData,,personName,hitback_x,hitback_y,,,,,

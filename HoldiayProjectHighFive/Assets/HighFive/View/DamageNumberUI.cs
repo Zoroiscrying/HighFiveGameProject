@@ -1,4 +1,7 @@
-﻿using HighFive.Const;
+﻿using System.Globalization;
+using DefaultNamespace.HighFive.Model.Person;
+using HighFive.Const;
+using HighFive.Global;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.View;
 using UnityEngine;
@@ -18,23 +21,40 @@ namespace HighFive.View
         private float yOffect;
         private int dir;
 
-        public DamageNumberUI(int number, float yOffect, int size, Color color, Transform targetPerson, int dir, float dur = 0.5f, float time = 1f)
+        public DamageNumberUI(HighFiveDamage damageInfo, float yOffect,Transform targetPerson, int dir, float dur = 0.5f, float time = 1f)
         {
             Create(UiName.Text_Number);
             this.go = m_TransFrom.gameObject;
             this.target = targetPerson;
 
             this.yOffect = yOffect;
-            this.dir = dir;
+            this.dir = -dir;
 
             if (go == null)
                 Debug.Log("go实例化失败");
 
             this.Text = this.m_TransFrom.GetComponent<Text>();
-            Text.color = color;
-            Text.fontSize = size;
-            Text.text = number.ToString();
+            if (damageInfo.IsCrit)
+            {
+                Text.color = GameSettings.Instance.critColor;
+                Text.fontSize = GameSettings.Instance.critSize;
+                Text.text = damageInfo.Damage.ToString(CultureInfo.InvariantCulture);
+            }else if (damageInfo.IsMissing)
+            {
+                Text.color = GameSettings.Instance.missingColor;
+                Text.fontSize = GameSettings.Instance.missingSize;
+                Text.text = "MISS";
+            }
+            else
+            {
+                Text.color = GameSettings.Instance.normalColor;
+                Text.fontSize = GameSettings.Instance.normalSize;
+                Text.text = damageInfo.Damage.ToString(CultureInfo.InvariantCulture);
+            }
 
+            if (!damageInfo.IsPlayer)
+                Text.color = GameSettings.Instance.enemyDamageColor;
+            
             m_TransFrom.position = Camera.main.WorldToScreenPoint(target.position + new Vector3(0, this.yOffect * 1.5f, 0));
 
 

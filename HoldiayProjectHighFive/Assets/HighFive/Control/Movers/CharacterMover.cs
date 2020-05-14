@@ -474,7 +474,7 @@ namespace HighFive.Control.Movers
 			_dashTimer = dashTime;
 			inControl = false;
 			_dashVelocity = dashDistance / dashTime;
-			_dashDirX = faceDir;
+			_dashDirX = collisionState.faceDir;
 		}
 	
 		private void Dashing_Update()

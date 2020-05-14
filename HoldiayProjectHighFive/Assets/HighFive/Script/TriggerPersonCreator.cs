@@ -1,6 +1,5 @@
 using HighFive.Control.Movers;
 using HighFive.Model.Person;
-using HighFive.Scripts;
 using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
@@ -24,25 +23,8 @@ namespace HighFive.Script
 
         private bool worked = false;
 
-#if UNITY_EDITOR
-        protected override GUIStyle Style
-        {
-            
-            get
-            {
-                if (null == style)
-                {
-                            
-                    style = new GUIStyle();
-                    style.alignment = TextAnchor.MiddleCenter;
-                    style.normal.textColor=Color.green;
-                    style.fontStyle = FontStyle.BoldAndItalic;
-                }
+        public override Color DefaultGizmoColor => Color.green;
 
-                return style;
-            }
-        }
-#endif
         protected override void Start()
         {
             base.Start();
@@ -65,6 +47,8 @@ namespace HighFive.Script
 
         protected override void OnDrawGizmos()
         {
+            if (!gameObject.activeSelf || !enabled)
+                return;
             base.OnDrawGizmos();
 #if UNITY_EDITOR
             Handles.Label(transform.position,$"[PersonTrigger:{name}]",Style);

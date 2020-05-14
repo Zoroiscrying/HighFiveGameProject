@@ -334,7 +334,7 @@ MonoBehaviour:
   faceDir: 1
   rayCastDebug: 0
   minJumpHeight: 1
-  maxUpYSpeed: 999
+  maxUpYSpeed: 999.54
   maxDownYSpeed: 15
   canHighJump: 1
   highJumpHeight: 4.5

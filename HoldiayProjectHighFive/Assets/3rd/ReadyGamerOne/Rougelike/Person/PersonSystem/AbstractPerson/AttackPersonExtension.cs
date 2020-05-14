@@ -15,11 +15,12 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <param name="damageScale">攻击缩放，比如技能可能造成200%伤害</param>
         /// <returns>返回是否进行了有效攻击</returns>
         /// <exception cref="Exception">self为空</exception>
-        public static bool TryAttack(this AbstractPerson self, AbstractPerson other, float damageScale=1.0f)
+        public static bool TryAttack(this AbstractPerson self, AbstractPerson other, float? damageScale=null)
         {
+            var ds = damageScale ?? 1.0f;
             
-            var selfAtk = self as ITakeDamageablePerson<AbstractPerson>;
-            var otherAtk = other as ITakeDamageablePerson<AbstractPerson>;
+            var selfAtk = self as ITakeDamageablePerson<AbstractPerson,BasicDamage>;
+            var otherAtk = other as ITakeDamageablePerson<AbstractPerson,BasicDamage>;
 
             if(null==self)
                 throw new Exception("自身角色为空？");
@@ -32,15 +33,10 @@ namespace ReadyGamerOne.Rougelike.Person
             
             if (null == selfAtk || null == otherAtk)
                 return false;
+
+            var damage = self.CalculateDamage(ds, other);
             
-            var damage = self.Attack * damageScale;
-            if (damage <= 0)
-            {
-                Debug.LogError($"伤害为零【{self.CharacterName}=>{other.CharacterName}, Attack:{self.Attack}, damageScale:{damageScale}");
-                return false;
-            }
-            
-            selfAtk.OnCauseDamage(other, damage);
+            selfAtk.OnCauseDamage(other,damage);
 
             return true;
         }
@@ -53,7 +49,7 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <param name="other"></param>
         /// <param name="damageScale"></param>
         /// <returns>有效攻击返回True，否则返回False</returns>
-        public static bool TryAttack(this IPerson self, IPerson other, float damageScale=1.0f)
+        public static bool TryAttack(this IPerson self, IPerson other, float? damageScale=null)
         {
             if (self == null || other == null)
                 return false;
@@ -69,7 +65,7 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <param name="other"></param>
         /// <param name="damageScale"></param>
         /// <returns></returns>
-        public static bool TryAttack(this GameObject self, GameObject other, float damageScale=1.0f)
+        public static bool TryAttack(this GameObject self, GameObject other, float? damageScale=null)
         {
             if (self == null || other == null)
                 return false;

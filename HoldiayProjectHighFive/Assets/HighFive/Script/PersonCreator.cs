@@ -38,6 +38,8 @@ namespace HighFive.Script
         public float signalSize = 1.0f;
         public List<CharacterCreateInfo> createInfos=new List<CharacterCreateInfo>();
 
+        public virtual Color DefaultGizmoColor => Color.white;
+
 #if UNITY_EDITOR
         protected GUIStyle style;
         protected virtual GUIStyle Style
@@ -48,7 +50,7 @@ namespace HighFive.Script
                 {
                     style = new GUIStyle();
                     style.alignment = TextAnchor.MiddleCenter;
-                    style.normal.textColor=Color.white;
+                    style.normal.textColor=DefaultGizmoColor;
                 }
 
                 return style;

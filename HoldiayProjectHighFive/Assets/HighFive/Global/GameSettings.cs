@@ -34,5 +34,16 @@ namespace HighFive.Global
 
         [Header("是否启用场景触发器")]
         public bool enableSceneTrigger = true;
+
+
+        [Header("伤害数字")] public int normalSize = 20;
+        public Color normalColor=Color.yellow;
+        public int critSize = 30;
+        public Color critColor=Color.red;
+        public int skillSize = 25;
+        public int missingSize=30;
+        public Color missingColor=Color.cyan;
+        public Color enemyDamageColor=new Color(0.04f, 0.09f, 0.72f);
+        
     }
 }

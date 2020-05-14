@@ -7,6 +7,7 @@ namespace HighFive.Const
 		public static readonly string Caption_Word_2 = @"Caption_Word_2";
 		public static readonly string ChoiceBtn = @"ChoiceBtn";
 		public static readonly string NarratorUi = @"NarratorUi";
+		public static readonly string Map_JbScene = @"Map_JbScene";
 		public static readonly string Slider = @"Slider";
 		public static readonly string Slot = @"Slot";
 		public static readonly string TestUi = @"TestUi";

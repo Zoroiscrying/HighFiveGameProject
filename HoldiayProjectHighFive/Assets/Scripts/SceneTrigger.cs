@@ -12,7 +12,7 @@ using UnityEngine;
 
 #endif
 
-namespace HighFive.Scripts
+namespace HighFive.Script
 {
     
     /// <summary>
