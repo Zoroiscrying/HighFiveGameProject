@@ -447,7 +447,8 @@ namespace HighFive.Model.Person
 			CEventCenter.BroadMessage(Message.M_InitSuper);
 			MainLoop.Instance.ExecuteLater(() =>
 			{
-				CEventCenter.BroadMessage(Message.M_ExitSuper);
+				if(GlobalVar.isSuper)
+					CEventCenter.BroadMessage(Message.M_ExitSuper);
 			}, GameSettings.Instance.superTime);
 			return true;
 

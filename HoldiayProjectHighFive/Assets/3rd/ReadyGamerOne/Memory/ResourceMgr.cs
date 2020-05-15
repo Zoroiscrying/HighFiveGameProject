@@ -240,6 +240,7 @@ namespace ReadyGamerOne.MemorySystem
         static void OnToolsGUI(string rootNs, string viewNs, string constNs, string dataNs, string autoDir,
             string scriptDir)
         {
+            
             EditorGUILayout.Space();
             _resourceManagerType = (ResourceManagerType) EditorGUILayout.EnumPopup("资源加载类型", _resourceManagerType);
 
@@ -260,77 +261,7 @@ namespace ReadyGamerOne.MemorySystem
                     
                     if (GUILayout.Button("生成常量"))
                     {
-                        #region 遍历Resources生成常量文件
-
-                        var resourceDir = Application.dataPath + "/Resources";
-                        var rootDir = Application.dataPath + "/" + rootNs;
-                        
-                        autoClassName.Clear();
-                        otherResPathDic.Clear();
-                        otherResFileNameDic.Clear();
-                        allResPathDic.Clear();
-                        allResFileNameDic.Clear();
-
-
-                        foreach (var fullName in Directory.GetFileSystemEntries(resourceDir))
-                        {
-//                            Debug.Log(fullName);
-                            if (Directory.Exists(fullName))
-                            {
-                                //如果是文件夹
-                                OprateDir(new DirectoryInfo(fullName), rootNs, constNs, autoDir);
-                            }
-                            else
-                            {
-                                //是文件
-                                OprateFile(new FileInfo(fullName));
-                            }
-                        }
-
-                        //生成其他常量文件
-                        if (otherResPathDic.Count > 0)
-                        {
-//                            Debug.Log("创建文件OtherResPath");
-                            FileUtil.CreateConstClassByDictionary("OtherResPath",
-                                rootDir + "/" + constNs + "/" + autoDir,
-                                rootNs + "." + constNs, otherResPathDic);
-                            FileUtil.CreateConstClassByDictionary("OtherResName",
-                                rootDir + "/" + constNs + "/" + autoDir,
-                                rootNs + "." + constNs, otherResFileNameDic);
-                            autoClassName.Add("OtherRes");
-                        }
-
-                        //生成常量工具类
-                        if (allResPathDic.Count > 0)
-                        {
-                            var content =
-                                "\t\tprivate System.Collections.Generic.Dictionary<string,string> nameToPath \n" +
-                                "\t\t\t= new System.Collections.Generic.Dictionary<string,string>{\n";
-
-                            foreach (var kv in allResFileNameDic)
-                            {
-                                content += "\t\t\t\t\t{ @\"" + kv.Value + "\" , @\"" + allResPathDic[kv.Key] +
-                                           "\" },\n";
-                            }
-
-                            content += "\t\t\t\t};\n";
-
-                            content +=
-                                "\t\tpublic override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;\n";
-
-                            FileUtil.CreateClassFile("AssetConstUtil",
-                                rootNs + ".Utility",
-                                rootDir + "/Utility/" + autoDir,
-                                parentClass:"ReadyGamerOne.MemorySystem.AssetConstUtil<AssetConstUtil>",
-                                helpTips: "这个类提供了Resources下文件名和路径字典访问方式，同名资源可能引起bug",
-                                fileContent: content,
-                                autoOverwrite: true);
-                        }
-
-                        
-                        AssetDatabase.Refresh();
-                        Debug.Log("生成结束");
-                        #endregion
+                        GenerateResourcesConst(rootNs,constNs,autoDir);
                     }
 
                     break;
@@ -499,6 +430,78 @@ namespace ReadyGamerOne.MemorySystem
 
                 #endregion
             }
+        }
+
+        public static void GenerateResourcesConst(string rootNs,string constNs,string autoDir)
+        {
+             var resourceDir = Application.dataPath + "/Resources";
+             var rootDir = Application.dataPath + "/" + rootNs;
+             
+             autoClassName.Clear();
+             otherResPathDic.Clear();
+             otherResFileNameDic.Clear();
+             allResPathDic.Clear();
+             allResFileNameDic.Clear();
+
+
+             foreach (var fullName in Directory.GetFileSystemEntries(resourceDir))
+             {
+//                 Debug.Log(fullName);
+                 if (Directory.Exists(fullName))
+                 {
+                     //如果是文件夹
+                     OprateDir(new DirectoryInfo(fullName), rootNs, constNs, autoDir);
+                 }
+                 else
+                 {
+                     //是文件
+                     OprateFile(new FileInfo(fullName));
+                 }
+             }
+
+             //生成其他常量文件
+             if (otherResPathDic.Count > 0)
+             {
+//                 Debug.Log("创建文件OtherResPath");
+                 FileUtil.CreateConstClassByDictionary("OtherResPath",
+                     rootDir + "/" + constNs + "/" + autoDir,
+                     rootNs + "." + constNs, otherResPathDic);
+                 FileUtil.CreateConstClassByDictionary("OtherResName",
+                     rootDir + "/" + constNs + "/" + autoDir,
+                     rootNs + "." + constNs, otherResFileNameDic);
+                 autoClassName.Add("OtherRes");
+             }
+
+             //生成常量工具类
+             if (allResPathDic.Count > 0)
+             {
+                 var content =
+                     "\t\tprivate System.Collections.Generic.Dictionary<string,string> nameToPath \n" +
+                     "\t\t\t= new System.Collections.Generic.Dictionary<string,string>{\n";
+
+                 foreach (var kv in allResFileNameDic)
+                 {
+                     content += "\t\t\t\t\t{ @\"" + kv.Value + "\" , @\"" + allResPathDic[kv.Key] +
+                                "\" },\n";
+                 }
+
+                 content += "\t\t\t\t};\n";
+
+                 content +=
+                     "\t\tpublic override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;\n";
+
+                 FileUtil.CreateClassFile("AssetConstUtil",
+                     rootNs + ".Utility",
+                     rootDir + "/Utility/" + autoDir,
+                     parentClass:"ReadyGamerOne.MemorySystem.AssetConstUtil<AssetConstUtil>",
+                     helpTips: "这个类提供了Resources下文件名和路径字典访问方式，同名资源可能引起bug",
+                     fileContent: content,
+                     autoOverwrite: true);
+             }
+
+             
+             AssetDatabase.Refresh();
+             Debug.Log("生成结束");
         }
 
 

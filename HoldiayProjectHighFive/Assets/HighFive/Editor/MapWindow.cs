@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HighFive.Script;
+using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Utility;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -225,6 +226,9 @@ namespace HighFive.Editor
             #endregion
 
             ProjectWindowUtil.ShowCreatedAsset(mapTexture);
+
+
+            ResourceMgr.GenerateResourcesConst("HighFive", "Const", "Auto");
 
         }
 

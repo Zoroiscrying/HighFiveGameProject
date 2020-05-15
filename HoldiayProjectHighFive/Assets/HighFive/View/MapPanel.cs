@@ -1,7 +1,6 @@
 using HighFive.Global;
 using HighFive.Script;
 using ReadyGamerOne.MemorySystem;
-using ReadyGamerOne.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,15 +9,20 @@ namespace HighFive.View
 {
 	public partial class MapPanel
 	{
-
 		private RectTransform map;
+		private RawImage mapRawImage;
+		private MapController mapController;
+		
 		partial void OnLoad()
 		{
 			//do any thing you want
 			map = GetComponent<RectTransform>("MapBg/Map");
-			map.GetComponent<RawImage>().texture =
+			mapController = map.GetComponent<MapController>();
+			mapRawImage=map.GetComponent<RawImage>();
+			mapRawImage.texture =
 				ResourceMgr.GetAsset<Texture2D>(
 					$"Map_{SceneManager.GetActiveScene().name}");
+			mapController.SetSize();
 		}
 
 

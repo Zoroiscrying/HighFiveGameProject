@@ -34,7 +34,7 @@ namespace HighFive.Script
         }
 
         [ContextMenu("SetSize")]
-        private void Set()
+        public void SetSize()
         {
             var mainTexture = RawImage.mainTexture;
             var nativeSize = new Vector2(
