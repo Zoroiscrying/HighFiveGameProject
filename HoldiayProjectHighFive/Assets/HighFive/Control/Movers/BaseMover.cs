@@ -787,6 +787,10 @@ namespace HighFive.Control.Movers
                 this.Move(new Vector2(velocity.x * velocityMultiplier.x, velocity.y * velocityMultiplier.y) *
                           Time.fixedDeltaTime);
             }
+            else
+            {
+                this.velocity = Vector2.zero;
+            }
             
             CheckCollisions();
         }
