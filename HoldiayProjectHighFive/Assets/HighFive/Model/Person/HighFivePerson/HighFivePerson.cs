@@ -1,4 +1,5 @@
 using System;
+using DefaultNamespace.HighFive.Model.Person;
 using HighFive.Control.EffectSystem;
 using HighFive.Control.Movers.Interfaces;
 using HighFive.Control.SkillSystem;
@@ -102,58 +103,46 @@ namespace HighFive.Model.Person
 
 		#region ITakeDamageablePerson<T>
 
-
-		public override float OnTakeDamage(AbstractPerson takeDamageFrom, float damage)
+		public override BasicDamage CalculateDamage(float skillDamageScale, AbstractPerson receiver)
 		{
-			if (System.Math.Abs(damage) < 0.01f)
-				Debug.LogWarning("伤害是 0 ？？");
+			return new HighFiveDamage(this, receiver as IHighFivePerson, skillDamageScale);
+		}
 
-			#region 根据IRichDamage计算最终伤害
+		public override float OnTakeDamage(AbstractPerson takeDamageFrom, BasicDamage damage)
+		{
 
-			//如果无敌直接返回
-			if (this.IsInvincible)
+			var richDamage = damage as HighFiveDamage;
+			Assert.IsNotNull(richDamage);
+
+			if (richDamage.IsInvincible)
 				return -1;
-
-			//增伤或减伤
-			var finalDamage = damage * this.TakeDamageScale;
 			
-			//闪避
-			if (Random.Range(0, 1f) > this.DodgeRate)
-			{// 闪避失败
-				
-				//计算格挡
-				finalDamage -= this.TakeDamageBlock;
-
-				if (finalDamage < 0)
-					finalDamage = 0;
-
+			if (!richDamage.IsMissing)
+			{
 				//播放受击效果
 				PlayAcceptEffects(takeDamageFrom as IHighFivePerson);
-				
 			}
-			else
-			{// 闪避成功
-				finalDamage = 0;
-			}
-			
-			#endregion
-
 
 			var attackPerson = takeDamageFrom as IHighFivePerson;
-			var dir = takeDamageFrom.position.x > position.x ? 1 : -1;
-			var finalDamageInt = Mathf.RoundToInt(finalDamage);
 			
+			var dir = takeDamageFrom.position.x > position.x ? 1 : -1;
+
 			//伤害数字
-			new DamageNumberUI(finalDamageInt, 0, 30, Color.red, transform, dir);
+			new DamageNumberUI(
+				richDamage,
+				0,
+				transform, 
+				dir);
+			
 			//击退
 			var attackerRepulse = attackPerson.Repulse;
 			attackerRepulse.x *= -dir;
 			ActorMover.ChangeVelBasedOnHitDir(attackerRepulse,attackPerson.RepulseScale);
 			
-			return base.OnTakeDamage(takeDamageFrom,finalDamageInt);
+			return base.OnTakeDamage(takeDamageFrom,richDamage);
 		}
 
-		public override float OnCauseDamage(AbstractPerson causeDamageTo, float damage)
+		public override float OnCauseDamage(AbstractPerson causeDamageTo, BasicDamage damage)
 		{
 			var realDamage = base.OnCauseDamage(causeDamageTo, damage);
             if(realDamage >0)

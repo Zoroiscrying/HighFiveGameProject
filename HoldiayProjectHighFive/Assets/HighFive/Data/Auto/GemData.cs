@@ -5,12 +5,15 @@ namespace HighFive.Data
 {
 	public class GemData : ItemData
 	{
-		public const int GemDataCount = 3;
+		public const int GemDataCount = 2;
 
 		public override string ID => itemName.ToString();
 
-		public int attack;
-		public float attackSpeed;
+		public float attackAdder;
+		public float attackSpeedAdder;
+		public float repluseScaleAdder;
+		public float zattackAdder;
+		public float zrepluseScaleAdder;
 		public override string ToString()
 		{
 			var ans="==《	GemData	》==\n" +
@@ -22,8 +25,11 @@ namespace HighFive.Data
 					"maxSlotCount" + "	" + maxSlotCount+"\n" +
 					"price" + "	" + price+"\n" +
 					"outPrice" + "	" + outPrice+"\n" +
-					"attack" + "	" + attack+"\n" +
-					"attackSpeed" + "	" + attackSpeed;
+					"attackAdder" + "	" + attackAdder+"\n" +
+					"attackSpeedAdder" + "	" + attackSpeedAdder+"\n" +
+					"repluseScaleAdder" + "	" + repluseScaleAdder+"\n" +
+					"zattackAdder" + "	" + zattackAdder+"\n" +
+					"zrepluseScaleAdder" + "	" + zrepluseScaleAdder;
 			return ans;
 
 		}

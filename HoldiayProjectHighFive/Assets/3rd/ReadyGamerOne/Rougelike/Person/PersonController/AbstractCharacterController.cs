@@ -31,6 +31,9 @@ namespace ReadyGamerOne.Rougelike.Person
             throw new NotImplementedException();
         }
 
+        protected virtual void Update()
+        {
+        }
 
         private void OnDestroy()
         {

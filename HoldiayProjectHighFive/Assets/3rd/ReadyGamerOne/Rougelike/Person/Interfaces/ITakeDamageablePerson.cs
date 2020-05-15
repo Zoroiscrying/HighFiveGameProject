@@ -7,7 +7,7 @@ namespace ReadyGamerOne.Rougelike.Person
     /// 可以制造和承受伤害
     /// </summary>
     /// <typeparam name="PersonType"></typeparam>
-    public interface ITakeDamageablePerson<PersonType>
+    public interface ITakeDamageablePerson<PersonType,DamageType>
         where PersonType:AbstractPerson
     {
         /// <summary>
@@ -15,7 +15,8 @@ namespace ReadyGamerOne.Rougelike.Person
         /// </summary>
         event Action<AbstractPerson, int> onCauseDamage;
         event Action<AbstractPerson, int> onTakeDamage;
-        
+
+        DamageType CalculateDamage(float skillDamageScale, PersonType receiver);
 
         /// <summary>
         /// 承受这么多伤害
@@ -23,8 +24,8 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <param name="takeDamageFrom">谁打我的</param>
         /// <param name="damage">外界带来的伤害</param>
         /// <returns>实际造成的伤害</returns>
-        float OnTakeDamage(PersonType takeDamageFrom,float damage);
-        float OnCauseDamage(PersonType causeDamageTo,float damage);
+        float OnTakeDamage(PersonType takeDamageFrom,DamageType damage);
+        float OnCauseDamage(PersonType causeDamageTo,DamageType damage);
 
     }
 }

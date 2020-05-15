@@ -7,8 +7,8 @@ namespace HighFive.Control.Movers.Editor
     [CustomEditor(typeof(CharacterMover))]
     public class CharacterMoverEditor:ActorMoverEditor
     {
-        private string[] titles = {"ActorMover","Character", "Others"};
-        private int titleIndex = 0;
+        private string[] characterTitles = {"ActorMover","Character", "Others"};
+        private int characterIndex = 0;
 
         private SerializedProperty minJumpHeightProp;
         private SerializedProperty canHighJumpProp;
@@ -17,8 +17,8 @@ namespace HighFive.Control.Movers.Editor
         private SerializedProperty maxUpSpeedProp;
         private SerializedProperty maxDownSpeedProp;
 
-        private string[] states = {"HighJump", "Accelerate", "Dash", "Wall", "Jump"};
-        private int stateIndex = 2;
+        private string[] characterStates = {"HighJump", "Accelerate", "Dash", "Wall", "Jump"};
+        private int characterStateIndex = 2;
 
         // high jump
         private SerializedProperty highJumpHeightProp;
@@ -89,8 +89,8 @@ namespace HighFive.Control.Movers.Editor
         {
             serializedObject.Update();
 
-            titleIndex = GUILayout.Toolbar(titleIndex, titles);
-            switch (titleIndex)
+            characterIndex = GUILayout.Toolbar(characterIndex, characterTitles);
+            switch (characterIndex)
             {
                 case 0:// ActorMover
                     base.OnInspectorGUI();
@@ -101,8 +101,8 @@ namespace HighFive.Control.Movers.Editor
                     EditorGUILayout.PropertyField(inControlProp);
                     EditorGUILayout.PropertyField(maxUpSpeedProp);
                     EditorGUILayout.PropertyField(maxDownSpeedProp);
-                    stateIndex = GUILayout.Toolbar(stateIndex, states);
-                    switch (stateIndex)
+                    characterStateIndex = GUILayout.Toolbar(characterStateIndex, characterStates);
+                    switch (characterStateIndex)
                     {
                         case 0:// high jump
                             EditorGUILayout.PropertyField(canHighJumpProp);

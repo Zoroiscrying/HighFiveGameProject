@@ -1,14 +1,13 @@
 using ReadyGamerOne.Rougelike.Person;
 using System;
-using Game.Scripts;
 using HighFive.Const;
 using HighFive.Data;
 using HighFive.Global;
+using HighFive.Script;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Data;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Rougelike.Mover;
-using ReadyGamerOne.Script;
 using ReadyGamerOne.Scripts;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -79,7 +78,7 @@ namespace HighFive.Model.Person
 			headBloodBar.InitValue(MaxHp);
 		}
 
-		public override float OnTakeDamage(AbstractPerson takeDamageFrom, float damage)
+		public override float OnTakeDamage(AbstractPerson takeDamageFrom, BasicDamage damage)
 		{
 			var realDamage = base.OnTakeDamage(takeDamageFrom, damage);
 			if(realDamage>0)
@@ -93,8 +92,6 @@ namespace HighFive.Model.Person
 			get
 			{
 				var normalDamage =(_attack + AttackAdder) * AttackScale;
-				if (Random.Range(0, 1f) < this.CritRate)
-					normalDamage *= CritScale;
 				return Mathf.RoundToInt(normalDamage);
 			} 
 		}

@@ -9,8 +9,8 @@ namespace HighFive.Control.Movers.Editor
         private SerializedProperty maxFlyHeightProp;
         private SerializedProperty minFlyHeightProp;
 
-        private string[] titles = {"ActorMover", "FlyActor", "Others"};
-        private int titleIndex = 0;
+        private string[] flyTitles = {"ActorMover", "FlyActor", "Others"};
+        private int flyMoverIndex = 0;
         
         protected override void OnEnable()
         {
@@ -23,8 +23,8 @@ namespace HighFive.Control.Movers.Editor
         {
             serializedObject.Update();
 
-            titleIndex = GUILayout.Toolbar(titleIndex, titles);
-            switch (titleIndex)
+            flyMoverIndex = GUILayout.Toolbar(flyMoverIndex, flyTitles);
+            switch (flyMoverIndex)
             {
                 case 0:// ActorMover
                     base.OnInspectorGUI();

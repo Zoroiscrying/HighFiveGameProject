@@ -1,4 +1,3 @@
-using System;
 using ReadyGamerOne.Utility;
 using UnityEditor;
 using UnityEditorInternal;
@@ -7,7 +6,7 @@ using UnityEngine;
 namespace HighFive.Script
 {
     [CustomEditor(typeof(PersonCreator),true)]
-    public class PersonCreatorEditor:Editor
+    public class PersonCreatorEditor:UnityEditor.Editor
     {
         private SerializedProperty signalSizeProp;
         private SerializedProperty listProp;
@@ -17,37 +16,41 @@ namespace HighFive.Script
 //        private bool finded = false;
         protected virtual void OnEnable()
         {
-            try
+            pc = target as PersonCreator;
+            signalSizeProp = serializedObject.FindProperty("signalSize");
+            listProp = serializedObject.FindProperty("createInfos");
+            list = new ReorderableList(serializedObject, listProp, true, true, true, true);
+            list.elementHeight = 4 * EditorGUIUtility.singleLineHeight;
+            list.drawElementCallback = (rect, selectIndex, isActive, isFocused) =>
             {
-                pc = target as PersonCreator;
-                signalSizeProp = serializedObject.FindProperty("signalSize");
-                listProp = serializedObject.FindProperty("createInfos");
-                list = new ReorderableList(serializedObject, listProp, true, true, true, true);
-                list.elementHeight = 4 * EditorGUIUtility.singleLineHeight;
-                list.drawElementCallback = (rect, selectIndex, isActive, isFocused) =>
+                var prop = listProp.GetArrayElementAtIndex(selectIndex);
+                var index = 0;
+                if (isActive && isFocused)
                 {
-                    var prop = listProp.GetArrayElementAtIndex(selectIndex);
-                    var index = 0;
-                    if (isActive && isFocused)
-                    {
-                        focusedIndex = selectIndex;
-//                        finded = true;
-                    }
-                    else if(selectIndex==focusedIndex)
-                    {
-                        focusedIndex = -1;
-                    }
-                    EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("enable"));
-                    EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("_personType"));
-                    EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("position"));
-                    EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("color"));
-                };
-                list.drawHeaderCallback = rect => EditorGUI.LabelField(rect, listProp.displayName);
-            }
-            catch (ArgumentException e)
+                    focusedIndex = selectIndex;
+//                    finded = true;
+                }
+                else if(selectIndex==focusedIndex)
+                {
+                    focusedIndex = -1;
+                }
+                EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("enable"));
+                EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("_personType"));
+                EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("position"));
+                EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("color"));
+            };
+            list.drawHeaderCallback = rect => EditorGUI.LabelField(rect, listProp.displayName);
+            list.onAddCallback = list =>
             {
-                
-            }
+                serializedObject.Update();
+                var size = listProp.arraySize;
+                listProp.arraySize++;
+                var newProp = listProp.GetArrayElementAtIndex(size);
+                list.index = size;
+                newProp.FindPropertyRelative("color").colorValue = pc.DefaultGizmoColor;
+                serializedObject.ApplyModifiedProperties();
+            };
+
         }
 
         public override void OnInspectorGUI()

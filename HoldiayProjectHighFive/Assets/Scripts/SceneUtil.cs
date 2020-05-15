@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using HighFive.Const;
 using ReadyGamerOne.EditorExtension;
 using HighFive.Global;
@@ -7,8 +8,11 @@ using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Model.SceneSystem;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.View;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
-namespace Game.Scripts
+namespace HighFive.Script
 {
     /// <summary>
     /// 每个Scene必备的控制整个Scene逻辑的脚本
@@ -45,6 +49,11 @@ namespace Game.Scripts
         public Transform bossRT;
         public Transform bossLB;
         public Transform bossRB;
+
+
+        [Header("用于控制地图")] 
+        public Vector3Int mapMin;
+        public Vector3Int mapMax;
         
         #endregion
         
@@ -83,7 +92,22 @@ namespace Game.Scripts
                 }
             }
         }
-    
+
+
+        private void OnDrawGizmos()
+        {
+            if (!gameObject.activeSelf || !enabled)
+                return;
+
+            Gizmos.color=Color.magenta;
+#if UNITY_EDITOR
+            Handles.Label(mapMax, "MapMax");
+            Handles.Label(mapMin, "MapMin");
+#endif
+            Gizmos.DrawWireSphere(mapMax, 0.5f);
+            Gizmos.DrawWireSphere(mapMin, 0.5f);
+        }
+
         #endregion
     }
 }

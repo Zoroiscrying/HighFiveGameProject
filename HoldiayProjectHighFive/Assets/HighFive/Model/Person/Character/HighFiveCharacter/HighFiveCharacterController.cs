@@ -1,7 +1,9 @@
 using System;
 using HighFive.Control.SkillSystem;
 using System.Collections.Generic;
+using HighFive.Const;
 using HighFive.Global;
+using ReadyGamerOne.View;
 using UnityEngine;
 
 namespace HighFive.Model.Person
@@ -42,6 +44,7 @@ namespace HighFive.Model.Person
 		public KeyCode comboKey=KeyCode.J;
 		public KeyCode superKey = KeyCode.Z;
 		public KeyCode bagKey = KeyCode.Tab;
+		public KeyCode mapKey = KeyCode.E;
         
 		public int Maxdrag;   //最大药引上限
 		public int money = 0;
@@ -50,5 +53,19 @@ namespace HighFive.Model.Person
 		
 		public List<CommonSkillInfo> commonSkillInfos=new List<CommonSkillInfo>();
 		public List<ComboSkillInfo> comboSkillInfos=new List<ComboSkillInfo>();
+
+		public bool mapped = false;
+		protected override void Update()
+		{
+			base.Update();
+			if (Input.GetKeyDown(mapKey))
+			{
+				if (mapped)
+					PanelMgr.PopPanel();
+				else
+					PanelMgr.PushPanel(PanelName.MapPanel);
+				mapped = !mapped;
+			}
+		}
 	}
 }

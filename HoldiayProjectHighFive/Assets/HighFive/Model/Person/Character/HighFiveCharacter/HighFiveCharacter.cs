@@ -208,8 +208,10 @@ namespace HighFive.Model.Person
 		#endregion
 
 		#region ITakeDamageablePerson<AbstractPerson>
+		
+		
 
-		public override float OnTakeDamage(AbstractPerson takeDamageFrom, float damage)
+		public override float OnTakeDamage(AbstractPerson takeDamageFrom, BasicDamage damage)
         {
 	        var realDamage = base.OnTakeDamage(takeDamageFrom, damage);
 	        if (realDamage > 0)
@@ -221,13 +223,8 @@ namespace HighFive.Model.Person
             return realDamage;
         }
 
-		public override float OnCauseDamage(AbstractPerson causeDamageTo, float damage)
+		public override float OnCauseDamage(AbstractPerson causeDamageTo, BasicDamage damage)
 		{
-			if (GlobalVar.isSuper)
-			{
-				damage *= GameSettings.Instance.superAttackScale;
-				CEventCenter.BroadMessage(Message.M_ExitSuper);
-			}
 			var realDamage= base.OnCauseDamage(causeDamageTo, damage);
 			if (realDamage > 0 && System.Math.Abs(realDamage) > 0.01f)
 			{
@@ -263,8 +260,6 @@ namespace HighFive.Model.Person
 			get
 			{
 				var normalDamage = (_rankMgr.BaseAttack + AttackAdder) * AttackScale;
-				if (Random.Range(0, 1f) < CritRate)
-					normalDamage *= CritScale;
 				return  Mathf.RoundToInt(normalDamage);
 			}
 		}
@@ -452,7 +447,8 @@ namespace HighFive.Model.Person
 			CEventCenter.BroadMessage(Message.M_InitSuper);
 			MainLoop.Instance.ExecuteLater(() =>
 			{
-				CEventCenter.BroadMessage(Message.M_ExitSuper);
+				if(GlobalVar.isSuper)
+					CEventCenter.BroadMessage(Message.M_ExitSuper);
 			}, GameSettings.Instance.superTime);
 			return true;
 

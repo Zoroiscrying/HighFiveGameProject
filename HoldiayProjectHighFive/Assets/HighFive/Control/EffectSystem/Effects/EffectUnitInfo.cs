@@ -27,7 +27,6 @@ namespace HighFive.Control.EffectSystem.Effects
         Shining,
         HitBack,
         Animation,
-        Damage
     }
 
     /// <summary>
@@ -185,16 +184,7 @@ namespace HighFive.Control.EffectSystem.Effects
 
                 #endregion
 
-                #region Damage
 
-                case EffectType.Damage:
-
-                    //todo: 这里显示伤害数字才对
-//                    dp?.TryAttack(rp);
-                    new DamageNumberUI(dp.Attack, 0, 1, Color.red, rp.transform, dp.Dir);
-                    break;
-
-                #endregion
 
                 #region Audio
 

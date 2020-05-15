@@ -71,6 +71,7 @@ namespace HighFive.View
             CEventCenter.AddListener<int>(Message.M_PlayerBloodChange, OnPlayerBloodChanged);
             CEventCenter.AddListener<int>(Message.M_PlayerDragChange,OnPlayerDragChanged);
             CEventCenter.AddListener(Message.M_LevelUp,OnLevelUp);
+            CEventCenter.AddListener(Message.M_ExitSuper,OnExitSuper);
 
             rankText.text = GlobalVar.G_Player.Rank;
             OnPlayerBloodChanged(0);
@@ -80,6 +81,13 @@ namespace HighFive.View
             
         }
 
+        private void OnExitSuper()
+        {
+            var dragConsume =Mathf.RoundToInt(
+                 GameSettings.Instance.superDragConsumeRate * GlobalVar.G_Player.MaxDrag);
+            OnPlayerDragChanged(-dragConsume);
+
+        }
 
 
         private void OnLevelUp()
@@ -94,6 +102,7 @@ namespace HighFive.View
             base.OnRemoveListener();
 
             //  BloodChange
+            CEventCenter.RemoveListener(Message.M_ExitSuper,OnExitSuper);
             CEventCenter.RemoveListener<int>(Message.M_PlayerBloodChange, OnPlayerBloodChanged);
             CEventCenter.RemoveListener<int>(Message.M_PlayerExpChange,OnExpChange);
             CEventCenter.RemoveListener<int>(Message.M_MoneyChange, OnMoneyChange);

@@ -8,8 +8,8 @@ namespace HighFive.Control.Movers.Editor
     public class ActorMoverEditor:BaseMoverEditor
     {
 
-        private string[] titles = {"BaseActor", "PreciseMovementControl", "Others"};
-        private int selectedIndex = 0;
+        private string[] actorTitles = {"BaseActor", "PreciseMovementControl", "Others"};
+        private int actorIndex = 0;
 
         // PreciseMovementControl
         private SerializedProperty accelerationTimeAirborneProp;
@@ -42,8 +42,8 @@ namespace HighFive.Control.Movers.Editor
         {
             serializedObject.Update();
 
-            selectedIndex = GUILayout.Toolbar(selectedIndex, titles);
-            switch (selectedIndex)
+            actorIndex = GUILayout.Toolbar(actorIndex, actorTitles);
+            switch (actorIndex)
             {
                 case 0:// BaseActor
                     base.OnInspectorGUI();

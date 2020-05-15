@@ -15,6 +15,7 @@ namespace ReadyGamerOne.Editor
         {
             var win = GetWindow<ToolWindow>();
         }
+        
 
         private string RootNamespace = "Root";
         private string UiNamespace = "View";

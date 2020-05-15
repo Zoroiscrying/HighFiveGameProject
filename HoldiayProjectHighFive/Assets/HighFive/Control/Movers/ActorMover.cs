@@ -177,7 +177,7 @@ namespace HighFive.Control.Movers
         /// </summary>
         protected override void CalculateVelocity()
         {
-            if (IgnoreMoverInput)
+            if (!IgnoreMoverInput)
             {
                 var targetVelocityX = moverInput.x * runSpeed * horizontalSpeedMultiplier;
                 // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control

@@ -14,3 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moneyScale: 3
   reikiScale: 3
+  damageToDragScale: 1
+  superTime: 3
+  superDragConsumeRate: 0.33333334
+  superAttackScale: 2
+  enableSceneTrigger: 1
+  normalSize: 40
+  normalColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  critSize: 50
+  critColor: {r: 1, g: 0, b: 0, a: 1}
+  skillSize: 45
+  missingSize: 50
+  missingColor: {r: 0, g: 1, b: 1, a: 1}
+  enemyDamageColor: {r: 0.60529304, g: 0.039649326, b: 0.9339623, a: 1}

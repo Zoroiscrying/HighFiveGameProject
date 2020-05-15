@@ -3,7 +3,8 @@ using UnityEngine;
 using HighFive.Global;
 using HighFive.Model.Person;
 
-namespace Game.Scripts{
+namespace HighFive.Script
+{
 	/// <summary>
 	/// 背景图片移动控制器
 	/// </summary>

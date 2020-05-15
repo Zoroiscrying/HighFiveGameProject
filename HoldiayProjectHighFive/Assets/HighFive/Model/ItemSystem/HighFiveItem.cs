@@ -88,16 +88,16 @@ namespace HighFive.Model.ItemSystem
         }
 
 
-        public virtual void AddEffects()
+        protected virtual void AddEffects()
         {
             Debug.Log($"{ItemName}开启");
-            GlobalVar.G_Player.AttackAdder += 20;
+//            GlobalVar.G_Player.AttackAdder += 20;
         }
 
-        public virtual void RemoveEffects()
+        protected virtual void RemoveEffects()
         {
             Debug.Log($"{ItemName}关闭");
-            GlobalVar.G_Player.AttackAdder -= 20;
+//            GlobalVar.G_Player.AttackAdder -= 20;
         }
         
         #region Fields

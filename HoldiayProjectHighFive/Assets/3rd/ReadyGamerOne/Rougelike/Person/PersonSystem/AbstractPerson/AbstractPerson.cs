@@ -12,7 +12,7 @@ namespace ReadyGamerOne.Rougelike.Person
     /// 人物信息接口
     /// </summary>
     public interface IPerson :
-        ITakeDamageablePerson<AbstractPerson>,
+        ITakeDamageablePerson<AbstractPerson,BasicDamage>,
         IResourcableObject
     {
         /// <summary>
@@ -130,11 +130,15 @@ namespace ReadyGamerOne.Rougelike.Person
         public event Action<AbstractPerson, int> onCauseDamage;
         public event Action<AbstractPerson, int> onTakeDamage;
 
-        public virtual float OnTakeDamage(AbstractPerson takeDamageFrom, float damage)
+        public virtual BasicDamage CalculateDamage(float skillDamageScale, AbstractPerson receiver)
         {
-            Assert.IsTrue(damage >= 0);
+            return new BasicDamage(this, skillDamageScale, receiver);
+        }
 
-            var finalDamage = Mathf.RoundToInt(damage);
+        public virtual float OnTakeDamage(AbstractPerson takeDamageFrom, BasicDamage damage)
+        {
+            
+            var finalDamage = Mathf.RoundToInt(damage.Damage);
             onTakeDamage?.Invoke(takeDamageFrom, finalDamage);
             Hp -= finalDamage;
 //            Debug.Log($"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{finalDamage}伤害,当前血量：{Hp}");
@@ -155,7 +159,7 @@ namespace ReadyGamerOne.Rougelike.Person
             return realDamage;
         }
 
-        public virtual float OnCauseDamage(AbstractPerson causeDamageTo, float damage)
+        public virtual float OnCauseDamage(AbstractPerson causeDamageTo, BasicDamage damage)
         {
             var realDamage = causeDamageTo.OnTakeDamage(this, damage);
             if(realDamage>0)
