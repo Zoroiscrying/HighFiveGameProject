@@ -332,7 +332,7 @@ namespace HighFive.Control.Movers
             _spriteRenderer = this.GetComponent<SpriteRenderer>();
             animator = GameAnimator.GetInstance(GetComponent<Animator>());
             CalculateGravityNVelocity();
-            MoveHorizontally(true);
+            // MoveHorizontally(true);
         }
 
         protected override void Update()
