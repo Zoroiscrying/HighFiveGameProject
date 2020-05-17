@@ -34,7 +34,7 @@ namespace HighFive.Control.Movers.Interfaces
         /// <summary>
         /// 初始化FlyMover参考的地面
         /// </summary>
-        void InitializeGroundPosition();
+        float CalculateRelativeHeight();
         
         /// <summary>
         /// 检查飞行状态，碰到边缘情况的处理在这里实现

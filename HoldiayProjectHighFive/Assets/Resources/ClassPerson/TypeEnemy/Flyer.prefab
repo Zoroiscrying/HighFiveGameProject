@@ -13,15 +13,15 @@ GameObject:
   - component: {fileID: 1139242956040717648}
   - component: {fileID: 1139242956040717651}
   - component: {fileID: 1139242956040717650}
-  - component: {fileID: 1139242956040717653}
   - component: {fileID: 5580710734084999945}
+  - component: {fileID: 6713598783241867474}
   m_Layer: 9
   m_Name: Flyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1139242956040717662
 Transform:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1139242956040717653
+--- !u!114 &5580710734084999945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,7 +160,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1139242956040717652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd7eb4dd36e40cd4aaa94d4a575f6fad, type: 3}
+  m_Script: {fileID: 11500000, guid: 13e1c1ddd89eccd438ab85b789a329f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackEffects: {fileID: 0}
+  hitEffects: {fileID: 11400000, guid: a28d928779d609e448685f7790f23f44, type: 2}
+  acceptEffects: {fileID: 11400000, guid: c2c2135c920f5e841ab84146452db8a2, type: 2}
+  HeadUi: {fileID: 1211387169935642831}
+--- !u!114 &6713598783241867474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139242956040717652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19852bf68dcc2104f9553cc52034b709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _skinWidth: 0.02
@@ -203,25 +219,10 @@ MonoBehaviour:
   verticalSpeedMultiplier: 1
   faceDir: 1
   rayCastDebug: 0
+  _relativeFlyHeight: 0
   _isRandomFlying: 0
   _maxFlyHeight: 20
   _minFlyHeight: 2
---- !u!114 &5580710734084999945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139242956040717652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13e1c1ddd89eccd438ab85b789a329f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackEffects: {fileID: 0}
-  hitEffects: {fileID: 11400000, guid: a28d928779d609e448685f7790f23f44, type: 2}
-  acceptEffects: {fileID: 11400000, guid: c2c2135c920f5e841ab84146452db8a2, type: 2}
-  HeadUi: {fileID: 1211387169935642831}
 --- !u!1001 &1250113497532493397
 PrefabInstance:
   m_ObjectHideFlags: 0

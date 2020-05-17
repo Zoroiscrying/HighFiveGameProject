@@ -9,19 +9,32 @@ namespace HighFive.Control.Movers
     /// </summary>
     public class FlyActorMover:ActorMover,IFlyActorControl
     {
-        private float _relativeGroundPosY = 0; 
+        [SerializeField]protected float _relativeFlyHeight = 0; 
         
         /// <summary>
         /// 遇到障碍物如何调正自身方向
         /// 在碰到障碍物需要调整方向的时候，调用此函数
         /// 基类只是简单取反，子类可以重写成更真实的方向判断
         /// </summary>
-        /// <param name="collidingObject"></param>
-        protected virtual void ModifyVelocityOnCollision(RaycastHit2D? collidingObject)
+        /// <param name="hit">为null表示碰到edge，否则表示碰到障碍物</param>
+        protected virtual void ModifyVelocityOnCollision(RaycastHit2D? hit)
         {
-            Debug.Log("Change Velocity");
-            this.ReverseMovementInputX();
-            this.ReverseMovementInputY();
+            if (hit == null)
+            {// 边缘检测到了
+                if(FlyHeight>MaxFlyHeight && this.Velocity.y>0)
+                    this.ReverseMovementInputY();
+                else if(FlyHeight<MinFlyHeight && this.Velocity.y<0)
+                    this.ReverseMovementInputY();
+                else
+                {
+                    Debug.Log("?????");
+                }
+            }
+            else
+            {// 碰到障碍物了
+                this.ReverseMovementInputX();
+                this.ReverseMovementInputY();
+            }
         }
 
         
@@ -32,14 +45,20 @@ namespace HighFive.Control.Movers
         /// </summary>
         protected virtual void OnRandomFly()
         {
+            _relativeFlyHeight = CalculateRelativeHeight();
             HandleEdgeCondition();
         }
 
+
+        [ContextMenu("StartFly")]
+        private void StartFly()=>StartRandomFly(new Vector2(1,1));
+        
+        
         #region IFlyActorControl
 
-        [SerializeField] private bool _isRandomFlying = false;
+        [SerializeField] protected bool _isRandomFlying = false;
         public bool IsRandomFlying => _isRandomFlying;
-        public float FlyHeight => this.Position.y-_relativeGroundPosY;
+        public float FlyHeight => _relativeFlyHeight;
 
         [SerializeField] protected float _maxFlyHeight;
 
@@ -54,9 +73,6 @@ namespace HighFive.Control.Movers
             get => _minFlyHeight;
             set => _minFlyHeight = value;
         }
-
-        [ContextMenu("StartFly")]
-        private void StartFly()=>StartRandomFly(Vector2.right);
         
         public void StartRandomFly(Vector2 startDir)
         {
@@ -69,27 +85,42 @@ namespace HighFive.Control.Movers
             _isRandomFlying = false;
         }
 
-        public void InitializeGroundPosition()
+        /// <summary>
+        /// 计算相对高度
+        /// </summary>
+        public float CalculateRelativeHeight()
         {
             //do Ray Cast and get the ground position
-            _relativeGroundPosY = this.Position.y;
+            var height = float.MaxValue;
 
-           var hit = Physics2D.Raycast(this.Position, Vector2.down, 1000000f, this.ColliderLayers);
+            var hit = Physics2D.Raycast(this.Position, Vector2.down, 1000000f, this.ColliderLayers);
            //设定最远的飞行距离为1000000f，这里可以再考虑一下
            if (hit && hit.distance < 1000000f)
            {
-               _relativeGroundPosY = this.Position.y - hit.distance;
+               height = this.Position.y - hit.point.y;
+//               Debug.Log($"Position:{Position}, hit.position:{hit.point},relativeHeight:{_relativeFlyHeight}");
            }
+           else
+           {
+//               Debug.Log("???");
+           }
+
+           return height;
         }
 
+        /// <summary>
+        /// 处理边缘检测
+        /// </summary>
         public void HandleEdgeCondition()
         {
+            
             //只在大于零时做检测
             if (_minFlyHeight>=0)
             {
                 if (this.FlyHeight < _minFlyHeight)
                 {
                     //do something.
+                    Debug.Log("ToShort");
                     ModifyVelocityOnCollision(null);
                 }
             }
@@ -99,6 +130,7 @@ namespace HighFive.Control.Movers
                 if (FlyHeight > maxJumpHeight)
                 {
                     //do something.
+                    Debug.Log($"ToHigh");
                     ModifyVelocityOnCollision(null);
                 }
             }
@@ -111,7 +143,6 @@ namespace HighFive.Control.Movers
         protected override void Awake()
         {
             base.Awake();
-            InitializeGroundPosition();
             this.eventOnColliderEnter += hit => ModifyVelocityOnCollision(hit);
         }
 
