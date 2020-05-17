@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using ReadyGamerOne.Global;
 using UnityEditor;
+using UnityEditor.Graphs;
 using UnityEngine;
 using FileUtil = ReadyGamerOne.Utility.FileUtil;
 
@@ -15,7 +16,8 @@ namespace ReadyGamerOne.Editor
         {
             var win = GetWindow<ToolWindow>();
         }
-        
+
+        private string RootNamespaceKey = "RootNamespace";
 
         private string RootNamespace = "Root";
         private string UiNamespace = "View";
@@ -32,6 +34,8 @@ namespace ReadyGamerOne.Editor
         
         private void OnEnable()
         {
+            RootNamespace = EditorPrefs.GetString(RootNamespaceKey, "Root");
+            
             _style=new GUIStyle
             {
                 fontSize = 15,
@@ -63,12 +67,11 @@ namespace ReadyGamerOne.Editor
             }
         }
         
-        
-
         private void OnDisable()
         {
             _methodInfos.Clear();
             names.Clear();
+            EditorPrefs.SetString(RootNamespaceKey, RootNamespace);
         }
 
         private void OnSelectionChange()
@@ -78,7 +81,7 @@ namespace ReadyGamerOne.Editor
 
         public void OnGUI()
         {
-            RootNamespace = string.IsNullOrEmpty(RootNamespace) ? "Root" : RootNamespace;
+
             UiNamespace = string.IsNullOrEmpty(UiNamespace) ? "View" : UiNamespace;
             ConstNamespace = string.IsNullOrEmpty(ConstNamespace) ? "Const" : ConstNamespace;
             DataNamespace = string.IsNullOrEmpty(DataNamespace) ? "Data" : DataNamespace;
@@ -88,8 +91,14 @@ namespace ReadyGamerOne.Editor
             
             EditorGUILayout.Space();
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("命名空间", _style);
-            RootNamespace = EditorGUILayout.TextField("RootNamespace", RootNamespace);
+            EditorGUILayout.LabelField("ToolsWindow", _style);
+            EditorGUI.BeginChangeCheck();
+            RootNamespace = EditorGUILayout.DelayedTextField("RootNamespace", RootNamespace);
+            if (EditorGUI.EndChangeCheck())
+            {
+                EditorPrefs.SetString(RootNamespaceKey, RootNamespace);
+            }
+            
             UiNamespace = EditorGUILayout.TextField("UiNamespace", UiNamespace);
             ConstNamespace = EditorGUILayout.TextField("ConstNamespace", ConstNamespace);
             DataNamespace = EditorGUILayout.TextField("DataNamespace", DataNamespace);

@@ -3,3 +3,4 @@ string,float,float,int,int
 Boner,1,0,200,20
 Spider,1,0,200,40
 Defender,1,0,300,30
+Flyer,1,1,150,30

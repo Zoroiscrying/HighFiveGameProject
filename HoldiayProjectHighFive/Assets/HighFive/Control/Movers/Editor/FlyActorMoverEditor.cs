@@ -8,6 +8,7 @@ namespace HighFive.Control.Movers.Editor
     {
         private SerializedProperty maxFlyHeightProp;
         private SerializedProperty minFlyHeightProp;
+        private SerializedProperty isRandomFlyingProp;
 
         private string[] flyTitles = {"ActorMover", "FlyActor", "Others"};
         private int flyMoverIndex = 0;
@@ -17,6 +18,7 @@ namespace HighFive.Control.Movers.Editor
             base.OnEnable();
             maxFlyHeightProp = serializedObject.FindProperty("_maxFlyHeight");
             minFlyHeightProp = serializedObject.FindProperty("_minFlyHeight");
+            isRandomFlyingProp = serializedObject.FindProperty("_isRandomFlying");
         }
         
         public override void OnInspectorGUI()
@@ -30,6 +32,7 @@ namespace HighFive.Control.Movers.Editor
                     base.OnInspectorGUI();
                     break;
                 case 1:// FlyActor
+                    EditorGUILayout.PropertyField(isRandomFlyingProp);
                     EditorGUILayout.PropertyField(maxFlyHeightProp);
                     EditorGUILayout.PropertyField(minFlyHeightProp);
                     break;

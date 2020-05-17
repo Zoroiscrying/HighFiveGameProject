@@ -6,7 +6,7 @@ namespace HighFive.Data
 {
 	public class DropData : CsvMgr
 	{
-		public const int DropDataCount = 4;
+		public const int DropDataCount = 5;
 
 		public override string ID => personName.ToString();
 

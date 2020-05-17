@@ -5,7 +5,7 @@ namespace HighFive.Data
 {
 	public class EnemyData : PersonData
 	{
-		public const int EnemyDataCount = 3;
+		public const int EnemyDataCount = 4;
 
 		public override string ID => personName.ToString();
 

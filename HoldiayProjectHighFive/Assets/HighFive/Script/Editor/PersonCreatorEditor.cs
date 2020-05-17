@@ -20,7 +20,7 @@ namespace HighFive.Script
             signalSizeProp = serializedObject.FindProperty("signalSize");
             listProp = serializedObject.FindProperty("createInfos");
             list = new ReorderableList(serializedObject, listProp, true, true, true, true);
-            list.elementHeight = 4 * EditorGUIUtility.singleLineHeight;
+            list.elementHeight = 3 * EditorGUIUtility.singleLineHeight;
             list.drawElementCallback = (rect, selectIndex, isActive, isFocused) =>
             {
                 var prop = listProp.GetArrayElementAtIndex(selectIndex);
@@ -37,7 +37,7 @@ namespace HighFive.Script
                 EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("enable"));
                 EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("_personType"));
                 EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("position"));
-                EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("color"));
+//                EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("color"));
             };
             list.drawHeaderCallback = rect => EditorGUI.LabelField(rect, listProp.displayName);
             list.onAddCallback = list =>

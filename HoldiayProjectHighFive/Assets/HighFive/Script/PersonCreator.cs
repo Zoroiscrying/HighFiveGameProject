@@ -17,6 +17,7 @@ namespace HighFive.Script
         Boner,
         Spider,
         Boss,
+        Flyer,
         Defender,
     }
 
@@ -26,7 +27,7 @@ namespace HighFive.Script
         public bool enable = false;
         public PersonType _personType;
         public Vector3 position;
-        public Color color;
+//        public Color color;
     }
     
 
@@ -82,7 +83,6 @@ namespace HighFive.Script
                             Sworder.GetInstance(createInfo.position);
                             GlobalVar.UsePlayerCachePos = true;
                         }
-
                         break;
                     case PersonType.Spider:
                         Spider.GetInstance(createInfo.position);
@@ -92,6 +92,9 @@ namespace HighFive.Script
                         break;
                     case PersonType.Defender:
                         Defender.GetInstance(createInfo.position);
+                        break;
+                    case PersonType.Flyer:
+                        Flyer.GetInstance(createInfo.position);
                         break;
                 }
             }
@@ -105,11 +108,11 @@ namespace HighFive.Script
         {
             if (!gameObject.activeSelf || !enabled)
                 return;
+            Gizmos.color = DefaultGizmoColor;
             foreach (var VARIABLE in createInfos)
             {
                 if(VARIABLE.enable==false)
                     continue;
-                Gizmos.color = VARIABLE.color;
                 GizmosUtil.DrawSign(VARIABLE.position, signalSize);
 #if UNITY_EDITOR
                 Handles.Label(VARIABLE.position,$"【{name}:{VARIABLE._personType}】",Style);

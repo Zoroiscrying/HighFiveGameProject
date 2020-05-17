@@ -9,7 +9,6 @@ namespace HighFive.Control.Movers
     /// </summary>
     public class FlyActorMover:ActorMover,IFlyActorControl
     {
-        private bool _randomFly = false;
         private float _relativeGroundPosY = 0; 
         
         /// <summary>
@@ -18,7 +17,7 @@ namespace HighFive.Control.Movers
         /// 基类只是简单取反，子类可以重写成更真实的方向判断
         /// </summary>
         /// <param name="collidingObject"></param>
-        protected virtual void ModifyVelocityOnCollision(RaycastHit2D collidingObject)
+        protected virtual void ModifyVelocityOnCollision(RaycastHit2D? collidingObject)
         {
             Velocity = -Velocity;
         }
@@ -35,6 +34,9 @@ namespace HighFive.Control.Movers
         }
 
         #region IFlyActorControl
+
+        [SerializeField] private bool _isRandomFlying = false;
+        public bool IsRandomFlying => _isRandomFlying;
         public float FlyHeight => this.Position.y-_relativeGroundPosY;
 
         [SerializeField] protected float _maxFlyHeight;
@@ -51,15 +53,18 @@ namespace HighFive.Control.Movers
             set => _minFlyHeight = value;
         }
 
+        [ContextMenu("StartFly")]
+        private void StartFly()=>StartRandomFly(Vector2.right);
+        
         public void StartRandomFly(Vector2 startDir)
         {
-            _randomFly = true;
+            _isRandomFlying = true;
             this.moverInput = startDir;
         }
 
         public void StopRandomFly()
         {
-            _randomFly = false;
+            _isRandomFlying = false;
         }
 
         public void InitializeGroundPosition()
@@ -83,6 +88,7 @@ namespace HighFive.Control.Movers
                 if (this.FlyHeight < _minFlyHeight)
                 {
                     //do something.
+                    ModifyVelocityOnCollision(null);
                 }
             }
             //只在大于零时做检测
@@ -91,6 +97,7 @@ namespace HighFive.Control.Movers
                 if (FlyHeight > maxJumpHeight)
                 {
                     //do something.
+                    ModifyVelocityOnCollision(null);
                 }
             }
         }
@@ -103,13 +110,13 @@ namespace HighFive.Control.Movers
         {
             base.Awake();
             InitializeGroundPosition();
-            this.eventOnColliderEnter += ModifyVelocityOnCollision;
+            this.eventOnColliderEnter += hit => ModifyVelocityOnCollision(hit);
         }
 
         protected override void Update()
         {
             base.Update();
-            if (_randomFly)
+            if (_isRandomFlying)
             {
                 OnRandomFly();
             }

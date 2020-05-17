@@ -5,6 +5,11 @@ namespace HighFive.Control.Movers.Interfaces
     public interface IFlyActorControl:IActorBaseControl
     {
         /// <summary>
+        /// 是否正在随机飞
+        /// </summary>
+        bool IsRandomFlying { get; }
+        
+        /// <summary>
         /// 离地高度
         /// </summary>
         float FlyHeight { get;}
