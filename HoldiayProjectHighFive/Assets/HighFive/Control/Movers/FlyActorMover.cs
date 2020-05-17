@@ -19,7 +19,9 @@ namespace HighFive.Control.Movers
         /// <param name="collidingObject"></param>
         protected virtual void ModifyVelocityOnCollision(RaycastHit2D? collidingObject)
         {
-            Velocity = -Velocity;
+            Debug.Log("Change Velocity");
+            this.ReverseMovementInputX();
+            this.ReverseMovementInputY();
         }
 
         
