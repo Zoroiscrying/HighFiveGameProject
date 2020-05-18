@@ -44,11 +44,7 @@ namespace HighFive.Control.Movers.Interfaces
         /// </summary>
         void ReverseMovementInputX();
         void ReverseMovementInputY();
-        /// <summary>
-        /// 根据目标方向改变ActorMover的Input
-        /// </summary>
-        /// <param name="target"></param>
-        void MoveToward(Vector2 target);
+
         /// <summary>
         /// 停止ActorMover的输入
         /// </summary>

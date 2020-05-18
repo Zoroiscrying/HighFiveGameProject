@@ -4,6 +4,16 @@ namespace ReadyGamerOne.Utility
 {
     public static class VectorExtension
     {
+        public static Vector2 ToVector2(this Vector3 self)
+        {
+            return new Vector2(self.x, self.y);
+        }
+
+        public static Vector3 ToVector3(this Vector2 self, float zValue = 0f)
+        {
+            return new Vector3(self.x, self.y, zValue);
+        }
+        
         /// <summary>
         /// 判断两个Vector是否在容错范围内相等
         /// </summary>

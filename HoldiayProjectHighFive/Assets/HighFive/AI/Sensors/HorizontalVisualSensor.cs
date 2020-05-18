@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace HighFive.AI
 {
-    public class HorizontalVisualSensor:AbstractSensor
+    /// <summary>
+    /// 水平视觉探测器
+    /// </summary>
+    public class HorizontalVisualSensor:VisualSensor
     {
-        [HideInInspector]public float viewDistance;
-        
-
         public override IHighFivePerson Detect()
         {
             if (!SelfPerson.IsAlive)
@@ -31,16 +31,6 @@ namespace HighFive.AI
             }
 
             return null;
-        }
-
-        protected override void OnDrawGizmos()
-        {
-            if (SelfPerson == null||!SelfPerson.IsAlive)
-                return;
-            base.OnDrawGizmos();
-            Gizmos.color=Color.cyan;
-            var position = CenterPosition;
-            Gizmos.DrawLine(position,position+viewDistance*SelfPerson.Dir*Vector3.right);
         }
     }
 }

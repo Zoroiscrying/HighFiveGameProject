@@ -27,7 +27,7 @@ namespace HighFive.Control.Movers
                     this.ReverseMovementInputY();
                 else
                 {
-                    Debug.Log("?????");
+//                    Debug.Log("?????");
                 }
             }
             else
@@ -120,7 +120,7 @@ namespace HighFive.Control.Movers
                 if (this.FlyHeight < _minFlyHeight)
                 {
                     //do something.
-                    Debug.Log("ToShort");
+//                    Debug.Log("ToShort");
                     ModifyVelocityOnCollision(null);
                 }
             }
@@ -130,7 +130,7 @@ namespace HighFive.Control.Movers
                 if (FlyHeight > maxJumpHeight)
                 {
                     //do something.
-                    Debug.Log($"ToHigh");
+//                    Debug.Log($"ToHigh");
                     ModifyVelocityOnCollision(null);
                 }
             }

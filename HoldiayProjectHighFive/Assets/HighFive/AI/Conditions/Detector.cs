@@ -12,7 +12,9 @@ namespace HighFive.AI.Conditions
 {
     public abstract class Detector:Conditional
     {
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("探测到的敌方单位")]
         public SharedGameObject outDetectedPerson;
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("探测的层级")]
         public LayerMask inDetectLayers;
         protected IHighFivePerson selfPerson { get; private set; }
         protected List<AbstractSensor> Sensors { get; private set; }

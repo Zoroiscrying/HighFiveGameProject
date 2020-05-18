@@ -7,14 +7,16 @@ using UnityEngine;
 
 namespace HighFive.AI.Conditions
 {
-    public class CanSeePlayer:Detector
+    
+    [TaskDescription("是否在水平方向看到玩家")]
+    public class CanSeePlayerHorizontally:Detector
     {
+        [BehaviorDesigner.Runtime.Tasks.Tooltip("视觉距离")]
         public SharedFloat viewDistance;
 
         protected override bool InitSensor(AbstractSensor sensor)
         {
-            
-            if (sensor is HorizontalVisualSensor visualSensor)
+            if (sensor is VisualSensor visualSensor)
             {
                 visualSensor.viewDistance = viewDistance.Value;
                 return true;

@@ -9,7 +9,6 @@ using ReadyGamerOne.Data;
 using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Random = UnityEngine.Random;
 
 namespace HighFive.Model.Person
 {
@@ -71,8 +70,9 @@ namespace HighFive.Model.Person
 			if (null == _actorBaseControl)
 			{
 				throw new Exception($"{CharacterName}的actorBaseControl is null");
-			}else 
-				Debug.Log($"{CharacterName}加载_actorBaseControl");
+			}
+//			else 
+//				Debug.Log($"{CharacterName}加载_actorBaseControl");
 		}
 
 		public override void OnRecycleToPool()

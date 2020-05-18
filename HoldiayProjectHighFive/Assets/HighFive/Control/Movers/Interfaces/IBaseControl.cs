@@ -14,5 +14,9 @@ namespace HighFive.Control.Movers.Interfaces
         /// <param name="layers">检测Layer，如果为null，就使用Mover自带的CollisionLayers</param>
         /// <returns></returns>
         IEnumerable<GameObject> Raycast(Vector2 dir, float? distance, LayerMask? layers);
+        /// <summary>
+        /// 控制角色移动的输入
+        /// </summary>
+        Vector2 MoverInput { set; }
     }
 }

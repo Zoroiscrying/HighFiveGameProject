@@ -257,19 +257,19 @@ namespace HighFive.Control.Movers
             moverInput.y = -moverInput.y;
         }
 
-        /// <summary>
-        /// 向Target方向移动，可以控制自己y轴移动速度的Actor（比如浮游物）会同时更改x、y方向的速度
-        /// 无法控制自己y轴移动速度的Actor，则只能改变自己在x轴方向的移动。
-        /// </summary>
-        /// <param name="target">Target的世界2维xy坐标</param>
-        public void MoveToward(Vector2 target)
-        {
-            var posVe2 = new Vector2(this.Position.x, this.Position.y);
-            var dir = target - posVe2;
-            moverInput = dir.normalized;
-            moverInput.x = Mathf.Sign(moverInput.x);
-            moverInput.y = Mathf.Sign(moverInput.y);
-        }
+//        /// <summary>
+//        /// 向Target方向移动，可以控制自己y轴移动速度的Actor（比如浮游物）会同时更改x、y方向的速度
+//        /// 无法控制自己y轴移动速度的Actor，则只能改变自己在x轴方向的移动。
+//        /// </summary>
+//        /// <param name="target">Target的世界2维xy坐标</param>
+//        public void MoveToward(Vector2 target)
+//        {
+//            var posVe2 = new Vector2(this.Position.x, this.Position.y);
+//            var dir = target - posVe2;
+//            moverInput = dir.normalized;
+//            moverInput.x = Mathf.Sign(moverInput.x);
+//            moverInput.y = Mathf.Sign(moverInput.y);
+//        }
 
         /// <summary>
         /// 停止x轴的Actor输入

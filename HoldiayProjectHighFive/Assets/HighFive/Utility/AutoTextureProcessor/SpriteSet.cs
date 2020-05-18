@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditorInternal;
+#endif
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
 namespace HighFive.Utility.AutoTextureProcessor
 {
     public class SpriteSetToSpecificAttributes
     {
+#if UNITY_EDITOR
+        
         [MenuItem("Assets/SetTextureToMultipleSprites")]
         static void Execute()
         {
@@ -66,6 +68,7 @@ namespace HighFive.Utility.AutoTextureProcessor
                 }
             }
         }
+#endif
 
         static List<Rect> SortRects(List<Rect> rects, float textureWidht)
         {

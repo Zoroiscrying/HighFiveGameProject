@@ -12,7 +12,7 @@ namespace HighFive.AI
         protected override void Start()
         {
             base.Start();
-            hitInfos=new RaycastHit2D[3];
+            hitInfos=new RaycastHit2D[1];
         }
 
         public override IHighFivePerson Detect()
