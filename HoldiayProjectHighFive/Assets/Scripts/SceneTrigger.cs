@@ -21,7 +21,7 @@ namespace HighFive.Script
     [RequireComponent(typeof(ShowCollider2D))]
     public class SceneTrigger : MonoBehaviour
     {
-        public SceneTriggerChooser targetChooser=new SceneTriggerChooser(typeof(SceneTrigger).FullName);
+        public SceneTriggerChooser targetChooser=new SceneTriggerChooser("HighFive.Script.SceneTrigger");
 
 #if UNITY_EDITOR
         private GUIStyle style;
@@ -71,10 +71,16 @@ namespace HighFive.Script
 
 
         [ContextMenu("ShowPath")]
-        private void Test()
+        private void ShowPath()
         {
             Debug.Log(targetChooser.ScenePath);
             Debug.Log(Path.GetFileNameWithoutExtension(targetChooser.ScenePath));
+        }
+        
+        [ContextMenu("ShowTypeName")]
+        private void ShowTypeName()
+        {
+            Debug.Log(targetChooser.TypeName);
         }
     }
 }
