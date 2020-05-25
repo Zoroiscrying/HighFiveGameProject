@@ -91,6 +91,6 @@ MonoBehaviour:
     guid: 
     selectedIndex: 0
     sceneAsset: {fileID: 0}
-    typeName: HighFive.Scripts.SceneTrigger
+    typeName: HighFive.Script.SceneTrigger
     sceneName: 
     targetPosition: {x: 0, y: 0, z: 0}

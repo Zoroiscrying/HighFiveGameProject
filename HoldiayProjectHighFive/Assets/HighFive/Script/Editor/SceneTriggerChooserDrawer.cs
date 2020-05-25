@@ -244,7 +244,6 @@ namespace HighFive.Script
                     EditorUtility.SetDirty(property.serializedObject.targetObject);
                     EditorSceneManager.MarkSceneDirty(curScene);
                 }
-                
             }
         }
     }

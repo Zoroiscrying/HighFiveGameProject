@@ -20,7 +20,8 @@ namespace DialogSystem.Scripts
         AutoStart,       //触发器碰到后自动开启
         InteractStart,   //在触发器范围内按交互键开启
         MessageStart,    //接收到指定消息后开启
-        ClickStart       //点击此物体开启
+        ClickStart,      //点击此物体开启
+        AppearStart,     //出现在屏幕中后开始对话
     }
 
     /// <summary>
@@ -197,7 +198,7 @@ namespace DialogSystem.Scripts
                 }
          
             }
-            if(startType==StartType.StartOnAwake)
+            else if(startType==StartType.StartOnAwake)
                 switch (workType)
                 {
                     case WorkType.WorkAlways:
@@ -269,15 +270,43 @@ namespace DialogSystem.Scripts
         {
             if (!gameObject.activeSelf || !enabled)
                 return;
-            if (startType != StartType.AutoStart && startType != StartType.InteractStart)
-                return;
+            if (startType == StartType.AppearStart || startType == StartType.AutoStart ||
+                startType == StartType.InteractStart)
+            {
 #if UNITY_EDITOR
-            Handles.Label(transform.position,$"[DialogTrigger:{name}]",Style);
-#endif
+                Handles.Label(transform.position,$"[DialogTrigger:{name}]",Style);
+#endif                
+            }
+
         }
         #endregion
         
         #region Unity_Trigger
+
+        private void OnBecameVisible()
+        {
+            if (!Application.isPlaying)
+                return;
+//            Camera.main.
+            if (!enabled)
+                return;
+            if(startType==StartType.AppearStart)
+                switch (workType)
+                {
+                    case WorkType.WorkAlways:
+                        TriggerDialog();
+                        break;
+                    case WorkType.WorkAfterMessage:
+                        if(enableTrigger)
+                            TriggerDialog();
+                        break;
+                    case WorkType.WorkBetweenProgress:
+                        if(DialogProgressAsset.Instance.CurrentProgress>allowProgressRange.Min
+                           && DialogProgressAsset.Instance.CurrentProgress<allowProgressRange.Max)
+                            TriggerDialog();
+                        break;
+                }
+        }
 
         private void OnTriggerExit2D(Collider2D collider){
             close=false;

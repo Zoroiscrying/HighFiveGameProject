@@ -21,3 +21,11 @@ MonoBehaviour:
       FloatArg: 0
       StringArg: 
       Vector3Arg: {x: 0, y: 0, z: 0}
+  - VarName: "\u662F\u5426\u62FF\u5230\u8349\u836F"
+    ArgChooser:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
