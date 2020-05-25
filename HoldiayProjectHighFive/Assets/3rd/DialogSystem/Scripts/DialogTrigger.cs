@@ -49,7 +49,6 @@ namespace DialogSystem.Scripts
     /// </summary>
     public class DialogTrigger : MonoBehaviour
     {
-
         #region UsedDialogSystem
 
         public DialogSystem targetDialogSystem;
@@ -71,48 +70,45 @@ namespace DialogSystem.Scripts
 
         #region Fields
 
-        /// <summary>
-        /// 如何开启DialogSystem中的对话
-        /// </summary>
+        [Header("如何使用DialogSystem中的对话")]
+        [Tooltip("Single\t只使用你指定的DialogInfoAsset\n"+
+                 "Sequence\t会依次调用DialogSystem中指定范围的DialogInfoAsset,每调用一次触发一个\n"+
+                 "All\t一次性全部顺次开启DialogSystem中的DialogInfoAsset")]
         public TriggerType triggerType=TriggerType.Single;
         
-        /// <summary>
-        /// 工作模式
-        /// </summary>
+        [Header("工作模式：什么情况下本触发器是正常工作的")]
+        [Tooltip( "WorkAlways\t始终工作，持续在检测有没有触发\n"+
+                 "WorkAfterMessage\t接收到指定消息后再开始工作\n"+
+                 "WorkBetweenProgress\t在指定游戏进度中间工作")]
         public WorkType workType = WorkType.WorkAlways;
-        /// <summary>
-        /// 开启工作的消息
-        /// </summary>
+
+        [Header("开启工作的消息")]
         public StringChooser messageToEnableThis;
-        /// <summary>
-        /// 触发类型
-        /// </summary>
+        [Header("如何开启DialogSystem中的对话")]
+        [Tooltip( "StartOnAwake\t场景Awake时开启\n"+
+                 "AutoStart\t\t触发器碰到后自动开启\n"+
+                 "InteractStart\t在触发器范围内按交互键开启\n"+"" +
+                 "MessageStart\t接收到指定消息后开启\n"+"" +
+                 "ClickStart\t\t点击此物体开启\n" +
+                 "AppearStart\t出现在屏幕中后开始对话")]
         public StartType startType = StartType.AutoStart;
-        /// <summary>
-        /// 待触发的对话资源
-        /// </summary>
+
+        [Tooltip("待触发的对话资源")]
         public StringChooser dialogNameToTrigger=null;
 
-        /// <summary>
-        /// 开启对话的消息
-        /// </summary>
+        [Header("开启对话的消息")]
         public StringChooser messageToStart;
 
-        /// <summary>
-        /// 开启DialogSystem中从哪里到哪里的对话资源
-        /// </summary>
+        [Header("依次开启DialogSystem中从哪里到哪里的对话资源")]
         public Vector2Int sequenceRange = new Vector2Int(0, 0);
         
-        /// <summary>
-        /// 是否只触发一次
-        /// </summary>
+        [Header("是否只触发一次")]
         public bool triggerOnlyOnce = true;
-
-        /// <summary>
-        /// 是否在触发后设置此物体不可见
-        /// </summary>
+        
+        [Header("是否在触发后设置此物体不可见")]
         public bool disableThisGameObjectOnEnd = false;
 
+        [Header("在这样的进度区间内触发器是工作的")]
         public ProgressPointRange allowProgressRange;
 
         #region Private
@@ -257,7 +253,7 @@ namespace DialogSystem.Scripts
                 {
                     style = new GUIStyle();
                     style.alignment = TextAnchor.MiddleCenter;
-                    style.fontStyle = FontStyle.BoldAndItalic;
+                    style.fontStyle = FontStyle.Italic;
                     style.normal.textColor=new Color(1f, 0.42f, 0.81f);
                 }
 
@@ -270,13 +266,10 @@ namespace DialogSystem.Scripts
         {
             if (!gameObject.activeSelf || !enabled)
                 return;
-            if (startType == StartType.AppearStart || startType == StartType.AutoStart ||
-                startType == StartType.InteractStart)
-            {
+
 #if UNITY_EDITOR
-                Handles.Label(transform.position,$"[DialogTrigger:{name}]",Style);
-#endif                
-            }
+            Handles.Label(transform.position,$"[DialogTrigger:{name}]\n({startType})",Style);
+#endif          
 
         }
         #endregion

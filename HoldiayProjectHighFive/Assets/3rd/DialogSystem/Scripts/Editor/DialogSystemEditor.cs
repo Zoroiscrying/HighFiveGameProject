@@ -1,8 +1,10 @@
 ﻿using UnityEditor;
 using DialogSystem.ScriptObject;
 using ReadyGamerOne.Utility;
+using UnityEditor.SceneManagement;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DialogSystem.Scripts.Editor
 {
@@ -62,14 +64,21 @@ namespace DialogSystem.Scripts.Editor
 //                }
 //            }
 
-            var list = EditorUtil.GetDragObjectsFromArea<AbstractDialogInfoAsset>("拖拽 SimpleDialogInfoAsset 资源到这里添加到List中去");
 
+            var list = EditorUtil.GetDragObjectsFromArea<AbstractDialogInfoAsset>("拖拽 SimpleDialogInfoAsset 资源到这里添加到List中去");
+            
             foreach(var asset in list)
             {               
                 if (!dialogSystem.DialogInfoAssets.Contains(asset))
                     dialogSystem.DialogInfoAssets.Add(asset);
             }
 
+            if (list.Count != 0)
+            {
+                EditorUtility.SetDirty(target);
+                EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+            }
+            
             dialogUnitList.DoLayoutList();
             serializedObject.ApplyModifiedProperties();
             
