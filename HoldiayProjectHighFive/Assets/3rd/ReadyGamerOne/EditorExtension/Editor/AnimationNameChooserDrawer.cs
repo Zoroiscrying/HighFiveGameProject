@@ -10,6 +10,7 @@ namespace ReadyGamerOne.EditorExtension
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.LabelField(position.GetLeft(AnimationNameChooser.LabelWidth), property.displayName);
+            
             var racProp = property.FindPropertyRelative("rac");
             racProp.objectReferenceValue= EditorGUI.ObjectField(
                 position.GetLeft(AnimationNameChooser.LabelWidth + AnimationNameChooser.ObjectFieldWidth,

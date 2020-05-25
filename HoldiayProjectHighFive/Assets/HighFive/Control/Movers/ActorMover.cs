@@ -1,10 +1,7 @@
 using System;
-using System.ComponentModel;
-using BehaviorDesigner.Runtime.Tasks;
+using HighFive.Control.Movers.Interfaces;
 using HighFive.Others;
 using UnityEngine;
-using UnityEngine.Serialization;
-using zoroiscrying;
 
 namespace HighFive.Control.Movers
 {
@@ -14,9 +11,18 @@ namespace HighFive.Control.Movers
     /// 添加角色的移动速度；角色的输入（MoverInput）会影响角色实际移动速度
     /// 添加角色的动画控制
     /// </summary>
-    [RequireComponent(typeof(Animator))]
-    public class ActorMover : BaseMover
+    [RequireComponent(typeof(Animator))][RequireComponent(typeof(SpriteRenderer))]
+    public class ActorMover : BaseMover,IActorBaseControl
     {
+        //暂时不知道放到哪里
+
+        #region Rendering Relevant
+
+        private SpriteRenderer _spriteRenderer;
+
+        #endregion
+        
+        
         #region IMover2D
 
         public override float GravityScale
@@ -33,21 +39,21 @@ namespace HighFive.Control.Movers
         }
 
         #endregion
-
+        
         #region Actor_特有接口和属性
 
         [Header("PreciseMovementControl")] [SerializeField]
         private float accelerationTimeAirborne = .2f;
 
-        [SerializeField] private float accelerationTimeGrounded = .1f;
-        [Space(5)] [SerializeField] private float timeToJumpApex = .4f;
-        [SerializeField] private float maxJumpHeight = 1f;
+        [SerializeField] protected float accelerationTimeGrounded = .1f;
+        [Space(5)] [SerializeField] protected float timeToJumpApex = .4f;
+        [SerializeField] protected float maxJumpHeight = 1f;
         [Space(5)] [SerializeField] protected float runSpeed = 8f;
         [Space(5)] [SerializeField] protected float horizontalSpeedMultiplier = 1f;
         [SerializeField] protected float verticalSpeedMultiplier = 1f;
-        [SerializeField] protected int faceDir = 1;
-        // [Header("Animation Control")] 
-        // public GameAnimator animator;
+        [SerializeField] protected int faceDir = 1;//弃用（改用CollisionState.faceDir）
+        [Header("Animation Control")] 
+        public GameAnimator animator;
         [Header("Other")] public bool rayCastDebug = false;
 
         /// <summary>
@@ -76,8 +82,8 @@ namespace HighFive.Control.Movers
         /// </summary>
         public virtual int FaceDir
         {
-            get => faceDir;
-            set=>throw new Exception("Face Dir Cannot be changed by other code.");
+            get => collisionState.faceDir;
+            set=>throw new Exception("Face FaceDir Cannot be changed by other code.");
         }
 
         /// <summary>
@@ -144,6 +150,11 @@ namespace HighFive.Control.Movers
         // 属性名为VelocityMultiplier
 
         /// <summary>
+        /// TODO:是否忽略主观移动
+        /// </summary>
+        public bool IgnoreMoverInput { get; set; } = false;
+
+        /// <summary>
         /// 控制是否可以移动的开关
         /// </summary>
         /// <param name="arg"></param>
@@ -166,17 +177,20 @@ namespace HighFive.Control.Movers
         /// </summary>
         protected override void CalculateVelocity()
         {
-            var targetVelocityX = moverInput.x * runSpeed * horizontalSpeedMultiplier;
-            // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
-            //var smoothedMovementFactor = _controller.isGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref _movementDampingHorizontal,
-                (collisionState.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-            // apply gravity before moving
-            if (canMoveVertically)
+            if (!IgnoreMoverInput)
             {
-                var targetVelocityY = moverInput.y * runSpeed * verticalSpeedMultiplier;
-                velocity.y = Mathf.SmoothDamp(velocity.y, targetVelocityY, ref _movementDampingVertical,
-                    accelerationTimeAirborne);
+                var targetVelocityX = moverInput.x * runSpeed * horizontalSpeedMultiplier;
+                // apply horizontal animationSpeed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
+                //var smoothedMovementFactor = _controller.IsGrounded ? movementDamping : inAirDamping; // how fast do we change direction?
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref _movementDampingHorizontal,
+                    (collisionState.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+                // apply gravity before moving
+                if (canMoveVertically)
+                {
+                    var targetVelocityY = moverInput.y * runSpeed * verticalSpeedMultiplier;
+                    velocity.y = Mathf.SmoothDamp(velocity.y, targetVelocityY, ref _movementDampingVertical,
+                        accelerationTimeAirborne);
+                }
             }
             velocity.y -= gravity * gravityScale * Time.fixedDeltaTime;
         }
@@ -189,17 +203,20 @@ namespace HighFive.Control.Movers
             var localScaleThisFrame = transform.localScale;
             if (NormalizedInputDirX == 1) //向右
             {
-                faceDir = 1;
-                if (transform.localScale.x < 0f)
-                    transform.localScale =
-                        new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
+                _spriteRenderer.flipX = false;
+                // if (transform.localScale.x < 0f)
+                // {       
+                //     _spriteRenderer.flipX = false;
+                //     transform.localScale =
+                //     new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
+                // }
             }
             else if (NormalizedInputDirX == -1) //向左
             {
-                faceDir = -1;
-                if (transform.localScale.x > 0f)
-                    transform.localScale =
-                        new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
+                _spriteRenderer.flipX = true;
+                // if (transform.localScale.x > 0f)
+                //     transform.localScale =
+                //         new Vector3(-localScaleThisFrame.x, localScaleThisFrame.y, localScaleThisFrame.z);
             }
         }
 
@@ -240,17 +257,19 @@ namespace HighFive.Control.Movers
             moverInput.y = -moverInput.y;
         }
 
-        /// <summary>
-        /// 向Target方向移动，可以控制自己y轴移动速度的Actor（比如浮游物）会同时更改x、y方向的速度
-        /// 无法控制自己y轴移动速度的Actor，则只能改变自己在x轴方向的移动。
-        /// </summary>
-        /// <param name="target">Target的世界2维xy坐标</param>
-        public void MoveToward(Vector2 target)
-        {
-            var posVe2 = new Vector2(this.transform.position.x, this.transform.position.y);
-            var dir = target - posVe2;
-            moverInput = dir.normalized;
-        }
+//        /// <summary>
+//        /// 向Target方向移动，可以控制自己y轴移动速度的Actor（比如浮游物）会同时更改x、y方向的速度
+//        /// 无法控制自己y轴移动速度的Actor，则只能改变自己在x轴方向的移动。
+//        /// </summary>
+//        /// <param name="target">Target的世界2维xy坐标</param>
+//        public void MoveToward(Vector2 target)
+//        {
+//            var posVe2 = new Vector2(this.Position.x, this.Position.y);
+//            var dir = target - posVe2;
+//            moverInput = dir.normalized;
+//            moverInput.x = Mathf.Sign(moverInput.x);
+//            moverInput.y = Mathf.Sign(moverInput.y);
+//        }
 
         /// <summary>
         /// 停止x轴的Actor输入
@@ -271,23 +290,28 @@ namespace HighFive.Control.Movers
         /// <summary>
         /// 停止输入控制的位移
         /// </summary>
-        public void StopInputMoving()
+        public void StopMoverInput()
         {
             StopHorizontallyInput();
             StopVerticallyInput();
         }
 
-        /// <summary>
-        /// 给actor一个突然的速度变化，用于瞬移、打击位移等突然的移动。
-        /// </summary>
-        /// <param name="vel"></param>
-        public void ChangeHorizontalVelocityInstantly(float vel)
+        public float VelocityX
         {
-            this.velocity.x = vel;
+            get => this.velocity.x;
+            set => this.velocity.x = value;
         }
+        public float VelocityY 
+        {
+            get => this.velocity.y;
+            set => this.velocity.y = value;
+        }
+        
+        
+        public virtual bool IsGrounded=>collisionState.below;   
 
         /// <summary>
-        /// 根据传入的击退方向，进行方向上的位移
+        /// 根据传入的击退方向，进行方向上的速度变化
         /// </summary>
         /// <param name="hitDir">带有Actor接受到的打击的方向信息和大小信息的向量</param>
         /// <param name="multiplier">用于影响击退效果的multiplier</param>
@@ -295,28 +319,26 @@ namespace HighFive.Control.Movers
         {
             this.velocity = hitDir * multiplier;
         }
-        
-        //-----------巡逻函数------------
 
         #endregion
 
         #endregion
-
 
         #region Monobehavior
 
         protected override void Awake()
         {
             base.Awake();
-            // animator = GameAnimator.GetInstance(GetComponent<Animator>());
+            _spriteRenderer = this.GetComponent<SpriteRenderer>();
+            animator = GameAnimator.GetInstance(GetComponent<Animator>());
             CalculateGravityNVelocity();
-            MoveHorizontally(true);
+            // MoveHorizontally(true);
         }
 
         protected override void Update()
         {
             base.Update();
-            //AnimFaceDirControl();
+            AnimFaceDirControl();
         }
 
         protected override void FixedUpdate()

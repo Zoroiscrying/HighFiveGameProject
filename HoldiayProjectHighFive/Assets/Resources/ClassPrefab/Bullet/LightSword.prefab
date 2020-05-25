@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7830962590879221555}
   - component: {fileID: 1664910607901435728}
   - component: {fileID: 8305088176848899061}
-  - component: {fileID: 1234376944806969881}
   - component: {fileID: 7914317670206131217}
   - component: {fileID: 2745722356290353983}
+  - component: {fileID: 3791802528469686437}
   m_Layer: 16
   m_Name: LightSword
   m_TagString: Untagged
@@ -96,29 +96,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageScale: 1
+  anchorMode: 0
   targetSize: {x: 0, y: 0}
   startSize: {x: 0, y: 0}
   delayTime: 1
   widenTime: 0.3
   easeType: 25
---- !u!114 &1234376944806969881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2582888326799266624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa7b81bfd254c4f8fb25d3e890058d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliderLayers:
-    serializedVersion: 2
-    m_Bits: 2304
-  triggerLayers:
-    serializedVersion: 2
-    m_Bits: 1024
+  rotate: 0
+  size: {x: 0, y: 0}
 --- !u!61 &7914317670206131217
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,7 +138,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2582888326799266624}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -166,3 +151,46 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3791802528469686437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2582888326799266624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b271103bf2004e48ad7650c157409d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinWidth: 0.02
+  totalHorizontalRays: 8
+  totalVerticalRays: 4
+  gravity: 20
+  gravityScale: 0
+  velocity: {x: 0, y: 0}
+  velocityMultiplier: {x: 1, y: 1}
+  canMove: 0
+  platformMask:
+    serializedVersion: 2
+    m_Bits: 0
+  triggerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  moverInput: {x: 0, y: 0}
+  canMoveVertically: 0
+  ignoreOneWayPlatformsThisFrame: 0
+  oneWayPlatformMask:
+    serializedVersion: 2
+    m_Bits: 0
+  collisionState:
+    right: 0
+    left: 0
+    above: 0
+    below: 0
+    becameGroundedThisFrame: 0
+    wasGroundedLastFrame: 0
+    fallingThroughPlatform: 0
+    slopeAngle: 0
+    faceDir: 0
+    slopeNormal: {x: 0, y: 0}

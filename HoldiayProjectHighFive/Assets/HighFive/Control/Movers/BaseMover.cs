@@ -1,27 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HighFive.Control.Movers.Interfaces;
 using ReadyGamerOne.Rougelike.Mover;
 using UnityEngine;
 
 namespace HighFive.Control.Movers
 {
-    public enum InteractState
-    {
-        UnActivated,
-        Enter,
-        Stay,
-        Exit
-    }
-    public class InteractStateAndDirection
-    {
-        public InteractState interactState;
-        public InteractStateAndDirection(InteractState interactState)
-        {
-            this.interactState = interactState;
-        }
-    }
-    
+
     /// <summary>
     /// 移动器基类
     /// 负责每帧通过velocity进行移动
@@ -30,8 +16,27 @@ namespace HighFive.Control.Movers
     /// 需要注意的是这个移动器基类不带有物理世界的摩擦、弹力等属性（也许是未来改进的方向）
     /// </summary>
     [RequireComponent(typeof(BoxCollider2D))][RequireComponent(typeof(Rigidbody2D))]
-    public class BaseMover:MonoBehaviour,IMover2D
+    public class BaseMover:MonoBehaviour,IBaseControl
     {
+        #region Internal_Data_Structures
+
+        private enum InteractState
+        {
+            UnActivated,
+            Enter,
+            Stay,
+            Exit
+        }
+        private class InteractStateAndDirection
+        {
+            public InteractState interactState;
+            public InteractStateAndDirection(InteractState interactState)
+            {
+                this.interactState = interactState;
+            }
+        }             
+
+        #endregion
         
         #region Raycast Relevant Attributes and Functions
         /// <summary>
@@ -147,6 +152,8 @@ namespace HighFive.Control.Movers
 
         #endregion
         
+        #region IBaseControl
+
         #region IMover2D
         
         /// <summary>
@@ -215,12 +222,33 @@ namespace HighFive.Control.Movers
             get => triggerMask;
             set => triggerMask = value;
         }
-        public event Action<GameObject> eventOnColliderEnter;
-        public event Action<GameObject> eventOnColliderStay;
-        public event Action<GameObject> eventOnColliderExit;
+
+        public bool CollidedUp => collisionState.above;
+        public bool CollidedDown => collisionState.below;
+        public bool CollidedLeft => collisionState.left;
+        public bool CollidedRight => collisionState.right;
+        public event Action<RaycastHit2D> eventOnColliderEnter;
+        public event Action<RaycastHit2D> eventOnColliderStay;
+        public event Action<RaycastHit2D> eventOnColliderExit;
         public event Action<GameObject> eventOnTriggerEnter;
         public event Action<GameObject> eventOnTriggerStay;
         public event Action<GameObject> eventOnTriggerExit;
+        
+
+        #endregion
+
+        public IEnumerable<GameObject> Raycast(Vector2 dir, float? distance, LayerMask? layers)
+        {
+            distance = distance ?? float.MaxValue;
+            layers = layers ?? ColliderLayers;
+            return Physics2D.RaycastAll(
+                    Position,
+                    dir,
+                    distance.Value,
+                    layers.Value)
+                ?.Select(hitInfo => hitInfo.transform.gameObject);
+        }
+        
         
         #endregion
 
@@ -248,6 +276,7 @@ namespace HighFive.Control.Movers
         /// <summary>
         /// Mover的碰撞状态
         /// </summary>
+        [Serializable]
         public class MoverCollisionState2D 
         {
             public bool right;
@@ -276,8 +305,8 @@ namespace HighFive.Control.Movers
             }
         }
         //Events
-        private Dictionary<GameObject, InteractStateAndDirection> _rayCastedHits = new Dictionary<GameObject, InteractStateAndDirection>();
-        private Dictionary<GameObject, InteractStateAndDirection> _activatedRayCastedHits = new Dictionary<GameObject, InteractStateAndDirection>();
+        private Dictionary<RaycastHit2D, InteractStateAndDirection> _rayCastedHits = new Dictionary<RaycastHit2D, InteractStateAndDirection>();
+        private Dictionary<RaycastHit2D, InteractStateAndDirection> _activatedRayCastedHits = new Dictionary<RaycastHit2D, InteractStateAndDirection>();
 
         /// <summary>
         /// when true, one way platforms will be ignored when moving vertically for a single frame
@@ -293,10 +322,6 @@ namespace HighFive.Control.Movers
         private new Transform transform;
         private Rigidbody2D rigidBody2D;
         [SerializeField] protected MoverCollisionState2D collisionState = new MoverCollisionState2D();
-        public bool isGrounded
-        {
-            get { return collisionState.below; }
-        }
 
         const float SkinWidthFloatFudgeFactor = 0.001f;
         
@@ -393,7 +418,7 @@ namespace HighFive.Control.Movers
             foreach (var objAndState in _activatedRayCastedHits.ToList())
             {
                 //unusable
-                if (objAndState.Key == null || !objAndState.Key.activeSelf)
+                if (objAndState.Key == null || !objAndState.Key.transform.gameObject.activeSelf)
                 {
                     _activatedRayCastedHits.Remove(objAndState.Key);
                 }
@@ -420,7 +445,7 @@ namespace HighFive.Control.Movers
             foreach (var objAndState in _rayCastedHits.ToList())
             {
                 //unusable
-                if (objAndState.Key == null || !objAndState.Key.activeSelf)
+                if (objAndState.Key == null || !objAndState.Key.transform.gameObject.activeSelf)
                 {
                     _rayCastedHits.Remove(objAndState.Key);
                 }
@@ -457,7 +482,7 @@ namespace HighFive.Control.Movers
         /// </summary>
         /// <param name="deltaMovement"></param>
         /// <returns></returns>
-        public int IfNearWall(Vector2 deltaMovement)
+        protected int IfNearWall(Vector2 deltaMovement)
         {
             //var rayDistance = Mathf.Abs( deltaMovement.x ) + skinWidth;
             //TODO::这里如果出现问题可以改回去为2*skinwidth
@@ -596,9 +621,9 @@ namespace HighFive.Control.Movers
                     if (!_raycastHitsThisFrame.Contains(_raycastHit))
                     {
                         _raycastHitsThisFrame.Add(_raycastHit);
-                        if (!_rayCastedHits.ContainsKey(_raycastHit.transform.gameObject))
+                        if (!_rayCastedHits.ContainsKey(_raycastHit))
                         {
-                            _rayCastedHits.Add(_raycastHit.transform.gameObject, new InteractStateAndDirection(InteractState.UnActivated));
+                            _rayCastedHits.Add(_raycastHit, new InteractStateAndDirection(InteractState.UnActivated));
                             // eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Left);
                         
                         }
@@ -677,10 +702,10 @@ namespace HighFive.Control.Movers
                     if (!_raycastHitsThisFrame.Contains(_raycastHit))
                     {
                         _raycastHitsThisFrame.Add(_raycastHit); //stores all the hits this frame.
-                        if (!_rayCastedHits.ContainsKey(_raycastHit.transform.gameObject))
+                        if (!_rayCastedHits.ContainsKey(_raycastHit))
                         {
 
-                            _rayCastedHits.Add(_raycastHit.transform.gameObject,
+                            _rayCastedHits.Add(_raycastHit,
                                 new InteractStateAndDirection(InteractState.UnActivated));
                             // eventOnColliderEnter?.Invoke(_raycastHit.transform.gameObject, TouchDir.Bottom);
                         
@@ -744,12 +769,12 @@ namespace HighFive.Control.Movers
             collisionState.faceDir = 1;
             
             // we want to set our CC2D to ignore all collision layers except what is in our triggerMask
-            for (var i = 0; i < 32; i++)
-            {
-                // see if our triggerMask contains this layer and if not ignore it
-                if (((triggerMask.value << i)) == 0)
-                    Physics2D.IgnoreLayerCollision(gameObject.layer, i);
-            }
+//            for (var i = 0; i < 32; i++)
+//            {
+//                // see if our triggerMask contains this layer and if not ignore it
+//                if (((triggerMask.value << i)) == 0)
+//                    Physics2D.IgnoreLayerCollision(gameObject.layer, i);
+//            }
         }
 
         protected virtual void FixedUpdate()
@@ -761,6 +786,10 @@ namespace HighFive.Control.Movers
                 //Move the mover by its velocity * time.deltatime
                 this.Move(new Vector2(velocity.x * velocityMultiplier.x, velocity.y * velocityMultiplier.y) *
                           Time.fixedDeltaTime);
+            }
+            else
+            {
+                this.velocity = Vector2.zero;
             }
             
             CheckCollisions();
@@ -808,6 +837,9 @@ namespace HighFive.Control.Movers
         }
 
         #endregion
+
         
+        
+
     }
 }

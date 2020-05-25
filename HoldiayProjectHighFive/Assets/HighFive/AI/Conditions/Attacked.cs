@@ -3,6 +3,7 @@ using ReadyGamerOne.Rougelike.Person;
 
 namespace HighFive.AI.Conditions
 {
+    [TaskDescription("角色是否被攻击")]
     public class Attacked:Conditional
     {
         private bool attacked = false;

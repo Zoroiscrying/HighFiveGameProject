@@ -3,14 +3,6 @@ using UnityEngine;
 
 namespace ReadyGamerOne.Rougelike.Mover
 {
-    public enum TouchDir
-    {
-        Top,
-        Bottom,
-        Left,
-        Right,
-    }
-   
     public interface IMover2D
     {
         /// <summary>
@@ -24,10 +16,14 @@ namespace ReadyGamerOne.Rougelike.Mover
         Vector2 Velocity { get; set; }
 
         /// <summary>
-        /// 重力值
+        /// 重力实际值
+        /// </summary>
+        float Gravity { get; set; }
+        
+        /// <summary>
+        /// 重力缩放值
         /// </summary>
         float GravityScale { get; set; }
-        
         
         /// <summary>
         /// 会和什么层发生碰撞碰撞
@@ -38,10 +34,27 @@ namespace ReadyGamerOne.Rougelike.Mover
         /// 会和那些层触发Trigger但不碰撞
         /// </summary>
         LayerMask TriggerLayers { get; set; }
+        
+        /// <summary>
+        /// 上方是否有碰撞
+        /// </summary>
+        bool CollidedUp { get; }
+        /// <summary>
+        /// 下方是否有碰撞
+        /// </summary>
+        bool CollidedDown { get; }
+        /// <summary>
+        /// 左方是否有碰撞
+        /// </summary>
+        bool CollidedLeft { get; }
+        /// <summary>
+        /// 右方是否有碰撞
+        /// </summary>
+        bool CollidedRight { get; }
 
-        event Action<GameObject> eventOnColliderEnter;
-        event Action<GameObject> eventOnColliderStay;
-        event Action<GameObject> eventOnColliderExit;
+        event Action<RaycastHit2D> eventOnColliderEnter;
+        event Action<RaycastHit2D> eventOnColliderStay;
+        event Action<RaycastHit2D> eventOnColliderExit;
         event Action<GameObject> eventOnTriggerEnter;
         event Action<GameObject> eventOnTriggerStay;
         event Action<GameObject> eventOnTriggerExit;

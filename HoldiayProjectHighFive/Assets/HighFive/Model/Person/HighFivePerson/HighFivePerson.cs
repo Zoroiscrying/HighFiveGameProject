@@ -1,8 +1,12 @@
+using System;
+using DefaultNamespace.HighFive.Model.Person;
 using HighFive.Control.EffectSystem;
+using HighFive.Control.Movers.Interfaces;
 using HighFive.Control.SkillSystem;
+using HighFive.Data;
 using HighFive.View;
+using ReadyGamerOne.Data;
 using ReadyGamerOne.Rougelike.Person;
-using ReadyGamerOne.Script;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -10,16 +14,16 @@ namespace HighFive.Model.Person
 {
 	public interface IHighFivePerson:
 		IPoolDataPerson,
-		IEffector<AbstractPerson>
+		IEffector<AbstractPerson>,
+		IRichDamage
 	{
 		int ChangeHp(int change);
 		
 		int Dir { get; set; }
-		bool IsConst { get; set; }
-		bool IgnoreHitback { get; set; }
+		
 		float DefaultConstTime { get; set; }
-		float AttackSpeed { get; set; }
-		Vector2 HitBackSpeed { get; }
+
+		IActorBaseControl ActorMover { get; }
 
 		void RunSkill(SkillInfoAsset skillInfoAsset,params object[] args);
 		void LookAt(Transform target);
@@ -30,11 +34,6 @@ namespace HighFive.Model.Person
 		IHighFivePerson
 		where T : HighFivePerson<T>,new()
 	{
-		#region Fields
-		
-		protected Vector2 _hitBackSpeed;
-
-		#endregion
 
 		#region 血量
 
@@ -47,50 +46,108 @@ namespace HighFive.Model.Person
 
 		#endregion
 
-		public virtual int Dir
+		private string _personName="未设置名字";
+		public override string CharacterName
 		{
-			get
-			{
-				return (this.Controller as HighFivePersonController).Dir;
-			}
-			set { (this.Controller as HighFivePersonController).Dir = value; }
-		} 
-
-		public bool IsConst { get; set; }
-		public bool IgnoreHitback { get; set; }
-
-		public float DefaultConstTime { get; set; }
-
-		public float AttackSpeed { get; set; } = 1;
-
-		public Vector2 HitBackSpeed
-		{
-			get { return _hitBackSpeed; }
+			get => _personName;
+			set => _personName = value;
 		}
 
+		public override void LoadData(CsvMgr data)
+		{
+			base.LoadData(data);
+			var personData = CsvData as PersonData;
+			this.Repulse = new Vector2(personData.hitback_x, personData.hitback_y);
+			this.CharacterName = personData.personName;
+		}
+
+		#region IPoolablePerson
+
+		public override void OnGetFromPool()
+		{
+			base.OnGetFromPool();
+			_actorBaseControl = gameObject.GetComponent<IActorBaseControl>();
+			if (null == _actorBaseControl)
+			{
+				throw new Exception($"{CharacterName}的actorBaseControl is null");
+			}
+//			else 
+//				Debug.Log($"{CharacterName}加载_actorBaseControl");
+		}
+
+		public override void OnRecycleToPool()
+		{
+			base.OnRecycleToPool();
+			_actorBaseControl = null;
+		}
+		
+
+		#endregion
+		
+		#region IRichDamage
+
+		public float AttackSpeed { get; set; } = 1;
+		public float AttackAdder { get; set; } = 0;
+		public float AttackScale { get; set; } = 1;
+		public float TakeDamageScale { get; set; } = 1;
+		public float TakeDamageBlock { get; set; } = 0;
+		public float DodgeRate { get; set; } = 0;
+		public float CritRate { get; set; } = 0;
+		public float CritScale { get; set; } = 2;
+		public bool IsInvincible { get; set; } = false;
+		public Vector2 Repulse { get; set; }=Vector2.zero;
+		public float RepulseScale { get; set; } = 1;
+		public bool IgnoreRepulse { get; set; } = false;
+
+		#endregion
 
 		#region ITakeDamageablePerson<T>
 
-
-		public override void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+		public override BasicDamage CalculateDamage(float skillDamageScale, AbstractPerson receiver)
 		{
-			if (damage == 0)
-				Debug.LogWarning("伤害是 0 ？？");
-			
-			//播放受击动画
-			PlayAcceptEffects(takeDamageFrom as IHighFivePerson);
-
-			var dir = (takeDamageFrom as IHighFivePerson).Dir;
-			
-			new DamageNumberUI(damage, 0, 30, Color.red, transform, dir);
-			
-			base.OnTakeDamage(takeDamageFrom,damage);
+			return new HighFiveDamage(this, receiver as IHighFivePerson, skillDamageScale);
 		}
 
-		public override void OnCauseDamage(AbstractPerson causeDamageTo, int damage)
+		public override float OnTakeDamage(AbstractPerson takeDamageFrom, BasicDamage damage)
 		{
-			base.OnCauseDamage(causeDamageTo, damage);
-			PlayAttackEffects(AttackEffects);
+
+			var richDamage = damage as HighFiveDamage;
+			Assert.IsNotNull(richDamage);
+
+			if (richDamage.IsInvincible)
+				return -1;
+			
+			if (!richDamage.IsMissing)
+			{
+				//播放受击效果
+				PlayAcceptEffects(takeDamageFrom as IHighFivePerson);
+			}
+
+			var attackPerson = takeDamageFrom as IHighFivePerson;
+			
+			var dir = takeDamageFrom.position.x > position.x ? 1 : -1;
+
+			//伤害数字
+			new DamageNumberUI(
+				richDamage,
+				0,
+				transform, 
+				dir);
+			
+			//击退
+			var attackerRepulse = attackPerson.Repulse;
+			attackerRepulse.x *= -dir;
+			ActorMover.ChangeVelBasedOnHitDir(attackerRepulse,attackPerson.RepulseScale);
+			
+			return base.OnTakeDamage(takeDamageFrom,richDamage);
+		}
+
+		public override float OnCauseDamage(AbstractPerson causeDamageTo, BasicDamage damage)
+		{
+			var realDamage = base.OnCauseDamage(causeDamageTo, damage);
+            if(realDamage >0)
+				PlayAttackEffects(AttackEffects);
+            return realDamage;
 		}
 		
 		#endregion
@@ -133,6 +190,40 @@ namespace HighFive.Model.Person
 
 		#endregion
 
+		#region IHighFivePerson
+
+		public virtual int Dir
+		{
+			get
+			{
+				return (this.Controller as HighFivePersonController).Dir;
+			}
+			set { (this.Controller as HighFivePersonController).Dir = value; }
+		}
+
+		private IActorBaseControl _actorBaseControl;
+
+		public IActorBaseControl ActorMover
+		{
+			get
+			{
+				if (null == _actorBaseControl)
+				{
+					throw new Exception($"{CharacterName}的actorBaseControl is null");
+				}
+				return _actorBaseControl;
+			}
+		}
+		
+		public override Vector3 position
+		{
+			get => ActorMover.Position;
+			set => ActorMover.Position = value;
+		}
+
+		public float DefaultConstTime { get; set; }
+		
+
 		/// <summary>
 		/// 执行技能
 		/// </summary>
@@ -148,23 +239,7 @@ namespace HighFive.Model.Person
 		{
 			(Controller as HighFivePersonController).LookAt(target);
 		}
-		
-		/// <summary>
-		/// 变为硬直状态
-		/// </summary>
-		public void ToConst(float time)
-		{
-			Assert.IsTrue(!IsConst);
-			IsConst = !IsConst;
-			//            Debug.Log(this.obj.GetInstanceID() + "硬直 "+this.IsConst);
-			MainLoop.Instance.ExecuteLater(_Reset, time);
-			//硬直动画
-		}
-		private void _Reset()
-		{
-			//            Debug.Log(this.obj.GetInstanceID() + "恢复");
-			Assert.IsTrue(IsConst);
-			IsConst = !IsConst;
-		}
+
+		#endregion
 	}
 }

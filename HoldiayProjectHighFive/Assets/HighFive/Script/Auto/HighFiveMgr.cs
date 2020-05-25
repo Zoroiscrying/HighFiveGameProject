@@ -7,7 +7,6 @@ namespace HighFive.Script
 		protected override IResourceLoader ResourceLoader => ResourcesResourceLoader.Instance;
 		protected override IAssetConstUtil AssetConstUtil => Utility.AssetConstUtil.Instance;
 		partial void OnSafeAwake();
-
 		protected override void OnStateIsNull()
 		{
 			base.OnStateIsNull();

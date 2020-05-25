@@ -17,7 +17,7 @@ namespace ReadyGamerOne.Common
         /// <summary>
         /// 销毁物体
         /// </summary>
-        void DestroyObject();
+        void Destroy();
         /// <summary>
         /// 激活物体
         /// </summary>

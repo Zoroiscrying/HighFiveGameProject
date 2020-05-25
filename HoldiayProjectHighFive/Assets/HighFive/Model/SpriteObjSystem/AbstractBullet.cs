@@ -68,7 +68,7 @@ namespace HighFive.Model
             MainLoop.Instance.ExecuteLater(DestorySelf, maxLife);
         }
         
-        protected virtual void OnTerrainEnter(GameObject terrain)
+        protected virtual void OnTerrainEnter(RaycastHit2D terrain)
         {
 //            Debug.Log($"hit terrain [{terrain.name}], destory self");
             DestorySelf();

@@ -1,5 +1,4 @@
-﻿itemName,uitext,spriteName,prefabName,statement,maxSlotCount,price,outPrice,attack,attackSpeed
-string,string,string,string,string,int,int,int,int,float
-AlienHead,外星人头骨,AlienHead,,冷却缩减一秒,64,20,10,2,0
-Leave,幸运草,Leave,,你很幸运哦,64,40,20,1,0
-Knife,祭祀小刀,Knife,,击杀敌方单位概率飞刀,64,60,30,3,0
+﻿itemName,uitext,spriteName,prefabName,statement,maxSlotCount,price,outPrice,attackAdder,attackSpeedAdder,repluseScaleAdder,zattackAdder,zrepluseScaleAdder
+string,string,string,string,string,int,int,int,float,float,float,float,float
+JuLing,聚灵,JuLing,JuLing,增强强化伤害,64,20,10,2,0,0,0,0
+XueJing,血精,XueJing,XueJing,强化击杀回血,64,40,20,0,0,0,0,0

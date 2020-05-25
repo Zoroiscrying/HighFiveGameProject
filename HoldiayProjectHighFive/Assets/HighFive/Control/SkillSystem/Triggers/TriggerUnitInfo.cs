@@ -1,20 +1,19 @@
 using System;
-using System.Reflection;
 using DG.Tweening;
-using Game.Scripts;
 using HighFive.Const;
 using HighFive.Control.EffectSystem;
-using HighFive.Math;
-using HighFive.Model;
 using HighFive.Model.Person;
 using HighFive.Model.SpriteObjSystem;
 using HighFive.Others;
+using HighFive.Script;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Rougelike.Person;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -286,6 +285,9 @@ namespace HighFive.Control.SkillSystem.Triggers
             if (!enable)
                 return;
             this.self = self;
+            if (self == null || !self.IsAlive)
+                return;
+            
             var tempDegree = GetSuitableDegree(self);
             var dir = new Vector2(Mathf.Cos(Mathf.Deg2Rad * tempDegree), Mathf.Sin(Mathf.Deg2Rad * tempDegree));
             MainLoop.Instance.ExecuteLater(() =>

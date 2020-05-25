@@ -137,7 +137,7 @@ namespace HighFive.Control.Movers
 
         private void JumpOnce(Vector2 force)
         {
-            if (this.isGrounded)
+            if (this.IsGrounded)
             {
                 velocity.x = force.x;
                 velocity.y = force.y;
@@ -160,7 +160,7 @@ namespace HighFive.Control.Movers
 
         public void JumpUpdate()
         {
-            if (_jumpStopTimer <= jumpStopTime && this.isGrounded)
+            if (_jumpStopTimer <= jumpStopTime && this.IsGrounded)
             {
                 _jumpStopTimer += Time.deltaTime;
                 return;
@@ -169,7 +169,7 @@ namespace HighFive.Control.Movers
             //正常跳跃
             if (_jumpsCount < jumpsCountMax)
             {
-                if (this.isGrounded)
+                if (this.IsGrounded)
                 {
                     JumpOnce(jumpForce);
                     _jumpsCount++;
@@ -200,8 +200,8 @@ namespace HighFive.Control.Movers
         protected override void Awake()
         {
             base.Awake();
-            StartPatrolling(Vector2.right,0f,3f,true);
-            StartJumping(new Vector2(0,5),0f,1,true);
+            // StartPatrolling(Vector2.right,0f,3f,true);
+            // StartJumping(new Vector2(0,5),0f,1,true);
         }
 
         protected override void FixedUpdate()

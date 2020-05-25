@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName:
     selectedIndex: 4
-  startTime: 1.0230881
+  startTime: 1.2085639
   isUsed: 0
   triggers:
   - skillAsset: {fileID: 0}
@@ -24,10 +24,19 @@ MonoBehaviour:
     lastTime: 0.5
     type: 0
     enable: 1
+    degree: 0
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
       rac: {fileID: 9100000, guid: 3f2783618c2a8b643a7fffe28cde2b42, type: 2}
-      selectedIndex: 4
-      stringValue: Player@Dead
+      selectedIndex: 3
+      stringValue: Player@Attack5
     animationSpeed: 1.7
     audioName:
       values:
@@ -49,13 +58,9 @@ MonoBehaviour:
       - Slot
       selectedIndex: 0
     damageScale: 0
-    dirDegree: 0
     speed: 0
     gravityScale: 0
     maxLife: 0
-    offset: {x: 0, y: 0, z: 0}
-    randomDegree: 0
-    degreeRange: {x: 0, y: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
@@ -91,15 +96,12 @@ MonoBehaviour:
       - OnHitParticle
       - SwordLight
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    locateType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
-    sideType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}
@@ -112,6 +114,15 @@ MonoBehaviour:
     lastTime: 0.5
     type: 1
     enable: 0
+    degree: 0
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -137,13 +148,9 @@ MonoBehaviour:
       - Slot
       selectedIndex: 0
     damageScale: 0
-    dirDegree: 0
     speed: 0
     gravityScale: 0
     maxLife: 0
-    offset: {x: 0, y: 0, z: 0}
-    randomDegree: 0
-    degreeRange: {x: 0, y: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
@@ -179,15 +186,12 @@ MonoBehaviour:
       - OnHitParticle
       - SwordLight
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    locateType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
-    sideType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 0}
@@ -200,6 +204,15 @@ MonoBehaviour:
     lastTime: 1.167
     type: 6
     enable: 1
+    degree: 0
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
     animationName:
       rac: {fileID: 0}
       selectedIndex: 0
@@ -225,13 +238,9 @@ MonoBehaviour:
       - Slot
       selectedIndex: 0
     damageScale: 0
-    dirDegree: 0
     speed: 0
     gravityScale: 0
     maxLife: 0
-    offset: {x: 0, y: 0, z: 0}
-    randomDegree: 0
-    degreeRange: {x: 0, y: 0}
     aniX:
       serializedVersion: 2
       m_Curve: []
@@ -267,15 +276,12 @@ MonoBehaviour:
       - OnHitParticle
       - SwordLight
       selectedIndex: 0
+    anchorMode: 0
     targetSize: {x: 0, y: 0}
     startSize: {x: 0, y: 0}
     delayTime: 0
     widenTime: 0
     easeType: 0
-    locateType: 0
-    HandleOffset: {x: 0, y: 0, z: 0}
-    RotateDegree: 0
-    sideType: 0
     damageType: 0
     triggerPath:
       go: {fileID: 1888196854289950, guid: 3a9e1cefcd2541946853b4c18dc9ffac, type: 3}

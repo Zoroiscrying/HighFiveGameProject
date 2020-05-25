@@ -2,7 +2,6 @@ using HighFive.Control.EffectSystem;
 using ReadyGamerOne.Rougelike.Person;
 using UnityEngine;
 using UnityEngine.Assertions;
-using zoroiscrying;
 
 namespace HighFive.Model.Person
 {
@@ -11,6 +10,9 @@ namespace HighFive.Model.Person
 	/// </summary>
 	public abstract class HighFivePersonController : AbstractPersonController
 	{
+		public IHighFivePerson HighFivePerson=>selfPerson as IHighFivePerson;
+		
+		
 		/// <summary>
 		/// 看向某个物体，【当然，只是左右】
 		/// </summary>
@@ -18,32 +20,26 @@ namespace HighFive.Model.Person
 		private SpriteRenderer sr;
 		public void LookAt(Transform target)
 		{
-			if (!sr)
-			{
-				sr = GetComponent<SpriteRenderer>();
-				Assert.IsTrue(sr);
-			}
-
-			var dir = target.transform.position.x - selfPerson.position.x > 0;
-			Dir = dir ? 1 : -1;
+			HighFivePerson.Dir = target.position.x > selfPerson.position.x ? 1 : -1;
 		}
 		public EffectInfoAsset attackEffects;
 		public EffectInfoAsset hitEffects;
 		public EffectInfoAsset acceptEffects;
-		public CharacterController2D characterController;
-		public Actor actor;
 		public virtual int Dir
 		{
-			get { return actor._faceDir; }
-			set { actor._faceDir = value; }
+			get => HighFivePerson.ActorMover.FaceDir;
+			set
+			{
+				Assert.IsTrue(value == 1 || value == -1);
+				var revert = HighFivePerson.ActorMover.FaceDir != value;
+				if(revert)
+					HighFivePerson.ActorMover.ReverseMovementInputX();
+			}
 		}
 
 		public override void SetMoveable(bool state)
 		{
-			if(actor)
-				actor.enabled = state;
-			if(characterController)
-				characterController.enabled = state;
+			HighFivePerson.ActorMover.SetMovable(state);
 		}
 	}
 }

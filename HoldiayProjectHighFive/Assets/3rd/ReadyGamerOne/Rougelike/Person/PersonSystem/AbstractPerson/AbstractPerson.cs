@@ -12,13 +12,13 @@ namespace ReadyGamerOne.Rougelike.Person
     /// 人物信息接口
     /// </summary>
     public interface IPerson :
-        ITakeDamageablePerson<AbstractPerson>,
+        ITakeDamageablePerson<AbstractPerson,BasicDamage>,
         IResourcableObject
     {
         /// <summary>
         /// 角色名
         /// </summary>
-        string CharacterName { get; }
+        string CharacterName { get; set; }
         
         AbstractPersonController Controller { get; }
 
@@ -47,7 +47,7 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 杀死当前角色
         /// </summary>
-        void Kill();        
+        void LogicKill();        
 
         #endregion
         
@@ -130,26 +130,43 @@ namespace ReadyGamerOne.Rougelike.Person
         public event Action<AbstractPerson, int> onCauseDamage;
         public event Action<AbstractPerson, int> onTakeDamage;
 
-        public virtual void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+        public virtual BasicDamage CalculateDamage(float skillDamageScale, AbstractPerson receiver)
         {
-
-            onTakeDamage?.Invoke(takeDamageFrom, damage);
-            Hp -= damage;
-//            Debug.Log($"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{damage}伤害,当前血量：{Hp}");
-
-            if (Hp <= 0)
-            {
-//                Debug.Log(CharacterName+"该死！");
-                Hp = 0;
-                Kill();
-            }
+            return new BasicDamage(this, skillDamageScale, receiver);
         }
 
-        public virtual void OnCauseDamage(AbstractPerson causeDamageTo, int damage)
+        public virtual float OnTakeDamage(AbstractPerson takeDamageFrom, BasicDamage damage)
         {
-            onCauseDamage?.Invoke(causeDamageTo, damage);
-//            Debug.Log($"{CharacterName}对{causeDamageTo.CharacterName}造成{damage}伤害");
-        }     
+            
+            var finalDamage = Mathf.RoundToInt(damage.Damage);
+            onTakeDamage?.Invoke(takeDamageFrom, finalDamage);
+            Hp -= finalDamage;
+//            Debug.Log($"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{finalDamage}伤害,当前血量：{Hp}");
+
+            var realDamage = 0f;
+            if (Hp <= 0)
+            {
+                realDamage = Hp;
+//                Debug.Log(CharacterName+"该死！");
+                Hp = 0;
+                LogicKill();
+            }
+            else
+            {
+                realDamage = finalDamage;
+            }
+
+            return realDamage;
+        }
+
+        public virtual float OnCauseDamage(AbstractPerson causeDamageTo, BasicDamage damage)
+        {
+            var realDamage = causeDamageTo.OnTakeDamage(this, damage);
+            if(realDamage>0)
+                onCauseDamage?.Invoke(causeDamageTo, Mathf.RoundToInt(realDamage));
+            return realDamage;
+//            Debug.Log($"{CharacterName}对{causeDamageTo.CharacterName}造成{realDamage}伤害");
+        } 
 
 
         #endregion
@@ -159,13 +176,18 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 角色名字
         /// </summary>
-        public string CharacterName
+        public virtual string CharacterName
         {
             get
             {
                 if (!_gameObject)
                     return "物体被销毁";
                 return _gameObject.name;
+            }
+            set
+            {
+                if (_gameObject)
+                    _gameObject.name = value;
             }
         }
 
@@ -179,17 +201,17 @@ namespace ReadyGamerOne.Rougelike.Person
         /// <summary>
         /// 本类对应GameObject的索引
         /// </summary>
-        public GameObject gameObject => _gameObject;
+        public virtual GameObject gameObject => _gameObject;
         
         /// <summary>
         /// 获取物体Transform
         /// </summary>
-        public Transform transform => gameObject.transform;
+        public virtual Transform transform => gameObject.transform;
         
         /// <summary>
         /// 获取和设置物体坐标
         /// </summary>
-        public Vector3 position
+        public virtual Vector3 position
         {
             get
             {
@@ -202,8 +224,7 @@ namespace ReadyGamerOne.Rougelike.Person
                 transform.position = value;
             }
         }
-
-
+        
         public Vector3 localPosition 
         {
             get
@@ -250,17 +271,19 @@ namespace ReadyGamerOne.Rougelike.Person
 //                Debug.Log(controllerTypeAttribute.controllerType);
 
                 _controller.InitController(this);
+
+                _controller.eventOnDestory += Destroy;
             }
 
 //            Debug.Log(CharacterName + " Init");
 
             Assert.IsTrue(_controller);
-        }             
-        
+        }
+
         /// <summary>
-        /// 真正销毁物体
+        /// 真正直接销毁物体，用于场景切换等硬性要求
         /// </summary>
-        public void DestroyObject()
+        public virtual void Destroy()
         {
             Object.Destroy(gameObject);
         }
@@ -296,7 +319,7 @@ namespace ReadyGamerOne.Rougelike.Person
 
         public virtual int Hp { get; protected set; }
         public virtual int MaxHp { get; protected set; }
-        public virtual int Attack { get; protected set; }
+        public abstract int Attack { get; }
 
         /// <summary>
         /// 是否活着
@@ -304,15 +327,16 @@ namespace ReadyGamerOne.Rougelike.Person
         public virtual bool IsAlive => gameObject != null && Hp > 0;
         
         /// <summary>
-        /// 调用此函数杀死角色
+        /// 调用此函数逻辑上杀死角色，可能还会有动画特效的调用，此函数调用后IsAlive为false
         /// </summary>
-        public virtual void Kill()
+        public virtual void LogicKill()
         {
             //处理消息
             TickOnKillEventAndClearEvent();
             //这里就直接销毁物体
-            DestroyObject();
+            Destroy();
         }            
+        
 
         #endregion
         

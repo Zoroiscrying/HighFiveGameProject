@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Scripts
+namespace HighFive.Script
 {
     /// <summary>
     /// 怪物头顶Ui的Canvas必备脚本

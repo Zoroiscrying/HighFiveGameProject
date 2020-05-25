@@ -233,9 +233,10 @@ namespace ReadyGamerOne.Utility
 
         public static string FileNameToVarName(string fileName)
         {
-            string ans = "";
-            ans = fileName.Replace(" ", "");
+            var ans = fileName;
+            ans = ans.Replace(" ", "");
             ans = ans.Replace("`", "");
+            ans = ans.Replace("-", "_");
             return ans;
         }
         

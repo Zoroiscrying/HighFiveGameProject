@@ -58,11 +58,12 @@ namespace ReadyGamerOne.Rougelike
             _gameObject = ResourceMgr.InstantiateGameObject(ResKey);
         }
 
-        public virtual void DestroyObject()
+        public virtual void Destroy()
         {
             if(_gameObject)
                 Object.Destroy(_gameObject);
         }
+        
         public virtual void EnableObject()
         {
             if(!_gameObject)

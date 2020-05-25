@@ -12,7 +12,6 @@ namespace HighFive.AI.Actions
 		
 		public string walkAni;
 		public SharedFloat attackDistance;
-		private Actor actor;
 		private Animator _animator;
 		private IHighFivePerson self;
 		
@@ -20,8 +19,6 @@ namespace HighFive.AI.Actions
 		{
 			self = gameObject.GetPersonInfo() as IHighFivePerson;
 			
-			
-			actor = gameObject.GetComponent<Actor>();
 			_animator = gameObject.GetComponent<Animator>();
 			_animator.Play(Animator.StringToHash(walkAni));
 		}
@@ -46,11 +43,19 @@ namespace HighFive.AI.Actions
 			}
 
 			self.LookAt(GlobalVar.G_Player.transform);
-
-			actor.PatrolOneDirInDistance(Mathf.Abs(GlobalVar.G_Player.position.x - transform.position.x),
-				GlobalVar.G_Player.position.x > transform.position.x);
 			
 			return TaskStatus.Running;
+		}
+
+		private float PatrolDistance
+		{
+			get
+			{
+				var ans = Mathf.Abs(GlobalVar.G_Player.position.x - transform.position.x)-attackDistance.Value;
+				ans = Mathf.Max(0, ans);
+				return ans;
+
+			}
 		}
     }
 

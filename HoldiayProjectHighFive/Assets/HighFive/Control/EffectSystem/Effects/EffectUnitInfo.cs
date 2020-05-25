@@ -27,7 +27,6 @@ namespace HighFive.Control.EffectSystem.Effects
         Shining,
         HitBack,
         Animation,
-        Damage
     }
 
     /// <summary>
@@ -185,16 +184,7 @@ namespace HighFive.Control.EffectSystem.Effects
 
                 #endregion
 
-                #region Damage
 
-                case EffectType.Damage:
-
-                    //todo: 这里显示伤害数字才对
-//                    dp?.TryAttack(rp);
-                    new DamageNumberUI(dp.Attack, 0, 1, Color.red, rp.transform, dp.Dir);
-                    break;
-
-                #endregion
 
                 #region Audio
 
@@ -244,14 +234,13 @@ namespace HighFive.Control.EffectSystem.Effects
 
                     Assert.IsTrue(rp != null && dp != null);
 
-                    if (!rp.IgnoreHitback)
+                    if (!rp.IgnoreRepulse)
                     {
                         var trans = rp.gameObject.transform;
-//                        trans.position += new Vector3(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y, 0);
-                        var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.HitBackSpeed.x), dp.HitBackSpeed.y);
+//                        trans.position += new Vector3(dp.FaceDir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y, 0);
+                        var hitBack = new Vector2(dp.Dir * Mathf.Abs(dp.Repulse.x), dp.Repulse.y);
                         //TODO:需要更好接口
-                        var actor = rp.Controller.GetComponent<Actor>();
-                        actor?.ChangeVelBasedOnHitDir(hitBack,15);
+                        rp.ActorMover.ChangeVelBasedOnHitDir(hitBack, dp.RepulseScale);
                     }
 
                     break;

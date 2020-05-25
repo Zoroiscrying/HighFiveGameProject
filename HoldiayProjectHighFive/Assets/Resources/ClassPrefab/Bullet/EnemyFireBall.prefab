@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4152167977136846004}
   - component: {fileID: 4535420477247642399}
   - component: {fileID: 1730337969208390266}
-  - component: {fileID: 405610076479689874}
   - component: {fileID: 127554071426406925}
+  - component: {fileID: 688537288212159937}
   m_Layer: 16
   m_Name: EnemyFireBall
   m_TagString: Untagged
@@ -130,24 +130,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &405610076479689874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678460904324184003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa7b81bfd254c4f8fb25d3e890058d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliderLayers:
-    serializedVersion: 2
-    m_Bits: 2304
-  triggerLayers:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!114 &127554071426406925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,3 +146,46 @@ MonoBehaviour:
   maxLife: 2
   shotThrough: 0
   initialSpeed: {x: 0, y: 0}
+--- !u!114 &688537288212159937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678460904324184003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b271103bf2004e48ad7650c157409d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinWidth: 0.02
+  totalHorizontalRays: 8
+  totalVerticalRays: 4
+  gravity: 20
+  gravityScale: 1
+  velocity: {x: 0, y: 0}
+  velocityMultiplier: {x: 1, y: 1}
+  canMove: 1
+  platformMask:
+    serializedVersion: 2
+    m_Bits: 256
+  triggerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  moverInput: {x: 0, y: 0}
+  canMoveVertically: 0
+  ignoreOneWayPlatformsThisFrame: 0
+  oneWayPlatformMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  collisionState:
+    right: 0
+    left: 0
+    above: 0
+    below: 0
+    becameGroundedThisFrame: 0
+    wasGroundedLastFrame: 0
+    fallingThroughPlatform: 0
+    slopeAngle: 0
+    faceDir: 0
+    slopeNormal: {x: 0, y: 0}

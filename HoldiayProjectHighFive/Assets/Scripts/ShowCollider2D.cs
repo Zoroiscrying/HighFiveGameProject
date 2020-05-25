@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Scripts
+namespace HighFive.Script
 {
 	[RequireComponent(typeof(BoxCollider2D))]
     public class ShowCollider2D : MonoBehaviour
@@ -30,7 +30,6 @@ namespace Game.Scripts
             Gizmos.DrawLine(lb,rb);
     	}
     }
-
 }
 
 

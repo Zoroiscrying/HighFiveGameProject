@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GlobalConstStrings
   m_EditorClassIdentifier: 
   constStrings:
-  - Enemy1@Attack1
+  - Boner@Attack1
   - Shot
   - "\u4E09\u8FDE\u51FB_1"
   - "\u4E09\u8FDE\u51FB_2"
@@ -25,4 +25,5 @@ MonoBehaviour:
   - "\u5929\u964D\u9668\u77F3"
   - "\u4E2D\u5FC3\u8F90\u5C04\u5F39\u5E55"
   - "\u6EE1\u5C4F\u5200\u950B"
+  - Defender@Attack
   prefItems: []

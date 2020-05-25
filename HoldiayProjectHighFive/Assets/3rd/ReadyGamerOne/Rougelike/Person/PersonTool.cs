@@ -266,16 +266,16 @@ namespace ReadyGamerOne.Rougelike.Person
                              "\t\t#region ITakeDamageablePerson<T>\n\n" +
                              "\t\tpublic override int Hp => _hp;\n" +
                              "\t\tpublic override int MaxHp => _maxHp;\n" +
-                             "\t\tpublic virtual void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)\n" +
+                             "\t\tpublic virtual void OnTakeDamage(AbstractPerson takeDamageFrom, int Damage)\n" +
                              "\t\t{\n" +
-                             "\t\t\tDebug.Log($\"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{damage}伤害\");\n\n" +
-                             "\t\t\t_hp -= damage;\n" +
+                             "\t\t\tDebug.Log($\"{CharacterName}收到来自{takeDamageFrom.CharacterName}的{Damage}伤害\");\n\n" +
+                             "\t\t\t_hp -= Damage;\n" +
                              "\t\t\tif(_hp<0)\n" +
                              "\t\t\t\tKill();\n" +
                              "\t\t}\n\n" +
-                             "\t\t public void OnCauseDamage(AbstractPerson causeDamageTo, int damage)\n" +
+                             "\t\t public void OnCauseDamage(AbstractPerson causeDamageTo, int Damage)\n" +
                              "\t\t{\n" +
-                             "\t\t\tDebug.Log($\"{CharacterName}对{causeDamageTo.CharacterName}造成{damage}伤害\");\n" +
+                             "\t\t\tDebug.Log($\"{CharacterName}对{causeDamageTo.CharacterName}造成{Damage}伤害\");\n" +
                              "\t\t}\n\n" +
                              "\t\t#endregion\n");
             

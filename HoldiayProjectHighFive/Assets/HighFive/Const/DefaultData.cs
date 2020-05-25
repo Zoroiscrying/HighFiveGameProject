@@ -5,7 +5,7 @@ namespace HighFive.Const
 {
     public static class DefaultData
     {
-        public static readonly string[] shop ={ItemName.LittleBoy,ItemName.Medkit,ItemName.Snail,ItemName.Snowflower,ItemName.Hook,ItemName.Knife,ItemName.Soda};
+        public static readonly string[] shop ={ItemName.LittleBoy,ItemName.Medkit,ItemName.Snail,ItemName.ChenTie,ItemName.DuanYin,ItemName.XueJing,ItemName.Soda};
         
         public static readonly int DefaultPackageSlotCount = 16;
         public static readonly string PlayerName = "Player";

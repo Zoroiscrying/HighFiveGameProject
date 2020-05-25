@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ReadyGamerOne.Common
@@ -60,7 +61,6 @@ namespace ReadyGamerOne.Common
 
         protected virtual void OnStateIsNull()
         {
-            DontDestroyOnLoad(this.gameObject);
             _instance = this as T;
         }
 

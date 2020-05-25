@@ -1,13 +1,13 @@
 using ReadyGamerOne.Rougelike.Person;
 using System;
-using Game.Scripts;
 using HighFive.Const;
 using HighFive.Data;
 using HighFive.Global;
+using HighFive.Script;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Data;
 using ReadyGamerOne.MemorySystem;
-using ReadyGamerOne.Script;
+using ReadyGamerOne.Rougelike.Mover;
 using ReadyGamerOne.Scripts;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -35,6 +35,7 @@ namespace HighFive.Model.Person
 		/// </summary>
 		protected SuperBloodBar headBloodBar;
 
+
 		#endregion
 
 		#region IUseCsvData
@@ -50,13 +51,15 @@ namespace HighFive.Model.Person
 				throw new Exception("获取敌方Data为空");
 			}
 
-			this.Attack = enemyData.attack;
+			this._attack = enemyData.attack;
 			this.MaxHp = enemyData.maxHp;
 			this.Hp = this.MaxHp;
 		}		
 
 		#endregion
+
 		
+		private int _attack;
 		
 		public HeadUiCanvas HeadUi => (Controller as HighFiveEnemyController).HeadUi;
 		
@@ -75,17 +78,28 @@ namespace HighFive.Model.Person
 			headBloodBar.InitValue(MaxHp);
 		}
 
-		public override void OnTakeDamage(AbstractPerson takeDamageFrom, int damage)
+		public override float OnTakeDamage(AbstractPerson takeDamageFrom, BasicDamage damage)
 		{
-			base.OnTakeDamage(takeDamageFrom, damage);
-			headBloodBar.Value -= damage;
+			var realDamage = base.OnTakeDamage(takeDamageFrom, damage);
+			if(realDamage>0)
+				headBloodBar.Value -= realDamage;
+			return realDamage;
 		}
-		
-		
-		public override void Kill()
+
+
+		public override int Attack
+		{
+			get
+			{
+				var normalDamage =(_attack + AttackAdder) * AttackScale;
+				return Mathf.RoundToInt(normalDamage);
+			} 
+		}
+
+		public override void LogicKill()
 		{
 			DropItems(this.CharacterName);
-			base.Kill();
+			base.LogicKill();
 			HeadUi.GetComponent<Canvas>().enabled = false;
 		}
 
@@ -130,27 +144,36 @@ namespace HighFive.Model.Person
 				itemData = CsvMgr.GetRandomData<DragData>(FileName.DragData_1);
 			}			
 
+			Assert.IsNotNull(itemData);
 			#endregion
 
-			Assert.IsNotNull(itemData);
-			
+			#region 实力化Item
+
 			var obj = ResourceMgr.InstantiateGameObject(PrefabName.DropItem, this.position);
 			
 			Assert.IsTrue(obj);
 			
 			obj.GetComponent<SpriteRenderer>().sprite =
-				ResourceMgr.GetAsset<Sprite>(itemData.spriteName);
+				ResourceMgr.GetAsset<Sprite>(itemData.spriteName);			
 
-			var ti = obj.GetOrAddComponent<TriggerInputer>();
-			ti.onCollisionEnterEvent2D +=
+			#endregion
+			
+			#region 给Item添加捡起得逻辑
+
+			var mover = obj.GetComponent<IMover2D>();
+			Assert.IsNotNull(mover);
+			mover.eventOnTriggerEnter +=
 				col =>
 				{
 					if (col.gameObject.GetPersonInfo() is IHighFiveCharacter)
 					{
+//						Debug.Log($"GetItem:{itemData.ID}");
 						CEventCenter.BroadMessage(Message.M_AddItem, itemData.ID, 1);
-						GameObject.Destroy(ti.gameObject);
+						GameObject.Destroy(obj);
 					}
-				};
+				};			
+
+			#endregion
 		}
 	}
 }

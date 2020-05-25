@@ -156,8 +156,8 @@ namespace ReadyGamerOne.Scripts
         
         
 
-        public float maxValue = 100.0f;
-        [SerializeField] private float value;
+        public float maxValue = 1.0f;
+        [SerializeField] private float value=1;
         private float transitionValue;
         private float timer = 0;
 

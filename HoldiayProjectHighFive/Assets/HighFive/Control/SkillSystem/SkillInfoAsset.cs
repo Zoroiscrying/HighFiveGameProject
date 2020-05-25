@@ -39,6 +39,8 @@ namespace HighFive.Control.SkillSystem
                 return time;
             }
         }
+
+
         public List<TriggerUnitInfo> triggers=new List<TriggerUnitInfo>();
 
         public void RunSkill(IHighFiveCharacter self, bool ignoreInput, float startTime = 0,object args=null)
