@@ -1,6 +1,7 @@
 using System;
 using DialogSystem.Model;
 using DialogSystem.ScriptObject;
+using HighFive.Const;
 using UnityEngine;
 #if UNITY_EDITOR
 using ReadyGamerOne.Utility;
@@ -30,16 +31,16 @@ namespace HighFive.Dialog
         public override Action<DialogUnitInfo> CreateWordUI =>(info)=>new HighFiveCaptionWordUi(info);
         public override string[] CaptionWordUiKeys => new[]
         {
-            "Caption_Word_1",
-            "Caption_Word_2",
+            UiName.Caption_Word_1,
+            UiName.Caption_Word_2,
         };
         public override Action<DialogUnitInfo> CreateChooseUi =>(info)=>new HighFiveCaptionChooseUi(info);
 
-        public override string ChooseUiKeys => "Caption_Choose_1";
+        public override string ChooseUiKeys => UiName.Caption_Choose_1;
 
         public override Action<DialogUnitInfo> CreateNarratorUI => (info)=> new HighFiveNarratorUi(info);
 
-        public override string NarratorUiKeys => "NarratorUi";
+        public override string NarratorUiKeys => UiName.NarratorUi;
 
         #endregion
 

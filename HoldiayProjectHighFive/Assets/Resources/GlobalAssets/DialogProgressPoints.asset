@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c19724957d8afe6419fb3799d8e0eac1, type: 3}
   m_Name: DialogProgressPoints
   m_EditorClassIdentifier: 
-  DialogProgressPoints: []
+  DialogProgressPoints:
+  - index: 0
+    name: "\u9047\u89C1A"
+    value: 10
+  - index: 1
+    name: "\u9047\u89C1B"
+    value: 20
   currentProgress: 0

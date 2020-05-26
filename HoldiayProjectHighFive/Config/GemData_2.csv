@@ -1,4 +1,4 @@
-﻿itemName,uitext,spriteName,prefabName,statement,maxSlotCount,price,outPrice,attackAdder,attackSpeedAdder,repluseScaleAdder,zattackAdder,zrepluseScaleAdder
-string,string,string,string,string,int,int,int,float,float,float,float,float
-JuLing,聚灵,JuLing,JuLing,增强强化伤害,64,20,10,2,0,0,0,0
-XueJing,血精,XueJing,XueJing,强化击杀回血,64,40,20,0,0,0,0,0
+﻿itemName,uitext,spriteName,prefabName,statement,maxSlotCount,price,outPrice,attackAdder,attackSpeedAdder,repluseScaleAdder,zattackAdder,zrepluseScaleAdder,story
+string,string,string,string,string,int,int,int,float,float,float,float,float,string
+JuLing,聚灵,JuLing,JuLing,增强强化伤害,64,20,10,2,0,0,0,0,
+XueJing,血精,XueJing,XueJing,强化击杀回血,64,40,20,0,0,0,0,0,

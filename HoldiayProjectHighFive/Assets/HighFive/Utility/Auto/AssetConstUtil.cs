@@ -70,6 +70,7 @@ namespace HighFive.Utility
 					{ @"Map_Boss" , @"ClassUi\Maps\Map_Boss" },
 					{ @"Map_JbScene" , @"ClassUi\Maps\Map_JbScene" },
 					{ @"Map_lmkd-F-D-01" , @"ClassUi\Maps\Map_lmkd-F-D-01" },
+					{ @"Map_sgls-D-E-10" , @"ClassUi\Maps\Map_sgls-D-E-10" },
 					{ @"Map_TestScene" , @"ClassUi\Maps\Map_TestScene" },
 					{ @"Slider" , @"ClassUi\Slider" },
 					{ @"Slot" , @"ClassUi\Slot" },
