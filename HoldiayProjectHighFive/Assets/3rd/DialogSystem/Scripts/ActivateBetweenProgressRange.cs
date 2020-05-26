@@ -3,11 +3,11 @@ using DialogSystem.Model;
 
 namespace DialogSystem.Scripts
 {
-    public class ActivateBetweenProgressRange : AwakeAtGameProgress
+    public class ActivateBetweenProgressRange : ActivateWithBoolVars
     {
         public ProgressPointRange ProgressPointRange;
 
-        public override Action<float> onAwakeOnProgress => (value) =>
+        protected override Action<float> howActivateGameObject => (value) =>
         {
             if (value > ProgressPointRange.Min && value < ProgressPointRange.Max)
             {

@@ -8,8 +8,8 @@ namespace HighFive.Const
 		public static readonly string ChoiceBtn = @"ChoiceBtn";
 		public static readonly string NarratorUi = @"NarratorUi";
 		public static readonly string Map_Boss = @"Map_Boss";
-		public static readonly string Map_JbScene = @"Map_JbScene";
 		public static readonly string Map_lmkd_F_D_01 = @"Map_lmkd-F-D-01";
+		public static readonly string Map_MainScene = @"Map_MainScene";
 		public static readonly string Map_sgls_D_E_10 = @"Map_sgls-D-E-10";
 		public static readonly string Map_TestScene = @"Map_TestScene";
 		public static readonly string Slider = @"Slider";
