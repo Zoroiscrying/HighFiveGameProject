@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ReadyGamerOne.Rougelike.Person
+namespace HighFive.Model.Person
 {
     public interface IRichDamage
     {

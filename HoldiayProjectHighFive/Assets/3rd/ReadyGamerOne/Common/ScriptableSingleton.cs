@@ -61,7 +61,7 @@ namespace ReadyGamerOne.Common
                 {
 #if UNITY_EDITOR
                     throw new Exception("初始化失败");
-#else
+#elif UNITY_STANDALONE_WIN
                     WindowsUtil.MessageBox("单例Scriptable,初始化失败");
 #endif
                 }
