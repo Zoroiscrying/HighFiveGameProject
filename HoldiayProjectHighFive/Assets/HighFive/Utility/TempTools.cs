@@ -16,13 +16,35 @@ namespace HighFive.Utility
         private static Object testObject;
         private static Vector2Int pos;
         private static RectTransform rect;
+        private static SpriteRenderer _spriteRenderer;
+        private static Camera _camera;
 #pragma warning restore 414
 
 #if UNITY_EDITOR
         static void OnToolsGUI(string rootNs, string viewNs, string constNs, string dataNs, string autoDir,
                                      string scriptDir)
         {
-            testObject = EditorGUILayout.ObjectField("测试Object", testObject, typeof(Object));
+            _camera=EditorGUILayout.ObjectField("测试Camera",_camera,typeof(Camera),true) as Camera;
+            if (GUILayout.Button("显示Camera信息") && _camera)
+            {
+                Debug.Log($"orthographicSize:{_camera.orthographicSize}");
+                Debug.Log($"aspect:{_camera.aspect}");
+                var size = 2 * new Vector2(_camera.orthographicSize * _camera.aspect, _camera.orthographicSize);
+                Debug.Log($"size:{size}");
+            }
+            
+            
+            _spriteRenderer=EditorGUILayout.ObjectField("测试SpriteRenderer",_spriteRenderer,typeof(SpriteRenderer),true) as SpriteRenderer;
+            if (GUILayout.Button("显示SpriteRenderer信息") && _spriteRenderer)
+            {
+                var bounds = _spriteRenderer.bounds;
+                Debug.Log($"Min:{bounds.min}, Max:{bounds.max}");
+                Debug.Log($"size:{bounds.size}");
+                Debug.Log($"center:{bounds.center}");
+            }
+            
+            
+            testObject = EditorGUILayout.ObjectField("测试Object", testObject, typeof(Object),true);
             if (GUILayout.Button("Show Type"))
             {
                 if (testObject != null)
