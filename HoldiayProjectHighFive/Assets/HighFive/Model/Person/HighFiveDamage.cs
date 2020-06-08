@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 
 namespace DefaultNamespace.HighFive.Model.Person
 {
+    
     public class HighFiveDamage:BasicDamage
     {
         public bool IsCrit { get; private set; }
@@ -18,18 +19,18 @@ namespace DefaultNamespace.HighFive.Model.Person
         public bool IsSkill { get; private set; }
         public bool IsPlayer { get; private set; }
 
-        public HighFiveDamage(IHighFivePerson person,IHighFivePerson receiver, float? skillDamageScale=null)
+        public HighFiveDamage(IHighFivePerson attacker,IHighFivePerson receiver, float? skillDamageScale=null)
         {
-            Assert.IsTrue(person!=null
+            Assert.IsTrue(attacker!=null
                           && receiver!=null
-                          && person.IsAlive
+                          && attacker.IsAlive
                           && receiver.IsAlive);
             
             
-			if (System.Math.Abs(person.Attack) < 0.01f)
+			if (System.Math.Abs(attacker.Attack) < 0.01f)
 				Debug.LogWarning("伤害是 0 ？？");
 
-            IsPlayer = person is IHighFiveCharacter;
+            IsPlayer = attacker is IHighFiveCharacter;
             
            
             //如果无敌直接返回
@@ -41,13 +42,13 @@ namespace DefaultNamespace.HighFive.Model.Person
             }
  
             
-            this.OriginAttack = person.Attack;
+            this.OriginAttack = attacker.Attack;
 
             Damage = this.OriginAttack;
-            if (Random.Range(0, 1f) < person.CritRate)
+            if (Random.Range(0, 1f) < attacker.CritRate)
             {
                 IsCrit = true;
-                Damage *= person.CritScale;
+                Damage *= attacker.CritScale;
             }
             //技能倍率
             if (null != skillDamageScale)

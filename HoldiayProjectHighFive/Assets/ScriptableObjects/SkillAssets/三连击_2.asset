@@ -287,3 +287,93 @@ MonoBehaviour:
       go: {fileID: 1888196854289950, guid: 3a9e1cefcd2541946853b4c18dc9ffac, type: 3}
       selectedIndex: 3
       path: DamageTester
+  - skillAsset: {fileID: 11400000}
+    id: 3
+    workTimes: 1
+    startTime: 0.2
+    lastTime: 0.5
+    type: 8
+    enable: 1
+    degree: 0
+    randomDegree: 0
+    degreeRange: {x: 0, y: 0}
+    locateType: 0
+    offset: {x: 0, y: 0, z: 0}
+    randomPos: 0
+    locateInterpolation: 0
+    interpolationRange: {x: 0, y: 0}
+    sideType: 0
+    animationName:
+      rac: {fileID: 0}
+      selectedIndex: 0
+      stringValue: 
+    animationSpeed: 1
+    audioName:
+      values:
+      - Au1
+      - Au2
+      - Au3
+      - Au4
+      - Au5
+      - beiji
+      - Bg
+      - Fuck
+      selectedIndex: 2
+    bulletName:
+      values:
+      - bullet_1
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    damageScale: 0
+    speed: 0
+    gravityScale: 0
+    maxLife: 3
+    aniX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    aniY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reverseX: 0
+    reverseY: 0
+    rayDir: {x: 0, y: 0}
+    rayLength: 0
+    hitSpeed: 0
+    rayTestLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    shineLastTime: 0
+    shineDurTime: 0
+    attackEffects: {fileID: 0}
+    swordPrefabName:
+      values:
+      - bullet_1
+      - CurvedBullet
+      - EnemyFireBall
+      - LightSword
+      - SingleBullet
+      - DropItem
+      - ImpuseGenerator
+      - OnHitParticle
+      - SwordLight
+      selectedIndex: 0
+    anchorMode: 0
+    targetSize: {x: 0, y: 0}
+    startSize: {x: 0, y: 0}
+    delayTime: 0
+    widenTime: 0
+    easeType: 0
+    damageType: 0
+    triggerPath:
+      go: {fileID: 1888196854289950, guid: 3a9e1cefcd2541946853b4c18dc9ffac, type: 3}
+      selectedIndex: 3
+      path: DamageTester

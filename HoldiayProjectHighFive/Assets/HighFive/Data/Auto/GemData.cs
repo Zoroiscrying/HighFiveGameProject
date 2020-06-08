@@ -29,7 +29,8 @@ namespace HighFive.Data
 					"attackSpeedAdder" + "	" + attackSpeedAdder+"\n" +
 					"repluseScaleAdder" + "	" + repluseScaleAdder+"\n" +
 					"zattackAdder" + "	" + zattackAdder+"\n" +
-					"zrepluseScaleAdder" + "	" + zrepluseScaleAdder;
+					"zrepluseScaleAdder" + "	" + zrepluseScaleAdder+"\n" +
+					"story" + "	" + story;
 			return ans;
 
 		}

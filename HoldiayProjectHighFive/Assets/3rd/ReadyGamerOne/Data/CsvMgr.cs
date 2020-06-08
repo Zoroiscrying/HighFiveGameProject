@@ -254,18 +254,15 @@ namespace ReadyGamerOne.Data
 			CsvReaderByString csr = null;
 
 			#region 加载csr并初始化fileKey
-
-			{
-				//fileKey不合法的时候默认取type.Name
-				
-				var asset = ResourceMgr.GetAsset<TextAsset>(fileName, OriginBundleKey.File);
-				
-				if(asset==null)
-					throw new Exception($"加载数据文件失败,typeKey:{type.Name},fileName:{fileName}");
-				
-				csr = new CsvReaderByString (asset.text);				
-			}
 			
+			//fileKey不合法的时候默认取type.Name
+			
+			var asset = ResourceMgr.GetAsset<TextAsset>(fileName, OriginBundleKey.File);
+			
+			if(asset==null)
+				throw new Exception($"加载数据文件失败,typeKey:{type.Name},fileName:{fileName}");
+			
+			csr = new CsvReaderByString (asset.text);				
 
 			#endregion
 			
@@ -273,19 +270,18 @@ namespace ReadyGamerOne.Data
 
 			#region 根据type初始化fieldInfos
 
-			{
-				fieldInfos = new System.Reflection.FieldInfo[csr.ColCount];
-				for (var colNum=1; colNum<csr.ColCount+1; colNum++) {
-					var info = type.GetField (csr [1, colNum]);
+			
+			fieldInfos = new System.Reflection.FieldInfo[csr.ColCount];
+			for (var colNum=1; colNum<csr.ColCount+1; colNum++) {
+				var info = type.GetField (csr [1, colNum]);
 
-					if (info == null)
-					{
-						throw new Exception($"GetField failed:如果使用了多态，请尽量使用具体类型代替\ntype:{type.Name}\nfileKey:{fileName}\nfieldName:{csr[1,colNum]}");
-					}
-					
-					fieldInfos[colNum - 1] = info;
-				}				
-			}
+				if (info == null)
+				{
+					throw new Exception($"GetField failed:如果使用了多态，请尽量使用具体类型代替\ntype:{type.Name}\nfileKey:{fileName}\nfieldName:{csr[1,colNum]}");
+				}
+				
+				fieldInfos[colNum - 1] = info;
+			}	
 
 			#endregion
 			

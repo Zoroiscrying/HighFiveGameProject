@@ -1,7 +1,9 @@
-﻿using HighFive.Const;
+﻿using System.Collections;
+using HighFive.Const;
 using UnityEngine;
 using HighFive.Global;
 using HighFive.Model.Person;
+using UnityEngine.Assertions;
 
 namespace HighFive.Script
 {
@@ -15,14 +17,27 @@ namespace HighFive.Script
 		public float Y_Speed;
 		private Vector3 beforePos;
 
-		void Start()
+		private bool inited;
+		private void Start()
 		{
+			StartCoroutine(InitSettings());
+		}
+
+		private IEnumerator InitSettings()
+		{
+			while (null == GlobalVar.G_Player)
+				yield return null;
 			this.player = GlobalVar.G_Player;
 			this.beforePos = this.player.position;
+			inited = true;
 		}
+		
+		
 		// Update is called once per frame
 		void Update ()
 		{
+			if (!inited)
+				return;
 			var nowPos = this.player.position;
 			if (nowPos == Signal.defaultPos)
 				return;
