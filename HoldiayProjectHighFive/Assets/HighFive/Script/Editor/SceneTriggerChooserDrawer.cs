@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using ReadyGamerOne.Utility;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace HighFive.Script
 {
     
     [CustomPropertyDrawer(typeof(SceneTriggerChooser))]
-    public class ComponentChooserDrawer:PropertyDrawer
+    public class SceneTriggerChooserDrawer:PropertyDrawer
     {
         private List<Object> objects = new List<Object>();
         private string[] names;
@@ -167,20 +169,19 @@ namespace HighFive.Script
 
             if (refresh||names==null)
             {
-                
                 var scene = EditorSceneManager.OpenScene(scenePathProp.stringValue, OpenSceneMode.Additive);
                if (!scene.IsValid())
                {
                    EditorGUI.HelpBox(position.GetRectFromIndex(index),$"Scene is InValid", MessageType.Error);
-                   EditorSceneManager.UnloadSceneAsync(scene);
+                   SceneManager.UnloadSceneAsync(scene);
                    return;
                }
 
                var typeName = property.FindPropertyRelative("typeName").stringValue;
-               if (string.IsNullOrEmpty(typeName))
+               if (string.IsNullOrEmpty(typeName)||string.IsNullOrWhiteSpace(typeName))
                {
                    EditorGUI.HelpBox(position.GetRectFromIndex(index),$"typeName is empty or null", MessageType.Error);
-                   EditorSceneManager.UnloadSceneAsync(scene);
+                   SceneManager.UnloadSceneAsync(scene);
                    return;
                }
 
@@ -188,7 +189,7 @@ namespace HighFive.Script
                if (null == targetType)
                {
                    EditorGUI.HelpBox(position.GetRectFromIndex(index), $"failed to get type info : {typeName}", MessageType.Error);
-                   EditorSceneManager.UnloadSceneAsync(scene);
+                   SceneManager.UnloadSceneAsync(scene);
                    return;
                }
 
@@ -203,7 +204,7 @@ namespace HighFive.Script
                if (objects.Count == 0)
                {
                    EditorGUI.HelpBox(position.GetRectFromIndex(index),"该Scene中没有SceneTrigger", MessageType.Error);
-                   EditorSceneManager.UnloadSceneAsync(scene);
+                   SceneManager.UnloadSceneAsync(scene);
                    return;
                }
                
@@ -221,18 +222,29 @@ namespace HighFive.Script
                    selectedIndexProp.intValue = 0;
                }
                
-               EditorSceneManager.UnloadSceneAsync(scene);
+               SceneManager.UnloadSceneAsync(scene);
             }
 
 //            if (positions == null)
 //                return;
-            EditorGUI.BeginChangeCheck();
+//            EditorGUI.BeginChangeCheck();
             selectedIndexProp.intValue = EditorGUI.Popup(position.GetRectFromIndex(index), selectedIndexProp.intValue, names);
             positionProp.vector3Value = positions[selectedIndexProp.intValue];
-            if(EditorGUI.EndChangeCheck())
-                Debug.Log($"choose: {names[selectedIndexProp.intValue]}");
+//            if(EditorGUI.EndChangeCheck())
+//                Debug.Log($"choose: {names[selectedIndexProp.intValue]}");
 
             scenePath = scenePathProp.stringValue;
+            if (property.serializedObject.targetObject is SceneTrigger sceneTrigger)
+            {
+                var curScene = SceneManager.GetActiveScene();
+                var targetName = $"{curScene.name}_{Path.GetFileNameWithoutExtension(scenePath)}";
+                if (targetName != sceneTrigger.name)
+                {
+                    sceneTrigger.name = targetName;
+                    EditorUtility.SetDirty(property.serializedObject.targetObject);
+                    EditorSceneManager.MarkSceneDirty(curScene);
+                }
+            }
         }
     }
 }

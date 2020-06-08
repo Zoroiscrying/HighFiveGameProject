@@ -1,3 +1,4 @@
+using System;
 using ReadyGamerOne.Utility;
 using UnityEditor;
 using UnityEditorInternal;
@@ -28,7 +29,6 @@ namespace HighFive.Script
                 if (isActive && isFocused)
                 {
                     focusedIndex = selectIndex;
-//                    finded = true;
                 }
                 else if(selectIndex==focusedIndex)
                 {
@@ -40,17 +40,6 @@ namespace HighFive.Script
 //                EditorGUI.PropertyField(rect.GetRectAtIndex(index++), prop.FindPropertyRelative("color"));
             };
             list.drawHeaderCallback = rect => EditorGUI.LabelField(rect, listProp.displayName);
-            list.onAddCallback = list =>
-            {
-                serializedObject.Update();
-                var size = listProp.arraySize;
-                listProp.arraySize++;
-                var newProp = listProp.GetArrayElementAtIndex(size);
-                list.index = size;
-                newProp.FindPropertyRelative("color").colorValue = pc.DefaultGizmoColor;
-                serializedObject.ApplyModifiedProperties();
-            };
-
         }
 
         public override void OnInspectorGUI()

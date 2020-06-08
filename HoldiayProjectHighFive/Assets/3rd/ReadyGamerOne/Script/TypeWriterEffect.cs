@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using DialogSystem.ScriptObject;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,7 +28,8 @@ namespace ReadyGamerOne.Script
             {
                 if (pushFunc != null && pushFunc())
                 {
-                    print("打字机被打断");
+                    if(DialogSettings.Instance.ShowDialogStackInfo)
+                        print("打字机被打断");
                     StopCoroutine(writerCoroutine);
                     this.thisText.text = this.fullWords;
                     Finally();

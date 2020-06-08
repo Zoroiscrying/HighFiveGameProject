@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine.Assertions;
 using UnityEngine.Windows;
 #endif
 using UnityEngine;
@@ -181,6 +182,7 @@ namespace ReadyGamerOne.Utility
 
         public static Type GetType(string fullTypeName)
         {
+            Assert.IsFalse(string.IsNullOrEmpty(fullTypeName));
             return Type.GetType(fullTypeName);
         }
     }    

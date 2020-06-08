@@ -24,6 +24,8 @@ namespace HighFive.Script
         
         [SerializeField]private string typeName;
 
+        public string TypeName => typeName;
+
         [SerializeField]private string sceneName;
         [SerializeField]private Vector3 targetPosition;
 

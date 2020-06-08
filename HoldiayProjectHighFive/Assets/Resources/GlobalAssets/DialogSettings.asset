@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 028b10c552a7e8d4098c543e459434f5, type: 3}
   m_Name: DialogSettings
   m_EditorClassIdentifier: 
-  ShowDialogStackInfo: 1
+  ShowDialogStackInfo: 0

@@ -247,7 +247,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2147589911
+    m_Bits: 2147606295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -372,6 +372,8 @@ MonoBehaviour:
   bossRT: {fileID: 0}
   bossLB: {fileID: 0}
   bossRB: {fileID: 0}
+  mapMin: {x: 0, y: 0, z: 0}
+  mapMax: {x: 0, y: 0, z: 0}
 --- !u!114 &1974203741648492315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +391,6 @@ MonoBehaviour:
   - enable: 1
     _personType: 0
     position: {x: 0, y: 0, z: 0}
-    color: {r: 0.22258809, g: 0.7735849, b: 0.35090876, a: 1}
 --- !u!1 &1733121649965414
 GameObject:
   m_ObjectHideFlags: 0

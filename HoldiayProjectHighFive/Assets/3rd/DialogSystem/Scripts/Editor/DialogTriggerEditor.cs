@@ -105,7 +105,9 @@ namespace DialogSystem.Scripts.Editor
                 case 2:// Interact
                     break;
             }
-            
+
+            #region 错误检测
+
             var collider2D = mb.gameObject.GetComponent<Collider2D>();
             if((this.startTypeProp.enumValueIndex==1
                 ||this.startTypeProp.enumValueIndex==2)
@@ -120,9 +122,18 @@ namespace DialogSystem.Scripts.Editor
             {
                 
                 EditorGUILayout.HelpBox("使用2D触发器需要给此物体添加触发器或碰撞体", MessageType.Error);
-            }
-            
-            EditorGUILayout.PropertyField(triggerOnlyOnce);
+            }            
+
+            #endregion
+
+            if (startTypeProp.enumValueIndex == 0) //StartOnAwake
+            {
+                triggerOnlyOnce.boolValue = true;
+            }else if (this.triggerTypeProp.enumValueIndex == 1) //Sequence
+            {
+                triggerOnlyOnce.boolValue = false;
+            }else 
+                EditorGUILayout.PropertyField(triggerOnlyOnce);
 
             if (triggerOnlyOnce.boolValue)
             {
