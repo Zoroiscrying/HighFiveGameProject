@@ -17,7 +17,8 @@ namespace HighFive.Data
 					"statement" + "	" + statement+"\n" +
 					"maxSlotCount" + "	" + maxSlotCount+"\n" +
 					"price" + "	" + price+"\n" +
-					"outPrice" + "	" + outPrice;
+					"outPrice" + "	" + outPrice+"\n" +
+					"story" + "	" + story;
 			return ans;
 
 		}

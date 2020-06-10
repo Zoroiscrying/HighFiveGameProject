@@ -6,7 +6,7 @@ namespace ReadyGamerOne.Rougelike.Person
         public float Damage { get; protected set; }
         public float ScaleSkillDamageScale { get; protected set; }
 
-        public BasicDamage()
+        protected BasicDamage()
         {
         }
 

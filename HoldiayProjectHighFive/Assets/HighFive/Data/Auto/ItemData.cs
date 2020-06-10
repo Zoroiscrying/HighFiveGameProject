@@ -18,6 +18,7 @@ namespace HighFive.Data
 		public int maxSlotCount;
 		public int price;
 		public int outPrice;
+		public string story;
 		public override string ToString()
 		{
 			var ans="==《	ItemData	》==\n" +
@@ -28,7 +29,8 @@ namespace HighFive.Data
 					"statement" + "	" + statement+"\n" +
 					"maxSlotCount" + "	" + maxSlotCount+"\n" +
 					"price" + "	" + price+"\n" +
-					"outPrice" + "	" + outPrice;
+					"outPrice" + "	" + outPrice+"\n" +
+					"story" + "	" + story;
 			return ans;
 
 		}
