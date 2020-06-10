@@ -659,6 +659,8 @@ namespace HighFive.Model.Person
 
 		private void OnGUI()
 		{
+			if (!GameSettings.Instance.showPlayerBuffInfo)
+				return;
 			if (!IsAlive)
 				return;
 			GUILayout.Space(40);

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb69c99a3944f2c9798b5680d6185f1, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  showPlayerBuffInfo: 0
   moneyScale: 3
   reikiScale: 3
   damageToDragScale: 1

@@ -16,6 +16,10 @@ namespace HighFive.Global
             Selection.activeInstanceID = GameSettings.Instance.GetInstanceID();
         }
 #endif
+
+        [Header("GUI显示玩家状态信息")]
+        public bool showPlayerBuffInfo = true;
+        
         [Header("金币获取倍率")]
         public int moneyScale = 3;
         [Header("灵气获取倍率")]
