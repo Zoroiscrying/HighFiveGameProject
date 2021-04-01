@@ -382,7 +382,7 @@ namespace ReadyGamerOne.Data
             sw.WriteLine("using UnityEngine;\nusing System.Collections;\n");
             var ns = string.IsNullOrEmpty(nameSpace) ? "DefaultNamespace" : nameSpace;
             sw.WriteLine("namespace "+ns+"\n" +
-                         "{\n\tpublic class " + className + " : "+ parentClass);
+                         "{\n\t[System.Serializable]\n\tpublic class " + className + " : "+ parentClass);
             sw.WriteLine("\t{");
 
             var csr = new CsvStreamReader(filePath);

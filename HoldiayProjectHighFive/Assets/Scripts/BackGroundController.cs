@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using HighFive.Const;
 using UnityEngine;
 using HighFive.Global;
-using HighFive.Model.Person;
 using UnityEngine.Assertions;
 
 namespace HighFive.Script
@@ -12,9 +10,12 @@ namespace HighFive.Script
 	/// </summary>
 	public class BackGroundController : MonoBehaviour
 	{
+		private static Vector3 DefaultPos=new Vector3(0,-99);
+		
 		public float X_Speed;
 		public float Y_Speed;
 
+		[HideInInspector]
 		public bool controlByOthers = false;
 
 		#region SpriteRendererSize
@@ -128,7 +129,7 @@ namespace HighFive.Script
 			if (!inited)
 				return;
 			var nowPos = GlobalVar.G_Player.position;
-			if (nowPos == Signal.defaultPos)
+			if (nowPos == DefaultPos)
 				return;
 
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using UnityEngine;
@@ -93,11 +94,12 @@ namespace ReadyGamerOne.Data
 			{// 没有type就加载
 				foreach (var fileKey in _dataConfigInfos[typeName].fileKeys)
 				{
-//					Debug.Log($"type:{typeName}, fileKey:{fileKey}");
+					// Debug.Log($"type:{typeName}, fileKey:{fileKey}");
 					LoadConfigData(type,typeName+"_"+fileKey);
 				}
 			}
 			
+			// Debug.Log(2);
 			Assert.IsTrue(allDataDic.ContainsKey(typeName));
 
 			var fileDics = allDataDic[typeName];
@@ -116,8 +118,16 @@ namespace ReadyGamerOne.Data
 			{// 寻找所有dataDic
 				foreach (var fileKey_dataDic in fileDics)
 				{
+					// Debug.Log($"try search {fileKey_dataDic.Key}, dataId: {dataId}");
 					var dataDic = fileKey_dataDic.Value;
-					if (dataDic.ContainsKey(dataId))
+					if (dataDic.Count == 0)
+					{
+						if (warning)
+						{
+							Debug.LogWarning($"dataDic is empty: TypeName{typeName}, ItemId{dataId}, FileName{fileName}，已查询所有字典代替");
+						}
+					}
+					else if (dataDic.ContainsKey(dataId))
 					{
 						if (warning)
 						{
@@ -127,6 +137,7 @@ namespace ReadyGamerOne.Data
 						return dataDic[dataId];						
 					}
 				}
+				Debug.Log($"Failed from search all, dataId:{dataId}");
 			}
 			else
 			{
@@ -138,7 +149,7 @@ namespace ReadyGamerOne.Data
 				}
 			}
 
-//			Debug.LogError($"???,type:{type.Name},fileName:{fileName}");
+			Debug.LogError($"???,type:{type.Name},fileName:{fileName}");
 			return null;
 		}		
 		
@@ -167,7 +178,7 @@ namespace ReadyGamerOne.Data
 			
 			var ans = new Dictionary<string,CsvMgr>();
 			
-			var fileDics = allDataDic[fileName];
+			var fileDics = allDataDic[dataType.Name];
 			var searchall = false;
 			if (string.IsNullOrEmpty(fileName))
 			{
@@ -289,7 +300,7 @@ namespace ReadyGamerOne.Data
 			var dataRow = new Dictionary<string, CsvMgr> ();
 
 			//每行都是一条数据，所以循环行数次
-			for (var i=3; i<csr.RowCount+1; i++) {
+			for (var i=2; i<csr.RowCount+1; i++) {
 				
 				var dataObj = Activator.CreateInstance(type);
 				
@@ -333,7 +344,20 @@ namespace ReadyGamerOne.Data
 						dataRow.Add (dataItem.ToString (), (CsvMgr)dataObj);
 					}
 				}
+				
+				// Debug.Log($"$insert data {dataObj}");
 			}
+
+			if (dataRow.Count == 0)
+			{
+				Debug.LogWarning($"itemDataRow is empty: TypeName{type.Name}, fileName:{fileName}");
+			}
+			
+			//debug
+			// foreach (var kv in dataRow)
+			// {
+			// 	Debug.Log($"success get data: {kv.Value}");
+			// }
 
 			SafeInsertDataDic(
 				type.Name, 
@@ -418,6 +442,8 @@ namespace ReadyGamerOne.Data
 		/// <returns></returns>
 		public static CsvMgr GetData(string dataId, Type dataType, string fileName = null)
 		{
+			dataId = dataId.Trim();
+			
 			if(_dataConfigInfos==null)
 				LoadRootConfigData();
 			
@@ -431,6 +457,7 @@ namespace ReadyGamerOne.Data
 				return null;
 			}
 			
+			// Debug.Log(1);
 			var ans = SearchDataInternal(dataId, dataType, fileName);
 			if (ans != null)
 				return ans;
